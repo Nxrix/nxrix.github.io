@@ -214,15 +214,6 @@ function createCube(gl) {
   };
 }
 
-function drawScene(gl, program, cube, modelViewMatrix, projectionMatrix) {
-  const modelViewMatrixLocation = gl.getUniformLocation(program, "modelViewMatrix");
-  gl.uniformMatrix4fv(modelViewMatrixLocation, false, modelViewMatrix);
-  const projectionMatrixLocation = gl.getUniformLocation(program, "projectionMatrix");
-  gl.uniformMatrix4fv(projectionMatrixLocation, false, projectionMatrix);
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cube.indices);
-  gl.drawElements(gl.TRIANGLES, cube.count, gl.UNSIGNED_SHORT, 0);
-}
-
 function main() {
   const canvas = document.querySelector("#canvas");
   const gl = canvas.getContext("webgl2",{ antialias: false });
@@ -257,7 +248,12 @@ function main() {
     mat4.rotateX(modelViewMatrix, modelViewMatrix, pitch);
     mat4.rotateY(modelViewMatrix, modelViewMatrix, yaw);
     //gl.uniform1f(gl.getUniformLocation(program,"time"),t/100);
-    drawScene(gl, program, cube, modelViewMatrix, projectionMatrix);
+    const modelViewMatrixLocation = gl.getUniformLocation(program, "modelViewMatrix");
+    gl.uniformMatrix4fv(modelViewMatrixLocation, false, modelViewMatrix);
+    const projectionMatrixLocation = gl.getUniformLocation(program, "projectionMatrix");
+    gl.uniformMatrix4fv(projectionMatrixLocation, false, projectionMatrix);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cube.indices);
+    gl.drawElements(gl.TRIANGLES, cube.count, gl.UNSIGNED_SHORT, 0);
     //requestAnimationFrame(render);
   }
   render();
