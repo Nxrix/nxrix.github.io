@@ -118,9 +118,9 @@ const operate1 = (inp) => {
   //--looping for each input character--//
   for (let i = 0; i < inp.length; i++) {
     //--checking if the character is prime operator--/
-    if (inp[i] === "′") {
+    if (inp[i] === "'") {
       //--adding m for prime operator--//
-      inp[i] = "′(m))";
+      inp[i] = "'(m))";
       let t = i - 1;
       let f = 0;
       if (inp[i-1] === ")") {
@@ -175,7 +175,7 @@ const translate = (inp) => {
 //--prime translation from (A)′ -> ((A)′(M)) -> ((A)p(M)) -> _(M,(A))
 Object.defineProperty(String.prototype, "p", {
   value: function(that) {
-    return "_(" + (that || m) + "," + this + ")";
+    return "_(" + "m" + "," + this + ")";
   }
 });
 
@@ -343,7 +343,7 @@ function renderWithFpsLimit(time) {
   gl.uniform1f(timeLocation, time);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
   
-  requestAnimationFrame(renderWithFpsLimit);
+  //requestAnimationFrame(renderWithFpsLimit);
 }
 renderWithFpsLimit();
 
@@ -352,7 +352,7 @@ const url_string = window.location.href;
 const url = new URL(url_string);
 const config = (url.searchParams.get("config"));
 if (config!=undefined) {
-  let a="a";let b="b";let c="c";let d="d";let m = "m";
+  let a="a";let b="b";let c="c";let d="d";let m="m";
   let data = config.toString().toLowerCase().split("//--$--//");
   try {
     data[1] = eval(translate(config.replaceAll(" ","").replaceAll("∩","n").replaceAll("∪","u").replaceAll("∆","o").replaceAll("△","o").replaceAll("∅","(M')").replaceAll("`","'")));
