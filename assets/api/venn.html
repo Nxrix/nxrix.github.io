@@ -324,28 +324,15 @@ const updateShader = (config,output) => {
   fs = newFs;
 }
 
-//--updating canvas every frame with 30fps limit--//
-let lastRenderTime = 0;
-const fpsInterval = 1/30; 
-function renderWithFpsLimit(time) {
+function render(time) {
   time *= 0.001;
-  
-  //--Limiting to 30fps--//
-  if (time - lastRenderTime < fpsInterval) {
-    requestAnimationFrame(renderWithFpsLimit);
-    return;
-  }
-  
-  lastRenderTime = time;
-  
   gl.enableVertexAttribArray(positionAttributeLocation);
   gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
   gl.uniform1f(timeLocation, time);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
-  
-  //requestAnimationFrame(renderWithFpsLimit);
+  requestAnimationFrame(render);
 }
-renderWithFpsLimit();
+render();
 
 //--getting url params--//
 const url_string = window.location.href;
