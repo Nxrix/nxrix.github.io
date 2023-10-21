@@ -352,10 +352,10 @@ const url_string = window.location.href;
 const url = new URL(url_string);
 const config = (url.searchParams.get("config"));
 if (config!=undefined) {
-  let a="a";let b="b";let c="c";let d="d";
+  let a="a";let b="b";let c="c";let d="d";let m = "m";
   let data = config.toString().toLowerCase().split("//--$--//");
   try {
-    data[1] = eval(translate(config.replaceAll(" ","").replaceAll("∩","n").replaceAll("∪","u").replaceAll("△","o").replaceAll("∅","(M')").replaceAll("`","'")));
+    data[1] = eval(translate(config.replaceAll(" ","").replaceAll("∩","n").replaceAll("∪","u").replaceAll("∆","o").replaceAll("△","o").replaceAll("∅","(M')").replaceAll("`","'")));
   }
   catch (error) {
   }
