@@ -328,9 +328,9 @@ function render(time) {
   time *= 0.001;
   gl.enableVertexAttribArray(positionAttributeLocation);
   gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
-  gl.uniform1f(timeLocation, time);
+  gl.uniform1f(timeLocation, 1.0/*timr*/);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
-  requestAnimationFrame(render);
+  //requestAnimationFrame(render);
 }
 render();
 
