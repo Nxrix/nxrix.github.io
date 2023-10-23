@@ -238,12 +238,6 @@ const rotate = (x,y,a) => {
   return [newX, newY];
 }
 
-const resize = () => {
-  gl.canvas.width = window.innerWidth*devicePixelRatio;
-  gl.canvas.height = window.innerHeight*devicePixelRatio;
-  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-}
-
 //--GLSL shader sources--//
 const vs_src = `attribute vec4 a_position;void main() {gl_Position = a_position;}`;
 
@@ -324,28 +318,15 @@ const updateShader = (config,output) => {
   fs = newFs;
 }
 
-//--updating canvas every frame with 30fps limit--//
-let lastRenderTime = 0;
-const fpsInterval = 1/30; 
-function renderWithFpsLimit(time) {
+function render(time) {
   time *= 0.001;
-  
-  //--Limiting to 30fps--//
-  if (time - lastRenderTime < fpsInterval) {
-    requestAnimationFrame(renderWithFpsLimit);
-    return;
-  }
-  
-  lastRenderTime = time;
-  
   gl.enableVertexAttribArray(positionAttributeLocation);
   gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
   gl.uniform1f(timeLocation, time);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
-  
-  requestAnimationFrame(renderWithFpsLimit);
+  requestAnimationFrame(render);
 }
-renderWithFpsLimit();
+render();
 
 //--getting url params--//
 const url_string = window.location.href;
@@ -362,8 +343,6 @@ if (config!=undefined) {
   updateShader("A = (.25,0,.5)\nB = (-.25,0,.5)",data[1]);
 }
 
-window.addEventListener("resize",resize);
-resize();
 </script>
 
 </html>
