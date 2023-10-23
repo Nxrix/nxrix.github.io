@@ -57,6 +57,8 @@ void main() {
 const fragmentShaderSource = `#version 300 es
 precision highp float;
 uniform vec3 iResolution;
+uniform float iTime;
+uniform int iFrame;
 out vec4 fragColor;
 
 float dither[16] = float[16](
