@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+  <base href="../../assets/">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Displayer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#eef">
+  <meta name="color-scheme" content="light only">
+  <link rel="icon" href="./img/svg/nxrix.svg" type="image/x-icon">
+  <title>Quad</title>
 </head>
-
 <style>
-* {
-  padding: 0;
-  margin: 0;
-}
-html,body {
-  width: 100%;
-  height: 100%;
-  background: #212121;
-}
-#canvas,#canvas1 {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#canvas {
-  font-size: 350%;
-  color: #ff3939;
-  display: flex;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-}
+  body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+  }
+  canvas {
+    position: absolute;
+    --size: 60vmin;
+    width: var(--size);
+    height: var(--size);
+    top: calc((90vh - var(--size))/2);
+    left: calc((100vw - var(--size))/2);
+    background: black;
+    border-radius: 1vmin;
+    box-shadow: 0 2vmin 4vmin #0024;
+  }
+  img {
+    position: absolute;
+    --size: 10vmin;
+    width: var(--size);
+    height: var(--size);
+    bottom: calc(17.5vh - var(--size));
+    left: calc((100vw - var(--size))/2);
+  }
 </style>
 <body>
-  <canvas id="canvas"></canvas>
+  <canvas id="canvas" width="512" height="512" style="image-rendering:pixelated"></canvas>
+  <img src="./img/svg/moon.svg">
 </body>
 <script id="shaderFs" type="x-shader/x-fragment">
 #ifdef GL_FRAGMENT_PRECISION_HIGH
@@ -118,9 +118,9 @@ const operate1 = (inp) => {
   //--looping for each input character--//
   for (let i = 0; i < inp.length; i++) {
     //--checking if the character is prime operator--/
-    if (inp[i] === "'") {
+    if (inp[i] === "′") {
       //--adding m for prime operator--//
-      inp[i] = "'(m))";
+      inp[i] = "′(m))";
       let t = i - 1;
       let f = 0;
       if (inp[i-1] === ")") {
@@ -161,7 +161,7 @@ const translate = (inp) => {
     o += inp[z];
   }
   //--replacing prime character with .p to allow JavaScript read it as a string prototype function--//
-  return o.replaceAll("'", ".p");
+  return o.replaceAll("′", ".p");
 };
 
 //--setting string based translation functions based on string prototype--//
@@ -175,7 +175,7 @@ const translate = (inp) => {
 //--prime translation from (A)′ -> ((A)′(M)) -> ((A)p(M)) -> _(M,(A))
 Object.defineProperty(String.prototype, "p", {
   value: function(that) {
-    return "_(" + "m" + "," + this + ")";
+    return "_(" + (that || m) + "," + this + ")";
   }
 });
 
@@ -324,25 +324,38 @@ const updateShader = (config,output) => {
   fs = newFs;
 }
 
-function render(time) {
+//--updating canvas every frame with 30fps limit--//
+let lastRenderTime = 0;
+const fpsInterval = 1/30; 
+function renderWithFpsLimit(time) {
   time *= 0.001;
+  
+  //--Limiting to 30fps--//
+  if (time - lastRenderTime < fpsInterval) {
+    requestAnimationFrame(renderWithFpsLimit);
+    return;
+  }
+  
+  lastRenderTime = time;
+  
   gl.enableVertexAttribArray(positionAttributeLocation);
   gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
-  gl.uniform1f(timeLocation, 1.0/*timr*/);
+  gl.uniform1f(timeLocation, time);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
-  requestAnimationFrame(render);
+  
+  requestAnimationFrame(renderWithFpsLimit);
 }
-render();
+renderWithFpsLimit();
 
 //--getting url params--//
 const url_string = window.location.href;
 const url = new URL(url_string);
 const config = (url.searchParams.get("config"));
 if (config!=undefined) {
-  let a="a";let b="b";let c="c";let d="d";let m="m";
+  let a="a";let b="b";let c="c";let d="d";
   let data = config.toString().toLowerCase().split("//--$--//");
   try {
-    data[1] = eval(translate(config.replaceAll(" ","").replaceAll("∩","n").replaceAll("∪","u").replaceAll("∆","o").replaceAll("△","o").replaceAll("∅","(M')").replaceAll("`","'")));
+    data[1] = eval(translate(config.replaceAll(" ","").replaceAll("∩","n").replaceAll("∪","u").replaceAll("△","o").replaceAll("∅","(M′)").replaceAll("'","′")));
   }
   catch (error) {
   }
