@@ -118,9 +118,9 @@ const operate1 = (inp) => {
   //--looping for each input character--//
   for (let i = 0; i < inp.length; i++) {
     //--checking if the character is prime operator--/
-    if (inp[i] === "′") {
+    if (inp[i] === "'") {
       //--adding m for prime operator--//
-      inp[i] = "′(m))";
+      inp[i] = "'(m))";
       let t = i - 1;
       let f = 0;
       if (inp[i-1] === ")") {
@@ -161,7 +161,7 @@ const translate = (inp) => {
     o += inp[z];
   }
   //--replacing prime character with .p to allow JavaScript read it as a string prototype function--//
-  return o.replaceAll("′", ".p");
+  return o.replaceAll("'", ".p");
 };
 
 //--setting string based translation functions based on string prototype--//
@@ -336,7 +336,7 @@ if (config!=undefined) {
   let a="a";let b="b";let c="c";let d="d";
   let data = config.toString().toLowerCase().split("//--$--//");
   try {
-    data[1] = eval(translate(config.replaceAll(" ","").replaceAll("∩","n").replaceAll("∪","u").replaceAll("△","o").replaceAll("∅","(M′)").replaceAll("'","′")));
+    data[1] = eval(translate(config.replaceAll(" ","").replaceAll("∩","n").replaceAll("∪","u").replaceAll("∆","o").replaceAll("△","o").replaceAll("∅","(M')").replaceAll("`","'")));
   }
   catch (error) {
   }
