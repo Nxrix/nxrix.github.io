@@ -6,35 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="theme-color" content="#eef">
   <meta name="color-scheme" content="light only">
-  <link rel="icon" href="./img/svg/nxrix.svg" type="image/x-icon">
+  <link rel="stylesheet" href="./css/api.css">
+  <link rel="icon" href="./img/svg/nxrix.svg">
   <title>Quad</title>
 </head>
-<style>
-  body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-  }
-  canvas {
-    position: absolute;
-    --size: 60vmin;
-    width: var(--size);
-    height: var(--size);
-    top: calc((90vh - var(--size))/2);
-    left: calc((100vw - var(--size))/2);
-    background: black;
-    border-radius: 1vmin;
-    box-shadow: 0 2vmin 4vmin #0024;
-  }
-  img {
-    position: absolute;
-    --size: 10vmin;
-    width: var(--size);
-    height: var(--size);
-    bottom: calc(17.5vh - var(--size));
-    left: calc((100vw - var(--size))/2);
-  }
-</style>
 <body>
   <canvas id="canvas" width="512" height="512" style="image-rendering:pixelated"></canvas>
   <img src="./img/svg/moon.svg">

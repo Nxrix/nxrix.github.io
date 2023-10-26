@@ -1,0 +1,24 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+canvas {
+  position: absolute;
+  --size: 60vmin;
+  width: var(--size);
+  height: var(--size);
+  top: calc((90vh - var(--size))/2);
+  left: calc((100vw - var(--size))/2);
+  background: black;
+  border-radius: 1vmin;
+  box-shadow: 0 2vmin 4vmin #0024;
+}
+img {
+  position: absolute;
+  --size: 10vmin;
+  width: var(--size);
+  height: var(--size);
+  bottom: calc(17.5vh - var(--size));
+  left: calc((100vw - var(--size))/2);
+}
