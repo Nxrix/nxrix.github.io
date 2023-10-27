@@ -12,7 +12,7 @@
 </head>
 <body>
   <canvas id="canvas" width="512" height="512" style="image-rendering:pixelated"></canvas>
-  <div id="console"></div>
+  <div id="error"></div>
   <img src="./img/svg/moon.svg">
 </body>
 <script src="./js/gl-matrix.js"></script>
@@ -159,7 +159,7 @@ function createShader(gl, type, source) {
   gl.shaderSource(shader, source);
   gl.compileShader(shader);
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    console.innerHTML = gl.getShaderInfoLog(shader);
+    error.innerHTML = gl.getShaderInfoLog(shader);
     gl.deleteShader(shader);
     return null;
   }

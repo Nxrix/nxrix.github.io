@@ -7,7 +7,7 @@ body {
   height: 100vh;
   margin: 0;
 }
-canvas, #console {
+canvas, #error {
   position: absolute;
   --size: 60vmin;
   width: var(--size);
