@@ -22,12 +22,12 @@ canvas {
   background: transparent;
   color: #d01;
   position: absolute;
-  --size: 40vmin;
+  --size: 45vmin;
   width: var(--size);
   height: var(--size);
   top: calc((90vh - var(--size))/2);
   left: calc((100vw - var(--size))/2);
-  padding: 5vmin;
+  padding: 2.5vmin;
 }
 img {
   position: absolute;
