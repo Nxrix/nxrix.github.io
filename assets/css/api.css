@@ -14,7 +14,7 @@ canvas, #console {
   height: var(--size);
   top: calc((90vh - var(--size))/2);
   left: calc((100vw - var(--size))/2);
-  background: black;
+  background: #fff;
   border-radius: 1vmin;
   box-shadow: 0 2vmin 4vmin #0024;
 }
