@@ -21,6 +21,7 @@ canvas, #error {
   font-family: courier;
   background: transparent;
   color: #d01;
+  padding: 5vmin;
 }
 img {
   position: absolute;
