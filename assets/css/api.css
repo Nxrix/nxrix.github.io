@@ -2,6 +2,10 @@
   font-family: "courier";
   src: url("../fonts/CourierPrime-Regular.ttf") format("truetype");
 }
+@font-face {
+  font-family: "inter";
+  src: url("../fonts/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+}
 body {
   width: 100vw;
   height: 100vh;
@@ -9,33 +13,34 @@ body {
 }
 canvas {
   position: absolute;
-  --size: 60vmin;
+  --size: 80vmin;
   width: var(--size);
   height: var(--size);
-  top: calc((90vh - var(--size))/2);
+  top: calc((100vh - var(--size))/2);
   left: calc((100vw - var(--size))/2);
   border-radius: 1vmin;
   box-shadow: 0 2vmin 4vmin #0024;
 }
 #error {
-  font-family: courier;
-  font-size: 5vmin;
+  font-family: "courier";
+  font-size: 4vmin;
   background: transparent;
   color: #d01;
   position: absolute;
-  --size: 50vmin;
-  --pad: 1.5vmin;
+  --size: 80vmin;
+  --pad: 5vmin;
   width: calc(var(--size) - var(--pad)*2);
   height: calc(var(--size) - var(--pad)*2);
-  top: calc((90vh - var(--size))/2);
+  top: calc((100vh - var(--size))/2);
   left: calc((100vw - var(--size))/2);
   padding: var(--pad);
+  overflow: hidden;
 }
 img {
   position: absolute;
-  --size: 10vmin;
+  --size: 6vmin;
   width: var(--size);
   height: var(--size);
-  bottom: calc(17.5vh - var(--size));
-  left: calc((100vw - var(--size))/2);
+  bottom: 2vmin;
+  left: 2vmin;
 }
