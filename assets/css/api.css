@@ -24,8 +24,8 @@ canvas {
   position: absolute;
   --size: 50vmin;
   --pad: 2.5vmin;
-  width: calc(var(--size) - var(--pad));
-  height: calc(var(--size) - var(--pad));
+  width: calc(var(--size) - var(--pad)*2);
+  height: calc(var(--size) - var(--pad)*2);
   top: calc((90vh - var(--size))/2);
   left: calc((100vw - var(--size))/2);
   padding: var(--pad);
