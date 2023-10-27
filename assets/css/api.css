@@ -19,7 +19,7 @@ canvas {
 }
 #error {
   font-family: courier;
-  font-size: large;
+  font-size: 5vmin;
   background: transparent;
   color: #d01;
   position: absolute;

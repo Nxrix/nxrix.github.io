@@ -117,7 +117,7 @@ vec3 ACESFilm(vec3 x){
 }
 
 void main() {
-  vec2 uv = (gl_FragCoord.xy / 512.0) * 2.0 - 1.0;
+  vec2 uv = (gl_FragCoord.xy / 1024.0) * 2.0 - 1.0;
   mat3 rot = mat3(modelViewMatrix);
   vec3 rayDir = vec3(0.0, 0.0, -1.0)*rot;
   vec3 rayPos = vec3(i_volume_size.x*0.5) + vec3(uv * i_volume_size.x, 0.0) * rot + vec3(0.0, 0.0, i_volume_size.x) * rot;
