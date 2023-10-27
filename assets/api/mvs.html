@@ -158,9 +158,8 @@ function createShader(gl, type, source) {
   const shader = gl.createShader(type);
   gl.shaderSource(shader, source);
   gl.compileShader(shader);
-  error.innerHTML = ">_";
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    error.innerHTML = gl.getShaderInfoLog(shader);
+    console.innerHTML = gl.getShaderInfoLog(shader);
     gl.deleteShader(shader);
     return null;
   }
@@ -174,7 +173,6 @@ function createProgram(gl, vertexShader, fragmentShader) {
   gl.linkProgram(program);
 
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    console.innerHTML = gl.getShaderInfoLog(fragmentShader);
     //console.error("Unable to initialize the shader program:", gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return null;
