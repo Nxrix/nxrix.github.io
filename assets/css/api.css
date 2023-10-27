@@ -7,7 +7,7 @@ body {
   height: 100vh;
   margin: 0;
 }
-canvas, #error {
+canvas {
   position: absolute;
   --size: 60vmin;
   width: var(--size);
@@ -21,6 +21,12 @@ canvas, #error {
   font-family: courier;
   background: transparent;
   color: #d01;
+  position: absolute;
+  --size: 40vmin;
+  width: var(--size);
+  height: var(--size);
+  top: calc((90vh - var(--size))/2);
+  left: calc((100vw - var(--size))/2);
   padding: 5vmin;
 }
 img {
