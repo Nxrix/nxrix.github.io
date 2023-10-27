@@ -1,9 +1,13 @@
+@font-face {
+  font-family: "courier";
+  src: url("../fonts/CourierPrime-Regular.ttf") format("truetype");
+}
 body {
   width: 100vw;
   height: 100vh;
   margin: 0;
 }
-canvas {
+canvas, #console {
   position: absolute;
   --size: 60vmin;
   width: var(--size);
@@ -13,6 +17,11 @@ canvas {
   background: black;
   border-radius: 1vmin;
   box-shadow: 0 2vmin 4vmin #0024;
+}
+#console {
+  font-family: courier;
+  background: transparent;
+  color: #d01;
 }
 img {
   position: absolute;
