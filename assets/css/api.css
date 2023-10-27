@@ -19,11 +19,12 @@ canvas {
 }
 #error {
   font-family: courier;
+  font-size: medium;
   background: transparent;
   color: #d01;
   position: absolute;
   --size: 50vmin;
-  --pad: 2.5vmin;
+  --pad: 1.5vmin;
   width: calc(var(--size) - var(--pad)*2);
   height: calc(var(--size) - var(--pad)*2);
   top: calc((90vh - var(--size))/2);
