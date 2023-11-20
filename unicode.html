@@ -95,6 +95,8 @@ var url = new URL(url_string);
 page = parseInt(url.searchParams.get("page"));
 if (isNaN(page)) {
   page = 0;
+} else {
+  page = page-1;
 }
 
 selected = 36;
