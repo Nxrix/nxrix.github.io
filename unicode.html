@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="./assets/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="color-scheme" content="light only">
+  <link rel="icon" href="./img/svg/nxrix.svg">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Unicode-Table</title>
+</head>
+<body>
+  <style>
+    #unicode_table .char {
+      background: var(--background);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: calc(100%/8);
+      aspect-ratio : 1 / 1;
+      box-shadow: 0 0 0 1px var(--secondary);
+    }
+    #unicode_table .selected {
+      background: var(--text);
+      color: var(--background);
+    }
+    #page_input {
+      background: var(--background);
+      font-size: medium;
+      text-align: center;
+      width: 67.5%;
+      padding: 2.5%;
+      margin: 5% 5% 0 0;
+      box-shadow: 0 0 0 1px var(--secondary);
+      border: 0;
+    }
+    .page_btn {
+      background: var(--background);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 17.5%;
+      padding: 2.5%;
+      margin: 5% 0 0 0;
+      box-shadow: 0 0 0 1px var(--secondary);
+    }
+    #buttons {
+      background: var(--background);
+      width: 100%;
+      max-width: calc(300px + 10%);
+      aspect-ratio : 8 / 1;
+      margin: 5% calc(50% - (300px + 10%)/2) 0 0;
+    }
+    #buttons div {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: calc(100%/4);
+      aspect-ratio : 2 / 1;
+      border-radius: 100px;
+    }
+    #character {
+      background: var(--background);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 20%;
+      aspect-ratio: 1 / 1;
+      font-size: xxx-large;
+      max-width: 300px;
+      margin: 0 max(40%,calc(50% - 150px));
+      margin-top: 2.5%;
+      box-shadow: 0 0 0 1px var(--secondary);
+      border-radius: 15px;
+    }
+  </style>
+  <div id="container">
+    <hr>
+    <div class="box" id="unicode_table"></div>
+    <div id="character" style="user-select: text;"></div>
+    <div class="text">
+      Unicode: <span id="id_unicode"></span><br>
+      HTML: <span id="id_html"></span><br>
+      CSS: <span id="id_css"></span>
+    </div>
+  </div>
+</body>
+<script src="./js/screen.js"></script>
+<script src="./js/script.js"></script>
+<script>
+
+var url_string = window.location.href;
+var url = new URL(url_string);
+page = parseInt(url.searchParams.get("page"));
+if (isNaN(page)) {
+  page = 0;
+}
+
+selected = 36;
+
+update = (x,y) => {
+  if (y==null) y=0;
+  if (x<0) {
+    page=x=0;
+  }
+  if (x>17406) {
+    page=x=17406;
+  }
+  unicode_table.innerHTML = "";
+  var r = 8;
+  for (var i=0;i<r;i++) {
+    for (var j=0;j<r;j++) {
+      unicode_table.innerHTML += `<div class="char${(y==(i*r+j)?" selected":"")}" onclick="update(page,selected=${i*r+j})">&#x${(i*r+j+x*r*r).toString(16)};</div>`;
+    }
+  }
+  unicode_table.innerHTML += `
+    <input id="page_input" value="${page+1}"><div class="page_btn" onclick="update(page=(parseInt(page_input.value-1))||0,selected)">Go</div>
+    <div id="buttons">
+      <div onclick="update(page-=1,selected)"><</div><div onclick="update(page-=2,selected)"><<</div><div onclick="update(page+=2,selected)">>></div><div onclick="update(page+=1,selected)">></div>
+    </div>`
+  character.innerHTML = `&#x${(y+x*r*r).toString(16)};`;
+  id_unicode.innerHTML = `U+${(y+x*r*r).toString(16).padStart(4,"0")}`;
+  id_html.innerText = `&#x${(y+x*r*r).toString(16)};`;
+  id_css.innerText = `\\${(y+x*r*r).toString(16).padStart(4,"0")}`;
+}
+
+update(page,selected);
+
+</script>
+</html>

@@ -1,3 +1,17 @@
+:root[data-theme="light"] {
+  --text: #000;
+  --background: #fff;
+  --primary: #fbfbfe;
+  --secondary: #dde;
+  --accent: #e81756;
+}
+:root[data-theme="dark"] {
+  --text: #fff;
+  --background: #000;
+  --primary: #121215;
+  --secondary: #222225;
+  --accent: #e81756;
+}
 @font-face {
   font-family: "inter";
   src: url("../fonts/Inter-VariableFont_slnt,wght.ttf") format("truetype");
@@ -13,24 +27,42 @@
   vertical-align: text-top;
   text-align: auto !important;
   unicode-bidi: plaintext !important;
+  color: var(--text);
+  transition: color 0.5s ease;
+}
+* {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+img {
+  pointer-events: none;
+}
+textarea, input {
+  -webkit-user-select: auto;
+  -khtml-user-select: auto;
+  -moz-user-select: auto;
+  -o-user-select: auto;
+  user-select: auto;
 }
 ::selection {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--text);
+  color: var(--background);
 }
 ::-webkit-selection {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--text);
+  color: var(--background);
 }
-
 html {
-  background: #fff;
+  background: var(--background);
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 body {
-  background: #fff;
+  background: var(--background);
   width: 100%;
   height: 100%;
   margin: 0 auto;
@@ -50,8 +82,8 @@ body {
 #container::-webkit-scrollbar {
   display: none;
 }
-#scrollTrack {
-  background: #dde;
+#scroll_track {
+  background: var(--secondary);
   width: 3px;
   height: 25%;
   top: 37.5%;
@@ -60,8 +92,8 @@ body {
   border-radius: 15px;
   z-index: 1;
 }
-#scrollBar {
-  background: #000;
+#scroll_bar {
+  background: var(--text);
   width: 3px;
   height: 4%;
   position: fixed;
@@ -75,25 +107,41 @@ button:focus, input:focus, textarea:focus {
 }
 hr {
   width: 80%;
-  height: 8px;
+  height: 1px;
   margin: 20px auto;
-  color: #dde;
-  background: url("data:image/svg+xml,%3Csvg aria-hidden='true' width='100%25' height='8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpattern id='a' width='91' height='8' patternUnits='userSpaceOnUse'%3E%3Cg clip-path='url(%23clip0_2426_11367)'%3E%3Cpath d='M114 4c-5.067 4.667-10.133 4.667-15.2 0S88.667-.667 83.6 4 73.467 8.667 68.4 4 58.267-.667 53.2 4 43.067 8.667 38 4 27.867-.667 22.8 4 12.667 8.667 7.6 4-2.533-.667-7.6 4s-10.133 4.667-15.2 0S-32.933-.667-38 4s-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0-10.133-4.667-15.2 0-10.133 4.667-15.2 0' stroke='%23dde' stroke-linecap='square'%3E%3C/path%3E%3C/g%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23a)'/%3E%3C/svg%3E");
+  color: var(--secondary);
+  background: var(--secondary);
   border: 0;
 }
 #menu_btn {
   position: fixed;
-  background: #fff;
+  background: var(--background);
   top: 20px;
   right: 20px;
   width: 30px;
   height: 30px;
-  box-shadow: 0 0 0 1px #dde,0 5px 5px #0022;
+  box-shadow: 0 0 0 1px var(--secondary),0 5px 5px #0022;
   border-radius: 100%;
   z-index: 3;
 }
+#theme_btn {
+  position: fixed;
+  background: var(--background);
+  bottom: 20px;
+  right: 20px;
+  width: 35px;
+  height: 35px;
+  box-shadow: 0 0 0 1px var(--secondary),0 5px 5px #0022;
+  border: none;
+  overflow: hidden;
+  border-radius: 100%;
+  z-index: 3;
+}
+#theme_btn svg {
+  width: 60%;
+}
 #menu_btn .line {
-  background: #000;
+  background: var(--text);
   position: fixed;
   top: 31px;
   right: 27.5px;
@@ -114,23 +162,20 @@ hr {
   transform: rotateZ(45deg);
 }
 #menu {
-  background: #fff;
+  backdrop-filter: blur(75px);
   position: fixed;
-  top: -8px;
+  top: 0;
   right: 0;
   width: calc(100%);
   max-width: 600px;
   height: calc(100% - 10vmin);
   padding: 5vmin calc(50vw - min(100vw,600px)/2);
-  transition: all 0.25s ease;
+  transition: opacity 0.25s ease, top 0.25s ease;
   z-index: 2;
   opacity: 0;
   pointer-events: none;
 }
 #menu.active {
-  position: fixed;
-  top: 0;
-  right: 0;
   opacity: 1;
   touch-action: none;
   pointer-events: auto;
@@ -140,38 +185,36 @@ hr {
   margin: 4px;
   border-radius: 0 0 20px 20px;
 }
-.profile {
-  width: 100%;
-  height: 80px;
-  display: inline-flex;
-}
-.profile .pfp {
-  width: 60px;
-  height: 60px;
-  margin: 10px;
-  border-radius: 100%;
-  object-fit: cover;
-}
-.profile div {
-  width: calc(100% - 80px);
-  height: 60px;
-  margin-top: 10px;
-  padding-top: 5px;
-}
 sub {
-  font-size: 12px;
-  color: #000;
+  font-size: 10px;
+}
+.posts {
+  width: 100%;
+  text-align: center;
+}
+.posts .wrapper {
+  display: inline-block;
 }
 .post {
-  width: 80%;
-  max-width: 300px;
-  margin: 2.5% max(5%,calc(50% - (150px + 5%)));
+  height: 100%;
+  width: calc(70%);
   padding: 5%;
-  box-shadow: 0 0 0 1px #dde;
+  margin: 2.5% 0;
+  box-shadow: 0 0 0 1px var(--secondary);
   border-radius: 20px;
-  display: block;
+  display: inline-block;
   text-decoration: none;
-  color: #000;
+  transition: transform 0.25s ease;
+}
+.post , .post * {
+  background: var(--primary);
+}
+@media screen and (min-width: 600px) {
+  .post {
+    width: calc(35%);
+    padding: 2.5%;
+    margin: 2.5%;
+  }
 }
 .post img {
   width: 100%;
@@ -179,6 +222,9 @@ sub {
 }
 .post div {
   margin-top: 15px;
+}
+.post:active {
+  transform: scale(0.85);
 }
 canvas {
   image-rendering: pixelated;
@@ -188,11 +234,12 @@ textarea {
   resize: none;
 }
 .box, canvas, textarea {
+  background: var(--primary);
   width: 80%;
   max-width: 300px;
   margin: 2.5% max(5%,calc(50% - (150px + 5%)));
   padding: 5%;
-  box-shadow: 0 0 0 1px #dde;
+  box-shadow: 0 0 0 1px var(--secondary);
   border-radius: 15px;
 }
 .text {
@@ -206,20 +253,21 @@ textarea {
   width: 24px;
   height: 24px;
   margin: 0 10px;
-  color: #000;
+  border: none;
 }
 .icon-list {
   height: 50px;
 }
 #downloadBtn {
+  fill: var(--text);
   width: 80%;
   max-width: 300px;
   height: 40px;
   padding: 0 5%;
   margin: 2.5% max(5%,calc(50% - (150px + 5%)));
-  box-shadow: 0 0 0 1px #dde;
+  box-shadow: 0 0 0 1px var(--secondary);
   border-radius: 15px;
-  transition: all 0.125s ease;
+  transition: transform 0.125s ease;
 }
 #downloadBtn:active {
   transform: scale(0.75);
@@ -238,15 +286,15 @@ textarea {
   height: 40px;
   padding: 0 5%;
   margin: 2.5% max(5%,calc(50% - (150px + 5%)));
-  box-shadow: 0 0 0 1px #dde;
+  box-shadow: 0 0 0 1px var(--secondary);
   border-radius: 10px;
-  color: #000;
+  background: var(--primary);
   text-decoration: none;
-  transition: all 0.125s ease;
+  transition: transform 0.125s ease;
 }
 .linkBtn:active {
   transform: scale(0.75);
 }
 .link {
-  color: #000;
+  color: var(--text);
 }
