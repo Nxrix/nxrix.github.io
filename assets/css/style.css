@@ -163,6 +163,7 @@ hr {
 }
 #menu {
   backdrop-filter: blur(75px);
+  -webkit-backdrop-filter: blur(75px);
   position: fixed;
   top: 0;
   right: 0;
