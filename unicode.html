@@ -87,17 +87,13 @@
     </div>
   </div>
 </body>
-<script src="./js/screen.js"></script>
-<script src="./js/script.js"></script>
 <script>
-
 var url_string = window.location.href;
 var url = new URL(url_string);
 page = parseInt(url.searchParams.get("page"));
 selected = parseInt(url.searchParams.get("char"));
 if (isNaN(page)) {page = 0;} else {page = page-1;}
 if (isNaN(selected)) {selected = 0;}
-
 update = (x,y) => {
   if (y==null||y<0) selected=y=0;
   if (y>63) selected=y=63;
@@ -121,10 +117,10 @@ update = (x,y) => {
   id_html.innerText = `&#x${(y+x*r*r).toString(16)};`;
   id_css.innerText = `\\${(y+x*r*r).toString(16).padStart(4,"0")}`;
 }
-
 window.onload = () => {
   update(page,selected);
 }
-
 </script>
+<script src="./js/screen.js"></script>
+<script src="./js/script.js"></script>
 </html>
