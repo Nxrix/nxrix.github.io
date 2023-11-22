@@ -220,6 +220,7 @@ sub {
 .post img {
   width: 100%;
   border-radius: 15px;
+  box-shadow: 0 0 0 1px var(--secondary),0 5px 5px #0022;
 }
 .post div {
   margin-top: 15px;
