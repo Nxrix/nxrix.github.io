@@ -13,13 +13,9 @@ body {
 }
 canvas {
   position: absolute;
-  --size: 80vmin;
+  --size: 100vmin;
   width: var(--size);
   height: var(--size);
-  top: calc((100vh - var(--size))/2);
-  left: calc((100vw - var(--size))/2);
-  border-radius: 1vmin;
-  box-shadow: 0 2vmin 4vmin #0024;
 }
 #error {
   font-family: "courier";
@@ -27,20 +23,10 @@ canvas {
   background: transparent;
   color: #d01;
   position: absolute;
-  --size: 80vmin;
+  --size: 100vmin;
   --pad: 5vmin;
   width: calc(var(--size) - var(--pad)*2);
   height: calc(var(--size) - var(--pad)*2);
-  top: calc((100vh - var(--size))/2);
-  left: calc((100vw - var(--size))/2);
   padding: var(--pad);
   overflow: hidden;
-}
-img {
-  position: absolute;
-  --size: 6vmin;
-  width: var(--size);
-  height: var(--size);
-  bottom: 2vmin;
-  left: 2vmin;
 }
