@@ -28,6 +28,8 @@ pixel8.update = () => {
   pixel8.gl.drawArrays(pixel8.gl.TRIANGLE_STRIP, 0, 4);
   requestAnimationFrame(pixel8.update);
 }
+var url_string = window.location.href;
+var url = new URL(url_string);
 code = url.searchParams.get("i");
 _draw = () => {
   try {
