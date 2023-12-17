@@ -20,8 +20,8 @@ pixel8.update = () => {
   try {
     _draw();
   }
-  catch (error) {
-    error.innerHTML = error.toString();
+  catch (err) {
+    error.innerHTML = err.toString();
   }
   pixel8.gl.activeTexture(pixel8.gl.TEXTURE0);
   pixel8.gl.texImage2D(pixel8.gl.TEXTURE_2D,0,pixel8.gl.ALPHA,pixel8.canvas.width,pixel8.canvas.height,0,pixel8.gl.ALPHA,pixel8.gl.UNSIGNED_BYTE,pixel8.screenBuffer);
@@ -29,12 +29,12 @@ pixel8.update = () => {
   requestAnimationFrame(pixel8.update);
 }
 code = url.searchParams.get("i");
-_draw = () {
+_draw = () => {
   try {
     eval(code);
   }
-  catch(error) {
-    error.innerHTML = error.toString();
+  catch(err) {
+    error.innerHTML = err.toString();
   }
 }
 pixel8.init(canvas,128,128);
