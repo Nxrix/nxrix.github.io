@@ -17,21 +17,11 @@
 <script src="https://nxrix.github.io/Pixel-8/js/pixel8.js"></script>
 <script>
 pixel8.update = () => {
-  try {
-    _draw();
-  }
-  catch (err) {
-    error.innerHTML = err.toString();
-  }
-  pixel8.gl.activeTexture(pixel8.gl.TEXTURE0);
-  pixel8.gl.texImage2D(pixel8.gl.TEXTURE_2D,0,pixel8.gl.ALPHA,pixel8.canvas.width,pixel8.canvas.height,0,pixel8.gl.ALPHA,pixel8.gl.UNSIGNED_BYTE,pixel8.screenBuffer);
-  pixel8.gl.drawArrays(pixel8.gl.TRIANGLE_STRIP, 0, 4);
-  requestAnimationFrame(pixel8.update);
 }
 var url_string = window.location.href;
 var url = new URL(url_string);
 code = url.searchParams.get("i");
-_draw = () => {
+_init = () => {
   try {
     eval(code);
   }
