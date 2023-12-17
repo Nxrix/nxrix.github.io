@@ -29,11 +29,13 @@ pixel8.update = () => {
   requestAnimationFrame(pixel8.update);
 }
 code = url.searchParams.get("i");
-try {
-  eval(code);
-}
-catch(error) {
-  error.innerHTML = error.toString();
+_draw = () {
+  try {
+    eval(code);
+  }
+  catch(error) {
+    error.innerHTML = error.toString();
+  }
 }
 pixel8.init(canvas,128,128);
 </script>
