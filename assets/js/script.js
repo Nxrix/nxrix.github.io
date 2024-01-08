@@ -91,7 +91,7 @@ document.querySelector("#container").insertAdjacentHTML("beforeend",`<br>
      sodipodi:nodetypes="ccccccscccccssccccccccccccccccscscccccccccsccccccccccccccccccsscccssccccccsccccccccssccccccccccscccc"/>
      <!--url(#linearGradient3799)-->
   </svg>
-  Nxrix ©2023
+  Nxrix ©2024
 </p><br>
 <div class="icon-list" style="margin-left:calc(10% - 10px);font-size:0;">
   <a href="https://github.com/nxrix">
