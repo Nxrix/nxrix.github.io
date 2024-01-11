@@ -6,8 +6,6 @@
   /*text-align: auto !important;
   unicode-bidi: plaintext !important;*/
   color: #fff;
-}
-* {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -32,19 +30,8 @@ img {
   background-color: #fff;
   color: #000;
 }
-::-webkit-scrollbar-corner {
-  background: #0000;
-}
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #0000;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--secondary);
-  border-radius: 10px;
+  display: none;
 }
 button:focus, input:focus, textarea:focus {
   outline:0;
