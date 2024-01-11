@@ -1,0 +1,213 @@
+* {
+  padding: 0;
+  margin: 0;
+  vertical-align: text-top;
+  font-family: sans-serif;
+  /*text-align: auto !important;
+  unicode-bidi: plaintext !important;*/
+  color: #fff;
+}
+* {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+textarea, input, .link, .name div {
+  -webkit-user-select: auto;
+  -khtml-user-select: auto;
+  -moz-user-select: auto;
+  -o-user-select: auto;
+  user-select: auto;
+}
+img {
+  pointer-events: none;
+}
+::selection {
+  background-color: #fff;
+  color: #000;
+}
+::-webkit-selection {
+  background-color: #fff;
+  color: #000;
+}
+::-webkit-scrollbar-corner {
+  background: #0000;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0000;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 10px;
+}
+button:focus, input:focus, textarea:focus {
+  outline:0;
+}
+html {
+  background: #000;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background: #000;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overscroll-behavior: none;
+  overflow-y: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+#container {
+  background: url("../img/bg.png");
+  background-size: 100% 100%;
+  max-width: 600px;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.squad {
+  text-align: center;
+}
+.squad img {
+  height: 35px;
+}
+.squad-avatar {
+  width: 25%;
+  margin: 5% calc((100% - 25%)/2);
+  border-radius: 30px;
+}
+.profile, #leaderboard {
+  position: relative;
+  background: rgba(255,255,255,0.08);
+  width: 95%;
+  margin: 5% 2.5% 0 2.5%;
+  border-radius: 20px;
+}
+.profile {
+  overflow: hidden;
+  width: calc(100% - 60px);
+  max-width: 300px;
+  height: 140px;
+  margin: 10px auto;
+  padding: 20px;
+  outline: solid;
+  outline-color: rgba(255,255,255,0.15);
+  outline-width: 2px;
+}
+.profile .avatar {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 30%;
+  aspect-ratio: 1 / 1;
+}
+.profile .avatar img {
+  width: 100%;
+  border-radius: 100%;
+}
+.profile .name {
+  display: inline-flex;
+  align-items: center;
+  height: 30%;
+  margin-left: 2.5%;
+  font-size: small;
+}
+.profile .medal {
+  display: inline-flex;
+  height: 20%;
+  position: absolute;
+  right: 20px;
+}
+.profile hr {
+  margin: 2.5% 0;
+  width: 100%;
+}
+.profile .data div{
+  margin-top: 2.5px;
+}
+.user {
+  overflow: hidden;
+  width: calc(100% - 20px);
+  height: 60px;
+  margin: 10px;
+}
+.user .rank {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 1 / 2;
+}
+.user .avatar {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+}
+.user .avatar img {
+  width: 100%;
+  border-radius: 100%;
+}
+.user .name {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 2.5%;
+  font-size: small;
+}
+.user .coins {
+  display: inline-flex;
+  justify-content: right;
+  align-items: center;
+  position: absolute;
+  right: 20px;
+  height: 60px;
+  font-size: small;
+}
+.user .coins .coin {
+  width: 15px;
+  margin-right: 5px;
+}
+.link {
+  color: #4986ff;
+  cursor: pointer;
+  text-decoration: none;
+}
+.premium {
+  width: 15px;
+}
+.emoji {
+  width: 17.5px;
+}
+hr {
+  width: 80%;
+  height: 1px;
+  margin: 20px auto;
+  color: #222225;
+  background: #222225;
+  border: 0;
+}
+.text {
+  width: 80%;
+  max-width: 400px;
+  margin: 2.5% max(5%,calc(50% - (200px + 5%)));
+  padding: 5%;
+  text-align: justify;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 10px;
+  border: none;
+}
+.icon-list {
+  height: 50px;
+}
