@@ -44,12 +44,34 @@
 </body>
 <script src="./js/script.js"></script>
 <script>
+const download = (text, filename) => {
+  var element = document.createElement("a");
+  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+  element.setAttribute("download", filename);
+  element.style.display = "none";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
 const fetchList = async () => {
-  const response = await fetch("https://clicker-api.joincommunity.xyz/clicker/league/leaderboard/public/in-team/platinum/daily?id=575072");
+  //const response = await fetch("https://clicker-api.joincommunity.xyz/clicker/league/leaderboard/public/in-team/platinum/daily?id=575072");
+  const response = await fetch("../backup.json");
   const data = await response.json();
+  if (data.ok==true) {
+    timestamp = Date.now();
+    utcDate = new Date(timestamp);
+    window.time = utcDate.toISOString().slice(0, 19).replace('T', ' ');
+    window.backup = JSON.stringify(data);
+    leaderboard.insertAdjacentHTML("beforebegin",`
+      <h3 class="squad">${time}</h3>
+      <button class="download" id="backupFile">Download Backup</button>
+    `);
+    backupFile.onclick = () => {
+      download(window.backup,"backup_"+window.time+".json")
+    }
+  }
   update(data);
 }
-
 window.onload = () => {
   fetchList();
 }
