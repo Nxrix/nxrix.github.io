@@ -54,8 +54,8 @@ const download = (text, filename) => {
   document.body.removeChild(element);
 }
 const fetchList = async () => {
-  //const response = await fetch("https://clicker-api.joincommunity.xyz/clicker/league/leaderboard/public/in-team/platinum/daily?id=575072");
-  const response = await fetch("../backup.json");
+  const response = await fetch("https://clicker-api.joincommunity.xyz/clicker/league/leaderboard/public/in-team/platinum/daily?id=575072");
+  //const response = await fetch("../backup.json");
   const data = await response.json();
   if (data.ok==true) {
     timestamp = Date.now();
