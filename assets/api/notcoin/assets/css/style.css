@@ -124,7 +124,7 @@ body {
   overflow: hidden;
   width: calc(100% - 60px);
   max-width: 300px;
-  height: 140px;
+  height: 110px;
   margin: 10px auto;
   padding: 20px;
   outline: solid;
