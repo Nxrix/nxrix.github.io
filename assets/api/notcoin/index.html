@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="container">
-    <img class="squad-avatar" src="./img/576760.jpg" alt="squad avatar">
+    <img class="squad-avatar" alt="squad avatar">
     <h1 class="squad"></h1>
     <div id="leaderboard">
       <br>
@@ -87,8 +87,6 @@ const arruni = (arr) => {
   });
   return uniarr;
 }
-"㔷㔰㜲ⰵ㜶㜶〬䅕呏ⱡ畴潭潢楬攮睥扰"
-"㔷㜲㘶ⰵ㜸㤴〬䑩捴慴潲⁃特灴漬晩牥⹳癧"
 const download = (text, filename) => {
   var element = document.createElement("a");
   element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
@@ -120,9 +118,9 @@ window.onload = () => {
   var url_string = window.location.href;
   var url = new URL(url_string);
   var auth = arruni(unitostr(url.searchParams.get("i")).split(","));
-  console.log(auth);
-  document.querySelector(".squad").innerHTML = `<img src="./img/${unitostr(auth[3])}">`
-  fetchList();
+  document.querySelector(".squad-avatar").src = `./img/${unitostr(auth[1])}.jpg`
+  document.querySelector(".squad").innerHTML = `${unitostr(auth[2])} <img src="./img/${unitostr(auth[3])}">`
+  fetchList(unitostr(auth[0]));
 }
 </script>
 </html>
