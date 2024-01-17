@@ -57,7 +57,7 @@ const update = (data) => {
           <div><img class="emoji" src="./img/coin.png"> Mined today: ${numberToString(profile.lcoins)}</div>
           <div><img class="emoji" src="./img/emoji/coin.png"> Total score: ${numberToString(profile.totalCoins)}</div>
           <div><img class="emoji" src="./img/emoji/coin.png"> Balance: ${numberToString(profile.balanceCoins)}</div>
-          <div><img class="emoji" src="./img/emoji/fire.png"> Spent: ${numberToString(profile.spentCoins)}</div>
+          ${""/*<div><img class="emoji" src="./img/emoji/fire.png"> Spent: ${numberToString(profile.spentCoins)}</div>*/}
         </div>
       </div>
     `);
