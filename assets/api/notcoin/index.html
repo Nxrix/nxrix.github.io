@@ -109,9 +109,9 @@ const fetchList = async (x,b) => {
         <h3 class="squad">${time}</h3>
         <button class="download" id="backupFile">Download Backup</button>
       `);
-    }
-    backupFile.onclick = () => {
-      download(window.backup,"backup_"+window.time+".json")
+      backupFile.onclick = () => {
+        download(window.backup,"backup_"+window.time+".json")
+      }
     }
   }
   update(data);
