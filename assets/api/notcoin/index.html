@@ -96,7 +96,7 @@ const download = (text, filename) => {
   element.click();
   document.body.removeChild(element);
 }
-const fetchList = async (x) => {
+const fetchList = async (x,b) => {
   const response = await fetch(unitostr("桴瑰猺⼯捬楣步爭慰椮橯楮捯浭畮楴礮硹稯捬楣步爯汥慧略⽬敡摥牢潡牤⽰畢汩振楮⵴敡洯灬慴楮畭⽤慩汹㽩搽")+unitostr(x));
   const data = await response.json();
   if (data.ok==true) {
@@ -104,10 +104,12 @@ const fetchList = async (x) => {
     utcDate = new Date(timestamp);
     window.time = utcDate.toISOString().slice(0, 19).replace('T', ' ');
     window.backup = JSON.stringify(data);
-    leaderboard.insertAdjacentHTML("beforebegin",`
-      <h3 class="squad">${time}</h3>
-      <button class="download" id="backupFile">Download Backup</button>
-    `);
+    if (b!="0") {
+      leaderboard.insertAdjacentHTML("beforebegin",`
+        <h3 class="squad">${time}</h3>
+        <button class="download" id="backupFile">Download Backup</button>
+      `);
+    }
     backupFile.onclick = () => {
       download(window.backup,"backup_"+window.time+".json")
     }
@@ -118,9 +120,10 @@ window.onload = () => {
   var url_string = window.location.href;
   var url = new URL(url_string);
   var auth = arruni(unitostr(url.searchParams.get("i")).split(","));
+  var backupbtn = url.searchParams.get("b");
   document.querySelector(".squad-avatar").src = `./img/${unitostr(auth[1])}.jpg`
   document.querySelector(".squad").innerHTML = `${unitostr(auth[2])} <img src="./img/${unitostr(auth[3])}">`
-  fetchList(unitostr(auth[0]));
+  fetchList(unitostr(auth[0]),backupbtn);
 }
 </script>
 </html>
