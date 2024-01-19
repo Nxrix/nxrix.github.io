@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="color-scheme" content="light only">
+  <link rel="icon" href="icon.png">
+  <meta name="theme-color" content="#000">
+  <title>AV</title>
+</head>
+<style>
+:root[data-theme="light"] {
+  --text: #000;
+  --background: #fff;
+  --primary: #fbfbfe;
+  --secondary: #dde;
+  --accent: #e81756;
+}
+:root[data-theme="dark"] {
+  --text: #fff;
+  --background: #000;
+  --primary: #121215;
+  --secondary: #222225;
+  --accent: #e81756;
+}
+@font-face {
+  font-family: "fira";
+  src: url("./FiraCode-VF.ttf") format("truetype");
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "fira";
+  vertical-align: text-top;
+  text-align: auto !important;
+  unicode-bidi: plaintext !important;
+  color: var(--text);
+  transition: color 0.5s ease;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+img {
+  pointer-events: none;
+}
+textarea, input {
+  -webkit-user-select: auto;
+  -khtml-user-select: auto;
+  -moz-user-select: auto;
+  -o-user-select: auto;
+  user-select: auto;
+}
+::selection {
+  background-color: var(--text);
+  color: var(--background);
+}
+::-webkit-selection {
+  background-color: var(--text);
+  color: var(--background);
+}
+::-webkit-scrollbar-corner {
+  background: #0000;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0000;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 10px;
+}
+button:focus, input:focus, textarea:focus {
+  outline:0;
+}
+html {
+  background: var(--background);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background: var(--background);
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overscroll-behavior: none;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+#container {
+  position: fixed;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  margin: 1px;
+  overflow-y: auto;
+}
+#container::-webkit-scrollbar, #menu::-webkit-scrollbar {
+  display: none;
+}
+#edit_btn, #sound_btn, #theme_btn {
+  background: var(--background);
+  position: fixed;
+  width: 35px;
+  height: 35px;
+  box-shadow: 0 0 0 1px var(--secondary);
+  border: none;
+  overflow: hidden;
+  border-radius: 100%;
+  transition: transform 0.1s ease, filter 0.1s ease;
+  z-index: 3;
+}
+#edit_btn:active {
+  transform: rotate(90deg);
+}
+#sound_btn:active {
+  filter: invert(100%);
+}
+#edit_btn {
+  bottom: 20px;
+  left: 20px;
+}
+#sound_btn {
+  bottom: 20px;
+  left: 65px;
+}
+#theme_btn {
+  bottom: 20px;
+  right: 20px;
+}
+#edit_btn svg, #sound_btn svg, #theme_btn svg {
+  width: 60%;
+}
+#canvas {
+  image-rendering: pixelated;
+  position: fixed;
+  width: calc(100vmin - 2px);
+  top: 1px;
+  left: calc((100vw - (100vmin - 2px))/2);
+  z-index: 1;
+}
+#menu {
+  background: #0005;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  overflow-y: auto;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+#menu.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+#input {
+  color: #fff;
+  font-family: "fira";
+  background: #0000;
+  color: var(--text);
+  width: calc(100vmin - 2px - 30px);
+  height: calc(100vmin - 2px - 30px);
+  border: none;
+  border: 15px solid #0000;
+  margin-left: calc((100vw - (100vmin - 2px))/2);
+  overflow: auto;
+  overflow-x: auto;
+  resize: none;
+}
+#error {
+  color: #7700FF;
+  width: 80%;
+  max-width: 300px;
+  margin: 0 max(5%,calc(50% - 150px - 2.5%));
+  word-wrap: wrap;
+  padding: 2.5%;
+  padding-bottom: 0;
+  overflow-y: auto;
+}
+.input-area {
+  background: #000;
+  cursor: pointer;
+  background: var(--background);
+  outline: 2px dashed var(--primary);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  max-width: 300px;
+  margin: 0 max(5%,calc(50% - 150px - 2.5%));
+  padding: 2.5%;
+  border-radius: 15px;
+}
+#fileInput {
+  background: #0000;
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+audio {
+  width: 80%;
+  max-width: 300px;
+  margin: 0 max(5%,calc(50% - 150px - 2.5%));
+  padding: 2.5%;
+}
+:root[data-theme="dark"] audio {
+  filter: invert(100%);
+}
+.box {
+  width: 80%;
+  max-width: 300px;
+  margin: 0 max(5%,calc(50% - 150px - 2.5%));
+  padding: 2.5%;
+}
+</style>
+<body>
+  <button id="edit_btn">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor"><path d="M260-120q-58 0-99-41t-41-99q0-58 41-99t99-41h60v-160h-60q-58 0-99-41t-41-99q0-58 41-99t99-41q58 0 99 41t41 99v60h160v-60q0-58 41-99t99-41q58 0 99 41t41 99q0 58-41 99t-99 41h-60v160h60q58 0 99 41t41 99q0 58-41 99t-99 41q-58 0-99-41t-41-99v-60H400v60q0 58-41 99t-99 41Zm0-80q25 0 42.5-17.5T320-260v-60h-60q-25 0-42.5 17.5T200-260q0 25 17.5 42.5T260-200Zm440 0q25 0 42.5-17.5T760-260q0-25-17.5-42.5T700-320h-60v60q0 25 17.5 42.5T700-200ZM400-400h160v-160H400v160ZM260-640h60v-60q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Zm380 0h60q25 0 42.5-17.5T760-700q0-25-17.5-42.5T700-760q-25 0-42.5 17.5T640-700v60Z"/></svg>
+  </button>
+  <button id="sound_btn" onclick="audio.volume = (audio.volume>0?0:1);">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor"><path d="M400-120q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T480-418v-422h240v160H560v400q0 66-47 113t-113 47Z"/></svg>
+  </button>
+  <button id="theme_btn" hidden></button>
+  <div id="container">
+    <canvas id="canvas"></canvas><br>
+    <div id="menu">
+      <audio id="audio" controls loop></audio>
+      <div class="input-area">
+        Select or Drop Audio
+        <input type="file" id="fileInput">
+      </div><br>
+      <h3 style="width:100%;text-align:center" hidden>Do not Touch! 👇</h3>
+      <textarea id="input" wrap="off" spellcheck="false" hidden></textarea><br>
+      <div id="error">></div>
+      <br>
+      <div class="box">
+        Nxrix - 2024
+      </div>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+</body>
+<script>
+var theme_btn = document.getElementById("theme_btn");
+var edit_btn = document.getElementById("edit_btn");
+var menu = document.getElementById("menu");
+
+/*var svg_light_mode = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>`;
+var svg_dark_mode = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor"><path d="M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Zm326-268Z"/></svg>`;
+
+theme_meta = document.createElement("meta");
+document.head.appendChild(theme_meta);
+theme_meta.setAttribute("name","theme-color");
+
+if (localStorage.getItem("theme")==null)  {
+  document.documentElement.setAttribute("data-theme","dark");
+  theme_meta.setAttribute("content","#eef");
+  theme_btn.innerHTML = svg_light_mode;
+}
+else {
+  document.documentElement.setAttribute("data-theme",localStorage.getItem("theme"));
+  theme_meta.setAttribute("content",localStorage.getItem("theme")=="light"?"#eef":"#000");
+  theme_btn.innerHTML = localStorage.getItem("theme")=="light"?svg_light_mode:svg_dark_mode;
+}
+
+theme_btn.onclick = () => {
+  if (document.documentElement.getAttribute("data-theme")=="dark") {
+    theme_btn.innerHTML = svg_light_mode;
+    document.documentElement.setAttribute("data-theme","light");
+    theme_meta.setAttribute("content","#eef");
+    localStorage.setItem("theme","light");
+  }
+  else {
+    theme_btn.innerHTML = svg_dark_mode;
+    document.documentElement.setAttribute("data-theme","dark");
+    theme_meta.setAttribute("content","#000");
+    localStorage.setItem("theme","dark");
+  }
+}*/
+edit_btn.onclick = () => {
+  if (menu.classList.contains("active")) {
+    menu.classList.remove("active");
+  }
+  else {
+    menu.classList.add("active");
+  }
+}
+</script>
+<script id="glsl" type="x-shader/x-fragment">
+f3 spec2(f w) {
+  f3 c;
+  if (w>=380.0&&w<440.0) c = f3(-(w-440.0)/(440.0-380.0),0.0,1.0);
+  else if (w>=440.0&&w<490.0) c = f3(0.0,(w-440.0)/(490.0-440.0),1.0);
+  else if (w>=490.0&&w<510.0) c = f3(0.0,1.0,-(w-510.0)/(510.0-490.0));
+  else if (w>=510.0&&w<580.0) c = f3((w-510.0)/(580.0-510.0),1.0,0.0);
+  else if (w>=580.0&&w<645.0) c = f3(1.0,-(w-645.0)/(645.0-580.0),0.0);
+  else if (w>=645.0&&w<=780.0) c = f3(1.0,0.0,0.0);
+  else c = f3(0.0,0.0,0.0);
+	return clamp(c,0.0,1.0);
+}
+f3 spec(f v) {
+  if(v<1.0/3.0) {
+    return f3(1,0,0);
+  } else if(v<2.0/3.0) {
+    return f3(0,1,0);
+  } else {
+   return f3(0,0,1);
+  }
+}
+f sdf(f3 p) {
+  return sqrt(0.25-(p.x*p.x+p.y*p.y));
+}
+f3 _f2(in f2 v) {
+  f3 d = f3(v/r*2.0-1.0,-1.0);
+  f3 dv = d;
+  m2 rt = rot(t/4.0);
+  dv.xz *= rt;
+  dv.yz *= rt;
+  f3 dc = dv/max(abs(dv.x),max(abs(dv.y),abs(dv.z)))*0.5+0.5;
+  f3 ds = normalize(dv);
+  f3 dt = dv/(abs(dv.x)+abs(dv.y)+abs(dv.z));
+  dv = dt;
+  f z = xor(dv.x*r,dv.y*r,dv.z*r)/r;
+  f val = texture(music,f2(f(i(f(i(z*r)&i(r)-1))&1023)/r,1.0)).a;
+  f l = and(z*r,r-1.0)/r;
+  f3 col = f3(
+    hsl2rgb(
+      f3(0.75+and(t/8.0*r,r-1.0)/r,1.0,l*val*3.0)
+    )
+  );
+  return col;
+}
+f3 _f(in f2 v) {
+  f3 wave;
+  if (abs(v.y*8.0-r*7.0)<texture(music,f2(f(i(v.x*2.0)&1023)/r,1.0)).a*r&&v.x<r/2.0) {
+    wave = f3(1);
+  }
+  f2 distp = abs(v/r-f2(0.5,-0.75))-0.5;
+  f dist = length(distp)-texture(music,f2((atan(distp.y,abs(distp.x))+3.14)/8.,0)).a;
+  if (dist<0.0) {
+    wave = hsl2rgb(f3(0.75+and(t/8.0*r,r-1.0)/r,1.0,0.5))*dist*8.;
+  }
+  f3 d = f3(v/r*2.0-1.0,-1.0);
+  f step = 1.0/r/r;
+  f height = sdf(d);
+  f2 dxy = height - f2(
+    sdf(d + f3(step,0,0)),
+    sdf(d + f3(0,step,0))
+  );
+  f3 n = normalize(f3(dxy/step,1));
+  f3 dv = d;
+  f3 c = _f2((dv.xy+1.0)*0.5*r);
+  f a = 0.0;
+  if ((length(d.xy)-0.5)<0.0) {
+    f ior = 1.1;
+    f s = 0.05;
+    f max = 36.0;
+    c = f3(0);
+    for (f j=0.0;j<max;j++) {
+      f3 ndv = refract(dv,n,1.0/(ior+j/max*s));
+      f3 col = hsl2rgb(f3(j/max,1.0,0.5));
+      f3 col1 = _f2((ndv.xy+1.0)*0.5*r);
+      c += col*col1;
+    }
+    c /= max*0.5;
+    //c = n*0.5+0.5;
+    if (max<1.0) {
+      f3 ndv = refract(dv,n,1.0/(ior));
+      c = _f2((ndv.xy+1.0)*0.5*r);
+    }
+  }
+  c = mix(c,wave,wave);
+  i j = int(mod(floor(v.x),4.0)+mod(floor(v.y),4.0)*4.0);
+  f byr = dither[j]/128.0;
+  if (1==0) {
+    return rgb2index(c+byr);
+  } else {
+    return c;
+  }
+}
+</script>
+<script>
+/*
+float getcube(vec2 p, float size, vec3 rotations) {
+  vec3 corners[8];
+  corners[0] = vec3(-0.5*size, -0.5*size, -0.5*size);
+  corners[1] = vec3(-0.5*size, -0.5*size, 0.5*size);
+  corners[2] = vec3(-0.5*size, 0.5*size, -0.5*size);
+  corners[3] = vec3(-0.5*size, 0.5*size, 0.5*size);
+  corners[4] = vec3(0.5*size, -0.5*size, -0.5*size);
+  corners[5] = vec3(0.5*size, -0.5*size, 0.5*size);
+  corners[6] = vec3(0.5*size, 0.5*size, -0.5*size);
+  corners[7] = vec3(0.5*size, 0.5*size, 0.5*size);
+  mat3 rotX = mat3(1, 0, 0, 0, cos(rotations.x), sin(rotations.x), 0, -sin(rotations.x), cos(rotations.x));
+  mat3 rotY = mat3(cos(rotations.y), 0, -sin(rotations.y), 0, 1, 0, sin(rotations.y), 0, cos(rotations.y));
+  mat3 rotZ = mat3(cos(rotations.z), sin(rotations.z), 0, -sin(rotations.z), cos(rotations.z), 0, 0, 0, 1);
+  for (int j = 0; j < 8; j++) {
+      corners[j] = rotX * rotY * rotZ * corners[j];
+  }
+  float maxHeight = -1000000.0;
+  for (int j = 0; j < 8; j++) {
+    vec2 corner2D = vec2(corners[j].x, corners[j].z);
+    float height = corners[j].y;
+    vec2 q = (corner2D - p);
+    float dist = max(abs(q.x),abs(q.y));
+    if (dist < size/2.0 && height > maxHeight) {
+      maxHeight = height;
+    }
+  }
+  return maxHeight;
+}
+vec4 raycast_bs( in vec3 ro, in vec3 rd, float tmin, float tmax)
+{
+  int lev = 0;                                 // start at the root, ie, the
+  int seg = 0;                                 // whole [tmin,tmax] segment
+  int num = 0;
+  
+  const int kMaxLevel = 18;                    // recursion (worst case will
+  while( true )                                // be 2^kMaxLevel iterations
+  {
+    float tle = (tmax-tmin)*exp2(-float(lev)); // compute center and radius
+    float tce = tmin+tle*(float(seg)+0.5);     // of current (level:segment)
+    float tra = 0.5*tle;                       // in "t" ray space
+        
+    vec3 m = map( ro + tce*rd );               // evaluate SDF at segment center
+    num++;
+    
+    if( m.x<tra )                              // now, if SDF overlaps the segment
+    {
+      if( tra<0.0005*tce || lev>kMaxLevel )    // and if segment is tiny
+      {
+        return vec4(tce-tra,m.yz,float(num));  // consider this an intersection
+      }
+      else                                     // otherwise, continue subdividing
+      {
+        lev++;                                 // by going to left child
+        seg <<= 1;
+      }
+    }
+    else                                       // but if they don't overlap
+    {                                          // then skip the subtree by
+      for(;(seg&1)==1;seg>>=1,lev--);          // climbing to ancestor
+      seg++;                                   // and moving to right sibling
+            
+      if( lev==0 )                             // and if we're back at the root
+      {
+        break;                                 // then quit, we are done
+      }
+    }
+  }
+
+  return vec4(-1.0);
+}*/
+//f phi = v.x/r * 2.0 * 3.14159265359;
+//f theta = v.y/r * 3.14159265359;
+//d = f3(cos(phi) * sin(theta),cos(theta),sin(phi) * sin(theta));
+//f3 n = floor(abs(d)*2.)/2.;
+//l *= dot(n,normalize(f3(1,0.75,0.5)));
+//l = sin(l*r/32.0+t)*0.5+0.5;
+"use strict";
+
+const AV = {};
+
+AV.canvas = document.getElementById("canvas");
+AV.canvas.width = AV.canvas.height = 512;
+
+AV.glsl = document.getElementById("glsl").innerHTML;
+AV.gl = AV.canvas.getContext("webgl2");
+
+AV.vertexShaderSource = `#version 300 es
+in vec2 a_position;
+void main() {
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+
+AV.fragmentShaderSource = `#version 300 es
+
+#define f float
+#define f2 vec2
+#define f3 vec3
+#define f4 vec4
+#define i int
+#define i2 ivec2
+#define i3 ivec3
+#define i4 ivec4
+#define m2 mat2
+#define m3 mat3
+#define m4 mat4
+
+precision highp f;
+precision highp i;
+
+out f4 _gl_FragColor;
+uniform f t;
+uniform f r;
+uniform sampler2D music;
+
+f dither[16] = f[16](
+  0.0, 8.0, 2.0, 10.0,
+  12.0, 4.0, 14.0, 6.0,
+  3.0, 11.0, 1.0, 9.0,
+  15.0, 7.0, 13.0, 5.0
+);
+
+f3 palette[32] = f3[](
+  f3(29, 24, 38),
+  f3(139, 127, 176),
+  f3(195, 190, 229),
+  f3(255, 232, 233),
+  f3(101, 38, 78),
+  f3(160, 26, 61),
+  f3(222, 27, 69),
+  f3(242, 99, 123),
+  f3(139, 63, 57),
+  f3(187, 69, 49),
+  f3(239, 93, 14),
+  f3(255, 149, 0),
+  f3(0, 160, 61),
+  f3(18, 213, 0),
+  f3(180, 216, 0),
+  f3(255, 195, 31),
+  f3(0, 110, 105),
+  f3(0, 174, 133),
+  f3(0, 218, 167),
+  f3(79, 214, 255),
+  f3(43, 39, 84),
+  f3(60, 81, 175),
+  f3(24, 136, 222),
+  f3(0, 169, 225),
+  f3(89, 60, 151),
+  f3(137, 68, 207),
+  f3(180, 74, 255),
+  f3(233, 89, 255),
+  f3(231, 135, 109),
+  f3(255, 186, 140),
+  f3(255, 239, 92),
+  f3(255, 156, 222)
+);
+
+f3 rgb2index(f3 v) {
+  f minDist = 1e20;
+  f3 index = f3(0.0);
+  for (i j = 0; j < 32; j++) {
+    f3 col = palette[j] / 256.0;
+    f dist = dot(v - col, v - col);
+    if (dist < minDist) {
+      minDist = dist;
+      index = col;
+    }
+  }
+  return index;
+}
+
+f or(in f x,in f y) {
+  return f(i(x)|i(y));
+}
+f and(in f x,in f y) {
+  return f(i(x)&i(y));
+}
+f xor(in f x,in f y) {
+  return f(i(x)^i(y));
+}
+
+f or(in f x,in f y,in f z) {
+  return f(i(x)|i(y)|i(z));
+}
+f and(in f x,in f y,in f z) {
+  return f(i(x)&i(y)&i(z));
+}
+f xor(in f x,in f y,in f z) {
+  return f(i(x)^i(y)^i(z));
+}
+
+m2 rot(in f a) {
+  f c = cos(a);
+  f s = sin(a);
+  return m2(c,-s,s,c);
+}
+
+f3 hsl2rgb(in f3 c) {
+  f3 rgb = clamp(abs(mod(c.x*6.0+f3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0 );
+  return c.z+c.y*(rgb-0.5)*(1.0-abs(2.0*c.z-1.0));
+}
+
+f triw(in f x,in f a) {
+  f period = 2.0 * a;
+  f phase = (x + a) / period;
+  f v = abs(2.0 * (fract(phase) - 0.5));
+  return v;
+}
+
+/*--glsl--*/
+
+void main() {
+  _gl_FragColor = f4(_f(gl_FragCoord.xy),1.0);
+}`;
+
+AV.fileInput = document.getElementById("fileInput");
+AV.audio = document.getElementById("audio");
+
+//input.value = localStorage.getItem("Nxrix.AV",input.value)||AV.glsl;
+input.value = AV.glsl;
+
+AV.fileInput.addEventListener("change", function() {
+  const file = AV.fileInput.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    AV.audio.src = e.target.result;
+    AV.audio.play();
+  };
+  reader.readAsDataURL(file);
+});
+
+function updateShader(newFragmentShaderSource) {
+  error.innerHTML = ">"
+  const newFragmentShader = AV.gl.createShader(AV.gl.FRAGMENT_SHADER);
+  AV.gl.shaderSource(newFragmentShader, newFragmentShaderSource);
+  AV.gl.compileShader(newFragmentShader);
+  if (AV.gl.getShaderParameter(newFragmentShader, AV.gl.COMPILE_STATUS)) {
+    AV.gl.detachShader(AV.program, AV.fragmentShader);
+    AV.gl.deleteShader(AV.fragmentShader);
+    AV.fragmentShader = newFragmentShader;
+    AV.gl.attachShader(AV.program, AV.fragmentShader);
+    AV.gl.linkProgram(AV.program);
+    if (!AV.gl.getProgramParameter(AV.program, AV.gl.LINK_STATUS)) {
+      error.innerHTML = AV.gl.getProgramInfoLog(AV.program);
+      AV.gl.deleteProgram(AV.program);
+    }
+    AV.gl.useProgram(AV.program);
+    var rUniformLocation = AV.gl.getUniformLocation(AV.program, "r");
+    AV.tUniformLocation = AV.gl.getUniformLocation(AV.program, "t");
+    AV.gl.uniform1f(AV.tUniformLocation, 0);
+    AV.gl.uniform1f(rUniformLocation, AV.canvas.width);
+  } else {
+    error.innerHTML = AV.gl.getShaderInfoLog(newFragmentShader);
+    AV.gl.deleteShader(newFragmentShader);
+  }
+}
+
+window.onclick = () => {
+  if (AV.start!=true) {
+    AV.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    AV.audioSrc = AV.audioContext.createMediaElementSource(AV.audio);
+    AV.analyser = AV.audioContext.createAnalyser();
+    AV.audioSrc.connect(AV.analyser);
+    AV.analyser.connect(AV.audioContext.destination);
+    AV.bufferLength = AV.analyser.frequencyBinCount;
+    AV.dataArray = new Uint8Array(AV.bufferLength);
+
+    AV.vertexShader = AV.gl.createShader(AV.gl.VERTEX_SHADER);
+    AV.gl.shaderSource(AV.vertexShader, AV.vertexShaderSource);
+    AV.gl.compileShader(AV.vertexShader);
+
+    AV.fragmentShader = AV.gl.createShader(AV.gl.FRAGMENT_SHADER);
+    AV.gl.shaderSource(AV.fragmentShader, AV.fragmentShaderSource.replace("/*--glsl--*/",input.value));
+    AV.gl.compileShader(AV.fragmentShader);
+
+    AV.program = AV.gl.createProgram();
+    AV.gl.attachShader(AV.program, AV.vertexShader);
+    AV.gl.attachShader(AV.program, AV.fragmentShader);
+    AV.gl.linkProgram(AV.program);
+
+    if (!AV.gl.getProgramParameter(AV.program, AV.gl.LINK_STATUS)) {
+      error.innerHTML = (`fs : ${AV.gl.getShaderInfoLog(AV.fragmentShader)}`);
+      AV.gl.deleteProgram(AV.program);
+    }
+    AV.gl.useProgram(AV.program);
+
+    var positionAttributeLocation = AV.gl.getAttribLocation(AV.program, "a_position");
+    AV.gl.enableVertexAttribArray(positionAttributeLocation);
+
+    var positionBuffer = AV.gl.createBuffer();
+    AV.gl.bindBuffer(AV.gl.ARRAY_BUFFER, positionBuffer);
+    AV.gl.bufferData(AV.gl.ARRAY_BUFFER, new Float32Array([
+      -1,  1,
+      1,  1,
+      -1, -1,
+      1, -1,
+    ]), AV.gl.STATIC_DRAW);
+
+    AV.gl.vertexAttribPointer(positionAttributeLocation, 2, AV.gl.FLOAT, false, 0, 0);
+
+    var rUniformLocation = AV.gl.getUniformLocation(AV.program, "r");
+    AV.gl.uniform1f(rUniformLocation, AV.canvas.width);
+    AV.tUniformLocation = AV.gl.getUniformLocation(AV.program, "t");
+
+    const texture = AV.gl.createTexture();
+    AV.gl.bindTexture(AV.gl.TEXTURE_2D, texture);
+    AV.gl.texParameteri(AV.gl.TEXTURE_2D, AV.gl.TEXTURE_WRAP_S, AV.gl.CLAMP_TO_EDGE);
+    AV.gl.texParameteri(AV.gl.TEXTURE_2D, AV.gl.TEXTURE_MIN_FILTER, AV.gl.NEAREST);
+    AV.gl.texParameteri(AV.gl.TEXTURE_2D, AV.gl.TEXTURE_MAG_FILTER, AV.gl.NEAREST);
+    var sUniformLocation = AV.gl.getUniformLocation(AV.program, "music");
+    AV.gl.activeTexture(AV.gl.TEXTURE0);
+    AV.gl.uniform1i(sUniformLocation, 0);
+
+    var update = (t) => {
+      t &= Number.MAX_SAFE_INTEGER;
+      AV.gl.uniform1f(AV.tUniformLocation, t / 1000);
+      AV.analyser.getByteFrequencyData(AV.dataArray);
+      AV.gl.texImage2D(AV.gl.TEXTURE_2D,0,AV.gl.ALPHA,1024,1,0,AV.gl.ALPHA,AV.gl.UNSIGNED_BYTE,AV.dataArray)
+      AV.gl.drawArrays(AV.gl.TRIANGLE_STRIP, 0, 4);
+      requestAnimationFrame(update);
+    };
+    update();
+    input.addEventListener("input",()=>{
+      updateShader(AV.fragmentShaderSource.replace("/*--glsl--*/",input.value));
+      //localStorage.setItem("Nxrix.AV",input.value);
+    });
+    AV.start = true;
+  }
+}
+</script>
+</html>
