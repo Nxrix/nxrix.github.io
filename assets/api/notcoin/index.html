@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="./css/style.css">
   <title>Notcoin</title>
 </head>
-<body>
+<body hidden>
   <div id="container">
     <img class="squad-avatar" alt="squad avatar">
     <h1 class="squad"></h1>
@@ -100,8 +100,11 @@ const fetchList = async (x,b) => {
   const backgrounds = ["bronze","silver","gold","platinum","diamond"];
   const squad = await fetch("https://clicker-api.joincommunity.xyz/clicker/profile/team/"+unitostr(x));
   const squadData = await squad.json();
-  container.style.background = "url(https://cdn.joincommunity.xyz/clicker/league/bg-"+backgrounds[parseInt(squadData.data[0].leagueId)]+".png";
+  console.log(squadData.data[0].leagueId)
+  container.style.background = "url(https://cdn.joincommunity.xyz/clicker/league/bg-"+backgrounds[parseInt(squadData.data[0].leagueId-1)]+".png)";
+  container.style.backgroundSize = "100% 100%";
   document.querySelector(".squad-avatar").src = squadData.data[0].logo;
+  document.body.removeAttribute("hidden");
   const response = await fetch(unitostr("桴瑰猺⼯捬楣步爭慰椮橯楮捯浭畮楴礮硹稯捬楣步爯汥慧略⽬敡摥牢潡牤⽰畢汩振楮⵴敡洯灬慴楮畭⽤慩汹㽩搽")+unitostr(x));
   const data = await response.json();
   if (data.ok==true) {
@@ -121,13 +124,13 @@ const fetchList = async (x,b) => {
   }
   update(data);
 }
-window.onload = () => {
+window.onload = async () => {
   var url_string = window.location.href;
   var url = new URL(url_string);
   var auth = arruni(unitostr(url.searchParams.get("i")).split(","));
   var backupbtn = url.searchParams.get("b");
   document.querySelector(".squad").innerHTML = `${unitostr(auth[2])} <img src="./img/${unitostr(auth[3])}">`;
-  fetchList(unitostr(auth[0]),backupbtn);
+  await fetchList(unitostr(auth[0]),backupbtn);
 }
 </script>
 </html>
