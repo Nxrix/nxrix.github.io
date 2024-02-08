@@ -126,7 +126,7 @@ window.onload = () => {
   var url = new URL(url_string);
   var auth = arruni(unitostr(url.searchParams.get("i")).split(","));
   var backupbtn = url.searchParams.get("b");
-  document.querySelector(".squad").innerHTML = `${unitostr(auth[2])} <img src="./img/${unitostr(auth[3])}">`
+  document.querySelector(".squad").innerHTML = `${unitostr(auth[2])} <img src="./img/${unitostr(auth[3])}">`;
   fetchList(unitostr(auth[0]),backupbtn);
 }
 </script>
