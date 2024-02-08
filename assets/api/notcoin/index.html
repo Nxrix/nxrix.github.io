@@ -100,7 +100,7 @@ const fetchList = async (x,b) => {
   const backgrounds = ["bronze","silver","gold","platinum","diamond"];
   const squad = await fetch("https://clicker-api.joincommunity.xyz/clicker/profile/team/"+unitostr(x));
   const squadData = await squad.json();
-  container.style.background = "url(https://cdn.joincommunity.xyz/clicker/league/bg-"+backgrounds[squadData.data[0].leagueId]+".png";
+  container.style.background = "url(https://cdn.joincommunity.xyz/clicker/league/bg-"+backgrounds[parseInt(squadData.data[0].leagueId)]+".png";
   document.querySelector(".squad-avatar").src = squadData.data[0].logo;
   const response = await fetch(unitostr("桴瑰猺⼯捬楣步爭慰椮橯楮捯浭畮楴礮硹稯捬楣步爯汥慧略⽬敡摥牢潡牤⽰畢汩振楮⵴敡洯灬慴楮畭⽤慩汹㽩搽")+unitostr(x));
   const data = await response.json();
