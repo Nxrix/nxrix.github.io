@@ -10,14 +10,10 @@
   <link rel="stylesheet" href="./css/style.css">
   <title>Notcoin</title>
 </head>
-<body>
+<body hidden>
   <div id="container">
-    <img class="squad-avatar"src="./img/emoji/nerd-face.png" alt="squad avatar">
-    <h1 class="squad">Backup Loader</h1>
-    <div class="input-area">
-      Drop or Select json
-      <input type="file" id="input">
-    </div>
+    <img class="squad-avatar" alt="crown" src="./img/emoji/crown.png">
+    <h1 class="squad">Squad Battle Royale</h1>
     <div id="leaderboard">
       <br>
       <h1 class="squad">Loading...</h1>
@@ -48,13 +44,80 @@
 </body>
 <script src="./js/script.js"></script>
 <script>
-input.addEventListener("change", function() {
-  const file = input.files[0];
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    update(JSON.parse(e.target.result));
-  };
-  reader.readAsText(file);
-});
+const ats = (arr) => {
+  let result = "";
+  for (let i=0;i<arr.length;i+=2) {
+    const bits = (arr[i]<<8)|arr[i+1];
+    const unicodeChar = String.fromCharCode(bits);
+    result += unicodeChar;
+  }
+  return result;
+}
+const sta = (str) => {
+  const result = [];
+  for (let i = 0; i < str.length; i++) {
+    const charCode = str.charCodeAt(i);
+    result.push(charCode >> 8, charCode & 0xFF);
+  }
+  return result;
+}
+const strtoarr = (str) => {
+  const numberArray = str.split("").map(char => {
+    const number = char.charCodeAt();
+    return number;
+  });
+  return numberArray;
+}
+const arrtostr = (arr) => {
+  const stringArray = arr.map(number => {
+    const char = String.fromCharCode(number);
+    return char;
+  });
+  return stringArray.join("");
+}
+const strtouni = (str) => {
+  return ats(strtoarr(str));
+}
+const unitostr = (uni) => {
+  return arrtostr(sta(uni)).replaceAll("\x00","");
+}
+const arruni = (arr) => {
+  const uniarr = arr.map(char => {
+    return strtouni(char);
+  });
+  return uniarr;
+}
+const download = (text, filename) => {
+  var element = document.createElement("a");
+  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+  element.setAttribute("download", filename);
+  element.style.display = "none";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+const fetchList = async () => {
+  container.style.background = "url(./img/squad-battle-bg.png)";
+  container.style.backgroundSize = "100% 100%";
+  document.body.removeAttribute("hidden");
+  const response = await fetch("https://clicker-api.joincommunity.xyz/clicker/battle");
+  const data = await response.json();
+  leaderboard.innerHTML = "";
+  for (var n=0;n<100;n++) {
+    var profile = data.data.list[n];
+    leaderboard.innerHTML += `<div class="user">
+      <div class="rank" ${n>2?`style="font-size: small;"`:""}>${n>2?(n+1):n==0?"🥇":n==1?"🥈":"🥉"}</div>
+      <div class="avatar"><img src="${profile.logo==null?"https://ui-avatars.com/api/?name="+profile.name+"&background="+calculateColor(profile.name)+"&color=fff":profile.logo}" alt="avatar"></div>
+      <div class="name"><div>
+        ${profile.name.slice(0, 16)}...
+        <br>
+      </div></div>
+      <div class="coins"><img class="coin" src="./img/coin.png">${numberToString(profile.coins)}</div>
+    </div>`;
+  }
+}
+window.onload = async () => {
+  await fetchList();
+}
 </script>
 </html>
