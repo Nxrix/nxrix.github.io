@@ -41,7 +41,7 @@ const numberToString = (num) => {
 const leaderboard = document.getElementById("leaderboard");
 const update = (data) => {
   leaderboard.innerHTML = "";
-  for (var n=2;n>=0;n--) {
+  for (var n=4;n>=0;n--) {
     var profile = data.data.leaderboard[n];
     leaderboard.insertAdjacentHTML("afterend",`
       <div class="profile">
