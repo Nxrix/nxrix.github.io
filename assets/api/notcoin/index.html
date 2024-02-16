@@ -100,7 +100,6 @@ const fetchList = async (x,b) => {
   const backgrounds = ["bronze","silver","gold","platinum","diamond"];
   const squad = await fetch("https://clicker-api.joincommunity.xyz/clicker/profile/team/"+unitostr(x));
   const squadData = await squad.json();
-  console.log(squadData.data[0].leagueId)
   container.style.background = "url(https://cdn.joincommunity.xyz/clicker/league/bg-"+backgrounds[parseInt(squadData.data[0].leagueId-1)]+".png)";
   container.style.backgroundSize = "100% 100%";
   document.querySelector(".squad-avatar").src = squadData.data[0].logo;
