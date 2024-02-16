@@ -51,7 +51,7 @@ const update = (data) => {
           <br>
           ${profile.user.username!=null?`<a class="link" href="https://t.me/${profile.user.username}" target="_blank">@${profile.user.username}</a>`:""}
         </div></div>
-        <img class="medal" src="./img/emoji/${n==0?"first":n==1?"second":"third"}-place-medal.png">
+        ${n<3?`<img class="medal" src="./img/emoji/${n==0?"first":n==1?"second":"third"}-place-medal.png">`:""}
         <hr>
         <div class="data">
           <div><img class="emoji" src="./img/coin.png"> Mined today: ${numberToString(profile.lcoins)}</div>
@@ -65,7 +65,7 @@ const update = (data) => {
   for (var n=0;n<100;n++) {
     var profile = data.data.leaderboard[n];
     leaderboard.innerHTML += `<div class="user">
-      <div class="rank" ${n>2?`style="font-size: small;"`:""}>${n>2?(n+1):n==0?"🥇":n==1?"🥈":n==3?"🥉":n}</div>
+      <div class="rank" ${n>2?`style="font-size: small;"`:""}>${n>2?(n+1):n==0?"🥇":n==1?"🥈":"🥉"}</div>
       <div class="avatar"><img src="${profile.avatar==null?"https://ui-avatars.com/api/?name="+profile.user.firstName+"&background="+calculateColor(profile.user.firstName)+"&color=fff":profile.avatar}" alt="avatar"></div>
       <div class="name"><div>
         ${profile.user.firstName} ${profile.user.lastName||""} ${profile.user.isPremium==true?`<img class="premium" src="./img/premium.png">`:""}
