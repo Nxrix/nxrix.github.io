@@ -264,7 +264,7 @@ ol, ul {
   height: calc(100% - 72px);
   overflow-x: hidden;
   overflow-y: hidden;
-  /*padding: 4px;*/
+  padding: 2px;
 }
 
 @media screen and (width < 425px) {
@@ -299,7 +299,7 @@ ol, ul {
 
 .body .content table {
   display: block;
-  width: 100%;
+  max-width: 100%;
   overflow: auto;
 }
 .body .content table th {
@@ -307,7 +307,7 @@ ol, ul {
 }
 .body .content table th,.body .content table td {
   padding: 6px 12px;
-  border: 1px solid var(--md-sys-color-background);
+  border: 1px solid var(--md-sys-color-surface-container);
 }
 .body .content table tr {
   background-color: var(--md-sys-color-background);
