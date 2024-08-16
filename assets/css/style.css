@@ -451,12 +451,12 @@ ol, ul {
   width: 100%;
 }
 
-.body .content .canvas_1x1 {
+.body .content .canvas {
   width: 100%;
   max-width: 300px;
 }
 
-.body .content .canvas_1x1.center {
+.body .content .canvas.center {
   margin: 0 max(calc(50% - 150px),0px);
 }
 
