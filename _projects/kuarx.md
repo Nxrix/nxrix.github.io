@@ -5,4 +5,4 @@ description: "Voxels everywhere"
 image: "krx.png"
 ---
 
-<h1>Kuarx</h1>
+# Kuarx

@@ -5,8 +5,10 @@ description: "Web based fantasy console"
 image: "px8.png"
 ---
 
-<h1>Pixel-8</h1>
+# Pixel-8
+
 A web based fantasy console inspired by Pico-8 that currently uses webgl 1 for rendering but is going to be updated with a new version that uses bitmap image format so that it will be possible to use with older devices that don't support webgl.
+
 <canvas id="canvas" class="pixelated canvas_1x1"></canvas>
 <script src="https://nxrix.github.io/pixel-8/assets/js/pixel8.js"></script>
 <script>
