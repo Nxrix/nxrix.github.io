@@ -423,8 +423,10 @@ ol, ul {
 .body .content .canvas_1x1 {
   width: 100%;
   max-width: 300px;
-  height: auto;
-  margin: 0 auto;
+  margin:
+}
+.body .content .canvas_1x1.center {
+  margin: 0 max(calc(50% - 150px),0px)
 }
 
 .footer {
