@@ -420,6 +420,12 @@ ol, ul {
   width: 100%;
 }
 
+.body .content .canvas_1x1 {
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+}
+
 .footer {
   padding: 64px 32px;
 }
