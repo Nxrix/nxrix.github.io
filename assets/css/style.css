@@ -394,7 +394,8 @@ ol, ul {
   border-radius: 24px;
   overflow: hidden;
   transition: border-radius .3s cubic-bezier(.2,0,0,1), background-color .3s cubic-bezier(.2,0,0,1);
-	text-decoration: none;
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface);
 }
 .body .content .cart_set .cart:hover {
   background-color: var(--md-sys-color-surface-dim);
