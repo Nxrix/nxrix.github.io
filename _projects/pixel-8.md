@@ -12,6 +12,16 @@ A web based fantasy console inspired by Pico-8 that currently uses webgl 1 for r
 <br>
 
 <canvas id="canvas" class="pixelated canvas_1x1"></canvas>
+
+### Specifications
+
+| **Category** | **Details**         |
+|--------------|---------------------|
+| Display      | 64, 128, ...        |
+| Palette      | 32 colors           |
+| Sprites      | string based        |
+| Map & Sound  | NA                  |
+
 <script src="https://nxrix.github.io/pixel-8/assets/js/pixel8.js"></script>
 <script>
 rgb = (r,g,b) => {
