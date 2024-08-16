@@ -69,10 +69,10 @@
   background-color: #0000;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: var(--md-sys-color-on-surface);
+  background-color: #1d1a2455;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--md-sys-color-inverse-surface);
+  background-color: #1d1a2477;
 }
 ::-webkit-scrollbar-corner {
   background-color: #0000;
@@ -308,6 +308,8 @@ ol, ul {
   outline: 2px;
   outline-style: solid;
   outline-color: var(--md-sys-color-surface-dim);
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 .body .content table th, .body .content table td {
   padding: 16px 32px;
