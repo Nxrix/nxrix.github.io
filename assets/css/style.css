@@ -307,7 +307,7 @@ ol, ul {
   border-radius: 5px;
 }
 .body .content table thead, .body .content table tbody {
-  border-radius: 3px;
+  border-radius: 4px;
 }
 .body .content table th, .body .content table td {
   padding: 16px 32px;
