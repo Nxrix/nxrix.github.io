@@ -305,7 +305,9 @@ ol, ul {
   border-spacing: 0px;
   border-collapse:separate;
   border-radius: 16px;
-  border: 2px solid var(--md-sys-color-surface-dim);
+  outline: 2px;
+  outline-style: solid;
+  outline-color: var(--md-sys-color-surface-dim);
 }
 .body .content table th, .body .content table td {
   padding: 16px 32px;
