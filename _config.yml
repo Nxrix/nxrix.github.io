@@ -10,6 +10,7 @@ url: "http://nxrix.github.io"
 twitter_username: ZNxrix
 github_username:  Nxrix
 theme: null
+permalink: pretty
 collections:
   projects:
     output: true
