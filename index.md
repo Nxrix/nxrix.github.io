@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Kuarx"
-description: "Voxels everywhere"
+title: "Main"
+description: ""
 image: "krx.png"
 ---
 
