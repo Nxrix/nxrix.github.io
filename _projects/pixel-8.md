@@ -13,6 +13,8 @@ A web based fantasy console inspired by Pico-8 that currently uses webgl 1 for r
 
 <canvas id="canvas" class="pixelated canvas_1x1"></canvas>
 
+<br>
+
 ### Specifications
 
 | **Category** | **Details**         |

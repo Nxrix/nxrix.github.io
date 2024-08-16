@@ -62,8 +62,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
 }
 ::-webkit-scrollbar-track {
   background: #0000;
@@ -301,13 +301,17 @@ ol, ul {
   display: block;
   max-width: 100%;
   overflow: auto;
+  font-size: 0;
 }
 .body .content table th {
   font-weight: 600;
 }
-.body .content table th,.body .content table td {
+.body .content table th, .body .content table td, .body .content table tr {
+  font-size: 0;
+}
+.body .content table th, .body .content table td {
   padding: 6px 12px;
-  border: 1px solid var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-surface-container-high);
 }
 .body .content table tr {
   background-color: var(--md-sys-color-background);
