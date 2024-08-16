@@ -305,6 +305,9 @@ ol, ul {
   border: 1px solid var(--md-sys-color-surface-dim);
   border-spacing: 0;
 }
+.body .content table thead {
+  background-color: var(--md-sys-color-surface-container);
+}
 .body .content table th {
   font-weight: 600;
 }
