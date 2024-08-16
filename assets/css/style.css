@@ -301,6 +301,7 @@ ol, ul {
   display: block;
   max-width: 100%;
   overflow: auto;
+  border: 1px solid var(--md-sys-color-surface-dim);
   border-spacing: 0;
 }
 .body .content table th {
@@ -308,11 +309,11 @@ ol, ul {
 }
 .body .content table th, .body .content table td {
   padding: 6px 12px;
-  border: 1px solid var(--md-sys-color-surface-container-high);
+  border: 1px solid var(--md-sys-color-surface-dim);
 }
 .body .content table tr {
   background-color: var(--md-sys-color-background);
-  border-top: 1px solid var(--md-sys-color-surface-container);
+  border-top: 1px solid var(--md-sys-color-surface-dim);
 }
 .body .content table tr:nth-child(2n) {
   background-color: var(--md-sys-color-background)
