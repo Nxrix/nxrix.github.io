@@ -306,8 +306,10 @@ ol, ul {
   border-spacing: 1px;
   border-radius: 5px;
 }
-.body .content table th, .body .content table td {
+.body .content table thead, .body .content table tbody {
   border-radius: 3px;
+}
+.body .content table th, .body .content table td {
   padding: 16px 32px;
 }
 .body .content table th {
