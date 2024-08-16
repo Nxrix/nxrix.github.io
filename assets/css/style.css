@@ -299,6 +299,7 @@ ol, ul {
 
 .body .content table {
   display: block;
+  width: auto;
   max-width: 100%;
   overflow: auto;
   border: 1px solid var(--md-sys-color-surface-dim);
