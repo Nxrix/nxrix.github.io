@@ -303,13 +303,17 @@ ol, ul {
   max-width: 100%;
   overflow: auto;
   border-spacing: 0px;
-  border-collapse:separate;
+  border-collapse: separate;
   border-radius: 16px;
   outline: 2px;
   outline-style: solid;
   outline-color: var(--md-sys-color-surface-dim);
   overflow-wrap: normal;
   word-break: keep-all;
+}
+.body .content table thead, .body .content table tbody {
+	width: fit-content;
+  height: fit-content;
 }
 .body .content table th, .body .content table td {
   padding: 16px 32px;
