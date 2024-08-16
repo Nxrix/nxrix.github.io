@@ -1,3 +1,14 @@
+title: Nxrix
+email: nxrixz@gmail.com
+description: >
+  Hello World
+
+baseurl: ""
+
+url: "http://nxrix.github.io"
+
+twitter_username: ZNxrix
+github_username:  Nxrix
 theme: null
 collections:
   projects:
