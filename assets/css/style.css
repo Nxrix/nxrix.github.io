@@ -307,7 +307,7 @@ ol, ul {
   font-weight: 600;
 }
 .body .content table th, .body .content table td, .body .content table tr {
-  font-size: 0;
+  font-size: 16px;
 }
 .body .content table th, .body .content table td {
   padding: 6px 12px;
