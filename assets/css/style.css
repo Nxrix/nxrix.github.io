@@ -298,29 +298,22 @@ ol, ul {
 }
 
 .body .content table {
+  background-color: var(--md-sys-color-surface-dim);
   display: block;
   width: fit-content;
   max-width: 100%;
   overflow: auto;
   border: 1px solid var(--md-sys-color-surface-dim);
-  border-spacing: 0;
+  border-spacing: 1px;
 }
-.body .content table thead {
+.body .content table thead th {
   background-color: var(--md-sys-color-surface-container);
 }
-.body .content table th {
-  font-weight: 600;
+.body .content table tbody th {
+  background-color: var(--md-sys-color-background);
 }
 .body .content table th, .body .content table td {
   padding: 12px 24px;
-  border: 1px solid var(--md-sys-color-surface-dim);
-}
-.body .content table tr {
-  background-color: var(--md-sys-color-background);
-  border-top: 1px solid var(--md-sys-color-surface-dim);
-}
-.body .content table tr:nth-child(2n) {
-  background-color: var(--md-sys-color-background)
 }
 .body .content table img {
   background-color: transparent;
