@@ -303,17 +303,18 @@ ol, ul {
   width: fit-content;
   max-width: 100%;
   overflow: auto;
-  border: 1px solid var(--md-sys-color-surface-dim);
   border-spacing: 1px;
-}
-.body .content table thead th {
-  background-color: var(--md-sys-color-surface-container);
-}
-.body .content table tbody th {
-  background-color: var(--md-sys-color-background);
+  border-radius: 5px;
 }
 .body .content table th, .body .content table td {
-  padding: 12px 24px;
+  border-radius: 3px;
+  padding: 16px 32px;
+}
+.body .content table th {
+  background-color: var(--md-sys-color-surface-container);
+}
+.body .content table td {
+  background-color: var(--md-sys-color-background);
 }
 .body .content table img {
   background-color: transparent;
