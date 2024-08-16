@@ -421,9 +421,10 @@ ol, ul {
 }
 
 .body .content .canvas_1x1 {
-  width: 50%;
+  width: 100%;
+  max-width: 300px;
   height: auto;
-  margin: 0 25%;
+  margin: 0 auto;
 }
 
 .footer {
