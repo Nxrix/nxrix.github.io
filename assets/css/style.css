@@ -145,7 +145,7 @@ ol, ul {
 }
 .pixelated {
   image-rendering: optimizeSpeed;
-	image-rendering: -moz-crisp-edges;
+  image-rendering: -moz-crisp-edges;
 	image-rendering: -webkit-optimize-contrast;
 	image-rendering: optimize-contrast;
   image-rendering: pixelated;
@@ -264,7 +264,7 @@ ol, ul {
   height: calc(100% - 72px);
   overflow-x: hidden;
   overflow-y: hidden;
-  padding: 4px;
+  /*padding: 4px;*/
 }
 
 @media screen and (width < 425px) {
