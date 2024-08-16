@@ -1,1 +1,4 @@
 theme: null
+collections:
+  projects:
+    output: true
