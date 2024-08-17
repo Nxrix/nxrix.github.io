@@ -451,7 +451,6 @@ ol, ul {
 .body .content .cart_set .cart .content .description {
   font-size: 14px;
 }
-
 .body .content .cart_set .cart img {
   width: 100%;
 }
@@ -460,12 +459,11 @@ ol, ul {
   width: 100%;
   max-width: 300px;
 }
-
 .body .content .canvas.center {
   margin: 0 max(calc(50% - 150px),0px);
 }
+
 .body .content .highlighter-rouge {
-  font-family: "mono";
   width: fit-content;
   max-width: 100%;
   border: 2px solid var(--md-sys-color-surface-dim);
@@ -474,6 +472,9 @@ ol, ul {
 }
 .body .content .highlighter-rouge div {
   padding: 16px;
+}
+.body .content code {
+  font-family: "mono";
 }
 
 .footer {
