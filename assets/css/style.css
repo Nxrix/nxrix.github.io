@@ -464,6 +464,13 @@ ol, ul {
 .body .content .canvas.center {
   margin: 0 max(calc(50% - 150px),0px);
 }
+.body .content .highlight {
+  width: fit-content;
+  max-width: 100%;
+  border: 2px solid var(--md-sys-color-surface-dim);
+  padding: 8px;
+  border-radius: 8px;
+}
 
 .footer {
   padding: 64px 32px;
