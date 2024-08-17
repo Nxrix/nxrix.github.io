@@ -464,12 +464,16 @@ ol, ul {
 .body .content .canvas.center {
   margin: 0 max(calc(50% - 150px),0px);
 }
-.body .content .highlight {
+.body .content .highlight div {
+  font-family: "mono";
   width: fit-content;
   max-width: 100%;
   border: 2px solid var(--md-sys-color-surface-dim);
-  padding: 8px;
   border-radius: 8px;
+  overflow: auto;
+}
+.body .content .highlight pre {
+  padding: 8px;
 }
 
 .footer {
