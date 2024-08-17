@@ -464,7 +464,7 @@ ol, ul {
 .body .content .canvas.center {
   margin: 0 max(calc(50% - 150px),0px);
 }
-.body .content .highlight div {
+.body .content .highlighter-rouge {
   font-family: "mono";
   width: fit-content;
   max-width: 100%;
@@ -472,7 +472,7 @@ ol, ul {
   border-radius: 8px;
   overflow: auto;
 }
-.body .content .highlight pre {
+.body .content highlighter-rouge pre {
   padding: 8px;
 }
 
