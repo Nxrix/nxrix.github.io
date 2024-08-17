@@ -24,9 +24,35 @@ A web based fantasy console inspired by Pico-8 that currently uses webgl 1 for r
 | Sprites      | string based        |
 | Map & Sound  | NA                  |
 
+### Structure
+
+```javascript
+pixel8 = {
+    canvas: {
+        width,
+        height,
+        ..
+    },
+    gl,
+    palette: [
+        [0x1d, 0x18, 0x26],
+        ..
+    ],
+    bayer4x4: [
+        [0, 8, 2, 10],
+        ..
+    ],
+    bayer8x8: [
+        [0, 32,  8, 40,  2, 34, 10, 42],
+        ..
+    ],
+    screenBuffer: array containing pixel values
+    pset: main function used in all parts of drawing
+}```
+
 <script src="https://nxrix.github.io/pixel-8/assets/js/pixel8.js"></script>
 <script>
-rgb = (r,g,b) => {
+const rgb = (r,g,b) => {
   let min = Infinity;
   let n = -1;
   for (let i = 0; i < pixel8.palette.length; i++) {
@@ -43,7 +69,7 @@ rgb = (r,g,b) => {
   }
   return n;
 }
-rndascii = () => {
+const rndascii = () => {
   const min = 32;
   const max = 126;
   const l = Math.random()*16+16;
