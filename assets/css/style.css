@@ -486,6 +486,9 @@ ol, ul {
   color: #e959ff;
 }
 .body .content code span.se {
+  color: #de1b45;
+}
+.body .content code span.sr {
   color: #a01a3d;
 }
 .body .content code span.o {
