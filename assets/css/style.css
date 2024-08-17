@@ -472,7 +472,7 @@ ol, ul {
   border-radius: 8px;
   overflow: auto;
 }
-.body .content highlighter-rouge pre {
+.body .content .highlighter-rouge div {
   padding: 8px;
 }
 
