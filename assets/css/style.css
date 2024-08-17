@@ -473,7 +473,7 @@ ol, ul {
   overflow: auto;
 }
 .body .content .highlighter-rouge div {
-  padding: 8px;
+  padding: 16px;
 }
 
 .footer {
