@@ -48,7 +48,8 @@ pixel8 = {
     ],
     screenBuffer: array containing pixel values
     pset: main function used in all parts of drawing
-}```
+}
+```
 
 <script src="https://nxrix.github.io/pixel-8/assets/js/pixel8.js"></script>
 <script>
