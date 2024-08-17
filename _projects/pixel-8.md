@@ -28,26 +28,26 @@ A web based fantasy console inspired by Pico-8 that currently uses webgl 1 for r
 
 ```javascript
 pixel8 = {
-    canvas: {
-        width,
-        height,
-        ..
-    },
-    gl,
-    palette: [
-        [0x1d, 0x18, 0x26],
-        ..
-    ],
-    bayer4x4: [
-        [0, 8, 2, 10],
-        ..
-    ],
-    bayer8x8: [
-        [0, 32,  8, 40,  2, 34, 10, 42],
-        ..
-    ],
-    screenBuffer: array containing pixel values
-    pset: main function used in all parts of drawing
+  canvas: {
+    width,
+    height,
+    ..
+  },
+  gl,
+  palette: [
+    [0x1d,0x18,0x26],
+    ..
+  ],
+  bayer4x4: [
+    [0,8,2,10],
+    ..
+  ],
+  bayer8x8: [
+    [0,32,8,40,2,34,10,42],
+    ..
+  ],
+  screenBuffer: array containing pixel values
+  pset: main function used in all parts of drawing
 }
 ```
 
