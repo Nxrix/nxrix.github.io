@@ -473,6 +473,8 @@ ol, ul {
 .body .content .highlighter-rouge div {
   width: fit-content;
   height: fit-content;
+}
+.body .content .highlighter-rouge pre {
   margin: 16px;
 }
 .body .content code {
