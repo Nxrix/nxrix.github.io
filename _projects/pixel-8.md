@@ -57,6 +57,8 @@ pixel8 = {
 
 ### API
 
+<br>
+
 `cls(c)`: Set all screen pixels to color `c`.
 
 <br>
