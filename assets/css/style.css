@@ -455,12 +455,19 @@ ol, ul {
   width: 100%;
 }
 
-.body .content .canvas {
+.body .content .canvas_1x1 {
   width: 100%;
   max-width: 300px;
 }
-.body .content .canvas.center {
+.body .content .canvas_1x1.center {
   margin: 0 max(calc(50% - 150px),0px);
+}
+.body .content .canvas_4x3 {
+  width: 100%;
+  max-width: 600px;
+}
+.body .content .canvas_4x3.center {
+  margin: 0 max(calc(50% - 300px),0px);
 }
 
 .body .content .highlighter-rouge {
