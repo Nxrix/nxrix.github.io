@@ -10,8 +10,10 @@ image: "krx.png"
 A Voxel Engine that works on top of ThreeJS with a few other things for my own use
 <canvas id="canvas" class="canvas_4x3 pixelated"></canvas>
 <img src="./img/misc/screenshots/kuarx-vx6-alpha.png" class="center">
+
 <script src="./js/three.min.js"></script>
 <script src="./js/kuarx-alpha.js"></script>
+
 <script>
 kuarx.init(canvas,400,300,2,60,0.125,1024);
 kuarx.camera.resize = () => {
