@@ -24,6 +24,8 @@ A web based fantasy console inspired by Pico-8 that currently uses webgl 1 for r
 | Sprites      | string based        |
 | Map & Sound  | NA                  |
 
+<br>
+
 ### Structure
 
 ```javascript
@@ -50,6 +52,42 @@ pixel8 = {
   pset: main function used in all parts of drawing
 }
 ```
+
+<br>
+
+### API
+
+`cls(c)`: Set all screen pixels to color `c`.
+
+`pset(x, y, c)`: Set color `c` at `[x, y]`.
+
+`pget(x, y)`: Get color at `[x, y]`.
+
+`camera(x, y)`: Move camera to `[x, y]`. Can be reset using `camera()`.
+
+`clip(x0, y0, x1, y1)`: Limit drawing to `[x0, y0]` to `[x1, y1]`. Can be reset using `clip()`.
+
+`fillp(p, c)`: Set a pattern applied to all drawings. `p` is a number that has 16 bits and each 4x4 area gets the same pattern. `c` is the pattern's base color. If `c` is less than 0, the pattern color will be transparent. Pattern can be reset using `fillp()`.
+
+`palt(c, t)`: Set color `c` to be transparent or not. `t` can be boolean or 0-1. Can be reset using `palt()`.
+
+`line(x0, y0, x1, y1, c)`: Draw a line from `[x0, y0]` to `[x1, y1]` with color `c`.
+
+`rect(x0, y0, x1, y1, c)`: Draw a rectangle from `[x0, y0]` to `[x1, y1]` with color `c`.
+
+`rectfill(x0, y0, x1, y1, c)`: Draw a filled rectangle from `[x0, y0]` to `[x1, y1]` with color `c`.
+
+`circ(x, y, r, c)`: Draw a circle with radius `r` at `[x, y]` with color `c`.
+
+`circfill(x, y, r, c)`: Draw a filled circle with radius `r` at `[x, y]` with color `c`.
+
+`tri(x0, y0, x1, y1, x2, y2, c)`: Draw a triangle with vertices at `[x0, y0]`, `[x1, y1]`, and `[x2, y2]` with color `c`.
+
+`trifill(x0, y0, x1, y1, x2, y2, c)`: Draw a filled triangle with vertices at `[x0, y0]`, `[x1, y1]`, and `[x2, y2]` with color `c`.
+
+`sspr(s, x, y, w, h)`: Draw sprite `s` at `[x, y]` with width `w` and height `h`. The sprite should be exported using PNG to [sprite tool](../Pixel-8/img2str).
+
+`print(t, x, y, c)`: Print string `t` at `[x, y]` with color `c`.
 
 <script src="https://nxrix.github.io/pixel-8/assets/js/pixel8.js"></script>
 <script>
