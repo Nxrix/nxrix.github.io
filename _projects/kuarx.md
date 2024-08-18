@@ -8,8 +8,9 @@ image: "krx.png"
 ## Kuarx
 
 A Voxel Engine that works on top of ThreeJS with a few other things for my own use
-<canvas id="canvas" class="canvas_4x3 pixelated center"></canvas>
-<img src="./img/misc/screenshots/kuarx-vx6-alpha.png" class="center">
+
+<canvas id="canvas" class="canvas_4x3 pixelated center" style="border-radius:16px;"></canvas>
+<!--img src="./img/misc/screenshots/kuarx-vx6-alpha.png" class="center"-->
 
 <script src="./js/three.min.js"></script>
 <script src="./js/kuarx-alpha.js"></script>
