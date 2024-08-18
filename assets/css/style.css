@@ -305,7 +305,7 @@ ol, ul {
   max-width: 100%;
   overflow: auto;
   border-spacing: 0px;
-  outline: 2px;
+  outline: 1px;
   outline-style: solid;
   outline-color: var(--md-sys-color-surface-dim);
   overflow-wrap: normal;
@@ -317,12 +317,12 @@ ol, ul {
 }
 .body .content table th {
   background-color: var(--md-sys-color-surface-container);
-  border-left: 2px solid var(--md-sys-color-surface-dim);
+  border-left: 1px solid var(--md-sys-color-surface-dim);
 }
 .body .content table td {
   background-color: var(--md-sys-color-background);
-  border-left: 2px solid var(--md-sys-color-surface-dim);
-  border-top: 2px solid var(--md-sys-color-surface-dim);
+  border-left: 1px solid var(--md-sys-color-surface-dim);
+  border-top: 1px solid var(--md-sys-color-surface-dim);
 }
 .body .content table td:first-child, .body .content table th:first-child {
   border-left: none;
@@ -473,7 +473,7 @@ ol, ul {
 .body .content .highlighter-rouge {
   width: fit-content;
   max-width: 100%;
-  border: 2px solid var(--md-sys-color-surface-dim);
+  border: 1px solid var(--md-sys-color-surface-dim);
   border-radius: 8px;
   overflow: auto;
 }
