@@ -59,33 +59,63 @@ pixel8 = {
 
 `cls(c)`: Set all screen pixels to color `c`.
 
+<br>
+
 `pset(x, y, c)`: Set color `c` at `[x, y]`.
+
+<br>
 
 `pget(x, y)`: Get color at `[x, y]`.
 
+<br>
+
 `camera(x, y)`: Move camera to `[x, y]`. Can be reset using `camera()`.
+
+<br>
 
 `clip(x0, y0, x1, y1)`: Limit drawing to `[x0, y0]` to `[x1, y1]`. Can be reset using `clip()`.
 
+<br>
+
 `fillp(p, c)`: Set a pattern applied to all drawings. `p` is a number that has 16 bits and each 4x4 area gets the same pattern. `c` is the pattern's base color. If `c` is less than 0, the pattern color will be transparent. Pattern can be reset using `fillp()`.
+
+<br>
 
 `palt(c, t)`: Set color `c` to be transparent or not. `t` can be boolean or 0-1. Can be reset using `palt()`.
 
+<br>
+
 `line(x0, y0, x1, y1, c)`: Draw a line from `[x0, y0]` to `[x1, y1]` with color `c`.
+
+<br>
 
 `rect(x0, y0, x1, y1, c)`: Draw a rectangle from `[x0, y0]` to `[x1, y1]` with color `c`.
 
+<br>
+
 `rectfill(x0, y0, x1, y1, c)`: Draw a filled rectangle from `[x0, y0]` to `[x1, y1]` with color `c`.
+
+<br>
 
 `circ(x, y, r, c)`: Draw a circle with radius `r` at `[x, y]` with color `c`.
 
+<br>
+
 `circfill(x, y, r, c)`: Draw a filled circle with radius `r` at `[x, y]` with color `c`.
+
+<br>
 
 `tri(x0, y0, x1, y1, x2, y2, c)`: Draw a triangle with vertices at `[x0, y0]`, `[x1, y1]`, and `[x2, y2]` with color `c`.
 
+<br>
+
 `trifill(x0, y0, x1, y1, x2, y2, c)`: Draw a filled triangle with vertices at `[x0, y0]`, `[x1, y1]`, and `[x2, y2]` with color `c`.
 
-`sspr(s, x, y, w, h)`: Draw sprite `s` at `[x, y]` with width `w` and height `h`. The sprite should be exported using PNG to [sprite tool](../Pixel-8/img2str).
+<br>
+
+`sspr(s, x, y, w, h)`: Draw sprite `s` at `[x, y]` with width `w` and height `h`. The sprite should be exported using PNG to [sprite tool](../soon/).
+
+<br>
 
 `print(t, x, y, c)`: Print string `t` at `[x, y]` with color `c`.
 
