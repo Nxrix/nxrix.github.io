@@ -11,16 +11,16 @@ A Voxel Engine that works on top of ThreeJS with a few other things for my own u
 
 <br>
 
-<canvas id="canvas" class="canvas_4x3 pixelated center" style="border-radius:16px;"></canvas>
+<canvas id="canvas" width="600" height="450" class="canvas_4x3 pixelated center" style="border-radius:16px;"></canvas>
 <!--img src="./img/misc/screenshots/kuarx-vx6-alpha.png" class="center"-->
 
 <script src="./js/three.min.js"></script>
 <script src="./js/kuarx-alpha.js"></script>
 
 <script>
-kuarx.init(canvas,600,450,1,60,0.125,1024);
+kuarx.init(canvas,1,60,0.125,1024);
 kuarx.camera.resize = () => {
-  kuarx.renderer.setSize(600,450);
+  //kuarx.renderer.setSize(600,450);
   kuarx.camera.aspect = 4/3;
   kuarx.camera.zoom = kuarx.camera.aspect<=1?kuarx.camera.aspect:1;
   kuarx.camera.updateProjectionMatrix();
