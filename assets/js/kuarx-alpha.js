@@ -152,12 +152,12 @@ kuarx.findboxdist = (s,f) => {
   return s/2/(Math.tan(f*(Math.PI/180)/2))+s/2;
 }
 
-kuarx.init = (canvas,width,height,dpr,fov,near,far,aa=false) => {
+kuarx.init = (canvas,dpr,fov,near,far,aa=false) => {
   kuarx.canvas = canvas;
   kuarx.context = canvas.getContext("webgl",{antialias: aa,preserveDrawingBuffer:true});
 
   kuarx.renderer = new THREE.WebGLRenderer({canvas:kuarx.canvas,context:kuarx.context});
-  kuarx.renderer.setSize(width,height);
+  //kuarx.renderer.setSize(width,height);
   kuarx.renderer.setPixelRatio(dpr);
   kuarx.renderer.outputColorSpace  = THREE.LinearSRGBColorSpace;
 
