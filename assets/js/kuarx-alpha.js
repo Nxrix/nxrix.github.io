@@ -161,6 +161,6 @@ kuarx.init = (canvas,dpr,fov,near,far,aa=false) => {
   kuarx.renderer.setPixelRatio(dpr);
   kuarx.renderer.outputColorSpace  = THREE.LinearSRGBColorSpace;
 
-  kuarx.camera = new THREE.PerspectiveCamera(fov,window.innerWidth/window.innerHeight,near,far);
+  kuarx.camera = new THREE.PerspectiveCamera(fov,1,near,far);
   kuarx.scene = new THREE.Scene();
 }
