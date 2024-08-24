@@ -14,5 +14,5 @@ permalink: pretty
 collections:
   projects:
     output: true
-  posts:
+  pages:
     output: true
