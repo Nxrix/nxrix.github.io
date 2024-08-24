@@ -5,7 +5,6 @@ description: ""
 ---
 
 <h2>Posts</h2>
-{% if site.posts.size > 0 %}
 <div class="cart_set">
   {% for post in site.posts %}
   <a href="{{ post.url }}" class="cart">
@@ -17,6 +16,3 @@ description: ""
   </a>
   {% endfor %}
 </div>
-{% else %}
-<p style="width:100%;padding:96px 64px;font-size:32px;display:flex;justify-content:center;align-items:center;">No posts have been uploaded yet :(</p>
-{% endif %}

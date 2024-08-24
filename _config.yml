@@ -16,4 +16,3 @@ collections:
     output: true
   posts:
     output: true
-    permalink: /:collection/:name/
