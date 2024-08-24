@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Palettes"
-description: "Used palettes in various formats"
+description: "Used colors in various formats"
 image: "palette.png"
 ---
 
