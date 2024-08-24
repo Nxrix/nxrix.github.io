@@ -1,8 +1,8 @@
 ---
 layout: default
 title: "Palette"
-description: ""
+description: "Used palettes in various formats"
 image: "palette.png"
 ---
 
-#Palette
+## Palette
