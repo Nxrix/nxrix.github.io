@@ -11,7 +11,7 @@ A Voxel Engine that works on top of ThreeJS with a few other things for my own u
 
 <br>
 
-<canvas id="canvas" width="600" height="450" class="canvas_4x3 pixelated center" style="border-radius:16px;"></canvas>
+<canvas id="canvas" width="1200" height="900" class="canvas_4x3 pixelated center" style="border-radius:16px;"></canvas>
 <!--img src="./img/misc/screenshots/kuarx-vx6-alpha.png" class="center"-->
 
 <script src="./js/three.min.js"></script>
