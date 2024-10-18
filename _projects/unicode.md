@@ -23,6 +23,11 @@ image: "unicode.png"
     width: calc(100%/8);
     aspect-ratio : 1 / 1;
     box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
   }
   #table .selected {
     background: var(--md-sys-color-on-surface);
@@ -44,6 +49,11 @@ image: "unicode.png"
     padding: 2.5%;
     margin: 5% 0 0 0;
     box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
   }
   .buttons {
     width: 100%;
@@ -51,6 +61,11 @@ image: "unicode.png"
     aspect-ratio : 8 / 1;
     box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
     margin: 5% calc(50% - (300px + 10%)/2) 0 0;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
   }
   .buttons div {
     display: inline-flex;
