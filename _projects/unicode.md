@@ -59,10 +59,9 @@ image: "unicode.png"
   }
   .buttons {
     width: 100%;
-    max-width: calc(300px + 10%);
     aspect-ratio : 8 / 1;
     box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
-    margin: 5% calc(50% - (300px + 10%)/2) 0 0;
+    margin: 5% auto 0 0;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
