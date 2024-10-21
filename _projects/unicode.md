@@ -10,16 +10,15 @@ image: "unicode.png"
     width: 100%;
     max-width: 400px;
     margin: 2% auto;
-    padding: 2%;
+    padding: 20px;
     box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
     border-radius: 15px;
   }
   #table .char {
+    line-height: 0;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    height: 100%;
     width: calc(100%/8);
     aspect-ratio : 1 / 1;
     box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
@@ -108,11 +107,7 @@ update = (x,y) => {
   var r = 8;
   for (var i=0;i<r;i++) {
     for (var j=0;j<r;j++) {
-      if ((((i*r+j)<9||(i*r+j)>13)&&(i*r+j)!=32)||page>0) {
-        table.innerHTML += `<div class="char${(y==(i*r+j)?" selected":"")}" onclick="update(page,selected=${i*r+j})">&#x${(i*r+j+x*r*r).toString(16)};</div>`;
-      } else {
-        table.innerHTML += `<div class="char${(y==(i*r+j)?" selected":"")}" onclick="update(page,selected=${i*r+j})">.</div>`;
-      }
+      table.innerHTML += `<div class="char${(y==(i*r+j)?" selected":"")}" onclick="update(page,selected=${i*r+j})">&#x${(i*r+j+x*r*r).toString(16)};</div>`;
     }
   }
   table.innerHTML += `
