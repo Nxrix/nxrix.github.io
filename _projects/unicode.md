@@ -15,18 +15,23 @@ image: "unicode.png"
     border-radius: 15px;
   }
   #table .char {
-    line-height: 0;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 0 -3px 0;
     width: calc(100%/8);
-    aspect-ratio : 1 / 1;
+    aspect-ratio : 1;
     box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
+  }
+  #table .char .inner_char {
+    display: flex;
+    aspect-ratio: 1;
+    align-items: center;
+    justify-content: center;
   }
   #table .selected {
     background: var(--md-sys-color-on-surface);
@@ -107,7 +112,7 @@ update = (x,y) => {
   var r = 8;
   for (var i=0;i<r;i++) {
     for (var j=0;j<r;j++) {
-      table.innerHTML += `<div class="char${(y==(i*r+j)?" selected":"")}" onclick="update(page,selected=${i*r+j})">&#x${(i*r+j+x*r*r).toString(16)};</div>`;
+      table.innerHTML += `<div class="char${(y==(i*r+j)?" selected":"")}" onclick="update(page,selected=${i*r+j})"><div class="inner_char">&#x${(i*r+j+x*r*r).toString(16)};</div></div>`;
     }
   }
   table.innerHTML += `
