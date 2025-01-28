@@ -617,24 +617,24 @@ ol, ul {
   height: 8px;
 }
 .core_editor ::-webkit-scrollbar-track {
-  background-color: #eee;
+  background-color: var(--md-sys-color-surface-container);
 }
 .core_editor ::-webkit-scrollbar-thumb {
-  background-color: #ddd;
+  background-color: var(--md-sys-color-surface-dim);
 }
 .core_editor ::-webkit-scrollbar-thumb:hover {
-  background-color: #ddd;
+  background-color: var(--md-sys-color-surface-dim);
 }
 .core_editor ::-webkit-scrollbar-corner {
-  background-color: #eee;
+  background-color: var(--md-sys-color-surface-container);
 }
 .core_editor ::-moz-selection {
-  color: #fff;
-  background-color: #000;
+  color: var(--md-sys-color-background);
+  background-color: var(--md-sys-color-on-surface);
 }
 .core_editor ::selection {
-  color: #fff;
-  background-color: #000;
+  color: var(--md-sys-color-background);
+  background-color: var(--md-sys-color-on-surface);
 }
 .core_editor textarea:focus {
   outline: 0;
@@ -646,7 +646,7 @@ ol, ul {
   box-sizing: border-box;
 }
 .core_editor {
-  background: #fff;
+  background: var(--md-sys-color-background);
   --font: "firacode";
   --font-size: 14px;
 }
@@ -661,9 +661,9 @@ ol, ul {
   font-family: var(--font);
   font-size: var(--font-size);
   position: sticky;
-  background-color: #eee;
-  color: #aaa;
-  border-right: 1px solid #ddd;
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-outline);
+  border-right: 1px solid var(--md-sys-color-surface-dim);
   left: 0;
   padding: 1em;
   text-align: right;
@@ -677,7 +677,7 @@ ol, ul {
   position: absolute;
   background-color: #fff0;
   color: #0000;
-  caret-color: #000;
+  caret-color: var(--md-sys-color-on-surface);
   top: 0;
   padding: 1em;
   border: none;
