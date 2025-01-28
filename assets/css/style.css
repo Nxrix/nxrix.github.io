@@ -649,6 +649,11 @@ ol, ul {
   background: var(--md-sys-color-background);
   --font: "firacode";
   --font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  outline: solid;
+  outline-color: var(--md-sys-color-surface-dim);
+  outline-width: 1px;
 }
 .core_editor .wrap {
   position: relative;
