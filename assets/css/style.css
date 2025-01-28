@@ -548,9 +548,6 @@ ol, ul {
   user-select: none;
   -webkit-user-select: none;
 }
-.footer .about .links a {
-  text-decoration: none;
-}
 @media screen and (max-width: 960px) {
   .footer .about {
       grid-template-columns: 1fr 1fr 1fr;
