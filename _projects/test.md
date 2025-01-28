@@ -31,7 +31,7 @@ hidden: true
 <script src="./js/core_editor.js"></script>
 
 <script>
-const editor = new CoreEditor("#editor", { highlight: true , lang: "glsl" , `
+const editor = new CoreEditor("#editor", { highlight: true , lang: "glsl" , value: `
 
   // dx: max(X,Y,Z)  //
  // dn: min(X,Y,Z)  //
