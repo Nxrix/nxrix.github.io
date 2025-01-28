@@ -49,6 +49,10 @@
   src: url("../fonts/mono.woff2");
 }
 @font-face {
+  font-family: "firacode";
+  src: url("../fonts/FiraCode.woff2");
+}
+@font-face {
   font-family: "fa";
   src: url("../fonts/estedad.woff2");
 }
@@ -643,6 +647,7 @@ ol, ul {
 }
 .core_editor {
   background: #fff;
+  --font: "firacode";
 }
 .core_editor .wrap {
   position: relative;
@@ -652,7 +657,7 @@ ol, ul {
 }
 .core_editor .wrap .numbers {
   min-height: 100%;
-  font-family: monospace;
+  font-family: var(--font);
   font-size: 1em;
   position: sticky;
   background-color: #eee;
@@ -666,7 +671,7 @@ ol, ul {
 .core_editor .wrap textarea {
   min-width: 100%;
   min-height: 100%;
-  font-family: monospace;
+  font-family: var(--font);
   font-size: 1em;
   position: absolute;
   background-color: #fff0;
@@ -681,9 +686,12 @@ ol, ul {
 .core_editor .wrap pre {
   min-width: 100%;
   min-height: 100%;
-  font-family: monospace;
+  font-family: var(--font);
   font-size: 1em;
   position: absolute;
   top: 0;
   padding: 1em;
+}
+.core_editor .wrap code {
+  font-family: var(--font);
 }
