@@ -58,10 +58,12 @@
   border: 0;
   vertical-align: baseline;
   box-sizing: border-box;
-  font-family: "en";
   text-align: auto !important;
   unicode-bidi: plaintext !important;
   -webkit-tap-highlight-color: transparent;
+}
+*:not(.core_editor):not(.core_editor *) {
+    font-family: "en","fa";
 }
 ::-webkit-scrollbar {
   width: 4px;
@@ -271,7 +273,7 @@ ol, ul {
 
 @media screen and (width < 425px) {
   .top_bar {
-    height: 94px;
+    /*height: 94px;*/
     padding: 12px 26px;
   }
   .top_bar .content {
