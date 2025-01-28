@@ -475,7 +475,7 @@ ol, ul {
   width: fit-content;
   max-width: 100%;
   border: 1px solid var(--md-sys-color-surface-dim);
-  border-radius: 8px;
+  border-radius: 24px;
   overflow: auto;
 }
 .body .content .highlighter-rouge div {
@@ -483,7 +483,7 @@ ol, ul {
   height: fit-content;
 }
 .body .content .highlighter-rouge pre {
-  margin: 16px;
+  margin: 24px;
 }
 .body .content code {
   font-family: "mono";
