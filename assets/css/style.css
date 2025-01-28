@@ -311,6 +311,7 @@ ol, ul {
   overflow-wrap: normal;
   word-break: keep-all;
   white-space: nowrap;
+  border-radius: 24px;
 }
 .body .content table th, .body .content table td {
   padding: 16px 32px;
