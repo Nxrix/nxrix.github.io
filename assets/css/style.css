@@ -648,6 +648,7 @@ ol, ul {
 .core_editor {
   background: #fff;
   --font: "firacode";
+  --font-size: 14px;
 }
 .core_editor .wrap {
   position: relative;
@@ -658,7 +659,7 @@ ol, ul {
 .core_editor .wrap .numbers {
   min-height: 100%;
   font-family: var(--font);
-  font-size: 1em;
+  font-size: var(--font-size);
   position: sticky;
   background-color: #eee;
   color: #aaa;
@@ -672,7 +673,7 @@ ol, ul {
   min-width: 100%;
   min-height: 100%;
   font-family: var(--font);
-  font-size: 1em;
+  font-size: var(--font-size);
   position: absolute;
   background-color: #fff0;
   color: #0000;
@@ -687,11 +688,12 @@ ol, ul {
   min-width: 100%;
   min-height: 100%;
   font-family: var(--font);
-  font-size: 1em;
+  font-size: var(--font-size);
   position: absolute;
   top: 0;
   padding: 1em;
 }
 .core_editor .wrap code {
   font-family: var(--font);
+  font-size: var(--font-size);
 }
