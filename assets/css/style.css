@@ -474,6 +474,11 @@ ol, ul {
   aspect-ratio: 4 / 1;
   border-radius: 24px;
 }
+@media screen and (width < 450px) {
+  .body .content .canvas_full, .body .content .canvas_full2 {
+    border-radius: 8px;
+  }
+}
 .body .content .canvas_1x1 {
   width: 100%;
   max-width: 300px;
