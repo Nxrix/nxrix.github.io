@@ -4,7 +4,7 @@ title: "test"
 hidden: true
 ---
 
-<canvas></canvas>
+<canvas class="canvas_full"></canvas>
 
 # H1
 
