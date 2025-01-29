@@ -4,7 +4,7 @@ title: "Main"
 description: ""
 ---
 
-<canvas id="canvas" class="canvas_full pixelated" width="256" height="128"></canvas>
+<canvas id="canvas" class="canvas_full2 pixelated" width="256" height="128"></canvas>
 <h2>Home</h2>
 <div class="cart_set">
   {% for project in site.projects %}
@@ -47,7 +47,9 @@ const palette = [
 ];
 
 const width = 128;
-const height = 64;
+const height = 32;
+const width2 = width/2;
+const height2 = height/2;
 const widthm1 = width-1;
 const heightm1 = height-1;
 const buffer = new Uint8Array(width*height);
@@ -117,8 +119,8 @@ let cameraX = 0;
 let cameraY = 0;
 let clipX0 = 0;
 let clipY0 = 0;
-let clipX1 = 128;
-let clipY1 = 128;
+let clipX1 = width;
+let clipY1 = height;
 
 const p8_pset = (x,y,col) => {
   x -= cameraX;
@@ -385,7 +387,7 @@ const print = (text, x, y, col) => {
       const code = line.charCodeAt(i);
       const charX = x+(i*4);
       const charY = y+l*5;
-      for (let j=0;j< 5; j++) {
+      for (let j=0;j<5;j++) {
         for (let k=0;k<4;k++) {
           if (fontBuffer[(code-33)*4+j*512+k]==1) {
             p8_pset(charX+k,charY+j,col);
@@ -497,7 +499,7 @@ const update = () => {
   for (let i=0;i<4*str.length+5;i++) {
     for (let j=0;j<10;j++) {
       if (i==0||j==0||i==str.length*4+4||j==9) {
-        pset(i+61-str.length*2,j+26,(i^j)+t/4);
+        pset(i+width2-3-str.length*2,j+height2-5,(i^j)+t/4);
       }
     }
   }
@@ -510,16 +512,16 @@ const update = () => {
     }
   }*/
 
-  print(str,63-2*str.length,28,0);
-  print(str,64-2*str.length,28,0);
-  print(str,65-2*str.length,28,0);
-  print(str,63-2*str.length,29,0);
-  print(str,65-2*str.length,29,0);
-  print(str,63-2*str.length,30,0);
-  print(str,64-2*str.length,30,0);
-  print(str,65-2*str.length,30,0);
+  print(str,width2-1-2*str.length,height2-3,0);
+  print(str,width2  -2*str.length,height2-3,0);
+  print(str,width2+1-2*str.length,height2-3,0);
+  print(str,width2-1-2*str.length,height2-2,0);
+  print(str,width2+1-2*str.length,height2-2,0);
+  print(str,width2-1-2*str.length,height2-1,0);
+  print(str,width2  -2*str.length,height2-1,0);
+  print(str,width2+1-2*str.length,height2-1,0);
 
-  print(str,64-2*str.length,29,3);
+  print(str,width2-2*str.length,height2-2,3);
 
   buffer_texture.needsUpdate = true;
   renderer.render(scene,cam);
@@ -527,5 +529,4 @@ const update = () => {
   requestAnimationFrame(update);
 }
 update();
-
 </script>
