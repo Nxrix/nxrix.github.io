@@ -4,6 +4,8 @@ title: "test"
 hidden: true
 ---
 
+<canvas></canvas>
+
 # H1
 
 ## H2
