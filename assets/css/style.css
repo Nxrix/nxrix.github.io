@@ -138,7 +138,7 @@ a {
 a:not(.cart):hover {
   text-decoration: underline;
 }
-img:not(tc-root img) {
+.img:not(tc-root img) {
   max-width: 100%;
   min-height: 56px;
   border-radius: 22px;
