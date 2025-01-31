@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Unicode Table"
-description: "Search & View Unicode characters"
+description: "Explore & View Unicode characters"
 image: "unicode.png"
 ---
 
@@ -93,8 +93,10 @@ image: "unicode.png"
   }
 </style>
 ## Unicode Table
-
+<p>Unicode is a universal character encoding standard that supports text and symbols from all writing systems in the world.</p>
+<br>
 <div id="table"></div>
+
 <script>
 const blocks = [
   { start: 0x0000, end: 0x007F, name: "Basic Latin" },
@@ -466,15 +468,15 @@ const update = (x,y) => {
     }
   }
   table.innerHTML += `
-    <input id="input" autocomplete="off" value="${page+1}"><div class="button" onclick="update(page=(parseInt(input.value-1))||0,selected)">Go</div>
-    <div class="buttons">
-      <div onclick="update(page-=1,selected)"><</div><div onclick="update(page-=2,selected)"><<</div><div onclick="update(page+=2,selected)">>></div><div onclick="update(page+=1,selected)">></div>
-    </div><br>
     <div class="outchar">&#x${(y+x*r*r).toString(16)};</div><br>
     Block: ${find_block(y+x*r*r)}<br>
     Unicode: <span>U+${(y+x*r*r).toString(16).padStart(4,"0")}</span><br>
     HTML: <span>&amp#x${(y+x*r*r).toString(16)};</span><br>
-    CSS: <span>\\${(y+x*r*r).toString(16).padStart(4,"0")}</span>`;
+    CSS: <span>\\${(y+x*r*r).toString(16).padStart(4,"0")}</span>
+    <input id="input" autocomplete="off" value="${page+1}"><div class="button" onclick="update(page=(parseInt(input.value-1))||0,selected)">Go</div>
+    <div class="buttons">
+      <div onclick="update(page-=1,selected)"><</div><div onclick="update(page-=2,selected)"><<</div><div onclick="update(page+=2,selected)">>></div><div onclick="update(page+=1,selected)">></div>
+    </div>`;
 }
 update(page,selected);
 </script>
