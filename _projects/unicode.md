@@ -471,10 +471,10 @@ const update = (x,y) => {
       <div onclick="update(page-=1,selected)"><</div><div onclick="update(page-=2,selected)"><<</div><div onclick="update(page+=2,selected)">>></div><div onclick="update(page+=1,selected)">></div>
     </div><br>
     <div class="outchar">&#x${(y+x*r*r).toString(16)};</div><br>
+    Block: ${find_block(y+x*r*r)}<br>
     Unicode: <span>U+${(y+x*r*r).toString(16).padStart(4,"0")}</span><br>
     HTML: <span>&amp#x${(y+x*r*r).toString(16)};</span><br>
-    CSS: <span>\\${(y+x*r*r).toString(16).padStart(4,"0")}</span>
-    Block: ${find_block(y+x*r*r)}`;
+    CSS: <span>\\${(y+x*r*r).toString(16).padStart(4,"0")}</span>`;
 }
 update(page,selected);
 </script>
