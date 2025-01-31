@@ -461,18 +461,20 @@ const update = (x,y) => {
   if (x>17407) page=x=17407;
   history.replaceState({}, null, `../projects/unicode/?page=${x+1}&char=${y}`);
   table.innerHTML = "";
+  let chars = "";
   const r = 8;
   for (var i=0;i<r;i++) {
     for (var j=0;j<r;j++) {
-      table.innerHTML += `<div class="char${(y==(i*r+j)?" selected":"")}" onclick="update(page,selected=${i*r+j})"><div class="inner_char">&#x${(i*r+j+x*r*r).toString(16)};</div></div>`;
+      chars += `<div class="char${(y==(i*r+j)?" selected":"")}" onclick="update(page,selected=${i*r+j})"><div class="inner_char">&#x${(i*r+j+x*r*r).toString(16)};</div></div>`;
     }
   }
-  table.innerHTML += `
+  table.innerHTML = `
     <div class="outchar">&#x${(y+x*r*r).toString(16)};</div><br>
     Block: ${find_block(y+x*r*r)}<br>
     Unicode: <span>U+${(y+x*r*r).toString(16).padStart(4,"0")}</span><br>
     HTML: <span>&amp#x${(y+x*r*r).toString(16)};</span><br>
     CSS: <span>\\${(y+x*r*r).toString(16).padStart(4,"0")}</span>
+    ${chars}
     <input id="input" autocomplete="off" value="${page+1}"><div class="button" onclick="update(page=(parseInt(input.value-1))||0,selected)">Go</div>
     <div class="buttons">
       <div onclick="update(page-=1,selected)"><</div><div onclick="update(page-=2,selected)"><<</div><div onclick="update(page+=2,selected)">>></div><div onclick="update(page+=1,selected)">></div>
