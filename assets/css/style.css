@@ -1,5 +1,6 @@
- /*   Nxrix - 2024 All rights reserved.  /
-/ Based on Material Design guide lines */
+/**
+ * @copyright   (c) 2025 Nxrix. All rights reserved.
+ */
 :root,
 :host {
   --md-sys-color-background: #fef7ff;
