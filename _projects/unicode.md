@@ -86,6 +86,7 @@ image: "unicode.png"
     align-items: center;
     width: 30%;
     aspect-ratio: 1 / 1;
+    overflow: hidden;
     font-size: xxx-large;
     margin: 0 auto;
     box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
