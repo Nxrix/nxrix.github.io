@@ -106,7 +106,7 @@ update = (x,y) => {
   if (y==null||y<0) selected=y=0;
   if (y>63) selected=y=63;
   if (x<0) page=x=0;
-  if (x>17406) page=x=17406;
+  if (x>17407) page=x=17407;
   history.replaceState({}, null, `../projects/unicode/?page=${x+1}&char=${y}`);
   table.innerHTML = "";
   var r = 8;
