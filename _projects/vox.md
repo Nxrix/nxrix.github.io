@@ -2,7 +2,7 @@
 layout: default
 title: "Core Voxel Shaders"
 description: ""
-image: "core_vox.png"
+image: "vox.png"
 hidden: true
 ---
 
