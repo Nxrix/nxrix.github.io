@@ -154,7 +154,7 @@ input[type="text"] {
   padding: 8px;
   outline: 1px solid var(--md-sys-color-surface-dim);
   border-radius: 8px;
-  transition: outline .3s cubic-bezier(.2,0,0,1);
+  transition: outline .3s ease;
 }
 input[type="text"]:focus {
   outline: 2px solid var(--md-sys-color-primary-container);
