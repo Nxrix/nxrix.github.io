@@ -276,7 +276,7 @@ void main() {
   if (tmin>tmax) {
     fragColor = vec4(palette[3]/256.0,1);
   }
-  if (o.x<=-1.0||o.x>sz1||o.y<=-1.0||o.y>sz1||o.z<=-1.0||o.z>sz1) o += tmin*d*0.999999;
+  if (o.x<=-1.0||o.x>=sz1||o.y<=-1.0||o.y>=sz1||o.z<=-1.0||o.z>=sz1) o += tmin*d*0.999999;
   vec3 v = floor(o);
   vec3 s = sign(d);
   vec3 tm = (v-o+0.5+s*0.5)*inv;
@@ -367,6 +367,7 @@ gl.update = () => {
   gl.cam_yLoc = gl.ctx.getUniformLocation(gl.pg,"CAM_YAW");
   gl.cam_pLoc = gl.ctx.getUniformLocation(gl.pg,"CAM_PITCH");
   gl.ctx.uniform1f(gl.szLoc,gl.vox_size);
+  gl.ctx.uniform1f(gl.cam_tLoc,gl.cam_t);
   gl.ctx.uniform1f(gl.cam_dLoc,cam_dInput.value);
   gl.ctx.uniform1f(gl.cam_yLoc,cam_yInput.value);
   gl.ctx.uniform1f(gl.cam_pLoc,cam_pInput.value);
@@ -393,6 +394,7 @@ size.addEventListener("input",()=>{
 });
 
 let t_speed = 1;
+gl.cam_t = 0;
 gl.time = -1000;//-16.667;
 gl.vox_size = 2**size.value;
 
