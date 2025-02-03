@@ -151,13 +151,14 @@ button:hover {
 }
 input[type="text"] {
   background-color: var(--md-sys-color-background);
+  font-size: 1em;
   padding: 8px;
   outline: 1px solid var(--md-sys-color-surface-dim);
   border-radius: 8px;
-  transition: outline .3s ease;
+  transition: outline .25s ease;
 }
 input[type="text"]:focus {
-  outline: 2px solid var(--md-sys-color-primary-container);
+  outline: 1px solid var(--md-sys-color-primary-container);
 }
 .img:not(tc-root img) {
   max-width: 100%;
