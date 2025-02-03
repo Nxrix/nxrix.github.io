@@ -508,11 +508,11 @@ const update_items = async () => {
   items.innerHTML = "";
   for (let i=0;i<files.length;i++) {
     const item = document.createElement("div");
-    const data = parse_item(files[i])[0];
+    const data = parse_item(files[i]);
     const hash = await sha256(data);
 
     const name = document.createElement("span");
-    name.innerText = hash.substr(0,4)+".."+hash.substr(-4)+" "+data.split("\n")[0];
+    name.innerText = hash.substr(0,4)+".."+hash.substr(-4)+" "+data[0].split("\n")[0];
     item.appendChild(name);
 
     const open = document.createElement("div");
