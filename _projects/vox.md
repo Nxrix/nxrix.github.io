@@ -515,23 +515,23 @@ const update_items = async () => {
     name.innerText = hash.substr(0,4)+".."+hash.substr(-4)+" "+data.split("\n")[0];
     item.appendChild(name);
 
-    const open = document.createElement("button");
+    const open = document.createElement("div");
     open.innerText = "Open";
     open.setAttribute("onclick",`open_item("${i}")`);
     item.appendChild(open);
   
-    const del = document.createElement("button");
+    const del = document.createElement("div");
     del.innerText = "Delete";
     del.setAttribute("onclick",`delete_item(${i})`);
     item.appendChild(del);
 
     const btns = document.createElement("div");
-    const btn_up = document.createElement("button");
+    const btn_up = document.createElement("div");
     btn_up.innerText = "▲";
     btn_up.setAttribute("onclick",`move_item_up(${i})`);
     btns.appendChild(btn_up);
 
-    const btn_down = document.createElement("button");
+    const btn_down = document.createElement("div");
     btn_down.innerText = "▼";
     btn_down.setAttribute("onclick",`move_item_down(${i})`);
     btns.appendChild(btn_down);
