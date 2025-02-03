@@ -507,7 +507,7 @@ ol, ul {
 }
 .body .content .canvas_1x1 {
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
 }
 .body .content .canvas_1x1.center {
   margin: 0 max(calc(50% - 150px),0px);
