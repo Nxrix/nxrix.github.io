@@ -12,6 +12,9 @@ hidden: true
   color: var(--md-sys-color-error);
   padding: 20px;
 }
+input[type="text"] {
+  margin: 8px 0;
+}
 input[type="range"] {
   accent-color: var(--md-sys-color-primary-container);
 }
