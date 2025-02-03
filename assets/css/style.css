@@ -140,6 +140,7 @@ a:not(.cart):hover {
 }
 button {
   background-color: var(--md-sys-color-surface-container);
+  min-width: 72px;
   width: fit-content;
   height: fit-content;
   padding: 16px;
@@ -155,7 +156,7 @@ input[type="text"] {
   padding: 8px;
   outline: 1px solid var(--md-sys-color-surface-dim);
   border-radius: 8px;
-  transition: outline .25s ease;
+  transition: outline .2s linear;
 }
 input[type="text"]:focus {
   outline: 3px solid var(--md-sys-color-primary-container);
@@ -507,7 +508,7 @@ ol, ul {
 }
 .body .content .canvas_1x1 {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
 }
 .body .content .canvas_1x1.center {
   margin: 0 max(calc(50% - 150px),0px);
