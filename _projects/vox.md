@@ -55,7 +55,6 @@ Pitch: <input id="cam_pInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_pLoc,
 <button id="save_item">Save item</button>
 <br>
 <div id="items"></div>
-</body>
 
 <script src="./js/storage.js"></script>
 <script src="./js/highlighter.js"></script>
