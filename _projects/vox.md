@@ -26,21 +26,24 @@ input[type="range"]:focus {
 <button onclick="gl.pause=!gl.pause;this.innerText=gl.pause?'Play':'Stop'">Play</button>
 <button id="save_img">Save img</button>
 <button id="save_txt">Save txt</button>
-<br>
-<br>
-Speed: <input id="cam_tSpeed" type="text" oninput="t_speed=this.value;" value="1.0">
-<br>
-<br>
 <button id="cam_tInput" onclick="gl.cam_t=!gl.cam_t;gl.ctx.uniform1i(gl.cam_tLoc,gl.cam_t);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);this.innerText=gl.cam_t?'Orthographic':'Perspective'">Perspective</button>
 <br>
 <br>
-Dist: <input id="cam_dInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_dLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="0.0">
+Speed:
 <br>
+<input id="cam_tSpeed" type="text" oninput="t_speed=this.value;" value="1.0">
 <br>
-Yaw: <input id="cam_yInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_yLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="30">
+Dist:
 <br>
+<input id="cam_dInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_dLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="0.0">
 <br>
-Pitch: <input id="cam_pInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_pLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="-30">
+Yaw:
+<br>
+<input id="cam_yInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_yLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="30">
+<br>
+Pitch:
+<br>
+<input id="cam_pInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_pLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="-30">
 <br>
 <br>
 <input id="res" type="range" min="7" max="10" step="1" value="8">
