@@ -22,7 +22,7 @@ input[type="range"]:focus {
   outline: none;
 }
 #items .item {
-  display: flex
+  display: flex;
   flex-direction: row;
   width: 100%;
   height: 64px;
