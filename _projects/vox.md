@@ -11,7 +11,7 @@ hidden: true
   background-color: var(--md-sys-color-error-container);
   color: var(--md-sys-color-error);
   font-family: "mono";
-  font-size; 14px;
+  font-size: 14px;
   padding: 16px;
   border-radius: 16px;
   margin-top: 16px;
