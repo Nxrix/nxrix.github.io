@@ -72,7 +72,6 @@ input[type="range"]:focus {
 </style>
 
 <canvas width="256" height="256" class="canvas_1x1 pixelated"></canvas>
-<br>
 <button onclick="gl.time=0;gl.ctx.uniform1f(gl.tLoc,gl.time*0.001);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);">Reset</button>
 <button onclick="gl.pause=!gl.pause;this.innerText=gl.pause?'Play':'Stop'">Play</button>
 <button id="save_img">Save img</button>
@@ -85,6 +84,7 @@ input[type="range"]:focus {
 <br>
 <input id="size" type="range" min="5" max="8" step="1" value="5">
 <span id="sizev">32</span>
+<br>
 <br>
 Speed:
 <br>
