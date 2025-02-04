@@ -21,6 +21,12 @@ input[type="range"] {
 input[type="range"]:focus {
   outline: none;
 }
+#items .item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 8px;
+}
 </style>
 
 <canvas width="256" height="256" class="canvas_1x1 pixelated"></canvas>
@@ -516,24 +522,30 @@ const update_items = async () => {
   items.innerHTML = "";
   for (let i=0;i<files.length;i++) {
     const item = document.createElement("div");
+    item.classList.add("item");
     const data = parse_item(files[i]);
     const hash = await sha256(data);
 
     const name = document.createElement("span");
     name.innerText = hash.substr(0,4)+".."+hash.substr(-4)+" "+data[0].split("\n")[0];
+    name.classList.add("name");
     item.appendChild(name);
 
     const open = document.createElement("div");
     open.innerText = "Open";
     open.setAttribute("onclick",`open_item("${i}")`);
+    open.classList.add("open");
     item.appendChild(open);
   
     const del = document.createElement("div");
     del.innerText = "Delete";
     del.setAttribute("onclick",`delete_item(${i})`);
+    del.classList.add("del");
     item.appendChild(del);
 
     const btns = document.createElement("div");
+    btns.classList.add("btns");
+    
     const btn_up = document.createElement("div");
     btn_up.innerText = "▲";
     btn_up.setAttribute("onclick",`move_item_up(${i})`);
