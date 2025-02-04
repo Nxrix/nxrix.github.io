@@ -9,8 +9,9 @@ hidden: true
 <style> 
 #error {
   background-color: var(--md-sys-color-error-container);
-  font-family: "mono";
   color: var(--md-sys-color-error);
+  font-family: "mono";
+  font-size; 14px;
   padding: 16px;
   border-radius: 16px;
 }
