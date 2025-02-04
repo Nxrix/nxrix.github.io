@@ -22,11 +22,28 @@ input[type="range"]:focus {
   outline: none;
 }
 #items .item {
-  display: flex;
+  display: flex
   flex-direction: row;
   width: 100%;
+  height: 64px;
   padding: 8px;
+  outline: 1px solid var(--md-sys-color-surface-dim);
+  border-radius: 16px;
 }
+#items .item .name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#items .item .open, #items .item .del, #items .item .btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    aspect-ratio: 1;
+}
+
 </style>
 
 <canvas width="256" height="256" class="canvas_1x1 pixelated"></canvas>
