@@ -13,7 +13,7 @@ hidden: true
   font-family: "mono";
   font-size: 14px;
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 8px;
   margin-top: 16px;
 }
 input[type="text"] {
@@ -397,7 +397,7 @@ gl.setProgram = (fsrc) => {
     gl.ctx.compileShader(gl.fs);
     gl.ctx.linkProgram(gl.pg);
     gl.ctx.validateProgram(gl.pg);
-    return fix_error_line(log,-109).slice(0,-1);
+    return fix_error_line(log,-111).slice(0,-1);
   } else {
     gl.FSO = fsrc;
     return ">";
