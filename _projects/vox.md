@@ -38,9 +38,11 @@ input[type="range"]:focus {
 }
 #items .item .name {
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 #items .item .open, #items .item .del, #items .item .btns {
   display: flex;
