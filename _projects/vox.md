@@ -8,9 +8,11 @@ hidden: true
 
 <style> 
 #error {
+  background-color: var(--md-sys-color-error-container);
   font-family: "mono";
   color: var(--md-sys-color-error);
-  padding: 20px;
+  padding: 16px;
+  border-radius: 16px;
 }
 input[type="text"] {
   margin: 8px 0;
