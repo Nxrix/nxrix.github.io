@@ -111,8 +111,7 @@ Pitch:
 <br>
 <input id="cam_pInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_pLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="-30">
 <hr>
-<div id="editor"></div>
-<br>
+<div id="editor"></div><br>
 <div id="error"></div>
 <hr>
 <button id="save_item">Save item</button>
