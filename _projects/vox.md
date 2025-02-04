@@ -39,7 +39,9 @@ input[type="range"]:focus {
 #items .item .name {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
