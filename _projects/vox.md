@@ -69,11 +69,11 @@ input[type="range"]:focus {
   height: 100%;
   outline: 1px solid var(--md-sys-color-surface-dim);
 }
-.btns div:nth-child(1) {
-  border-radius: 4px 4px 8px 8px;
-}
-.btns div:nth-child(2) {
+#items .item .btns div:nth-child(1) {
   border-radius: 8px 8px 4px 4px;
+}
+#items .item .btns div:nth-child(2) {
+  border-radius: 4px 4px 8px 8px;
 }
 </style>
 
