@@ -27,6 +27,7 @@ input[type="range"]:focus {
   width: 100%;
   height: 64px;
   padding: 8px;
+  gap: 8px;
   outline: 1px solid var(--md-sys-color-surface-dim);
   border-radius: 16px;
 }
