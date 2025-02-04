@@ -80,6 +80,12 @@ input[type="range"]:focus {
 <button id="cam_tInput" onclick="gl.cam_t=!gl.cam_t;gl.ctx.uniform1i(gl.cam_tLoc,gl.cam_t);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);this.innerText=gl.cam_t?'Orthographic':'Perspective'">Perspective</button>
 <br>
 <br>
+<input id="res" type="range" min="7" max="10" step="1" value="8">
+<span id="resv">256</span>
+<br>
+<input id="size" type="range" min="5" max="8" step="1" value="5">
+<span id="sizev">32</span>
+<br>
 Speed:
 <br>
 <input id="cam_tSpeed" type="text" oninput="t_speed=this.value;" value="1.0">
@@ -95,13 +101,6 @@ Yaw:
 Pitch:
 <br>
 <input id="cam_pInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_pLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="-30">
-<br>
-<br>
-<input id="res" type="range" min="7" max="10" step="1" value="8">
-<span id="resv">256</span>
-<br>
-<input id="size" type="range" min="5" max="8" step="1" value="5">
-<span id="sizev">32</span>
 <hr>
 <div id="editor"></div>
 <div id="error"></div>
