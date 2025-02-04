@@ -21,6 +21,11 @@ input[type="range"] {
 input[type="range"]:focus {
   outline: none;
 }
+#items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 #items .item {
   display: flex;
   flex-direction: row;
