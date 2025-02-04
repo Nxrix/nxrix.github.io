@@ -39,7 +39,6 @@ input[type="range"]:focus {
 #items .item .name {
   display: flex;
   align-items: center;
-  width: fit-content;
   max-width: 100%;
   margin: 0 auto;
   text-overflow: ellipsis;
@@ -69,7 +68,12 @@ input[type="range"]:focus {
   width: 100%;
   height: 100%;
   outline: 1px solid var(--md-sys-color-surface-dim);
-  border-radius: 4px;
+}
+.btns div:nth-child(1) {
+  border-radius: 4px 4px 8px 8px;
+}
+.btns div:nth-child(2) {
+  border-radius: 8px 8px 4px 4px;
 }
 </style>
 
