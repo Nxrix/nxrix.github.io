@@ -37,13 +37,30 @@ input[type="range"]:focus {
   width: 100%;
 }
 #items .item .open, #items .item .del, #items .item .btns {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 1;
 }
-
+#items .item .open, #items .item .del {
+  outline: 1px solid var(--md-sys-color-surface-dim);
+  border-radius: 8px;
+}
+#items .item .btns {
+  flex-direction: column;
+  padding: 4px 0;
+  gap: 4px;
+}
+#items .item .btns div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  outline: 1px solid var(--md-sys-color-surface-dim);
+  border-radius: 4px;
+}
 </style>
 
 <canvas width="256" height="256" class="canvas_1x1 pixelated"></canvas>
