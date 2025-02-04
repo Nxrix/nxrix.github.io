@@ -14,7 +14,7 @@ hidden: true
   font-size; 14px;
   padding: 16px;
   border-radius: 16px;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 input[type="text"] {
   margin: 8px 0;
