@@ -505,7 +505,7 @@ let update = () => {
   for (let i=0;i<4*str.length+5;i++) {
     for (let j=0;j<10;j++) {
       if (i==0||j==0||i==str.length*4+4||j==9) {
-        pset(i+width2-3-str.length*2,j+height2-5,(i^j)+t/4);
+        pset(i+width2-3-str.length*2,j+height2-5,(Math.abs(i-(4*str.length+4)/2)^Math.abs(j-4.5))+n*4+t/4);
       }
     }
   }
