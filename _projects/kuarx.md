@@ -40,8 +40,9 @@ const cos = Math.cos;
 const size = 11;
 const c = size/2-0.5;
 
-var dist = kuarx.findboxdist(size,kuarx.camera.fov);
-kuarx.camera.position.set(size*2,dist*1.25,dist*1.75);
+const dist = kuarx.findboxdist(size,kuarx.camera.fov);
+const cam_d = 0.75;
+kuarx.camera.position.set(size*2*cam_d,dist*1.25*cam_d,dist*1.75*cam_d);
 kuarx.camera.lookAt(size/2,size/2,size/2);
 
 //--voxels--//
@@ -130,7 +131,7 @@ const cube = new THREE.Mesh(new THREE.BoxGeometry(size*8,size*8,size*8),sky_mate
 cube.position.set(size/2,size/2,size/2);
 kuarx.scene.add(cube);
 
-var clown = [
+const clown = [
   [
     [0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,4,4,4,4,4,0,0,0],
@@ -224,7 +225,7 @@ var clown = [
   ]
 ];
 
-var t = 0;
+let t = 0;
 kuarx.update = () => {
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {
