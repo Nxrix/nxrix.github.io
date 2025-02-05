@@ -18,7 +18,7 @@ A Voxel Engine that works on top of ThreeJS with a few other things for my own u
 <script src="./js/kuarx-alpha.js"></script>
 
 <script>
-kuarx.init(canvas,1,30,0.125,1024);
+kuarx.init(canvas,1,30,0.125,1024,true);
 kuarx.camera.resize = () => {
   //kuarx.renderer.setSize(600,450);
   kuarx.camera.aspect = 4/3;
