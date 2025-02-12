@@ -68,7 +68,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 *:not(.core_editor):not(.core_editor *) {
-    font-family: "en","fa";
+  font: inherit;
+  color: inherit;
 }
 ::-webkit-scrollbar {
   width: 4px;
