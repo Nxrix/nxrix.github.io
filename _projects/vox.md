@@ -253,6 +253,7 @@ float max3(float x,float y,float z) {
 }
 #define sz1 sz+1.0
 #define sz2 sz/2.0+0.5
+#define szi int(sz*sz)
 #define cs int(sz/32.0)
 #define ic int(sz/2.0)
 
@@ -339,7 +340,8 @@ void main() {
   vec3 tm = (v-o+0.5+s*0.5)*inv;
   vec3 td = inv*s;
   vec3 n = vec3(0);
-  while (v.x>=-1.0&&v.x<sz1&&v.y>=-1.0&&v.y<sz1&&v.z>=-1.0&&v.z<sz1) {
+  int i = 0;
+  while (v.x>=-1.0&&v.x<sz1&&v.y>=-1.0&&v.y<sz1&&v.z>=-1.0&&v.z<sz1&&i<szi) {
     if (v.x>=0.0&&v.x<sz&&v.y>=0.0&&v.y<sz&&v.z>=0.0&&v.z<sz) {
       int c = int(map(v));
       if (c>0) {
@@ -360,6 +362,7 @@ void main() {
       v.z += s.z;
       n = vec3(0,0,-s.z);
     }
+    i++;
   }
   fragColor = vec4(col, 1.0);
 }`;
