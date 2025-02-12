@@ -31,6 +31,7 @@ hidden: true
 <input type="password" placeholder="password">
 
 <div id="editor"></div>
+<div class="info-error">Test</div>
 
 <script src="./js/storage.js"></script>
 <script src="./js/highlighter.js"></script>
