@@ -425,16 +425,6 @@ scene.add(plane);
   }
 }*/
 
-class srnd {
-  gen(n) {
-    const a = 1664525;
-    const c = 1013904223;
-    n = n|0;
-    n = (a*n+c)&0xFFFFFFFF;
-    return (n>>>16)&0xFFFF;
-  }
-}
-
 /*class srnd {
   gen(n) {
     let hash = 0;
@@ -445,6 +435,16 @@ class srnd {
     return Math.abs(hash)&0xffff;
   }
 }*/
+
+class srnd {
+  gen(n) {
+    const a = 1664525;
+    const c = 1013904223;
+    n = n|0;
+    n = (a*n+c)&0xFFFFFFFF;
+    return (n>>>16)&0xFFFF;
+  }
+}
 
 class frnd {
   fh(n,f=2) {
@@ -502,11 +502,13 @@ let update = () => {
   }
   fillp();
 
-  for (let i=0;i<4*str.length+5;i++) {
-    for (let j=0;j<10;j++) {
-      if (i==0||j==0||i==str.length*4+4||j==9) {
-        pset(i+width2-3-str.length*2,j+height2-5,(Math.abs(i-(4*str.length+4)/2)^Math.abs(j-4.5))+n*4+t/4);
+  for (let i=0;i<4*str.length+7;i++) {
+    for (let j=0;j<12;j++) {
+      let v = 3;
+      if ((i==1||j==1||i==str.length*4+5||j==10)&&(i>0)&&(j>0)&&(i<str.length*4+6)&&(j<11)) {
+        v = (Math.abs(i-(4*str.length+4)/2)^Math.abs(j-4.5))+n*4+t/4;
       }
+      pset(i+width2-4-str.length*2,j+height2-6,v);
     }
   }
 
@@ -518,9 +520,9 @@ let update = () => {
     }
   }*/
 
-  print(str,width2-1-2*str.length,height2-3,0);
-  print(str,width2  -2*str.length,height2-3,0);
-  print(str,width2+1-2*str.length,height2-3,0);
+  print(str,width2-1-2*str.length,height2-3,20);
+  print(str,width2  -2*str.length,height2-3,20);
+  print(str,width2+1-2*str.length,height2-3,20);
   print(str,width2-1-2*str.length,height2-2,0);
   print(str,width2+1-2*str.length,height2-2,0);
   print(str,width2-1-2*str.length,height2-1,0);
