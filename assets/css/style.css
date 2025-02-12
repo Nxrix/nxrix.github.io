@@ -472,7 +472,8 @@ ol, ul {
   color: var(--md-sys-color-on-surface);
 }
 .body .content .cart_set .cart:hover {
-  background-color: var(--md-sys-color-surface-dim);
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
 }
 .body .content .cart_set .cart:active {
   border-radius: 48px;
