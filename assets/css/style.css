@@ -464,6 +464,7 @@ ol, ul {
 .body .content .cart_set .cart {
   display: flex;
   flex-direction: column;
+  justify-content: end;
   background-color: var(--md-sys-color-surface-container);
   border-radius: 24px;
   overflow: hidden;
