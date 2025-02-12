@@ -6,16 +6,7 @@ image: "vox.png"
 hidden: true
 ---
 
-<style> 
-#error {
-  background-color: var(--md-sys-color-error-container);
-  color: var(--md-sys-color-error);
-  font-family: "mono";
-  font-size: 14px;
-  padding: 16px;
-  border-radius: 8px;
-  margin-top: 16px;
-}
+<style>
 input[type="text"] {
   margin: 8px 0;
 }
@@ -112,7 +103,7 @@ Pitch:
 <br>
 <input id="cam_pInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_pLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="-30">
 <hr>
-<div id="editor"></div>
+<div id="editor" class="info-error"></div>
 <div id="error"></div>
 <hr>
 <button id="save_item">Save item</button>
