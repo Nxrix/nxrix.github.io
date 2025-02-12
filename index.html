@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Main"
+title: "Home"
 description: ""
 ---
 
