@@ -26,7 +26,8 @@ hidden: true
 2. abcdefghijklmnopqrstuvwxyz
 3. The quick brown fox jumps over the lazy dog
 
-<input type="text">
+<input type="text" placeholder="text">
+<input type="password" placeholder="password">
 
 <div id="editor"></div>
 
