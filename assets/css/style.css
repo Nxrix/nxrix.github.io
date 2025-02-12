@@ -467,7 +467,7 @@ ol, ul {
   background-color: var(--md-sys-color-surface-container);
   border-radius: 24px;
   overflow: hidden;
-  transition: border-radius .3s cubic-bezier(.2,0,0,1), background-color .3s cubic-bezier(.2,0,0,1);
+  transition: border-radius .3s cubic-bezier(.2,0,0,1), background-color .3s cubic-bezier(.2,0,0,1), color .3s cubic-bezier(.2,0,0,1);
   text-decoration: none;
   color: var(--md-sys-color-on-surface);
 }
