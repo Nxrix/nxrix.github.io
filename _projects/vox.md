@@ -325,7 +325,7 @@ void main() {
   if (tmin>tmax) {
     fragColor = vec4(palette[3]/256.0,1);
   }
-  if (o.x<=-1.0||o.x>=sz1||o.y<=-1.0||o.y>=sz1||o.z<=-1.0||o.z>=sz1) o += tmin*d*0.999999;
+  if (tmin>0.0) o += tmin*d*0.999999;
   vec3 v = floor(o);
   vec3 s = sign(d);
   vec3 tm = (v-o+0.5+s*0.5)*inv;
