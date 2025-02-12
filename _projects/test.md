@@ -26,6 +26,8 @@ hidden: true
 2. abcdefghijklmnopqrstuvwxyz
 3. The quick brown fox jumps over the lazy dog
 
+<input type="text">
+
 <div id="editor"></div>
 
 <script src="./js/storage.js"></script>
