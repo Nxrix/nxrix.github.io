@@ -445,6 +445,14 @@ ol, ul {
   --rotation: 3;
 }
 
+.body .content .info-error {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-error);
+  font-size: 14px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
 .body .content .cart_set {
   display: grid;
   grid-gap: 8px;
