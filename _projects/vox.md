@@ -51,6 +51,7 @@ input[type="range"]:focus {
   align-items: center;
   height: 100%;
   aspect-ratio: 1;
+  user-select: none;
 }
 #items .item .open, #items .item .del {
   outline: 1px solid var(--md-sys-color-surface-dim);
