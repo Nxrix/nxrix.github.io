@@ -636,7 +636,7 @@ const update_items = async () => {
     item.appendChild(img);
     
     const name = document.createElement("span");
-    name.innerText = hash.substr(0,4)+".."+hash.substr(-4)+" "+data[0].split("\n")[0];
+    name.innerText = data[0].split("\n")[0];//+" "+hash.substr(0,4)+".."+hash.substr(-4);
     name.classList.add("name");
     item.appendChild(name);
 
