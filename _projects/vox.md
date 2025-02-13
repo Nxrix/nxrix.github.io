@@ -253,13 +253,9 @@ float max3(float x,float y,float z) {
 #define szi int(sz*sz)
 #define cs int(sz/32.0)
 #define ic int(sz/2.0)
-
-float k(int x,int y,int z,int dx,int dn,int dt) {
 `;
 
 gl.vox = `
-}
-
 float map(vec3 v) {
   ivec3 p = ivec3(v.xzy);
   vec3 dv = v-sz2;
@@ -364,11 +360,13 @@ void main() {
   fragColor = vec4(col, 1.0);
 }`;
 
-const editor = new CoreEditor("#editor", { highlight: true , lang: "glsl" , value: `// name - x^y^z //
-if (( (x^y^z) ) == 0) {
-  return f(z)+1.0;
-} else {
-  return 0.0;
+const editor = new CoreEditor("#editor", { highlight: true , lang: "glsl" , value: `// name //
+float k(int x,int y,int z,int dx,int dn,int dt) {
+  if (( (x^y^z) ) == 0) {
+    return f(z)+1.0;
+  } else {
+    return 0.0;
+  }
 }` });
 
 const fix_error_line = (error,offset) => {
@@ -397,7 +395,7 @@ gl.setProgram = (fsrc) => {
     gl.ctx.compileShader(gl.fs);
     gl.ctx.linkProgram(gl.pg);
     gl.ctx.validateProgram(gl.pg);
-    return fix_error_line(log,-112).slice(0,-1);
+    return fix_error_line(log,-gl.FS.split("\n").length+1).slice(0,-1);
   } else {
     gl.FSO = fsrc;
     return ">";
