@@ -250,7 +250,8 @@ float max3(float x,float y,float z) {
 }
 #define sz1 sz+1.0
 #define sz2 sz/2.0+0.5
-#define szi int(sz*sz)
+#define szint int(sz)
+#define szi szint*szint
 #define cs int(sz/32.0)
 #define ic int(sz/2.0)
 `;
@@ -263,7 +264,7 @@ float map(vec3 v) {
   int dx = int(max3(dva.x,dva.y,dva.z));
   int dn = int(min3(abs(v.x-sz2),abs(v.y-sz2),abs(v.z-sz2)));
   int dt = int(dva.x+dva.y+dva.z);
-  return k(p.x,p.y,p.z,dx,dn,dt);
+  return k(p.x,p.y,p.z,szint,dx,dn,dt);
 }
 
 #define yaw (CAM_YAW+0.00001+t)*d2r
@@ -361,7 +362,7 @@ void main() {
 }`;
 
 const editor = new CoreEditor("#editor", { highlight: true , lang: "glsl" , value: `// name //
-float k(int x,int y,int z,int dx,int dn,int dt) {
+f k(i x,i y,i z,i d,i dx,i dn,i dt) {
   if (( (x^y^z) ) == 0) {
     return f(z)+1.0;
   } else {
