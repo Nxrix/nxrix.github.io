@@ -624,7 +624,7 @@ const update_items = async () => {
     item.classList.add("item");
     const data = parse_item(files[i]);
     const hash = await sha256(data);
-    ctx.set_rgb(gen_id(8,8,seed),palette);
+    ctx.set_rgb(gen_id(8,8,hash),palette);
     const img = document.createElement("img");
     img.src = ctx.get();
     item.appendChild(img);
