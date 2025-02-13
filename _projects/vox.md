@@ -113,6 +113,7 @@ Pitch:
 <script src="./js/storage.js"></script>
 <script src="./js/highlighter.js"></script>
 <script src="./js/core_editor.js"></script>
+<script src="./js/offscreen.js"></script>
 
 <script>
 "use strict";
@@ -563,6 +564,59 @@ const sha256 = async (txt) => {
   return arr.map(b=>b.toString(16).padStart(2,"0")).join("");
 }
 
+const palette = [
+  [0x1d,0x18,0x26],[0x8b,0x7f,0xb0],[0xc3,0xbe,0xe5],[0xff,0xe8,0xe9],
+  [0x65,0x26,0x4e],[0xa0,0x1a,0x3d],[0xde,0x1b,0x45],[0xf2,0x63,0x7b],
+  [0x8b,0x3f,0x39],[0xbb,0x45,0x31],[0xef,0x5d,0x0e],[0xff,0x95,0x00],
+  [0x00,0xa0,0x3d],[0x12,0xd5,0x00],[0xb4,0xd8,0x00],[0xff,0xc3,0x1f],
+  [0x00,0x6e,0x69],[0x00,0xae,0x85],[0x00,0xda,0xa7],[0x4f,0xd6,0xff],
+  [0x2b,0x27,0x54],[0x3c,0x51,0xaf],[0x18,0x88,0xde],[0x00,0xa9,0xe1],
+  [0x59,0x3c,0x97],[0x89,0x44,0xcf],[0xb4,0x4a,0xff],[0xe9,0x59,0xff],
+  [0xe7,0x87,0x6d],[0xff,0xba,0x8c],[0xff,0xef,0x5c],[0xff,0x9c,0xde]
+];
+
+const gen_id = (w,h,seed) => {
+  const c1s =[20,1,2,5,6,7,31,9,10,11,15,30,12,13,14,15,16,17,18,19,21,22,23,19,24,25,26,27,31,29];
+  const c2s = [0,20,1,4,5,6,7,8,9,10,11,15,16,12,13,14,20,16,17,18,20,21,22,23,20,24,25,26,27,28];
+  let rseed = new Array(4).fill(0);
+  for (let i=0;i<seed.length;i++) {
+    rseed[i%4]=((rseed[i%4]<<5)-rseed[i%4])+seed.charCodeAt(i);
+  }
+  const rnd = (max) => {
+		const t = rseed[0]^(rseed[0]<<11);
+		rseed[0] = rseed[1];
+		rseed[1] = rseed[2];
+		rseed[2] = rseed[3];
+		rseed[3] = (rseed[3]^(rseed[3]>>19)^t^(t>>8));
+		return Math.floor((rseed[3]>>>0)/((1<<31)>>>0)*(max+1));
+	}
+  const rand = () => {
+		const t = rseed[0]^(rseed[0]<<11);
+		rseed[0] = rseed[1];
+		rseed[1] = rseed[2];
+		rseed[2] = rseed[3];
+		rseed[3] = (rseed[3]^(rseed[3]>>19)^t^(t>>8));
+		return (rseed[3]>>>0)/((1<<31)>>>0);
+	}
+  const data = new Uint8Array(w*h).fill(3);
+  const o1 = rnd(30);
+  const o2 = rnd(30);
+  for (let i=0;i<w/2;i++) {
+    for (let j=0;j<h-1;j++) {
+      const n = rnd(1)?o1:o2;
+      if (rand()>0.5) {
+        data[i+j*w] = c1s[n];
+        data[w-i-1+j*w] = c1s[n];
+        data[i+j*w+w] = c2s[n];
+        data[2*w-i-1+j*w] = c2s[n];
+      }
+    }
+  }
+  return data;
+}
+
+const ctx = new Offscreen(w,h);
+
 const update_items = async () => {
   items.innerHTML = "";
   for (let i=0;i<files.length;i++) {
@@ -570,7 +624,11 @@ const update_items = async () => {
     item.classList.add("item");
     const data = parse_item(files[i]);
     const hash = await sha256(data);
-
+    ctx.set_rgb(gen_id(w,h,seed),palette);
+    const img = document.createElement("img");
+    img.src = ctx.get();
+    item.appendChild(img);
+    
     const name = document.createElement("span");
     name.innerText = hash.substr(0,4)+".."+hash.substr(-4)+" "+data[0].split("\n")[0];
     name.classList.add("name");
