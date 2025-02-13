@@ -583,21 +583,21 @@ const gen_id = (w,h,seed) => {
     rseed[i%4]=((rseed[i%4]<<5)-rseed[i%4])+seed.charCodeAt(i);
   }
   const rnd = (max) => {
-		const t = rseed[0]^(rseed[0]<<11);
-		rseed[0] = rseed[1];
-		rseed[1] = rseed[2];
-		rseed[2] = rseed[3];
-		rseed[3] = (rseed[3]^(rseed[3]>>19)^t^(t>>8));
-		return Math.floor((rseed[3]>>>0)/((1<<31)>>>0)*(max+1));
-	}
+    const t = rseed[0]^(rseed[0]<<11);
+    rseed[0] = rseed[1];
+    rseed[1] = rseed[2];
+    rseed[2] = rseed[3];
+    rseed[3] = (rseed[3]^(rseed[3]>>19)^t^(t>>8));
+    return Math.floor((rseed[3]>>>0)/((1<<31)>>>0)*(max+1));
+  }
   const rand = () => {
-		const t = rseed[0]^(rseed[0]<<11);
-		rseed[0] = rseed[1];
-		rseed[1] = rseed[2];
-		rseed[2] = rseed[3];
-		rseed[3] = (rseed[3]^(rseed[3]>>19)^t^(t>>8));
-		return (rseed[3]>>>0)/((1<<31)>>>0);
-	}
+    const t = rseed[0]^(rseed[0]<<11);
+    rseed[0] = rseed[1];
+    rseed[1] = rseed[2];
+    rseed[2] = rseed[3];
+    rseed[3] = (rseed[3]^(rseed[3]>>19)^t^(t>>8));
+    return (rseed[3]>>>0)/((1<<31)>>>0);
+  }
   const data = new Uint8Array(w*h).fill(3);
   const o1 = rnd(30);
   const o2 = rnd(30);
@@ -615,7 +615,7 @@ const gen_id = (w,h,seed) => {
   return data;
 }
 
-const ctx = new Offscreen(w,h);
+const ctx = new Offscreen(8,8);
 
 const update_items = async () => {
   items.innerHTML = "";
@@ -624,7 +624,7 @@ const update_items = async () => {
     item.classList.add("item");
     const data = parse_item(files[i]);
     const hash = await sha256(data);
-    ctx.set_rgb(gen_id(w,h,seed),palette);
+    ctx.set_rgb(gen_id(8,8,seed),palette);
     const img = document.createElement("img");
     img.src = ctx.get();
     item.appendChild(img);
