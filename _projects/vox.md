@@ -31,6 +31,11 @@ input[type="range"]:focus {
   outline: 1px solid var(--md-sys-color-surface-dim);
   border-radius: 16px;
 }
+#items .item .image {
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+}
 #items .item .name {
   display: flex;
   align-items: center;
@@ -626,6 +631,8 @@ const update_items = async () => {
     const hash = await sha256(data);
     ctx.set_rgb(gen_id(8,8,hash),palette);
     const img = document.createElement("img");
+    img.classList.add("image");
+    img.classList.add("pixelated");
     img.src = ctx.get();
     item.appendChild(img);
     
