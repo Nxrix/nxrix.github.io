@@ -1,5 +1,5 @@
 /**
- * @copyright   (c) 2025 Nxrix. All rights reserved.
+ * @copyright (c) 2025 Nxrix. All rights reserved.
  */
 
 class CoreEditor {
