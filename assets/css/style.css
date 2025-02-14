@@ -301,6 +301,7 @@ ol, ul {
   height: calc(100% - 64px);
   overflow-x: hidden;
   overflow-y: hidden;
+  border-radius: 40px;
 }
 
 /*@media screen and (width < 425px) {
@@ -518,6 +519,9 @@ ol, ul {
   border-radius: 24px;
 }
 @media screen and (width < 450px) {
+  .body {
+    border-radius: 24px;
+  }
   .body .content .canvas_full, .body .content .canvas_full2 {
     border-radius: 8px;
   }
