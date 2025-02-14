@@ -301,7 +301,7 @@ ol, ul {
   height: calc(100% - 64px);
   overflow-x: hidden;
   overflow-y: hidden;
-  border-radius: 40px;
+  border-radius: 44px;
 }
 
 /*@media screen and (width < 425px) {
@@ -326,7 +326,7 @@ ol, ul {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 16px;
+  padding: 28px;
 }
 .body .content {
   max-width: min(100%, 980px);
