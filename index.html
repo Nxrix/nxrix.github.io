@@ -455,6 +455,59 @@ class frnd {
   }
 }
 
+
+const events = {
+  1: [
+    {
+      day: 10,
+      solar: true,
+      offset: 3,
+      icon: "5,6,wwfwwfffffbfffb2fbf2wb2bww2w2w",
+      w: 5,
+      c1: 25,
+      c2: 26,
+    },
+    {
+      day: 24,
+      solar: true,
+      offset: 3,
+      icon: "5,6,wwfwwfffffbfffb2fbf2wb2bww2w2w",
+      w: 5,
+      c1: 0,
+      c2: 20,
+    }
+  ],
+  2: [
+    {
+      day: 14,
+      solar: false,
+      icon: "5,6,55w55565654565424542w242www2ww",
+      w: 5,
+      c1: 5,
+      c2: 6,
+    }
+  ]
+};
+const leap_year = (year) => {
+  //return (year%4==0&&year%100!=0)||(year%400==0);
+  return (year%4==0);
+}
+const find_event = (input) => {
+  const date = (input instanceof Date)?input:new Date(input);
+  const year = date.getFullYear();
+  const month = date.getMonth()+1;
+  const day = date.getDate();
+  const e = events[month]||[];
+  for (const event of e) {
+    let eday = event.day;
+    if (event.solar&&leap_year(year+event.offset)) eday-=1;
+    if (day==eday) {
+      return event;
+    }
+  }
+  return null;
+}
+
 //---1632640020000---//
 const k = new Date("2021-09-26T10:37:00.000+03:30");
 const _second = 1000;
@@ -469,12 +522,17 @@ let update = () => {
   cls();
   const date = new Date();
   const now = new Date(date.getTime());
+  const e = find_event(now);
   const dist = now-k;
   const d = Math.floor(dist/_day);
   const h = Math.floor((dist%  _day)/   _hour).toString().padStart(2,0);
   const m = Math.floor((dist% _hour)/ _minute).toString().padStart(2,0);
   const s = Math.floor((dist%_minute)/_second).toString().padStart(2,0);
-  const str = `${d} ${h}:${m}:${s}`;
+  const str1 = `${d}`;
+  const str2 = `${h}:${m}:${s}`;
+  const w = e!==null?e.w:0;
+  const strl2 = str1.length+w/4+1/2+str2.length;
+  const str2p = w+str1.length*4+3;
 
   const rnd = new srnd();
   const n = Math.floor(dist/1000);
@@ -494,6 +552,10 @@ let update = () => {
   if (c1==30) c2 = 11;
   if (c1==30) c1 = 10;
   if (c1==31) c2 = 27;
+  if (e!=null) {
+    c1 = e.c1;
+    c2 = e.c2;
+  }
   fillp(rn,c2);
   for (let i=0;i<width;i++) {
     for (let j=0;j<height;j++) {
@@ -502,34 +564,49 @@ let update = () => {
   }
   fillp();
 
-  for (let i=0;i<4*str.length+7;i++) {
+  for (let i=0;i<4*strl2+8;i++) {
     for (let j=0;j<12;j++) {
       let v = 3;
-      if ((i==1||j==1||i==str.length*4+5||j==10)&&(i>0)&&(j>0)&&(i<str.length*4+6)&&(j<11)) {
-        v = (Math.abs(i-(4*str.length+6)/2)^Math.abs(j-5.5))+n*4+t/4;
+      if ((i==1||j==1||i==strl2*4+6||j==10)&&(i>0)&&(j>0)&&(i<strl2*4+7)&&(j<11)) {
+        v = (Math.abs(i-(4*strl2+6)/2)^Math.abs(j-5.5))+n*4+t/4;
       }
-      pset(i+width2-4-str.length*2,j+height2-6,v);
+      pset(i+width2-4-strl2*2,j+height2-6,v);
     }
   }
 
-  /*for (let i=0;i<width-4;i++) {
-    for (let j=0;j<height-4;j++) {
-      if (i==0||j==0||i==width-5||j==height-5) {
-        pset(i+2,j+2,0);
-      }
-    }
-  }*/
+  if (e!=null) {
+    sspr(e.icon,17+width2-2*strl2,height2-3,e.w,6);
+  }
+  //print(str,width2-1-2*strl,height2-3,20);
+  //print(str,width2  -2*strl,height2-3,20);
+  //print(str,width2+1-2*strl,height2-3,20);
+  //print(str,width2-1-2*strl,height2-2,0);
+  //print(str,width2+1-2*strl,height2-2,0);
+  //print(str,width2-1-2*strl,height2-1,0);
+  //print(str,width2  -2*strl,height2-1,0);
+  //print(str,width2+1-2*strl,height2-1,0);
 
-  print(str,width2-1-2*str.length,height2-3,20);
-  print(str,width2  -2*str.length,height2-3,20);
-  print(str,width2+1-2*str.length,height2-3,20);
-  print(str,width2-1-2*str.length,height2-2,0);
-  print(str,width2+1-2*str.length,height2-2,0);
-  print(str,width2-1-2*str.length,height2-1,0);
-  print(str,width2  -2*str.length,height2-1,0);
-  print(str,width2+1-2*str.length,height2-1,0);
+  print(str1,width2-2*strl2-1,height2-3,20);
+  print(str1,width2-2*strl2  ,height2-3,20);
+  print(str1,width2-2*strl2+1,height2-3,20);
+  print(str1,width2-2*strl2-1,height2-2,0);
+  print(str1,width2-2*strl2+1,height2-2,0);
+  print(str1,width2-2*strl2-1,height2-1,0);
+  print(str1,width2-2*strl2  ,height2-1,0);
+  print(str1,width2-2*strl2+1,height2-1,0);
 
-  print(str,width2-2*str.length,height2-2,3);
+  print(str2,str2p+width2-2*strl2-1,height2-3,20);
+  print(str2,str2p+width2-2*strl2  ,height2-3,20);
+  print(str2,str2p+width2-2*strl2+1,height2-3,20);
+  print(str2,str2p+width2-2*strl2-1,height2-2,0);
+  print(str2,str2p+width2-2*strl2+1,height2-2,0);
+  print(str2,str2p+width2-2*strl2-1,height2-1,0);
+  print(str2,str2p+width2-2*strl2  ,height2-1,0);
+  print(str2,str2p+width2-2*strl2+1,height2-1,0);
+
+  //print(str,width2-2*strl,height2-2,3);
+  print(str1,width2-2*strl2,height2-2,3);
+  print(str2,str2p+width2-2*strl2,height2-2,3);
 
   buffer_texture.needsUpdate = true;
   renderer.render(scene,cam);
