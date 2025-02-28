@@ -608,6 +608,18 @@ let update = () => {
   print(str1,width2-2*strl2,height2-2,3);
   print(str2,str2p+width2-2*strl2,height2-2,3);
 
+  /*const oldb = buffer;
+  const pget2 = (x,y) => {
+    x = x&widthm1;
+    y = y&heightm1;
+    return oldb[x+y*width];
+  }
+  for (let i=0;i<width;i++) {
+    for (let j=0;j<height;j++) {
+      pset(i,j,pget2(i+rnd.gen(n*width+j+t),j));
+    }
+  }*/
+
   buffer_texture.needsUpdate = true;
   renderer.render(scene,cam);
   t++;
