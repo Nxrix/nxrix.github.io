@@ -486,6 +486,16 @@ let events = {
       c1: 5,
       c2: 6,
     }
+  ],
+  12: [
+    {
+      day: 25,
+      solar: false,
+      icon: "5,6,wwfwwwgg6ww6ccwggggg22822ww2ww",
+      w: 5,
+      c1: [5,16,2],
+      c2: [6,17,3],
+    }
   ]
 };
 const leap_year = (year) => {
@@ -552,10 +562,20 @@ let update = () => {
   if (c1==30) c2 = 11;
   if (c1==30) c1 = 10;
   if (c1==31) c2 = 27;
+
   if (e!=null) {
-    c1 = e.c1;
-    c2 = e.c2;
+    if (Array.isArray(e.c1)) {
+      c1 = e.c1[rn%e.c1.length];
+    } else {
+      c1 = e.c1;
+    }
+    if (Array.isArray(e.c2)) {
+      c2 = e.c2[rn%e.c2.length];
+    } else {
+      c2 = e.c2;
+    }
   }
+
   fillp(rn,c2);
   for (let i=0;i<width;i++) {
     for (let j=0;j<height;j++) {
