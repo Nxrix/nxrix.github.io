@@ -10,7 +10,7 @@ class Storage {
   }
   async init() {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.name,2);
+      const request = indexedDB.open(this.name,3);
       request.onupgradeneeded = (event) => {
         const db = event.target.result;
         if (!db.objectStoreNames.contains(this.store)) {
