@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Nxrix - All rights reserved -->
+
+<svg
+   width="128"
+   height="128"
+   viewBox="0 0 33.866667 33.866667"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <g
+     id="layer1"
+     clip-path="none"
+     mask="none">
+    <path
+       id="rect11141"
+       style="fill:#8950f7;fill-rule:evenodd;stroke-width:0;stroke-linecap:square;paint-order:stroke fill markers"
+       d="m 5.1467472,7.0348239 a 7.1437506,7.1437505 0 0 0 0,10.1027881 l 5.0513938,5.051394 6.735193,6.735193 6.735191,-6.735193 5.051395,-5.051394 a 7.1437506,7.1437505 0 0 0 0,-10.1027883 7.1437506,7.1437505 0 0 0 -10.102788,0 7.1437506,7.1437505 0 0 0 -1.683798,2.672454 7.1437506,7.1437505 0 0 0 -1.683798,-2.6724537 7.1437506,7.1437505 0 0 0 -10.1027888,-1e-7 z" />
+  </g>
+</svg>
