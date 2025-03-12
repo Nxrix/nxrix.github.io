@@ -258,7 +258,7 @@ input[type="text"] ,input[type="password"] {
   background-color: var(--md-sys-color-background);
   font-size: 1em;
   padding: 8px;
-  outline: 1px solid var(--md-sys-color-surface-dim);
+  outline: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 8px;
   transition: outline .2s linear;
 }
@@ -444,7 +444,7 @@ ol, ul {
   border-spacing: 0px;
   outline: 1px;
   outline-style: solid;
-  outline-color: var(--md-sys-color-surface-dim);
+  outline-color: var(--md-sys-color-outline-variant);
   overflow-wrap: normal;
   word-break: keep-all;
   white-space: nowrap;
@@ -455,12 +455,12 @@ ol, ul {
 }
 .body .content table th {
   background-color: var(--md-sys-color-surface-container);
-  border-left: 1px solid var(--md-sys-color-surface-dim);
+  border-left: 1px solid var(--md-sys-color-outline-variant);
 }
 .body .content table td {
   background-color: var(--md-sys-color-background);
-  border-left: 1px solid var(--md-sys-color-surface-dim);
-  border-top: 1px solid var(--md-sys-color-surface-dim);
+  border-left: 1px solid var(--md-sys-color-outline-variant);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
 }
 .body .content table td:first-child, .body .content table th:first-child {
   border-left: none;
@@ -649,7 +649,7 @@ ol, ul {
 .body .content .highlighter-rouge {
   width: fit-content;
   max-width: 100%;
-  border: 1px solid var(--md-sys-color-surface-dim);
+  border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 24px;
   overflow: auto;
 }
@@ -790,10 +790,10 @@ ol, ul {
   background-color: var(--md-sys-color-surface-container);
 }
 .core_editor ::-webkit-scrollbar-thumb {
-  background-color: var(--md-sys-color-surface-dim);
+  background-color: var(--md-sys-color-outline-variant);
 }
 .core_editor ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--md-sys-color-surface-dim);
+  background-color: var(--md-sys-color-outline-variant);
 }
 .core_editor ::-webkit-scrollbar-corner {
   background-color: var(--md-sys-color-surface-container);
@@ -822,7 +822,7 @@ ol, ul {
   border-radius: 8px;
   overflow: hidden;
   outline: solid;
-  outline-color: var(--md-sys-color-surface-dim);
+  outline-color: var(--md-sys-color-outline-variant);
   outline-width: 1px;
 }
 .core_editor .wrap {
@@ -838,7 +838,7 @@ ol, ul {
   position: sticky;
   background-color: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-outline);
-  border-right: 1px solid var(--md-sys-color-surface-dim);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
   left: 0;
   padding: 1em;
   text-align: right;
