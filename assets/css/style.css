@@ -406,7 +406,8 @@ ol, ul {
   height: calc(100% - 64px);
   overflow-x: hidden;
   overflow-y: hidden;
-  border-radius: 44px 44px 0 0;
+  /*border-radius: 44px 44px 0 0;*/
+  outline: 1px solid var(--md-sys-color-outline-variant);
 }
 
 /*@media screen and (width < 425px) {
