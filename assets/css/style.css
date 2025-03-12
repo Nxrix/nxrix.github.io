@@ -654,7 +654,7 @@ ol, ul {
     padding: 16px;
   }
   .body .content .canvas_full, .body .content .canvas_full2 {
-    border-radius: 8px 8px 0 0;
+    border-radius: 8px;
   }
 }
 .body .content .canvas_1x1 {
