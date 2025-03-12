@@ -243,6 +243,7 @@ a:not(.cart):hover {
 }
 button {
   background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
   min-width: 72px;
   width: fit-content;
   height: fit-content;
@@ -252,10 +253,11 @@ button {
   transition: background-color .3s cubic-bezier(.2,0,0,1);
 }
 button:hover {
-  background-color: var(--md-sys-color-surface-dim);
+  background-color: var(--md-sys-color-outline-variant);
 }
 input[type="text"] ,input[type="password"] {
   background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-surface);
   font-size: 1em;
   padding: 8px;
   outline: 1px solid var(--md-sys-color-outline-variant);
