@@ -39,6 +39,7 @@
   --md-sys-color-on-error: #ffffff;
   --md-sys-color-error-container: #ffdad6;
   --md-sys-color-on-error-container: #410002;
+  --md-sys-color-pixel-bg: #ffe8e9;
 }
 
 :root[data-theme="light"] {
@@ -91,6 +92,7 @@
   --md-sys-color-surface-container: rgb(242 236 244);
   --md-sys-color-surface-container-high: rgb(236 230 238);
   --md-sys-color-surface-container-highest: rgb(230 224 233);
+  --md-sys-color-pixel-bg: #ffe8e9;
 }
 :root[data-theme="dark"] {
   --md-sys-color-primary: rgb(208 188 254);
@@ -142,6 +144,7 @@
   --md-sys-color-surface-container: rgb(33 31 36);
   --md-sys-color-surface-container-high: rgb(43 41 47);
   --md-sys-color-surface-container-highest: rgb(54 52 58);
+  --md-sys-color-pixel-bg: #1d1826;
 }
 
 @font-face {
