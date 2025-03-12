@@ -653,9 +653,9 @@ ol, ul {
   .body .scroll_wrapper {
     padding: 16px;
   }
-  .body .content .canvas_full, .body .content .canvas_full2 {
-    border-radius: 8px;
-  }
+  /*.body .content .canvas_full, .body .content .canvas_full2 {
+    border-radius: 8px 8px 0 0;
+  }*/
 }
 .body .content .canvas_1x1 {
   width: 100%;
