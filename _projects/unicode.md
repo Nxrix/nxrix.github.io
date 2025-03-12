@@ -11,7 +11,7 @@ image: "unicode.png"
     max-width: 400px;
     margin: 2% auto;
     padding: 20px;
-    box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
+    outline: 1px solid var(--md-sys-color-outline-variant);
     border-radius: 15px;
   }
   #table .char {
@@ -20,7 +20,7 @@ image: "unicode.png"
     margin: 0 0 -3px 0;
     width: calc(100%/8);
     aspect-ratio : 1;
-    box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
+    outline: 1px solid var(--md-sys-color-outline-variant);
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -44,7 +44,7 @@ image: "unicode.png"
     width: 70%;
     padding: 2.5%;
     margin: 5% 5% 0 0;
-    box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
+    outline: 1px solid var(--md-sys-color-outline-variant);
     border: 0;
   }
   .button {
@@ -54,7 +54,7 @@ image: "unicode.png"
     width: 25%;
     padding: 2.5%;
     margin: 5% 0 0 0;
-    box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
+    outline: 1px solid var(--md-sys-color-outline-variant);
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -64,7 +64,7 @@ image: "unicode.png"
   .buttons {
     width: 100%;
     aspect-ratio : 8 / 1;
-    box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
+    outline: 1px solid var(--md-sys-color-outline-variant);
     margin: 5% auto 0 0;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -89,7 +89,7 @@ image: "unicode.png"
     overflow: hidden;
     font-size: xxx-large;
     margin: 0 auto;
-    box-shadow: 0 0 0 1px var(--md-sys-color-surface-dim);
+    outline: 1px solid var(--md-sys-color-outline-variant);
     border-radius: 15px;
   }
 </style>
