@@ -809,14 +809,6 @@ ol, ul {
 .core_editor ::-webkit-scrollbar-corner {
   background-color: var(--md-sys-color-surface-container);
 }
-.core_editor ::-moz-selection {
-  color: var(--md-sys-color-background);
-  background-color: var(--md-sys-color-on-surface);
-}
-.core_editor ::selection {
-  color: var(--md-sys-color-background);
-  background-color: var(--md-sys-color-on-surface);
-}
 .core_editor textarea:focus {
   outline: 0;
 }
