@@ -403,7 +403,7 @@ ol, ul {
   height: calc(100% - 64px);
   overflow-x: hidden;
   overflow-y: hidden;
-  border-radius: 44px;
+  border-radius: 44px 44px 0 0;
 }
 
 /*@media screen and (width < 425px) {
