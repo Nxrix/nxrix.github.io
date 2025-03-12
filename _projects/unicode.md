@@ -472,7 +472,7 @@ const update = (x,y) => {
   table.innerHTML = `
     <div class="outchar">&#x${(y+x*r*r).toString(16)};</div><br>
     ${chars}
-    <input id="input" autocomplete="off" value="${page+1}"><div class="button" onclick="update(page=(parseInt(input.value-1))||0,selected)">Go</div>
+    <input id="input" type="text" autocomplete="off" value="${page+1}"><div class="button" onclick="update(page=(parseInt(input.value-1))||0,selected)">Go</div>
     <div class="buttons">
       <div onclick="update(page-=1,selected)"><</div><div onclick="update(page-=2,selected)"><<</div><div onclick="update(page+=2,selected)">>></div><div onclick="update(page+=1,selected)">></div>
     </div><br>
