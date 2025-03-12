@@ -647,15 +647,15 @@ ol, ul {
   border-radius: 24px;
 }
 @media screen and (width < 450px) {
-  .body {
+  /*.body {
     border-radius: 24px;
-  }
+  }*/
   .body .scroll_wrapper {
     padding: 16px;
   }
-  /*.body .content .canvas_full, .body .content .canvas_full2 {
+  .body .content .canvas_full, .body .content .canvas_full2 {
     border-radius: 8px 8px 0 0;
-  }*/
+  }
 }
 .body .content .canvas_1x1 {
   width: 100%;
