@@ -13,6 +13,8 @@
   <link rel="icon" href="./img/icons/clown-48x.png" type="image/png">
   <!--link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"-->
   <link rel="stylesheet" href="./css/style.css?{{site.time|date:'%s%N'}}">
+  <script src="./js/theme.js"></script>
+  <script src="./js/screen.js"></script>
   <title>Nxrix : {{ page.title }}</title>
 </head>
 <body>
@@ -74,22 +76,14 @@
     </div>
   </div>
 </body>
-<script src="./js/screen.js"></script>
 <script>
 
 const fullscreen = () => {
-  var div = document.documentElement;
-  if (!document.mozFullScreen && !document.webkitFullScreen) {
-    if (div.mozRequestFullScreen) {   
-      div.mozRequestFullScreen();
-    } else {
-      div.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-    }
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
   } else {
-    if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else {
-      document.webkitCancelFullScreen();
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
     }
   }
 }
