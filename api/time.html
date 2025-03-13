@@ -508,7 +508,7 @@ let update = () => {
   print(str2,str2p+width2-2*strl2,height2-2,3);
 
   for (let i=0;i<wxh;i++) {
-    const color = palette[buffer[i]];
+    const c = palette[buffer[i]];
     const index = i*4;
     img_data[index  ] = c[0];
     img_data[index+1] = c[1];
