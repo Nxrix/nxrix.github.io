@@ -13,13 +13,9 @@ gl.ctx.attachShader(gl.pg,gl.vs);
 gl.ctx.attachShader(gl.pg,gl.fs);
 
 gl.VS = `#version 300 es
-in vec4 p;
-
-uniform vec3 r;
-
+in vec2 p;
 void main() {
-  gl_PointSize = r.x;
-  gl_Position = p;
+  gl_Position = vec4(p, 0.0, 1.0);
 }`;
 
 /*
@@ -265,8 +261,13 @@ gl.update = () => {
   gl.ctx.useProgram(gl.pg);
   gl.buffer = gl.ctx.createBuffer();
   gl.ctx.bindBuffer(gl.ctx.ARRAY_BUFFER,gl.buffer);
-  gl.vertices = new Float32Array([0,0]);
-  gl.ctx.bufferData(gl.ctx.ARRAY_BUFFER,gl.vertices,gl.ctx.STATIC_DRAW);
+  gl.vertices = new Float32Array([
+    -1.0, -1.0,
+     1.0, -1.0,
+    -1.0,  1.0,
+     1.0,  1.0
+  ]);
+  gl.ctx.bufferData(gl.ctx.ARRAY_BUFFER, gl.vertices, gl.ctx.STATIC_DRAW);
 
   gl.pLoc = gl.ctx.getAttribLocation(gl.pg,"p");
   gl.ctx.enableVertexAttribArray(gl.pLoc);
@@ -276,5 +277,5 @@ gl.update = () => {
   gl.ctx.uniform3f(gl.rLoc,gl.canvas.width,gl.canvas.height,gl.canvas.width/gl.canvas.height);
 };
 gl.update();
-gl.ctx.drawArrays(gl.ctx.POINTS,0,1);
+gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);
 </script>
