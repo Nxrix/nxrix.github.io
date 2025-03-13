@@ -261,7 +261,7 @@ gl.setProgram = (fsrc) => {
   }
 };
 gl.update = () => {
-  error.innerText = gl.setProgram(gl.FS+editor.textarea.value+gl.vox);
+  error.innerText = gl.setProgram(gl.FS);
   gl.ctx.useProgram(gl.pg);
   gl.buffer = gl.ctx.createBuffer();
   gl.ctx.bindBuffer(gl.ctx.ARRAY_BUFFER,gl.buffer);
