@@ -1,0 +1,280 @@
+<style>html,body{background-color:#000;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center}canvas,#error{color:red;position:fixed;width:100vmin;height:100vmin;image-rendering:pixelated}</style>
+<canvas width="256" height="256" style=""></canvas>
+<div id="error"></div>
+<script>
+"use strict";
+const gl = {};
+gl.canvas = document.querySelector("canvas");
+gl.ctx = gl.canvas.getContext("webgl2",{ preserveDrawingBuffer:true });
+gl.pg = gl.ctx.createProgram();
+gl.vs = gl.ctx.createShader(gl.ctx.VERTEX_SHADER);
+gl.fs = gl.ctx.createShader(gl.ctx.FRAGMENT_SHADER);
+gl.ctx.attachShader(gl.pg,gl.vs);
+gl.ctx.attachShader(gl.pg,gl.fs);
+
+gl.VS = `#version 300 es
+in vec4 p;
+
+uniform vec3 r;
+
+void main() {
+  gl_PointSize = r.x;
+  gl_Position = p;
+}`;
+
+/*
+uniform float sz;
+uniform bool CAM_TYPE;
+uniform float CAM_DIST;
+uniform float CAM_YAW;
+uniform float CAM_PITCH;
+*/
+
+const I_VOX = 
+`f k(i x,i y,i z,i d,i dx,i dn,i dt) {
+  if (( (x^y^z) ) == 0) {
+    return f(z)+1.0;
+  } else {
+    return 0.0;
+  }
+}`;
+const I_SZ = "32.0";
+const I_CAM_T = "true";
+const I_CAM_D = "0.0";
+const I_CAM_Y = "0.0";
+const I_CAM_P = "0.0";
+
+gl.FS = `#version 300 es
+precision highp float;
+precision highp int;
+out vec4 fragColor;
+
+uniform vec3 r;
+#define sz ${I_SZ}
+
+#define f float
+#define f2 vec2
+#define f3 vec3
+#define f4 vec4
+#define i int
+#define i2 ivec2
+#define i3 ivec3
+#define i4 ivec4
+#define b bool
+#define b2 bvec2
+#define b3 bvec3
+#define b4 bvec4
+#define m mat2
+#define m3 mat3
+#define m4 mat4
+
+#define d2r 3.14159265/180.0
+
+float dither[16] = float[16](
+  0.0,8.0,2.0,10.0,
+  12.0,4.0,14.0,6.0,
+  3.0,11.0,1.0,9.0,
+  15.0,7.0,13.0,5.0
+);
+
+int palsh[96] = int[96](
+  0,20,1,2,20,4,5,6,4,8,9,10,16,12,13,11,20,16,17,18,0,20,21,22,20,24,25,26,9,28,15,27,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,20,2,3,3,5,6,7,31,9,10,11,15,13,14,15,30,17,18,19,3,21,22,23,19,25,26,27,31,29,30,3,3
+);
+
+/*int prime[128] = int[128](
+    2,   3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43,  47,  53,
+   59,  61,  67,  71,  73,  79,  83,  89,  97, 101, 103, 107, 109, 113, 127, 131,
+  137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223,
+  227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311,
+  313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409,
+  419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503,
+  509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613,
+  617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719
+);*/
+
+vec3 palette[32] = vec3[32](
+  vec3( 29,  24,  38), vec3(139, 127, 176), vec3(195, 190, 229), vec3(255, 232, 233),
+  vec3(101,  38,  78), vec3(160,  26,  61), vec3(222,  27,  69), vec3(242,  99, 123),
+  vec3(139,  63,  57), vec3(187,  69,  49), vec3(239,  93,  14), vec3(255, 149,   0),
+  vec3(  0, 160,  61), vec3( 18, 213,   0), vec3(180, 216,   0), vec3(255, 195,  31),
+  vec3(  0, 110, 105), vec3(  0, 174, 133), vec3(  0, 218, 167), vec3( 79, 214, 255),
+  vec3( 43,  39,  84), vec3( 60,  81, 175), vec3( 24, 136, 222), vec3(  0, 169, 225),
+  vec3( 89,  60, 151), vec3(137,  68, 207), vec3(180,  74, 255), vec3(233,  89, 255),
+  vec3(231, 135, 109), vec3(255, 186, 140), vec3(255, 239,  92), vec3(255, 156, 222)
+);
+
+float atan2( in float y, in float x){bool s=(abs(x)>abs(y));return mix(3.141592/2.0-atan(x,y),atan(y,x),s)/6.283184;}
+
+int min3(int x,int y,int z) {
+  return min(min(x,y),z);
+}
+int max3(int x,int y,int z) {
+  return max(max(x,y),z);
+}
+float min3(float x,float y,float z) {
+  return min(min(x,y),z);
+}
+float max3(float x,float y,float z) {
+  return max(max(x,y),z);
+}
+#define sz1 sz+1.0
+#define sz2 sz/2.0+0.5
+#define szint int(sz)
+#define szi szint*szint
+#define cs int(sz/32.0)
+#define ic int(sz/2.0)
+
+${I_VOX}
+
+float map(vec3 v) {
+  ivec3 p = ivec3(v.xzy);
+  vec3 dv = v-sz2;
+  vec3 dva = abs(dv);
+  int dx = int(max3(dva.x,dva.y,dva.z));
+  int dn = int(min3(abs(v.x-sz2),abs(v.y-sz2),abs(v.z-sz2)));
+  int dt = int(dva.x+dva.y+dva.z);
+  return k(p.x,p.y,p.z,szint,dx,dn,dt);
+}
+
+#define yaw (${I_CAM_Y}+0.0001)*d2r
+#define pitch (${I_CAM_P}+0.0001)*d2r
+
+#define sy sin(yaw)
+#define cy cos(yaw)
+#define sp sin(pitch)
+#define cp cos(pitch)
+
+vec3 rotz(vec3 v,float s,float c) {
+  return v*mat3(
+    c,-s,0,
+    s, c,0,
+    0, 0,1
+  );
+}
+vec3 roty(vec3 v,float s,float c) {
+  return v*mat3(
+     c,0,s,
+     0,1,0,
+    -s,0,c
+  );
+}
+vec3 rotx(vec3 v,float s,float c) {
+  return v*mat3(
+    1,0, 0,
+    0,c,-s,
+    0,s, c
+  );
+}
+
+void main() {
+  vec2 uv = gl_FragCoord.xy/r.xy * 2.0 - 1.0;
+  uv.x *= r.z;
+  vec3 col = palette[3]/256.0;
+  vec3 o = vec3(0,0,sz*1.5);
+  vec3 d;
+  if (${I_CAM_T}) {
+    o.z += sz*${I_CAM_D};
+    o = rotx(o,sp,cp);
+    o = roty(o,sy,cy);
+    d = vec3(uv,-1);
+  } else {
+    o += vec3(uv,0)*(sz+sz*${I_CAM_D});
+    o = rotx(o,sp,cp);
+    o = roty(o,sy,cy);
+    d = vec3(0,0,-1);
+  }
+  o += sz/2.0;
+  d = rotx(d,sp,cp);
+  d = roty(d,sy,cy); 
+  vec3 inv = 1.0/d;
+  vec3 t1 = -o*inv;
+  vec3 t2 = (sz-o)*inv;
+  float tmin = max(max(min(t1.x,t2.x),min(t1.y,t2.y)),min(t1.z,t2.z));
+  float tmax = min(min(max(t1.x,t2.x),max(t1.y,t2.y)),max(t1.z,t2.z));
+  if (tmax<0.0) {
+    fragColor = vec4(palette[3]/256.0,1);
+  }
+  if (tmin>tmax) {
+    fragColor = vec4(palette[3]/256.0,1);
+  }
+  if (tmin>0.0) o += tmin*d*0.999999;
+  vec3 v = floor(o);
+  vec3 s = sign(d);
+  vec3 tm = (v-o+0.5+s*0.5)*inv;
+  vec3 td = inv*s;
+  vec3 n = vec3(0);
+  int itr = 0;
+  while (v.x>=-1.0&&v.x<sz1&&v.y>=-1.0&&v.y<sz1&&v.z>=-1.0&&v.z<sz1&&itr<szi) {
+    if (v.x>=0.0&&v.x<sz&&v.y>=0.0&&v.y<sz&&v.z>=0.0&&v.z<sz) {
+      int c = int(map(v));
+      if (c>0) {
+        col = palette[palsh[((c-1)/cs&31)+(n.x!=0.0?32:(n.y!=0.0?64:0))]]/256.0;
+        break;
+      }
+    }
+    if (tm.x<=tm.y&&tm.x<=tm.z) {
+      tm.x += td.x;
+      v.x += s.x;
+      n = vec3(-s.x,0,0);
+    } else if (tm.y<=tm.x&&tm.y<=tm.z) {
+      tm.y += td.y;
+      v.y += s.y;
+      n = vec3(0,-s.y,0);
+    } else {
+      tm.z += td.z;
+      v.z += s.z;
+      n = vec3(0,0,-s.z);
+    }
+    itr++;
+  }
+  fragColor = vec4(col, 1.0);
+}`;
+const fix_error_line = (error,offset) => {
+  const nlines = error.split("\n").map((line) => {
+    var m = line.match(/:(\d+)/);
+    if (m) {
+      return line.replace(m[1],(parseInt(m[1])+offset).toString());
+    }
+    return line;
+  });
+  return nlines.join("\n");
+};
+gl.setProgram = (fsrc) => {
+  gl.ctx.shaderSource(gl.vs,gl.VS);
+  gl.ctx.compileShader(gl.vs);
+  gl.ctx.shaderSource(gl.fs,fsrc);
+  gl.ctx.compileShader(gl.fs);
+  gl.ctx.linkProgram(gl.pg);
+  gl.ctx.validateProgram(gl.pg);
+  if (!gl.ctx.getProgramParameter(gl.pg,gl.ctx.LINK_STATUS)) {
+    const log = gl.ctx.getShaderInfoLog(gl.fs);
+    gl.ctx.shaderSource(gl.vs,gl.VS);
+    gl.ctx.compileShader(gl.vs);
+    gl.ctx.shaderSource(gl.fs,gl.FSO);
+    gl.ctx.compileShader(gl.fs);
+    gl.ctx.linkProgram(gl.pg);
+    gl.ctx.validateProgram(gl.pg);
+    return fix_error_line(log,-gl.FS.split("\n").length+1).slice(0,-1);
+  } else {
+    gl.FSO = fsrc;
+    return "";
+  }
+};
+gl.update = () => {
+  error.innerText = gl.setProgram(gl.FS+editor.textarea.value+gl.vox);
+  gl.ctx.useProgram(gl.pg);
+  gl.buffer = gl.ctx.createBuffer();
+  gl.ctx.bindBuffer(gl.ctx.ARRAY_BUFFER,gl.buffer);
+  gl.vertices = new Float32Array([0,0]);
+  gl.ctx.bufferData(gl.ctx.ARRAY_BUFFER,gl.vertices,gl.ctx.STATIC_DRAW);
+
+  gl.pLoc = gl.ctx.getAttribLocation(gl.pg,"p");
+  gl.ctx.enableVertexAttribArray(gl.pLoc);
+  gl.ctx.vertexAttribPointer(gl.pLoc,2,gl.ctx.FLOAT,false,0,0);
+
+  gl.rLoc = gl.ctx.getUniformLocation(gl.pg,"r");
+  gl.ctx.uniform3f(gl.rLoc,gl.canvas.width,gl.canvas.height,gl.canvas.width/gl.canvas.height);
+};
+gl.update();
+gl.ctx.drawArrays(gl.ctx.POINTS,0,1);
+</script>
