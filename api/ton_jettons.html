@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Price</title>
+</head>
+<style>
+@font-face {
+  font-family: "sfr";
+  src: url("../assets/fonts/sf-pro-round.woff2");
+}
+html,body {
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  font-family: "sfr";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.widget {
+  background-color: #111;
+  position: relative;
+  width: 60vmin;
+  height: 60vmin;
+  overflow: hidden;
+  user-select: none;
+  border-radius: 5vmin;
+  box-shadow: inset 0 0 0 0.5vmin #fff2;
+}
+.widget .top {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 25%;
+  box-sizing: border-box;
+  padding: 5%;
+}
+.widget #w_image {
+  box-sizing: border-box;
+  padding: 1%;
+  height: 100%;
+  overflow: hidden;
+}
+.widget #w_name {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 5vmin;
+  font-weight: 500;
+  padding-left: 2%;
+}
+.widget #w_change {
+  font-size: 5vmin;
+  font-weight: 500;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 4vmin 5vmin;
+}
+.widget #w_price {
+  font-size: 5vmin;
+  font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 13vmin 5vmin;
+  color: #888;
+}
+</style>
+
+<body>
+<div class="widget">
+  <div class="top">
+    <img id="w_image">
+    <div id="w_name"></div>
+  </div>
+  <div id="w_change"></div>
+  <div id="w_price"></div>
+  <div id="w_chart"></div>
+</div>
+</body>
+
+<script>
+
+const make_chart = (prices,color) => {
+  const viewBoxWidth = 128;
+  const viewBoxHeight = 128;
+  const padding = viewBoxHeight*0.3;
+  const effectiveHeight = viewBoxHeight-2*padding;
+  const colors = {
+    green: "#16C784",
+    red: "#EA3943"
+  };
+  const hex = colors[color.toLowerCase()]||color;
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const priceRange = maxPrice-minPrice;
+  let linePath = "";
+  prices.forEach((price,index) => {
+    const x = (index/(prices.length-1))*viewBoxWidth;
+    const normalized = priceRange==0?0.5:(price-minPrice)/priceRange;
+    const y = padding+(1-normalized)*effectiveHeight+viewBoxHeight*0.2;
+    if (index==0) {
+      linePath += `M ${x.toFixed(6)} ${y.toFixed(6)}`;
+    } else {
+      linePath += ` L ${x.toFixed(6)} ${y.toFixed(6)}`;
+    }
+  });
+  let areaPath = `M 0 ${viewBoxHeight} `;
+  prices.forEach((price,index) => {
+    const x = (index/(prices.length-1))*viewBoxWidth;
+    const normalized = priceRange==0?0.5:(price-minPrice)/priceRange;
+    const y = padding+(1-normalized)*effectiveHeight+viewBoxHeight*0.2;
+    areaPath += `L ${x.toFixed(6)} ${y.toFixed(6)} `;
+  });
+  areaPath += `L ${viewBoxWidth} ${viewBoxHeight} Z`;
+  // 75% 0.05
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}">
+    <defs>
+      <linearGradient id="color${hex}" x1="0%" x2="0%" y1="0%" y2="100%">
+        <stop offset="0%" style="stop-color: ${hex}; stop-opacity: 0.4;"></stop>
+        <stop offset="100%" style="stop-color: ${hex}; stop-opacity: 0.0;"></stop>
+      </linearGradient>
+    </defs>
+    <g>
+      <path stroke="${hex}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" d="${linePath}"></path>
+      <path stroke="none" fill-opacity="0.6" fill="url(#color${hex})" d="${areaPath}"></path>
+    </g>
+  </svg>
+  `;
+  return svg;
+}
+
+const change = (a,b) => {
+  return (b>a?"↑":"↓")+Math.round((Math.abs(b-a)/a)*100)+"%";
+}
+
+const get_past = (s) => {
+  const date = new Date(Date.now()-s*1000);
+  return date.toISOString().slice(0,19);
+}
+
+const get_info = async (address) => {
+  const json = await fetch(`https://api.ston.fi/v1/assets/${address}`);
+  const data = await json.json();
+  return data;
+}
+
+const get_chart = async (from,to,interval,time) => {
+  const json = await fetch("https://rpc.ston.fi/",{
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": JSON.stringify({
+      jsonrpc: "2.0",
+      id: 3,
+      method: "pool.price_candles",
+      params: {
+        base_asset: from,
+        quote_asset: to,
+        since: get_past(time),
+        interval: interval
+      }
+    }),
+    "method": "POST"
+  });
+  const data = await json.json();
+  return data.result.data;
+}
+
+const address_ton = "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c";
+const address_usdt = "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
+
+const url = new URLSearchParams(window.location.search);
+const address = url.get("a")||address_usdt;
+
+window.onload = async () => {
+  const int = 60*60*24;
+  const chart = await get_chart(address,address_ton,int/64,int);
+  const prices = [];
+  for (i=0;i<chart.length;i++) {
+    prices.push(chart[i].avg);
+  }
+  const data = await get_info(address);
+  w_image.src = data.asset.image_url;
+  w_name.innerText = data.asset.symbol;
+  w_chart.innerHTML = make_chart(prices,prices[0]<prices[prices.length-1]?"green":"red");
+  w_change.innerText = change(prices[0],prices[prices.length-1]);
+  w_change.style.color = prices[0]<prices[prices.length-1]?"#16C784":"#EA3943";
+  w_price.innerText = Math.round(data.asset.dex_price_usd*10000)/10000+"$";
+}
+
+</script>
+</html>
