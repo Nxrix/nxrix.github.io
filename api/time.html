@@ -476,7 +476,7 @@ let update = () => {
     for (let j=0;j<12;j++) {
       let v = 3;
       if ((i==1||j==1||i==strl2*4+6||j==10)&&(i>0)&&(j>0)&&(i<strl2*4+7)&&(j<11)) {
-        v = (Math.abs(i-(4*strl2+6)/2)^Math.abs(j-5.5))+n*4+t/4;
+        v = (Math.abs(i-(4*strl2)/2+2.5)^Math.abs(j-5.5))+n*4+t/4;
       }
       pset(i+width2-4-strl2*2,j+height2-6,v);
     }
@@ -518,7 +518,7 @@ let update = () => {
   ctx.putImageData(img,0,0);
 
   t++;
-  requestAnimationFrame(update);
+  //requestAnimationFrame(update);
 }
 update();
 </script>
