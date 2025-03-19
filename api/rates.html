@@ -345,6 +345,7 @@ const format_num = (n) => {
 
 const load_items = (data) => {
   if (!data.error) {
+    list.innerHTML = "";
     for (let i=0;i<items.length;i++) {
       const item = items[i];
       const info = data[types[item.type]].find(e=>e.name==item.name);
@@ -367,30 +368,25 @@ const load_items = (data) => {
         </div>
       </div>`;
     }
-  } else {
-    for (let i=0;i<10;i++) {
-      list.innerHTML += `
-      <div class="item">
-        <div class="content">
-          <div class="limage"></div>
-          <div class="lname"></div>
-          <div class="lslug"></div>
-          <div class="lprice"></div>
-        </div>
-      </div>`;
-    }
   }
 }
 
 window.onload = async () => {
-  try {
-    const url = new URLSearchParams(window.location.search);
-    const json = await fetch("https://nxrix-s.vercel.app/api/rates?p="+url.get("p"));
-    const data = await json.json();
-    load_items(data);
-  } catch (err) {
-    load_items({error:"error"});
+  for (let i=0;i<10;i++) {
+  list.innerHTML += `
+    <div class="item">
+      <div class="content">
+        <div class="limage"></div>
+        <div class="lname"></div>
+        <div class="lslug"></div>
+        <div class="lprice"></div>
+      </div>
+    </div>`;
   }
+  const url = new URLSearchParams(window.location.search);
+  const json = await fetch("https://nxrix-s.vercel.app/api/rates?p="+url.get("p"));
+  const data = await json.json();
+  load_items(data);
 }
 
 </script>
