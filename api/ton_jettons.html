@@ -191,7 +191,7 @@ if (url.get("a")) {
 
 window.onload = async () => {
   const int = 60*60*24;
-  const chart = await get_chart(address1,address2,int/64,int);
+  const chart = await get_chart(address1,address2,int/128,int);
   const prices = [];
   for (i=0;i<chart.length;i++) {
     prices.push(chart[i].avg);
