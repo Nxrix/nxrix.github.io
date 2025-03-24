@@ -179,13 +179,11 @@ const address_ton = "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c";
 const address_usdt = "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
 
 const url = new URLSearchParams(window.location.search);
-let adderess1,address2;
+let address1 = address_ton;
+let address2 = address_usdt;
 if (url.get("a")) {
   address1 = url.get("a");
   address2 = address_ton;
-} else {
-  address1 = address_ton;
-  address2 = address_usdt;
 }
 
 window.onload = async () => {
@@ -195,7 +193,7 @@ window.onload = async () => {
   for (i=0;i<chart.length;i++) {
     prices.push(chart[i].avg);
   }
-  const data = await get_info(address);
+  const data = await get_info(address1);
   w_image.src = data.asset.image_url;
   w_name.innerText = data.asset.symbol;
   w_chart.innerHTML = make_chart(prices,prices[0]<prices[prices.length-1]?"green":"red");
