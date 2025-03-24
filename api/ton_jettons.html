@@ -179,11 +179,18 @@ const address_ton = "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c";
 const address_usdt = "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";
 
 const url = new URLSearchParams(window.location.search);
-const address = url.get("a")||address_usdt;
+let adderess1,address2;
+if (url.get("a")) {
+  address1 = url.get("a");
+  address2 = address_ton;
+} else {
+  address1 = address_ton;
+  address2 = address_usdt;
+}
 
 window.onload = async () => {
   const int = 60*60*24;
-  const chart = await get_chart(address,address_ton,int/64,int);
+  const chart = await get_chart(address1,address2,int/64,int);
   const prices = [];
   for (i=0;i<chart.length;i++) {
     prices.push(chart[i].avg);
