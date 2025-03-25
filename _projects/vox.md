@@ -440,7 +440,7 @@ gl.draw = () => {
 gl.update();
 gl.draw();
 gl.pause = true;
-const storage = new Storage("nxrix","core_vox");
+const storage = new Storage("nxrix-core_vox","store");
 
 window.onload = async () => {
   await storage.init();
