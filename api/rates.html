@@ -263,17 +263,24 @@ const types = ["gold","currency","cryptocurrency"];
 const items = [
   {
     type: 1,
-    name: "دلار",
+    name: "دلار آمریکا",
     ename: "US Dollar",
     slug: "USD",
     icon: "us"
   },
   {
     type: 1,
-    name: "يورو",
+    name: "یورو",
     ename: "Euro",
     slug: "EUR",
     icon: "eu"
+  },
+  {
+    type: 1,
+    name: "پوند انگلستان",
+    ename: "British Pound",
+    slug: "GBP",
+    icon: "gb"
   },
   {
     type: 1,
@@ -282,54 +289,12 @@ const items = [
     slug: "RUB",
     icon: "ru"
   },
-  /*{
+  {
     type: 1,
     name: "ریال عمان",
     ename: "Omani Rial",
     slug: "OMR",
     icon: "om"
-  },*/
-  {
-    type: 2,
-    name: "بیت کوین",
-    ename: "Bitcoin",
-    slug: "BTC",
-    icon: "btc"
-  },
-  {
-    type: 2,
-    name: "اتریوم",
-    ename: "Ethereum",
-    slug: "ETH",
-    icon: "eth"
-  },
-  {
-    type: 0,
-    name: "انس طلا",
-    ename: "Gold",
-    slug: "XAUUSD",
-    icon: "gold"
-  },
-  {
-    type: 0,
-    name: "طلای 18 عیار",
-    ename: "Gold18",
-    slug: "GOLD18",
-    icon: "gold"
-  },
-  {
-    type: 1,
-    name: "پوند انگلیس",
-    ename: "British Pound",
-    slug: "GBP",
-    icon: "gb"
-  },
-  {
-    type: 0,
-    name: "سکه بهار آزادی",
-    ename: "Azadi",
-    slug: "AZADI",
-    icon: "gold"
   },
   {
     type: 1,
@@ -337,10 +302,39 @@ const items = [
     ename: "Chinese Yuan",
     slug: "CNY",
     icon: "cn"
+  },
+  {
+    type: 0,
+    name: "انس طلا",
+    ename: "Gold",
+    slug: "XAUUSD",
+    icon: "gold",
+    unit: "usd"
+  },
+  {
+    type: 0,
+    name: "مثقال طلا",
+    ename: "Mithqal",
+    slug: "MITHQAL",
+    icon: "gold"
+  },
+  {
+    type: 0,
+    name: "طلا 18 عیار",
+    ename: "Gold18",
+    slug: "GOLD18",
+    icon: "gold"
+  },
+  {
+    type: 0,
+    name: "سکه بهار آزادی",
+    ename: "Azadi",
+    slug: "AZADI",
+    icon: "gold"
   }
 ];
 
-const format_num = (n) => {
+/*const format_num = (n) => {
     if (n>=1000000000) {
     return (n/1000000000).toFixed(2)+"T";
   } else if (n>=1000000) {
@@ -348,14 +342,44 @@ const format_num = (n) => {
   } else {
     return n.toLocaleString();
   }
-}
+}*/
+
+const format_num = (n) => {
+  const format = (value,suffix) => {
+    const str = (value).toFixed(2);
+    return (str.endsWith(".00")?parseInt(value):str.replace(/\.?0+$/,""))+suffix;
+  };
+  if (n>=1_000_000_000) {
+    return format(n/1_000_000_000,"T");
+  } else if (n>=1_000_000) {
+    return format(n/1_000_000,"M");
+  } else {
+    return n.toLocaleString();
+  }
+};
+
+const format_num1 = (n) => {
+  const format = (value,suffix) => {
+    const str = (value).toFixed(2);
+    return (str.endsWith(".00")?parseInt(value):str.replace(/\.?0+$/,""))+suffix;
+  };
+  if (n>=1_000_000_000) {
+    return format(n/1_000_000_000,"T");
+  } else if (n>=1_000_000) {
+    return format(n/1_000_000,"M");
+  } else if (n>=1_000) {
+    return format(n/1_000,"K");
+  } else {
+    return n.toLocaleString();
+  }
+};
 
 const load_items = (data) => {
   if (!data.error) {
     list.innerHTML = "";
     for (let i=0;i<items.length;i++) {
       const item = items[i];
-      const info = data[types[item.type]].find(e=>e.name==item.name);
+      const info = data["currencies"].find(e=>e.name==item.name);
       list.innerHTML += `
       <div class="item">
         <div class="content">
@@ -370,12 +394,16 @@ const load_items = (data) => {
               </div>
             </div>
           </div>
-          <div class="price">${(info.unit=="تومان"?"":"$")+format_num(info.price)}</div>
-          <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">~":"red\">↓"))+Math.abs(info.change_percent)+"%"}</div>
+          <div class="price">${(item.unit=="usd"?"$":"")+format_num(info.price)}</div>
+          <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">~":"red\">↓"))+format_num1(Math.abs(info.change_percent))+""}</div>
         </div>
       </div>`;
     }
   }
+}
+
+const calc_change = (a,b) => {
+  return Math.round((b-a)/a*100);
 }
 
 window.onload = async () => {
@@ -390,9 +418,22 @@ window.onload = async () => {
       </div>
     </div>`;
   }
-  const url = new URLSearchParams(window.location.search);
-  const json = await fetch("https://nxrix-s.vercel.app/api/rates?p="+url.get("p"));
+  const json = await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json");
   const data = await json.json();
+
+  const yesterday = new Date(new Date().getTime()-24*60*60*1000);
+  const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
+  const res = await fetch(`https://api.github.com/repos/CertMusashi/Chand-api/commits?path=arz.json&until=${until}&per_page=1`);
+  const commits = await res.json();
+  const target = yesterday.getTime();
+  for (const commit of commits) {
+    const time = new Date(commit.commit.committer.date).getTime();
+    const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`);
+    const data1 = await res.json();
+    for (let i=0;i<data.currencies.length;i++) {
+      data.currencies[i].change_percent = (data1.currencies[i].price-data.currencies[i].price);
+    }
+  }
   load_items(data);
 }
 
