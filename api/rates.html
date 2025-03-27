@@ -431,7 +431,7 @@ window.onload = async () => {
     const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`);
     const data1 = await res.json();
     for (let i=0;i<data.currencies.length;i++) {
-      data.currencies[i].change_percent = (data1.currencies[i].price-data.currencies[i].price);
+      data.currencies[i].change_percent = (data.currencies[i].price-data1.currencies[i].price);
     }
   }
   load_items(data);
