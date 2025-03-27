@@ -182,6 +182,17 @@ html,body {
   color: #EA3943;
 }
 
+.t {
+  color: #666;
+  display: flex;
+  width: 100%;
+  padding: 2vmin 2vmin 0 2vmin;
+}
+
+.t .d {
+  margin-left: auto;
+}
+
 .c {
   background-color: #000;
   color: #666;
@@ -252,6 +263,10 @@ html,body {
 </style>
 <body>
   <div class="content">
+	  <div class="t">
+      <div class="n">Rates!?</div>
+      <div class="d" id="date"></div>
+    </div>
     <div id="list"></div>
     <div class="c">© Nxrix 2025</div>
   </div>
@@ -420,6 +435,7 @@ window.onload = async () => {
   }
   const json = await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json");
   const data = await json.json();
+  date.innerText = data.date;
 
   const yesterday = new Date(new Date().getTime()-24*60*60*1000);
   const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
