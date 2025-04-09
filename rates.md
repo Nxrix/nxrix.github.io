@@ -397,7 +397,7 @@ window.onload = async () => {
       const commits = await res.json();
       const target = yesterday.getTime();
       for (const commit of commits) {
-        await storage.set("last_commit",yesterday+","+commit.sha);
+        await storage.set("last_commit",yesterday.getTime()+","+commit.sha);
         const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`);
         const data1 = await res.json();
         for (let i=0;i<data.currencies.length;i++) {
