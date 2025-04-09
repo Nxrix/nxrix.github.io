@@ -200,7 +200,7 @@ image: "rates.png"
   
 </style>
 
-### Rates
+## Rates
 
 <div id="list"></div>
 
