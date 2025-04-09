@@ -9,7 +9,7 @@ image: "rates.png"
 
 @font-face {
   font-family: "sfr";
-  src: url("./fonts/SFRounded/SFRounded-Bold.ttf");
+  src: url("./fonts/SFRounded/SFRounded-Semibold.ttf");
 }
 
 #list * {
