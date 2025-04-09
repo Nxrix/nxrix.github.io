@@ -9,15 +9,14 @@ image: "rates.png"
 
 @font-face {
   font-family: "sfr";
-  src: url("./fonts/sf-pro-rounded.woff2");
+  src: url("./fonts/SFRounded/SFRounded-Bold.ttf");
 }
 
 #list * {
-
+  font-family: "sfr";
 }
 
 #list {
-  font-family: "sfr";
   display: grid;
   width: auto;
   height: max-content;
@@ -91,7 +90,7 @@ image: "rates.png"
 #list .item .content .info .names .slug {
   font-size: calc(var(--font)/100*6);
   font-weight: 500;
-  color: #888;
+  color: var(--md-sys-color-outline);
 }
 
 #list .item .content .info .image {
@@ -131,7 +130,7 @@ image: "rates.png"
 }
 
 #list .item .content .change {
-  color: #888;
+  color: var(--md-sys-color-outline);
   position: absolute;
   bottom: 0;
   left: 0;
