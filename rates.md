@@ -383,7 +383,7 @@ window.onload = async () => {
     en: "Toncoin",
     name: "تون کوین",
     price: ton_data.Price,
-    change_percent = ton_data.Price-ton_data.PriceYesterday
+    change_percent: ton_data.Price-ton_data.PriceYesterday
   });
 
   try {
