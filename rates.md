@@ -350,7 +350,7 @@ const load_items = (data) => {
       <div class="item">
         <div class="content">
           <div class="info">
-            <div class="image">${item.type==0?"<div></div>":`<img src="../api/icons/${item.icon+"."+(item.iconf?item.iconf:"svg")}">`}</div>
+            <div class="image">${item.type==0?"<div></div>":`<img src="../api/icons/${item.icon+"."+(info.iconf?info.iconf:"svg")}">`}</div>
             <div class="names">
               <div class="name">
                 ${item.ename}
