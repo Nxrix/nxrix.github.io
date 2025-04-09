@@ -12,6 +12,10 @@ image: "rates.png"
   src: url("./fonts/sf-pro-rounded.woff2");
 }
 
+#list * {
+
+}
+
 #list {
   font-family: "sfr";
   display: grid;
@@ -20,36 +24,37 @@ image: "rates.png"
   grid-template-columns: repeat(1,1fr);
   margin: 0 2vmin 2vmin 0;
   user-select: none;
+  --fw: min(calc(100vw - 56px),980px)
 }
 
 @media screen and (width > 50px) {
   #list {
     grid-template-columns: repeat(1,1fr);
-    --font: 100vw;
+    --font: var(--fw);
   }
 }
 @media screen and (width > 200px) {
   #list {
     grid-template-columns: repeat(2,1fr);
-    --font: 50vw;
+    --font: calc(var(--fw)/2);
   }
 }
 @media screen and (width > 500px) {
   #list {
     grid-template-columns: repeat(3,1fr);
-    --font: 33vw;
+    --font: calc(var(--fw)/3);
   }
 }
 @media screen and (width > 800px) {
   #list {
     grid-template-columns: repeat(4,1fr);
-    --font: 25vw;
+    --font: calc(var(--fw)/4);
   }
 }
 @media screen and (width > 900px) {
   #list {
     grid-template-columns: repeat(5,1fr);
-    --font: 20vw;
+    --font: calc(var(--fw)/5);
   }
 }
 
