@@ -213,83 +213,78 @@ const items = [
     ename: "US Dollar",
     slug: "USD",
     icon: "us"
-  },
-  {
+  },{
+    type: 2,
+    name: "تتر",
+    ename: "Tether",
+    slug: "USDT",
+    icon: "tether"
+  },{
     type: 2,
     name: "بیت کوین",
     ename: "Bitcoin",
     slug: "BTC",
     icon: "btc"
-  },
-  {
+  },{
     type: 2,
     name: "اتریوم",
     ename: "Ethereum",
     slug: "ETH",
     icon: "eth"
-  },
-  {
+  },{
     type: 1,
     name: "یورو",
     ename: "Euro",
     slug: "EUR",
     icon: "eu"
-  },
-  {
+  },{
     type: 1,
     name: "پوند انگلستان",
     ename: "British Pound",
     slug: "GBP",
     icon: "gb"
-  },
-  {
+  },{
     type: 1,
     name: "روبل روسیه",
     ename: "Russian Ruble",
     slug: "RUB",
     icon: "ru"
-  },
-  {
+  },/*{
     type: 1,
     name: "ریال عمان",
     ename: "Omani Rial",
     slug: "OMR",
     icon: "om"
-  },
-  {
+  },{
     type: 1,
     name: "یوان چین",
     ename: "Chinese Yuan",
     slug: "CNY",
     icon: "cn"
-  },
-  {
+  }*/,{
     type: 0,
     name: "انس طلا",
     ename: "Gold",
     slug: "XAUUSD",
     icon: "gold",
     unit: "usd"
-  },
-  {
-    type: 0,
-    name: "مثقال طلا",
-    ename: "Mithqal",
-    slug: "MITHQAL",
-    icon: "gold"
-  },
-  {
-    type: 0,
-    name: "طلا 18 عیار",
-    ename: "Gold18",
-    slug: "GOLD18",
-    icon: "gold"
-  },
-  {
+  },{
     type: 0,
     name: "سکه بهار آزادی",
     ename: "Azadi",
     slug: "AZADI",
+    icon: "gold"
+  },{
+    type: 0,
+    name: "طلا 18 عیار",
+    ename: "18 Karat Gold",
+    slug: "18KGOLD",
+    icon: "gold"
+  },{
+    type: 0,
+    name: "مثقال طلا",
+    ename: "Mithqal",
+    slug: "MITHQAL",
     icon: "gold"
   }
 ];
@@ -359,16 +354,16 @@ const calc_change = (a,b) => {
 }
 
 window.onload = async () => {
-  for (let i=0;i<10;i++) {
-  list.innerHTML += `
-    <div class="item">
-      <div class="content">
-        <div class="limage"></div>
-        <div class="lname"></div>
-        <div class="lslug"></div>
-        <div class="lprice"></div>
-      </div>
-    </div>`;
+  for (let i=0;i<items.length;i++) {
+    list.innerHTML += `
+      <div class="item">
+        <div class="content">
+          <div class="limage"></div>
+          <div class="lname"></div>
+          <div class="lslug"></div>
+          <div class="lprice"></div>
+        </div>
+      </div>`;
   }
   const json = await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json");
   const data = await json.json();
