@@ -244,6 +244,13 @@ const items = [
     icon: "ton",
     unit: "usd"
   },{
+    type: 2,
+    name: "تانل",
+    ename: "Tonnel",
+    slug: "TONNEL",
+    icon: "tonnel",
+    unit: "usd"
+  },{
     type: 1,
     name: "یورو",
     ename: "Euro",
@@ -423,6 +430,16 @@ window.onload = async () => {
     change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100
   });
 
+  const tonnel_data = (await(await fetch("https://api.dexscreener.com/token-pairs/v1/ton/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json())[0];
+
+  data.currencies.push({
+    code: "tonnel",
+    en: "Tonnel",
+    name: "تانل",
+    price: tonnel_data.priceNative,
+    change_percent: Math.round((tonnel_data.priceNative*tonnel_data.priceChange.h24/100)*100)/100
+  });
+  
   load_items(data);
 }
 
