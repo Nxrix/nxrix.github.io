@@ -376,7 +376,7 @@ window.onload = async () => {
         </div>
       </div>`;
   }
-  const json = await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json");
+  const json = await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json?t="+Date.now());
   const data = await json.json();
   update_time.style.display = "block";
   update_time.innerText = data.date;
