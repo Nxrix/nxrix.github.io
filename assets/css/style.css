@@ -350,7 +350,7 @@ input[type="text"]::placeholder ,input[type="password"]::placeholder {
 input[type="text"]:focus ,input[type="password"]:focus {
   outline: 3px solid var(--md-sys-color-primary-container);
 }
-.img:not(tc-root img) {
+.img {
   max-width: 100%;
   min-height: 56px;
   border-radius: 22px;
@@ -440,6 +440,7 @@ ol, ul {
   height: 64px;
   padding: 12px 32px;
   font-size: 22px;
+  outline: 1px solid var(--md-sys-color-outline-variant);
 }
 .top_bar .content {
   display: flex;
@@ -509,7 +510,7 @@ ol, ul {
   overflow-x: hidden;
   overflow-y: hidden;
   /*border-radius: 44px 44px 0 0;*/
-  outline: 1px solid var(--md-sys-color-outline-variant);
+  /*outline: 1px solid var(--md-sys-color-outline-variant);*/
 }
 
 /*@media screen and (width < 425px) {
@@ -542,7 +543,7 @@ ol, ul {
   margin: 0 auto;
 }
 
-.body .content table {
+table {
   display: block;
   width: fit-content;
   max-width: 100%;
@@ -556,26 +557,26 @@ ol, ul {
   white-space: nowrap;
   border-radius: 24px;
 }
-.body .content table th, .body .content table td {
+table th, table td {
   padding: 16px 32px;
 }
-.body .content table th {
+table th {
   background-color: var(--md-sys-color-surface-container);
   border-left: 1px solid var(--md-sys-color-outline-variant);
 }
-.body .content table td {
+table td {
   background-color: var(--md-sys-color-background);
   border-left: 1px solid var(--md-sys-color-outline-variant);
   border-top: 1px solid var(--md-sys-color-outline-variant);
 }
-.body .content table td:first-child, .body .content table th:first-child {
+table td:first-child,table th:first-child {
   border-left: none;
 }
-.body .content table img {
+table img {
   background-color: transparent;
 }
 
-.body .content ol {
+ol {
   padding-left: 0;
   list-style: none;
   counter-reset: item;
@@ -585,13 +586,13 @@ ol, ul {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
 }
-.body .content ol li {
+ol li {
   margin-top: 4px;
   margin-bottom: 20px;
   margin-left: 36px;
   counter-increment: item;
 }
-.body .content ol li:before {
+ol li:before {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
@@ -611,15 +612,15 @@ ol, ul {
   text-align: center;
   content: counter(item);
 }
-.body .content ul:not(.footer ul) {
+ul:not(.footer ul) {
   margin-left: 22px;
 }
-.body .content ul:not(.footer ul) li {
+ul:not(.footer ul) li {
   position: relative;
   display: list-item;
   margin-bottom: 16px;
 }
-.body .content ul:not(.footer ul) li:before {
+ul:not(.footer ul) li:before {
   background-image: url(../img/svg/list-bullet.svg);
   display: inline-block;
   position: absolute;
@@ -632,35 +633,35 @@ ol, ul {
   text-align: center;
   content: "";
 }
-:root[data-theme="light"] .body .content ul:not(.footer ul) li:before {
+:root[data-theme="light"] ul:not(.footer ul) li:before {
   background-image: url(../img/svg/list-bullet.svg);
 }
-:root[data-theme="dark"] .body .content ul:not(.footer ul) li:before {
+:root[data-theme="dark"] ul:not(.footer ul) li:before {
   background-image: url(../img/svg/list-bullet-dark.svg);
 }
-.body .content ul li:nth-child(2) {
+ul li:nth-child(2) {
   --rotation: 2;
 }
-.body .content ul li:nth-child(3n) {
+ul li:nth-child(3n) {
   --rotation: 5;
 }
-.body .content ul li:nth-child(3n+1) {
+ul li:nth-child(3n+1) {
   --rotation: 7;
 }
-.body .content ul li:nth-child(3n+2) {
+ul li:nth-child(3n+2) {
   --rotation: 4;
 }
-.body .content ul li:nth-child(4n) {
+ul li:nth-child(4n) {
   --rotation: 9;
 }
-.body .content ul li:nth-child(4n+1) {
+ul li:nth-child(4n+1) {
   --rotation: 6;
 }
-.body .content ul li:nth-child(4n+3) {
+ul li:nth-child(4n+3) {
   --rotation: 3;
 }
 
-.body .content .info-error {
+.info-error {
   background-color: var(--md-sys-color-error-container);
   color: var(--md-sys-color-error);
   font-family: "mono";
@@ -670,23 +671,23 @@ ol, ul {
   border-radius: 8px;
 }
 
-.body .content .cart_set {
+.cart_set {
   display: grid;
   grid-gap: 8px;
   gap: 8px;
   grid-template-columns: repeat(1, 1fr);
 }
 @media screen and (width > 550px) {
-  .body .content .cart_set {
+  .cart_set {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media screen and (width > 800px) {
-  .body .content .cart_set {
+  .cart_set {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-.body .content .cart_set .cart {
+.cart_set .cart {
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -697,39 +698,39 @@ ol, ul {
   text-decoration: none;
   color: var(--md-sys-color-on-surface);
 }
-.body .content .cart_set .cart:hover {
+.cart_set .cart:hover {
   background-color: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
 }
-.body .content .cart_set .cart:active {
+.cart_set .cart:active {
   border-radius: 48px;
 }
-.body .content .cart_set .cart .content {
+.cart_set .cart .content {
   user-select: none;
   -webkit-user-select: none;
   margin: 20px 24px 24px 24px;
   height: 100%;
 }
-.body .content .cart_set .cart .content .title {
+.cart_set .cart .content .title {
   font-size: 24px;
   width: 100%;
 }
-.body .content .cart_set .cart .content .description {
+.cart_set .cart .content .description {
   font-size: 14px;
 }
-.body .content .cart_set .cart img {
+.cart_set .cart img {
   width: 100%;
   border-radius: 24px;
   /*margin-bottom: auto;*/
 }
 
-.body .content .canvas_full {
+.canvas_full {
   background-color: var(--md-sys-color-surface-container);
   width: 100%;
   aspect-ratio: 2 / 1;
   border-radius: 24px;
 }
-.body .content .canvas_full2 {
+.canvas_full2 {
   background-color: var(--md-sys-color-surface-container);
   width: 100%;
   aspect-ratio: 4 / 1;
@@ -742,82 +743,82 @@ ol, ul {
   .body .scroll_wrapper {
     padding: 16px;
   }
-  .body .content .canvas_full, .body .content .canvas_full2 {
+  .canvas_full, .canvas_full2 {
     border-radius: 8px;
   }
 }
-.body .content .canvas_1x1 {
+.canvas_1x1 {
   width: 100%;
   max-width: 450px;
 }
-.body .content .canvas_1x1.center {
+.canvas_1x1.center {
   margin: 0 max(calc(50% - 150px),0px);
 }
-.body .content .canvas_4x3 {
+.canvas_4x3 {
   width: 100%;
   max-width: 600px;
 }
-.body .content .canvas_4x3.center {
+.canvas_4x3.center {
   margin: 0 max(calc(50% - 300px),0px);
 }
 
-.body .content .highlighter-rouge {
+.highlighter-rouge {
   width: fit-content;
   max-width: 100%;
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 24px;
   overflow: auto;
 }
-.body .content .highlighter-rouge div {
+.highlighter-rouge div {
   width: fit-content;
   height: fit-content;
 }
-.body .content .highlighter-rouge pre {
+.highlighter-rouge pre {
   margin: 24px;
 }
-.body .content .highlighter-rouge .highlight pre code {
+.highlighter-rouge .highlight pre code {
   font-family: "mono";
 }
-.body .content .highlighter-rouge .highlight pre code span.p {
+.highlighter-rouge .highlight pre code span.p {
   color: #ff9500;
 }
-.body .content .highlighter-rouge .highlight pre code span.dl {
+.highlighter-rouge .highlight pre code span.dl {
   color: #e959ff;
 }
-.body .content .highlighter-rouge .highlight pre code span.s2 {
+.highlighter-rouge .highlight pre code span.s2 {
   color: #e959ff;
 }
-.body .content .highlighter-rouge .highlight pre code span.se {
+.highlighter-rouge .highlight pre code span.se {
   color: #de1b45;
 }
-.body .content .highlighter-rouge .highlight pre code span.sr {
+.highlighter-rouge .highlight pre code span.sr {
   color: #a01a3d;
 }
-.body .content .highlighter-rouge .highlight pre code span.o {
+.highlighter-rouge .highlight pre code span.o {
   color: #8944cf;
 }
-.body .content .highlighter-rouge .highlight pre code span.nx {
+.highlighter-rouge .highlight pre code span.nx {
   color: #00ae85;
 }
-.body .content .highlighter-rouge .highlight pre code span.na {
+.highlighter-rouge .highlight pre code span.na {
   color: #2b2754;
 }
-.body .content .highlighter-rouge .highlight pre code span.cm {
+.highlighter-rouge .highlight pre code span.cm {
   color: #8b7fb0;
 }
-.body .content .highlighter-rouge .highlight pre code span.c1 {
+.highlighter-rouge .highlight pre code span.c1 {
   color: #8b7fb0;
 }
-.body .content .highlighter-rouge .highlight pre code span.kc {
+.highlighter-rouge .highlight pre code span.kc {
   color: #de1b45;
 }
-.body .content .highlighter-rouge .highlight pre code span.mi {
+.highlighter-rouge .highlight pre code span.mi {
   color: #1888de;
 }
-.body .content .highlighter-rouge .highlight pre code span.k {
+.highlighter-rouge .highlight pre code span.k {
   color: #1888de;
 }
-.body .content .highlighter-rouge .highlight pre code span.kd {
+.highlighter-rouge .highlight pre code span.kd {
   color: #3c51af;
 }
 
