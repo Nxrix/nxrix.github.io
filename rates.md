@@ -203,6 +203,8 @@ image: "rates.png"
 <div id="list"></div>
 <div id="update_time" style="display:none;width:100%;padding:20px 0 0 0;text-align:center;color:var(--md-sys-color-outline);"></div>
 
+<script src="./js/storage.js"></script>
+
 <script>
 
 const types = ["gold","currency","cryptocurrency"];
@@ -360,6 +362,8 @@ const calc_change = (a,b) => {
   return Math.round((b-a)/a*100);
 }
 
+const storage = new Storage("nxrix-rates","store");
+
 window.onload = async () => {
   for (let i=0;i<items.length;i++) {
     list.innerHTML += `
@@ -378,17 +382,27 @@ window.onload = async () => {
   update_time.innerText = data.date;
 
   try {
-    const yesterday = new Date(new Date().getTime()-24*60*60*1000);
-    const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
-    const res = await fetch(`https://api.github.com/repos/CertMusashi/Chand-api/commits?path=arz.json&until=${until}&per_page=1`);
-    const commits = await res.json();
-    const target = yesterday.getTime();
-    for (const commit of commits) {
-      const time = new Date(commit.commit.committer.date).getTime();
-      const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`);
+    await storage.init();
+    const last_commit = await storage.get("last_commit")||"";
+    if (last_commit&&(last_commit.split(",")[0]-(new Date().getTime()/1000-24*60*60))<60*11) {
+      const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${last_commit.split(",")[1]}/arz.json`);
       const data1 = await res.json();
       for (let i=0;i<data.currencies.length;i++) {
         data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
+      }
+    } else {
+      const yesterday = new Date(new Date().getTime()-24*60*60*1000);
+      const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
+      const res = await fetch(`https://api.github.com/repos/CertMusashi/Chand-api/commits?path=arz.json&until=${until}&per_page=1`);
+      const commits = await res.json();
+      const target = yesterday.getTime();
+      for (const commit of commits) {
+        await storage.set("last_commit",yesterday+","+commit.sha);
+        const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`);
+        const data1 = await res.json();
+        for (let i=0;i<data.currencies.length;i++) {
+          data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
+        }
       }
     }
   } catch (err) {
@@ -403,7 +417,7 @@ window.onload = async () => {
     en: "Toncoin",
     name: "تون کوین",
     price: ton_data.Price,
-    change_percent: ton_data.Price-ton_data.PriceYesterday
+    change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100
   });
 
   load_items(data);
