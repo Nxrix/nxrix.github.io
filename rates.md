@@ -9,7 +9,7 @@ image: "rates.png"
 
 @font-face {
   font-family: "sfr";
-  src: url("../assets/fonts/sf-pro-rounded.woff2");
+  src: url("./fonts/sf-pro-rounded.woff2");
 }
 
 #list {
@@ -298,8 +298,9 @@ const items = [
 
 const format_num = (n) => {
   const format = (value,suffix) => {
-    const str = (value).toFixed(2);
-    return (str.endsWith(".00")?parseInt(value):str.replace(/\.?0+$/,""))+suffix;
+    //const str = (value).toFixed(2);
+    //return (str.endsWith(".00")?parseInt(value):str.replace(/\.?0+$/,""))+suffix;
+    return Math.round(value*100)/100+suffix;
   };
   if (n>=1_000_000_000) {
     return format(n/1_000_000_000,"T");
@@ -337,7 +338,7 @@ const load_items = (data) => {
       <div class="item">
         <div class="content">
           <div class="info">
-            <div class="image">${item.type==0?"<div></div>":`<img src="./api/icons/${item.icon}.svg">`}</div>
+            <div class="image">${item.type==0?"<div></div>":`<img src="../api/icons/${item.icon}.svg">`}</div>
             <div class="names">
               <div class="name">
                 ${item.ename}
