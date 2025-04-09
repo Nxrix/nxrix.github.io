@@ -38,13 +38,13 @@ image: "rates.png"
     --font: calc(var(--fw)/2);
   }
 }
-@media screen and (width > 600px) {
+@media screen and (width > 700px) {
   #list {
     grid-template-columns: repeat(3,1fr);
     --font: calc(var(--fw)/3);
   }
 }
-@media screen and (width > 800px) {
+@media screen and (width > 900px) {
   #list {
     grid-template-columns: repeat(4,1fr);
     --font: calc(var(--fw)/4);
@@ -201,6 +201,7 @@ image: "rates.png"
 ## Rates
 
 <div id="list"></div>
+<div id="update_time" style="display:none;width:100%;padding:20px 0 0 0;text-align:center;color:var(--md-sys-color-outline);"></div>
 
 <script>
 
@@ -367,18 +368,26 @@ window.onload = async () => {
   }
   const json = await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json");
   const data = await json.json();
+  update_time.style.display = "block";
+  update_time.innerText = data.date;
 
-  const yesterday = new Date(new Date().getTime()-24*60*60*1000);
-  const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
-  const res = await fetch(`https://api.github.com/repos/CertMusashi/Chand-api/commits?path=arz.json&until=${until}&per_page=1`);
-  const commits = await res.json();
-  const target = yesterday.getTime();
-  for (const commit of commits) {
-    const time = new Date(commit.commit.committer.date).getTime();
-    const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`);
-    const data1 = await res.json();
+  try {
+    const yesterday = new Date(new Date().getTime()-24*60*60*1000);
+    const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
+    const res = await fetch(`https://api.github.com/repos/CertMusashi/Chand-api/commits?path=arz.json&until=${until}&per_page=1`);
+    const commits = await res.json();
+    const target = yesterday.getTime();
+    for (const commit of commits) {
+      const time = new Date(commit.commit.committer.date).getTime();
+      const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`);
+      const data1 = await res.json();
+      for (let i=0;i<data.currencies.length;i++) {
+        data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
+      }
+    }
+  } catch (err) {
     for (let i=0;i<data.currencies.length;i++) {
-      data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
+      data.currencies[i].change_percent = 0;
     }
   }
   load_items(data);
