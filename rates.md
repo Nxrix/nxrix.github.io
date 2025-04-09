@@ -312,7 +312,7 @@ const format_num = (n) => {
   } else if (n>=1_000_000) {
     return format(n/1_000_000,"M");
   } else {
-    return n.toLocaleString();
+    return n.toLocaleString("en-US");
   }
 };
 
@@ -329,7 +329,7 @@ const format_num1 = (n) => {
   } else if (n>=1_000) {
     return format(n/1_000,"K");
   } else {
-    return n.toLocaleString();
+    return n.toLocaleString("en-US");
   }
 };
 
