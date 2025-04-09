@@ -436,7 +436,7 @@ window.onload = async () => {
     code: "tonnel",
     en: "Tonnel",
     name: "تانل",
-    price: tonnel_data.asset.dex_price_usd,
+    price: parseFloat(tonnel_data.asset.dex_price_usd),
     change_percent: 0,
     iconf: "png"
   });
