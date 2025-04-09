@@ -349,7 +349,7 @@ const load_items = (data) => {
             </div>
           </div>
           <div class="price">${(item.unit=="usd"?"$":"")+format_num(info.price)}</div>
-          <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">~":"red\">↓"))+format_num1(Math.abs(info.change_percent))}</div>
+          <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">":"red\">↓"))+format_num1(Math.abs(info.change_percent))}</div>
         </div>
       </div>`;
     }
@@ -377,15 +377,6 @@ window.onload = async () => {
   update_time.style.display = "block";
   update_time.innerText = data.date;
 
-  const ton_data = await(await fetch("https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
-  data.currencies.push({
-    code: "ton",
-    en: "Toncoin",
-    name: "تون کوین",
-    price: ton_data.Price,
-    change_percent: ton_data.Price-ton_data.PriceYesterday
-  });
-
   try {
     const yesterday = new Date(new Date().getTime()-24*60*60*1000);
     const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
@@ -405,6 +396,16 @@ window.onload = async () => {
       data.currencies[i].change_percent = 0;
     }
   }
+
+  const ton_data = await(await fetch("https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
+  data.currencies.push({
+    code: "ton",
+    en: "Toncoin",
+    name: "تون کوین",
+    price: ton_data.Price,
+    change_percent: ton_data.Price-ton_data.PriceYesterday
+  });
+
   load_items(data);
 }
 
