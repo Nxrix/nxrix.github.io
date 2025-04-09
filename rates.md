@@ -384,7 +384,7 @@ window.onload = async () => {
   try {
     await storage.init();
     const last_commit = await storage.get("last_commit")||"";
-    if (last_commit&&(last_commit.split(",")[0]-(new Date().getTime()-24*60*60*1000))<60*11) {
+    if (last_commit&&((new Date().getTime()-24*60*60*1000)-last_commit.split(",")[0])<60*11000) {
       const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${last_commit.split(",")[1]}/arz.json`);
       const data1 = await res.json();
       for (let i=0;i<data.currencies.length;i++) {
