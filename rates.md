@@ -27,19 +27,19 @@ image: "rates.png"
   --fw: min(calc(100vw - 56px),980px)
 }
 
-@media screen and (width > 50px) {
+@media screen and (width > 100px) {
   #list {
     grid-template-columns: repeat(1,1fr);
     --font: var(--fw);
   }
 }
-@media screen and (width > 200px) {
+@media screen and (width > 300px) {
   #list {
     grid-template-columns: repeat(2,1fr);
     --font: calc(var(--fw)/2);
   }
 }
-@media screen and (width > 500px) {
+@media screen and (width > 600px) {
   #list {
     grid-template-columns: repeat(3,1fr);
     --font: calc(var(--fw)/3);
@@ -49,12 +49,6 @@ image: "rates.png"
   #list {
     grid-template-columns: repeat(4,1fr);
     --font: calc(var(--fw)/4);
-  }
-}
-@media screen and (width > 900px) {
-  #list {
-    grid-template-columns: repeat(5,1fr);
-    --font: calc(var(--fw)/5);
   }
 }
 
