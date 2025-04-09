@@ -59,12 +59,12 @@ image: "rates.png"
 }
 
 #list .item .content {
-  background-color: #111;
+  background-color: var(--md-sys-color-surface);
   position: relative;
   width: 100%;
   aspect-ratio: 1;
   border-radius: 10%;
-  box-shadow: inset 0 0 0 0.25vmin #fff1;
+  outline: 0.25vmin solid var(--md-sys-color-outline-variant);
 }
 
 #list .item .content .info {
@@ -185,7 +185,7 @@ image: "rates.png"
 }
 
 .limage,.lname,.lslug,.lprice {
-  background: linear-gradient(to right,#333,#222,#333);
+  background: linear-gradient(to right,var(--md-sys-color-outline-variant),var(--md-sys-color-surface-container),var(--md-sys-color-outline-variant));
   width: 100%;
   background-size: 400%;
   animation: loading 8s infinite;
@@ -195,7 +195,7 @@ image: "rates.png"
 
 @keyframes loading {
   0% { background-position:   0%; }
-	100% { background-position: 400%; }
+  100% { background-position: 400%; }
 }
   
 </style>
@@ -373,7 +373,6 @@ window.onload = async () => {
   }
   const json = await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json");
   const data = await json.json();
-  date.innerText = data.date;
 
   const yesterday = new Date(new Date().getTime()-24*60*60*1000);
   const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
