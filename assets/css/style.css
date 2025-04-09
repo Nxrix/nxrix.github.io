@@ -302,6 +302,12 @@ h2 {
   font-size: 36px;
   margin: 24px 12px;
 }
+.h2-icon {
+  background-color: var(--md-sys-color-pixel-bg);
+  width: 25px;
+  margin-right: 12px;
+  transform: scale(1.25);
+}
 h3 {
   font-size: 24px;
   margin-top: 16px;
