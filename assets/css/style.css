@@ -440,7 +440,7 @@ ol, ul {
   height: 64px;
   padding: 12px 32px;
   font-size: 22px;
-  outline: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: inset 0px -1px var(--md-sys-color-outline-variant);
 }
 .top_bar .content {
   display: flex;
