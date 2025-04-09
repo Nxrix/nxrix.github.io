@@ -62,7 +62,7 @@ image: "rates.png"
   width: 100%;
   aspect-ratio: 1;
   border-radius: 10%;
-  outline: 0.25vmin solid var(--md-sys-color-outline-variant);
+  outline: 1px solid var(--md-sys-color-outline-variant);
 }
 
 #list .item .content .info {
