@@ -262,7 +262,7 @@ const items = [
     ename: "Chinese Yuan",
     slug: "CNY",
     icon: "cn"
-  }*/,{
+  },*/{
     type: 0,
     name: "انس طلا",
     ename: "Gold",
