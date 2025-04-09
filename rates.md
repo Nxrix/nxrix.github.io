@@ -198,7 +198,7 @@ image: "rates.png"
   
 </style>
 
-## Rates
+<h2><img src="./img/icons/rates-0.png" class="pixelated h2-icon">Rates</h2>
 
 <div id="list"></div>
 <div id="update_time" style="display:none;width:100%;padding:20px 0 0 0;text-align:center;color:var(--md-sys-color-outline);"></div>
