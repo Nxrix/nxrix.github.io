@@ -350,7 +350,7 @@ const load_items = (data) => {
       <div class="item">
         <div class="content">
           <div class="info">
-            <div class="image">${item.type==0?"<div></div>":`<img src="../api/icons/${item.icon}.svg">`}</div>
+            <div class="image">${item.type==0?"<div></div>":`<img src="../api/icons/${item.icon+"."+item.iconf?item.iconf:"svg"}">`}</div>
             <div class="names">
               <div class="name">
                 ${item.ename}
@@ -430,14 +430,15 @@ window.onload = async () => {
     change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100
   });
 
-  const tonnel_data = (await(await fetch("https://api.dexscreener.com/token-pairs/v1/ton/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json())[0];
+  const tonnel_data = await(await fetch("https://api.ston.fi/v1/assets/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json();
 
   data.currencies.push({
     code: "tonnel",
     en: "Tonnel",
     name: "تانل",
-    price: tonnel_data.priceNative,
-    change_percent: Math.round((tonnel_data.priceNative*tonnel_data.priceChange.h24/100)*100)/100
+    price: tonnel_data.dex_price_usd,
+    change_percent: 0,
+    iconf: "png"
   });
   
   load_items(data);
