@@ -44,14 +44,14 @@ class CoreEditor {
     window.addEventListener("resize", () => {
       this.resize();
     });
-    document.addEventListener("DOMContentLoaded",function(){setInterval(this.resize,500)});
+    document.addEventListener("DOMContentLoaded",function(){setTimeout(this.resize,2000)});
     this.resize();
   }
   resize() {
     this.textarea.style.width = "";
-    this.textarea.style.width = this.textarea.scrollWidth + 16 + "px";
+    this.pre.style.width = this.textarea.style.width = this.textarea.scrollWidth + 16 + "px";
     this.textarea.style.height = "";
-    this.textarea.style.height = this.textarea.scrollHeight + "px";
+    this.pre.style.height = this.textarea.style.height = this.textarea.scrollHeight + "px";
 
     const lineCount = Math.max(this.textarea.value.split("\n").length,2);
     this.numbers.style.width = lineCount.toString().length + 2 + "em";
