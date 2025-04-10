@@ -52,7 +52,7 @@ class CoreEditor {
     this.textarea.style.height = "";
     this.textarea.style.height = this.textarea.scrollHeight + "px";
 
-    const lineCount = this.textarea.value.split("\n").length;
+    const lineCount = Math.max(this.textarea.value.split("\n").length,2);
     this.numbers.style.width = lineCount.toString().length + 2 + "em";
     this.textarea.style.left = this.numbers.style.width;
     this.pre.style.left = this.textarea.style.left;
