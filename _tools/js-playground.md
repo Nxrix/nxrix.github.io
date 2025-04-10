@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "JS Console"
+title: "JS Playground"
 description: "Write and execute JavaScript code"
 image: "js.png"
 ---
 
-## Javascript Console
+## Playground
 
 <div id="editor"></div>
 <div id="error" class="info-error"></div>
