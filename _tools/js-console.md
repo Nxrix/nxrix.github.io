@@ -28,13 +28,27 @@ const cot = (n) => { return Math.cot(n); }
 const d2r = pi/180;
 const r2d = 180/pi;
 
-const editor = new CoreEditor("#editor", { highlight: true , lang: "js" , value: `1` });
+const editor = new CoreEditor("#editor", { highlight: true , lang: "js" , value: `const get_pi = (n) =>{
+  let pi = 3;
+  let sign = 1;
+  for (let i=2;i<n*2+2;i+=2) {
+    pi += sign*(4/(i*(i+1)*(i+2)));
+    sign *= -1;
+  }
+  return pi;
+}
+
+let a = "";
+for (let i=1;i<8;i++) {
+  a += \`${i}: ${get_pi(i)}\n\`;
+}
+a;` });
 
 editor.textarea.addEventListener("input",() => {
   const val = editor.textarea.value;
   try {
     const result = eval(val);
-    error.textContent = result.toString();
+    error.textContent = result.toString().replaceAll("\n","<br>");
   } catch (error) {
     error.textContent = error.message;
   }
