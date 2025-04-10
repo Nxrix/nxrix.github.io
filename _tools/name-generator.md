@@ -89,7 +89,7 @@ const generate_names = ({
     let name = "";
     const pattern_length = pattern.length;
     const target_length = lengths[Math.floor(rand()*lengths.length)];
-    for (let i=0;i<pattern_l_ength;i++) {
+    for (let i=0;i<pattern_length;i++) {
       const char = pattern[i];
       if (char=="*") {
         name += next_char(name[name.length-1]||null);
