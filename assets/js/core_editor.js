@@ -74,7 +74,7 @@ class CoreEditor {
     } else {
       this.code.innerHTML = this.textarea.value;
     }
-    this.textarea.style.width = editor.pre.clientWidth;
-    this.textarea.style.height = editor.pre.clientHeight;
+    this.textarea.style.width = this.pre.clientWidth;
+    this.textarea.style.height = this.pre.clientHeight;
   }
 }
