@@ -51,9 +51,9 @@ const c = 16;
 const m = (c+1)*b;
 for (let i=1;i<=m;i+=b) {
   const x = get_pi(i);
-  a += \`\${(i-1).toString().padStart(m.toString().length," ")} | \${x.toFixed(8)} | \${abs(pi-x).toFixed(8).replace(/[0.]/g," ")}\\n`;
+  a += \`\${(i-1).toString().padStart(m.toString().length," ")} | \${x.toFixed(8)} | \${abs(pi-x).toFixed(8).replace(/[0.]/g," ")}\\n\`;
 }
-a;\` });
+a;` });
 
 const update = () => {
   const val = editor.textarea.value;
