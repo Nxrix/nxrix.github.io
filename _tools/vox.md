@@ -3,6 +3,7 @@ layout: default
 title: "Core Voxel Shaders"
 description: ""
 image: "vox.png"
+id: 3
 hidden: true
 ---
 
