@@ -249,7 +249,7 @@
   unicode-bidi: plaintext !important;
   -webkit-tap-highlight-color: transparent;
 }
-*:not(.core_editor):not(.core_editor *) {
+*:not(.core_editor *) {
   font-family: "en","fa";
 }
 ::-webkit-scrollbar {
@@ -665,6 +665,16 @@ ul li:nth-child(4n+1) {
 }
 ul li:nth-child(4n+3) {
   --rotation: 3;
+}
+
+.info-result {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-secondary);
+  font-family: "mono";
+  font-size: 14px;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 8px;
 }
 
 .info-error {
