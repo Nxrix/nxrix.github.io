@@ -5,10 +5,10 @@ description: "Write and execute JavaScript code"
 image: "js.png"
 ---
 
-<hr>
+## Javascript Console
+
 <div id="editor"></div>
 <div id="error" class="info-error"></div>
-<hr>
 
 <script src="./js/highlighter.js"></script>
 <script src="./js/core_editor.js"></script>
