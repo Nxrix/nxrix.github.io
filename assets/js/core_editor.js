@@ -44,7 +44,7 @@ class CoreEditor {
     window.addEventListener("resize", () => {
       this.resize();
     });
-    document.addEventListener("DOMContentLoaded",()=>{setInterval(this.resize,500)});
+    document.addEventListener("DOMContentLoaded",()=>{setInterval(this.resize,1500)});
     this.resize();
   }
   resize() {
