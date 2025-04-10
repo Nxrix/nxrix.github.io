@@ -7,6 +7,7 @@ description: ""
 <h2>Tools</h2>
 <div class="cart_set">
   {% for tool in site.tools %}
+  {% unless tools.hidden %}
   <a href="{{ tool.url }}" class="cart">
     <img class="pixelated" src="./img/carts/{{ tool.image }}">
     <div class="content">
@@ -14,5 +15,6 @@ description: ""
       <div class="description">{{ tool.description }}</div>
     </div>
   </a>
+  {% endunless %}
   {% endfor %}
 </div>
