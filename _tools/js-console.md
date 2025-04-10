@@ -48,9 +48,9 @@ editor.textarea.addEventListener("input",() => {
   const val = editor.textarea.value;
   try {
     const result = eval(val);
-    error.textContent = result.toString().replaceAll("\n","<br>");
+    error.innerText = result.toString();
   } catch (error) {
-    error.textContent = error.message;
+    error.innerText = error.message;
   }
 });
 
