@@ -30,7 +30,11 @@ description: ""
   </a>
   {% endunless %}
   {% endfor %}
+</div>
 
+### Tools
+
+<div class="cart_set">
   {% assign sorted_tools = site.tools | sort: "id" %}
   {% for tool in sorted_tools %}
   {% unless tool.hidden %}
