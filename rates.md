@@ -21,7 +21,7 @@ image: "rates.png"
   width: auto;
   height: max-content;
   grid-template-columns: repeat(1,1fr);
-  margin: 0 2vmin 2vmin 0;
+  margin: 0 15px 15px 0;
   user-select: none;
   --fw: min(calc(100vw - 56px),980px)
 }
@@ -53,7 +53,7 @@ image: "rates.png"
 
 #list .item {
   height: min-content;
-  margin: 2vmin 0 0 2vmin;
+  margin: 15px 0 0 15px;
 }
 
 #list .item .content {
@@ -132,7 +132,7 @@ image: "rates.png"
 #list .item .content .change {
   color: var(--md-sys-color-outline);
   position: absolute;
-  bottom: 0;
+  bottom: 1%;
   left: 0;
   padding: 27% 10%;
   font-size: calc(var(--font)/100*7);
@@ -160,16 +160,16 @@ image: "rates.png"
   top: 6%;
   right: 6%;
   width: 60%;
-  height: 10%;
+  height: 9%;
   border-radius: calc(var(--font)/100*5);
 }
 
 #list .item .content .lslug {
   position: absolute;
-  top: 20%;
+  top: 16%;
   right: 6%;
-  width: 25%;
-  height: 8%;
+  width: 30%;
+  height: 7%;
   border-radius: calc(var(--font)/100*5);
 }
 
@@ -243,14 +243,14 @@ const items = [
     slug: "TON",
     icon: "ton",
     unit: "usd"
-  },{
+  },/*{
     type: 2,
     name: "تانل",
     ename: "Tonnel",
     slug: "TONNEL",
     icon: "tonnel",
     unit: "usd"
-  },{
+  },*/{
     type: 1,
     name: "یورو",
     ename: "Euro",
@@ -430,8 +430,7 @@ window.onload = async () => {
     change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100
   });
 
-  const tonnel_data = await(await fetch("https://api.ston.fi/v1/assets/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json();
-
+  /*const tonnel_data = await(await fetch("https://api.ston.fi/v1/assets/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json();
   data.currencies.push({
     code: "tonnel",
     en: "Tonnel",
@@ -439,7 +438,7 @@ window.onload = async () => {
     price: parseFloat(tonnel_data.asset.dex_price_usd),
     change_percent: 0,
     iconf: "png"
-  });
+  });*/
   
   load_items(data);
 }
