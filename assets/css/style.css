@@ -806,9 +806,9 @@ ul li:nth-child(4n+3) {
 .highlighter-rouge .highlight pre code span.nx {
   color: #00ae85;
 }
-.highlighter-rouge .highlight pre code span.na {
+/*.highlighter-rouge .highlight pre code span.na {
   color: #2b2754;
-}
+}*/
 .highlighter-rouge .highlight pre code span.cm {
   color: #8b7fb0;
 }
