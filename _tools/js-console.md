@@ -40,7 +40,7 @@ const editor = new CoreEditor("#editor", { highlight: true , lang: "js" , value:
 
 let a = "";
 for (let i=1;i<8;i++) {
-  a += \`${i}: ${get_pi(i)}\n\`;
+  a += \`\${i}: \${get_pi(i)}\n\`;
 }
 a;` });
 
