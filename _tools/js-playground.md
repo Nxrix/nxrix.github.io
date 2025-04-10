@@ -49,8 +49,8 @@ const update = () => {
   try {
     const result = eval(val);
     error.innerText = result.toString();
-  } catch (error) {
-    error.innerText = error.message;
+  } catch (err) {
+    error.innerText = err.toString();
   }
 }
   
