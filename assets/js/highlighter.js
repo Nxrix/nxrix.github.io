@@ -58,6 +58,8 @@ highlighter.light_js = (code) => {
   const regexes = [
     { regex: /\/\/.*|\/\*[\s\S]*?\*\//g, name: "c" },
     { regex: /"(?:[^"\\]|\\.)*"/g, name: "s" },
+    { regex: /'(?:[^'\\]|\\.)*'/g, name: "s" },
+    { regex: /`(?:[^`\\]|\\.|\${[^}]*})*`/g, name: "s" },
     { regex: /\b(true|false)\b/g, name: "b" },
     { regex: /\b(?:const|let|var|function|if|else|for|while|return|class|new|this|async|await)\b/g, name: "k" },
     { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
