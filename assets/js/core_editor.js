@@ -49,9 +49,9 @@ class CoreEditor {
   }
   resize() {
     this.textarea.style.width = "";
-    this.pre.style.width = this.textarea.style.width = this.textarea.scrollWidth + 16 + "px";
+    this.textarea.style.width = this.textarea.scrollWidth + 16 + "px";
     this.textarea.style.height = "";
-    this.pre.style.height = this.textarea.style.height = this.textarea.scrollHeight + "px";
+    this.textarea.style.height = this.textarea.scrollHeight + "px";
 
     const lineCount = Math.max(this.textarea.value.split("\n").length,2);
     this.numbers.style.width = lineCount.toString().length + 2 + "em";
@@ -74,5 +74,7 @@ class CoreEditor {
     } else {
       this.code.innerHTML = this.textarea.value;
     }
+    this.textarea.style.width = editor.pre.clientWidth;
+    this.textarea.style.height = editor.pre.clientHeight;
   }
 }
