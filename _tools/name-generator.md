@@ -10,7 +10,7 @@ image: "name.png"
 The generator uses a JSON configuration to determine how names are generated. You can modify the following parameters:
    - seed: A number that initializes the random name generation. Changing this value will produce different sets of names.
    - limit: The maximum number of names to generate. Set this to any positive integer.
-   - **length: An array specifying the lengths of the names to generate. For example, `[5, 7]` will generate names that are 5 or 7 characters long.
+   - length: An array specifying the lengths of the names to generate. For example, `[5, 7]` will generate names that are 5 or 7 characters long.
    - chars: A string of characters that can be used in the names. By default, it uses lowercase letters from "a" to "z".
    - patterns: An array of string patterns that define the structure of the names. For example, `["*a", "*b"]` will generate names that their second character is "a" or "b".
    - capitalize: A boolean value that determines whether the first letter of each generated name should be capitalized.
