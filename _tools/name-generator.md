@@ -17,12 +17,12 @@ image: "name.png"
 "use strict";
 
 const editor = new CoreEditor("#editor", { highlight: true , lang: "js" , value: `{
-  seed: 0,
-  limit: 16,
-  chars: "",
-  length: [5],
-  patterns: [],
-  capitalize: true
+  "seed": 0,
+  "limit": 16,
+  "chars": "",
+  "length": [5],
+  "patterns": [],
+  "capitalize": true
 }` });
 
 const generate_names = ({
