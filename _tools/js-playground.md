@@ -46,8 +46,12 @@ const editor = new CoreEditor("#editor", { highlight: true , lang: "js" , value:
 }
 
 let a = "";
-for (let i=1;i<=8;i++) {
-  a += \`\${i}: \${get_pi(i)}\\n\`;
+const b = 8;
+const c = 16;
+const m = (c+1)*b;
+for (let i=1;i<=m;i+=b) {
+  const x = get_pi(i);
+  a += \`\${(i-1).toString().padStart(m.toString().length," ")} | \${x.toFixed(8)} | \${abs(pi-x).toFixed(8).replace(/[0.]/g," ")}\\n`;
 }
 a;` });
 

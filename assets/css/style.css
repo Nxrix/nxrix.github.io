@@ -678,6 +678,7 @@ ul li:nth-child(4n+3) {
   margin-top: 16px;
   padding: 16px;
   border-radius: 8px;
+  white-space: pre;
 }
 
 .info-error {
@@ -688,6 +689,7 @@ ul li:nth-child(4n+3) {
   margin-top: 16px;
   padding: 16px;
   border-radius: 8px;
+  white-space: pre;
 }
 
 .cart_set {
