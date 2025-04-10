@@ -36,7 +36,7 @@ highlighter.tok = (code,regexes) => {
 
 highlighter.light = (tokens) => {
   return tokens.map(token => 
-    `<span class="${token.type}">${token.value}</span>`
+    `<span class="${token.type}">${token.value.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}</span>`
   ).join("");
 };
 
