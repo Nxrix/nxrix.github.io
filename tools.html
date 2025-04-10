@@ -1,0 +1,18 @@
+---
+layout: default
+title: "Tools"
+description: ""
+---
+
+<h2>Tools</h2>
+<div class="cart_set">
+  {% for tool in site.tools %}
+  <a href="{{ tool.url }}" class="cart">
+    <img class="pixelated" src="./img/carts/{{ tool.image }}">
+    <div class="content">
+      <div class="title">{{ tool.title }}</div>
+      <div class="description">{{ tool.description }}</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
