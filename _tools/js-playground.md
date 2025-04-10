@@ -19,6 +19,12 @@ id: 2
 
 const pi = Math.PI;
 
+const abs = (n) => { return Math.abs(n); }
+const floor = (n) => { return Math.floor(n); }
+const round = (n) => { return Math.round(n); }
+const ceil = (n) => { return Math.ceil(n); }
+
+const pow = (n) => { return Math.pow(n); }
 const sqrt = (n) => { return Math.sqrt(n); }
 
 const sin = (n) => { return Math.sin(n); }
