@@ -85,10 +85,8 @@ input[type="range"]:focus {
 <button id="save_txt">Save txt</button>
 <button id="cam_tInput" onclick="gl.cam_t=!gl.cam_t;gl.ctx.uniform1i(gl.cam_tLoc,gl.cam_t);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);this.innerText=gl.cam_t?'Orthographic':'Perspective'">Perspective</button>
 <br>
-<br>
 <div id="editor"></div>
 <div id="error" class="info-error"></div>
-<br>
 <br>
 Resolution: <input id="res" type="range" min="7" max="10" step="1" value="8">
 <span id="resv">256</span>
