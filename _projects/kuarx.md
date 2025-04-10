@@ -7,7 +7,7 @@ image: "krx.png"
 
 ## Kuarx
 
-A Voxel Engine that works using ThreeJS with a few other things.
+A Voxel Engine that works using ThreeJS with a few other things
 
 <br>
 
