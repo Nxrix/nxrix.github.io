@@ -21,7 +21,7 @@ description: ""
 <div class="cart_set">
   {% for project in site.projects %}
   {% unless project.hidden %}
-  <a href="{{ project.url }}" class="cart">
+  <a href="{{ project.rdurl | default: project.url }}" class="cart">
     <img class="pixelated" src="./img/carts/{{ project.image }}">
     <div class="content">
       <div class="title">{{ project.title }}</div>

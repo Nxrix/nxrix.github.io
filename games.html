@@ -8,7 +8,7 @@ description: ""
 <div class="cart_set">
   {% for game in site.games %}
   {% unless game.hidden %}
-  <a href="{{ game.url }}" class="cart">
+  <a href="{{ game.rdurl | default: game.url }}" class="cart">
     <img class="pixelated" src="./img/carts/{{ game.image }}">
     <div class="content">
       <div class="title">{{ game.title }}</div>

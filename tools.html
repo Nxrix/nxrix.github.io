@@ -8,7 +8,7 @@ description: ""
 <div class="cart_set">
   {% for tool in site.tools %}
   {% unless tool.hidden %}
-  <a href="{{ tool.url }}" class="cart">
+  <a href="{{ tool.rdurl | default: tool.url }}" class="cart">
     <img class="pixelated" src="./img/carts/{{ tool.image }}">
     <div class="content">
       <div class="title">{{ tool.title }}</div>
