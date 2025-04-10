@@ -1,13 +1,13 @@
 ---
 layout: default
 title: "Kuarx"
-description: "Voxels everywhere"
+description: "Voxels Everywhere"
 image: "krx.png"
 ---
 
 ## Kuarx
 
-A Voxel Engine that works on top of ThreeJS with a few other things for my own use
+A Voxel Engine that works using ThreeJS with a few other things.
 
 <br>
 
