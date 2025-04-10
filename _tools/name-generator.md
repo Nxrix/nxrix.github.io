@@ -128,7 +128,7 @@ const update = () => {
   const val = editor.textarea.value;
   try {
     const names = generate_names(JSON.parse(val));
-    result.innerText = names.join("\n");
+    result.innerText = names.join(",\n");
   } catch (err) {
     result.innerText = "Error: "+err.toString();
   }
