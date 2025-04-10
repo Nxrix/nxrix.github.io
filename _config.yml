@@ -12,7 +12,9 @@ github_username:  Nxrix
 theme: null
 permalink: pretty
 collections:
+  posts:
+    output: true
   projects:
     output: true
-  pages:
+  tools:
     output: true
