@@ -7,7 +7,7 @@ description: ""
 <h2>Tools</h2>
 <div class="cart_set">
   {% for tool in site.tools %}
-  {% unless tools.hidden %}
+  {% unless tool.hidden %}
   <a href="{{ tool.url }}" class="cart">
     <img class="pixelated" src="./img/carts/{{ tool.image }}">
     <div class="content">
