@@ -403,7 +403,9 @@ window.onload = async () => {
     } else {
       const yesterday = new Date(new Date().getTime()-24*60*60*1000);
       const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
-      const res = await fetch(`https://api.github.com/repos/CertMusashi/Chand-api/commits?path=arz.json&until=${until}&per_page=1`);
+      //const res = await fetch(`https://api.github.com/repos/CertMusashi/Chand-api/commits?path=arz.json&until=${until}&per_page=1`);
+      const res = await fetch(`https://api.github.com/repositories/930913626/commits?path=arz.json&until=${until}&per_page=1`);
+      
       const commits = await res.json();
       const target = yesterday.getTime();
       for (const commit of commits) {
