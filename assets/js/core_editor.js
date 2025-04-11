@@ -45,18 +45,21 @@ class CoreEditor {
       this.resize();
     });
     document.addEventListener("DOMContentLoaded",function(){setTimeout(this.resize,3000)});
-    this.resize();
+    this.resize();  
+    new ResizeObserver(function(){
+      this.textarea.style.width = this.pre.clientWidth + "px";
+      this.textarea.style.height = this.pre.clientHeight + "px";
+    }).observe(this.pre);
   }
   resize() {
-    this.textarea.style.width = "";
-    this.textarea.style.width = this.textarea.scrollWidth + 16 + "px";
-    this.textarea.style.height = "";
-    this.textarea.style.height = this.textarea.scrollHeight + "px";
+    //this.textarea.style.width = "";
+    //this.textarea.style.width = this.textarea.scrollWidth + 16 + "px";
+    //this.textarea.style.height = "";
+    //this.textarea.style.height = this.textarea.scrollHeight + "px";
 
     const lineCount = Math.max(this.textarea.value.split("\n").length,2);
     this.numbers.style.width = lineCount.toString().length + 2 + "em";
-    this.textarea.style.left = this.numbers.style.width;
-    this.pre.style.left = this.textarea.style.left;
+    this.pre.style.left = this.textarea.style.left = this.numbers.style.width;
 
     this.numbers.innerHTML = Array.from({ length: lineCount }, (_, index) => {
       return `<div>${index + 1}</div>`;
