@@ -46,7 +46,7 @@ class CoreEditor {
     });
     document.fonts.ready.then(() => {
       this.resize();
-    }
+    });
     this.resize();
   }
   resize() {
