@@ -471,10 +471,12 @@ ol, ul {
   aspect-ratio: 2.28;
 }
 :root[data-theme="light"] .top_bar .content .title-img {
-  background-image: url(../img/text/nxrix-text-0.png);
+  /*background-image: url(../img/text/nxrix-text-0.png);*/
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAIAAAAovUAdAAAAOklEQVQoFWOQlVAjDzHISqj9f/Hy/4uXEP0QBpyES8FFIOplJdSgOuF8rAysgug6Mc3G6haoneT5EwDi11y+HwFXwQAAAABJRU5ErkJggg==);
 }
 :root[data-theme="dark"] .top_bar .content .title-img {
-  background-image: url(../img/text/nxrix-text-2.png);
+  /*background-image: url(../img/text/nxrix-text-2.png);*/
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAIAAAAovUAdAAAAOklEQVQoFWPodDlPHmLodDkvK6EmK6EG0Q9hwEm4FFwEor7T5TxUJ5yPlYFVEF0nptlY3QK1kzx/AgDO3HrN8atmfwAAAABJRU5ErkJggg==);
 }
 /*.top_bar .content .title-img img {
   height: 24px;
@@ -740,6 +742,7 @@ ul li:nth-child(4n+3) {
   font-size: 14px;
 }
 .cart_set .cart img {
+  background-color: var(--md-sys-color-pixel-bg);
   width: 100%;
   border-radius: 24px;
   /*margin-bottom: auto;*/
