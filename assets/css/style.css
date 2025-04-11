@@ -500,6 +500,9 @@ ol, ul {
   border-radius: 8px;
   text-decoration: none;
 }
+.top_bar .content .links .link img {
+  height: 100%;
+}
 
 #theme_btn {
   display: flex;
