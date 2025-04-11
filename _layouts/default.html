@@ -26,7 +26,7 @@
       <a class="title-img pixelated" href="../">
         <!--img src="./img/text/nxrix-text-0.png" class="pixelated"-->
       </a>
-      <div class="links">
+      <div class="links" style="display:none">
         <a class="link" href="../">
           <img src="./img/icons/home-0.png" class="pixelated">
         </a>
@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded",() => {
       link.remove();
     }
   });
+  document.querySelector(".top_bar .content .links").style.display = "flex";
 });
 
 </script>
