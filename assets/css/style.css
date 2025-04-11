@@ -277,12 +277,12 @@
   background-color: var(--md-sys-color-primary);
 }
 html,body {
-  background-color: var(--md-sys-color-surface-container);
+  background-color: var(--md-sys-color-background);
   font-family: "en","fa";
   color: var(--md-sys-color-on-surface);
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  /*overflow: hidden;*/
   overscroll-behavior: none;
 }
 textarea:focus, input:focus, select:focus {
