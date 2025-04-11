@@ -44,7 +44,9 @@ class CoreEditor {
     window.addEventListener("resize", () => {
       this.resize();
     });
-    setTimeout(this.resize,5000);
+    document.fonts.ready.then(() => {
+      this.resize();
+    }
     this.resize();
   }
   resize() {
