@@ -3,7 +3,7 @@ layout: default
 title: "Name Generator"
 description: "Generate names"
 image: "name.png"
-id: 2
+cid: 2
 ---
 
 ## Name Generator
