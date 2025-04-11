@@ -464,7 +464,9 @@ ol, ul {
   border-radius: 0;
   margin-right: 16px;
 
-  background-image: url(../img/text/nxrix-text-0.png);
+/*background-image: url(../img/text/nxrix-text-0.png);*/
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAFCAIAAAAovUAdAAAAOklEQVQoFWOQlVAjDzHISqj9f/Hy/4uXEP0QBpyES8FFIOplJdSgOuF8rAysgug6Mc3G6haoneT5EwDi11y+HwFXwQAAAABJRU5ErkJggg==);
+
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -485,22 +487,17 @@ ol, ul {
 }*/
 .top_bar .content .links {
   display: flex;
-  width: 100%;
   height: 100%;
-  max-width: 250px;
-  justify-content: center;
-  align-items: center;
 }
 .top_bar .content .links .link {
+  background: var(--md-sys-color-surface-bright);
   display: flex;
-  width: 100%;
   height: 100%;
-  padding: 5px;
-  font-size: 18px;
-  font-stretch: ultra-expanded;
-  color: var(--md-sys-color-on-background);
   justify-content: center;
   align-items: center;
+  padding: 6px;
+  margin-right: 8px;
+  border-radius: 8px;
   text-decoration: none;
 }
 
