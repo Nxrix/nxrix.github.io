@@ -3,7 +3,7 @@ layout: default
 title: "JS Playground"
 description: "Write and execute JavaScript code"
 image: "js.png"
-id: 2
+id: 1
 ---
 
 ## Playground
