@@ -26,7 +26,7 @@
       <a class="title-img pixelated" href="../">
         <!--img src="./img/text/nxrix-text-0.png" class="pixelated"-->
       </a>
-      <div class="links" style="display:none;">
+      <div class="links">
         <a class="link" href="../">
           <img src="./img/icons/home-0.png" class="pixelated">
         </a>
@@ -91,6 +91,15 @@ const fullscreen = () => {
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded",() => {
+  const c = window.location.pathname;
+  document.querySelectorAll(".top_bar .content .links .link").forEach(link => {
+    if (new URL(link.href).pathname==c) {
+      link.remove();
+    }
+  });
+});
 
 </script>
 </html>
