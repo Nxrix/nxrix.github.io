@@ -50,9 +50,9 @@ class CoreEditor {
     this.resize();
   }
   resize() {
-    this.textarea.style.width = "0px";
+    this.textarea.style.width = "";
     this.textarea.style.width = this.textarea.scrollWidth+16+"px";
-    this.textarea.style.height = "0px";
+    this.textarea.style.height = "";
     this.textarea.style.height = this.textarea.scrollHeight+"px";
 
     const lineCount = Math.max(this.textarea.value.split("\n").length,2);
