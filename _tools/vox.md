@@ -29,7 +29,7 @@ input[type="range"]:focus {
   height: 64px;
   padding: 8px;
   gap: 8px;
-  outline: 1px solid var(--md-sys-color-surface-dim);
+  outline: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 16px;
 }
 #items .item .image {
@@ -55,7 +55,7 @@ input[type="range"]:focus {
   user-select: none;
 }
 #items .item .open, #items .item .del {
-  outline: 1px solid var(--md-sys-color-surface-dim);
+  outline: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 8px;
 }
 #items .item .btns {
@@ -69,7 +69,7 @@ input[type="range"]:focus {
   align-items: center;
   width: 100%;
   height: 100%;
-  outline: 1px solid var(--md-sys-color-surface-dim);
+  outline: 1px solid var(--md-sys-color-outline-variant);
 }
 #items .item .btns div:nth-child(1) {
   border-radius: 8px 8px 4px 4px;
