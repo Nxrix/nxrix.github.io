@@ -401,7 +401,11 @@ window.onload = async () => {
       const data1 = await res.json();
       for (let i=0;i<data.currencies.length;i++) {
         //data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
-        data.currencies[i].change_percent = (data.currencies[i].price-data1.currencies[i].price);
+        if (data.currencies[i]&&data1.currencies[i]) {
+          data.currencies[i].change_percent = (data.currencies[i].price-data1.currencies[i].price);
+        } else {
+          data.currencies[i].change_percent = 0;
+        }
       }
     } else {
       const yesterday = new Date(new Date().getTime()-24*60*60*1000);
@@ -417,7 +421,11 @@ window.onload = async () => {
         const data1 = await res.json();
         for (let i=0;i<data.currencies.length;i++) {
           //data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
-          data.currencies[i].change_percent = (data.currencies[i].price-data1.currencies[i].price);
+          if (data.currencies[i]&&data1.currencies[i]) {
+            data.currencies[i].change_percent = (data.currencies[i].price-data1.currencies[i].price);
+          } else {
+            data.currencies[i].change_percent = 0;
+          }
         }
       }
     }
