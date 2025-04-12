@@ -393,20 +393,13 @@ window.onload = async () => {
   update_time.style.display = "block";
   update_time.innerText = data.date;
 
+  let data1;
   try {
     await storage.init();
     const last_commit = await storage.get("last_commit")||"";
     if (last_commit&&((new Date().getTime()-24*60*60*1000)-last_commit.split(",")[0])<60*11000) {
       const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${last_commit.split(",")[1]}/arz.json`);
-      const data1 = await res.json();
-      for (let i=0;i<data.currencies.length;i++) {
-        //data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
-        if (data.currencies[i]&&data1.currencies[i]) {
-          data.currencies[i].change_percent = (data.currencies[i].price-data1.currencies[i].price);
-        } else {
-          data.currencies[i].change_percent = 0;
-        }
-      }
+      data1 = await res.json();
     } else {
       const yesterday = new Date(new Date().getTime()-24*60*60*1000);
       const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
@@ -418,23 +411,22 @@ window.onload = async () => {
       for (const commit of commits) {
         await storage.set("last_commit",yesterday.getTime()+","+commit.sha);
         const res = await fetch(`https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`);
-        const data1 = await res.json();
-        for (let i=0;i<data.currencies.length;i++) {
-          //data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
-          if (data.currencies[i]&&data1.currencies[i]) {
-            data.currencies[i].change_percent = (data.currencies[i].price-data1.currencies[i].price);
-          } else {
-            data.currencies[i].change_percent = 0;
-          }
-        }
+        data1 = await res.json();
       }
     }
   } catch (err) {
-    for (let i=0;i<data.currencies.length;i++) {
+    //for (let i=0;i<data.currencies.length;i++) {
+      //data.currencies[i].change_percent = 0;
+    //}
+  }
+  for (let i=0;i<data.currencies.length;i++) {
+    //data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
+    if (data.currencies[i]&&data1.currencies[i]) {
+      data.currencies[i].change_percent = (data.currencies[i].price-data1.currencies[i].price);
+    } else {
       data.currencies[i].change_percent = 0;
     }
   }
-
   const ton_data = await(await fetch("https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
   data.currencies.push({
     code: "ton",
