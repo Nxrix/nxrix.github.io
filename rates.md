@@ -346,24 +346,26 @@ const load_items = (data) => {
     for (let i=0;i<items.length;i++) {
       const item = items[i];
       const info = data["currencies"].find(e=>e.name==item.name);
-      list.innerHTML += `
-      <div class="item">
-        <div class="content">
-          <div class="info">
-            <div class="image">${item.type==0?"<div></div>":`<img src="../api/icons/${item.icon+"."+(info.iconf?info.iconf:"svg")}">`}</div>
-            <div class="names">
-              <div class="name">
-                ${item.ename}
-              </div>
-              <div class="slug">
-                ${item.slug}
+      if (info) {
+        list.innerHTML += `
+        <div class="item">
+          <div class="content">
+            <div class="info">
+              <div class="image">${item.type==0?"<div></div>":`<img src="../api/icons/${item.icon+"."+(info.iconf?info.iconf:"svg")}">`}</div>
+              <div class="names">
+                <div class="name">
+                  ${item.ename}
+                </div>
+                <div class="slug">
+                  ${item.slug}
+                </div>
               </div>
             </div>
+            <div class="price">${(item.unit=="usd"?"$":"")+format_num(info.price)}</div>
+            <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">":"red\">↓"))+format_num1(Math.abs(info.change_percent))}</div>
           </div>
-          <div class="price">${(item.unit=="usd"?"$":"")+format_num(info.price)}</div>
-          <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">":"red\">↓"))+format_num1(Math.abs(info.change_percent))}</div>
-        </div>
-      </div>`;
+        </div>`;
+      }
     }
   }
 }
