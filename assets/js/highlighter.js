@@ -49,7 +49,7 @@ highlighter.light_glsl = (code) => {
     { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
     //{ regex: /\d+(\.\d+)?/g, name: "n" },
     { regex: /\b(?:0x[0-9a-fA-F]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
-    { regex: /[{}[\]().,;]/g, name: "d" },
+    { regex: /[{}[\]().,:;]/g, name: "d" },
     { regex: /[+\-*/%=~^&|<>!]+/g, name: "o" },
   ];
   return highlighter.light(highlighter.tok(code,regexes));
@@ -65,8 +65,8 @@ highlighter.light_js = (code) => {
     { regex: /\b(?:const|let|var|function|if|else|for|while|return|class|new|this|async|await)\b/g, name: "k" },
     { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
     //{ regex: /\d+(\.\d+)?/g, name: "n" },
-    { regex: /\b(?:0x[0-9a-fA-F]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
-    { regex: /[{}[\]().,;]/g, name: "d" },
+    { regex: /\b(?:0x[0-9a-fA-F]+|0b[01]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
+    { regex: /[{}[\]().,:;]/g, name: "d" },
     { regex: /[+\-*/%=^&|<>!]+/g, name: "o" }
   ];
   return highlighter.light(highlighter.tok(code,regexes));
