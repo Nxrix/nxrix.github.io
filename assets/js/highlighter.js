@@ -48,7 +48,7 @@ highlighter.light_glsl = (code) => {
     { regex: /\b(?:float|int|bool|void|vec2|vec3|vec4|mat2|mat3|mat4|if|else|for|while|return|discard|f|f[234]|i|i[234]|b|b[234]|m[234])\b/g, name: "k" },
     { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
     //{ regex: /\d+(\.\d+)?/g, name: "n" },
-    { regex: /\b(?:0x[0-9a-fA-F]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
+    { regex: /\b(?:0[xX][0-9a-fA-F]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
     { regex: /[{}[\]().,:;]/g, name: "d" },
     { regex: /[+\-*/%=~^&|<>!]+/g, name: "o" },
   ];
@@ -65,7 +65,7 @@ highlighter.light_js = (code) => {
     { regex: /\b(?:const|let|var|function|if|else|for|while|return|class|new|this|async|await)\b/g, name: "k" },
     { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
     //{ regex: /\d+(\.\d+)?/g, name: "n" },
-    { regex: /\b(?:0x[0-9a-fA-F]+|0b[01]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
+    { regex: /\b(?:0[xX][0-9a-fA-F]+|0[bB][01]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
     { regex: /[{}[\]().,:;]/g, name: "d" },
     { regex: /[+\-*/%=^&|<>!]+/g, name: "o" }
   ];
