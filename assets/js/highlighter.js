@@ -72,37 +72,54 @@ highlighter.light_js = (code) => {
   return highlighter.light(highlighter.tok(code,highlighter.js_regex));
 };
 
-highlighter.prevCode = "";
-highlighter.prevHighlighted = "";
-
-highlighter.diff = (oldCode, newCode) => {
-  let diffStart = 0;
-  while (diffStart < oldCode.length && oldCode[diffStart] == newCode[diffStart]) {
-    diffStart++;
-  }
-  let diffEndOld = oldCode.length - 1;
-  let diffEndNew = newCode.length - 1;
-  while (diffEndOld >= diffStart && diffEndNew >= diffStart && oldCode[diffEndOld] == newCode[diffEndNew]) {
-    diffEndOld--;
-    diffEndNew--;
-  }
-  return {
-    before: newCode.slice(0, diffStart),
-    changed: newCode.slice(diffStart,diffEndNew+1),
-    after: newCode.slice(diffEndNew+1)
-  };
+highlighter.glsl_cache = {
+  text: "",
+  lines: [],
+  highlighted_lines: []
 };
 
-highlighter.light_glsl_v2 = (newCode) => {
-  const { before, changed, after } = highlighter.diff(highlighter.prevCode, newCode);
-  highlighter.prevCode = newCode;
-  highlighter.prevHighlighted = before + highlighter.light(highlighter.tok(changed,highlighter.highlighter.glsl_regex)) + after;
-  return highlighter.prevHighlighted;
+highlighter.js_cache = {
+  text: "",
+  lines: [],
+  highlighted_lines: []
 };
 
 highlighter.light_js_v2 = (newCode) => {
-  const { before, changed, after } = highlighter.diff(highlighter.prevCode, newCode);
-  highlighter.prevCode = newCode;
-  highlighter.prevHighlighted = before + highlighter.light(highlighter.tok(changed,highlighter.js_regex)) + after;
-  return highlighter.prevHighlighted;
+  const newLines = newCode.split("\n");
+  const prevLines = highlighter.glsl_cache.lines;
+  const prevHighlighted = highlighter.glsl_cache.highlighted_lines;
+  let highlighted_lines = [];
+  for (let i = 0; i < newLines.length; i++) {
+    if (i < prevLines.length && newLines[i] === prevLines[i]) {
+      highlighted_lines[i] = prevHighlighted[i];
+    } else {
+      const tokens = highlighter.tok(newLines[i],highlighter.glsl_regex);
+      highlighted_lines[i] = highlighter.light(tokens);
+    }
+  }
+  highlighted_lines = highlighted_lines.slice(0,newLines.length);
+  highlighter.glsl_cache.text = newCode;
+  highlighter.glsl_cache.lines = newLines;
+  highlighter.glsl_cache.highlighted_lines = highlighted_lines;
+  return highlightedLines.join("\n");
+};
+
+highlighter.light_js_v2 = (newCode) => {
+  const newLines = newCode.split("\n");
+  const prevLines = highlighter.js_cache.lines;
+  const prevHighlighted = highlighter.js_cache.highlighted_lines;
+  let highlighted_lines = [];
+  for (let i = 0; i < newLines.length; i++) {
+    if (i < prevLines.length && newLines[i] === prevLines[i]) {
+      highlighted_lines[i] = prevHighlighted[i];
+    } else {
+      const tokens = highlighter.tok(newLines[i],highlighter.js_regex);
+      highlighted_lines[i] = highlighter.light(tokens);
+    }
+  }
+  highlighted_lines = highlighted_lines.slice(0,newLines.length);
+  highlighter.js_cache.text = newCode;
+  highlighter.js_cache.lines = newLines;
+  highlighter.js_cache.highlighted_lines = highlighted_lines;
+  return highlightedLines.join("\n");
 };
