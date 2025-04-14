@@ -14,6 +14,7 @@ hidden: true
   align-items: center;
   overflow: hidden;
   width: 100%;
+  aspect-ratio: 4/3;
 }
 .tree {
   width: fit-content;
@@ -131,7 +132,7 @@ const parse_tree = (text,indentSize=2,rtl=false) => {
       if (rtl) {
         parent.children.unshift(node);
       } else {
-        parent.children.shift(node);
+        parent.children.push(node);
       }
       stack.push(node);
     }
@@ -176,8 +177,7 @@ const camera = new Camera2D(canvas,{},(e)=>{
 const update = () => {
   const val = editor.textarea.value;
   try {
-    const data = parse_tree(val);
-    render_tree(data);
+    render_tree(parse_tree(val));
   } catch (err) {
     render_tree(parse_tree("Error\n  "+err.toString()));
   }
