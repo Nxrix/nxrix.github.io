@@ -889,7 +889,7 @@ div.highlighter-rouge {
   width: 40px;
   height: 40px;
 }
-.footer .about .text svg {
+.footer .about .text .icon svg {
   color: var(--md-sys-color-on-surface);
   width: 100%;
   height: 100%;
