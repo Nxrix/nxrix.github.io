@@ -59,7 +59,7 @@ const update = () => {
   const val = editor.textarea.value;
   try {
     const result = eval(val);
-    error.innerText = result.toString();
+    error.innerText = result.toString()||"";
   } catch (err) {
     error.innerText = err.toString();
   }

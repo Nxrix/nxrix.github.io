@@ -131,7 +131,7 @@ const update = () => {
     const names = generate_names(JSON.parse(val));
     result.innerText = names.join(",\n");
   } catch (err) {
-    result.innerText = "Error: "+err.toString();
+    result.innerText = err.toString();
   }
 }
   

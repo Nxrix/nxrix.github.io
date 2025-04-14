@@ -4,7 +4,7 @@ class Camera2D {
     const defaults = {
       x: 0,
       y: 0,
-      z: 0.875,
+      z: 1,
       minZoom: 0.5,
       maxZoom: 10,
       minX: -Infinity,
@@ -31,21 +31,21 @@ class Camera2D {
     this._update();
   }
   setParams(newParams = {}) {
-    if (typeof newParams.x === "number") {
+    if (typeof newParams.x == "number") {
       this.state.x = newParams.x;
     }
-    if (typeof newParams.y === "number") {
+    if (typeof newParams.y == "number") {
       this.state.y = newParams.y;
     }
-    if (typeof newParams.z === "number") {
+    if (typeof newParams.z == "number") {
       this.state.z = newParams.z;
     }
-    if (typeof newParams.minZoom === "number") this.opts.minZoom = newParams.minZoom;
-    if (typeof newParams.maxZoom === "number") this.opts.maxZoom = newParams.maxZoom;
-    if (typeof newParams.minX === "number") this.opts.minX = newParams.minX;
-    if (typeof newParams.maxX === "number") this.opts.maxX = newParams.maxX;
-    if (typeof newParams.minY === "number") this.opts.minY = newParams.minY;
-    if (typeof newParams.maxY === "number") this.opts.maxY = newParams.maxY;
+    if (typeof newParams.minZoom == "number") this.opts.minZoom = newParams.minZoom;
+    if (typeof newParams.maxZoom == "number") this.opts.maxZoom = newParams.maxZoom;
+    if (typeof newParams.minX == "number") this.opts.minX = newParams.minX;
+    if (typeof newParams.maxX == "number") this.opts.maxX = newParams.maxX;
+    if (typeof newParams.minY == "number") this.opts.minY = newParams.minY;
+    if (typeof newParams.maxY == "number") this.opts.maxY = newParams.maxY;
     this._clampValues();
     this._update();
   }
@@ -70,7 +70,7 @@ class Camera2D {
     this.el.addEventListener("touchstart", (e) => {
       if (this.state.locked) return;
       e.preventDefault();
-      if (e.touches.length === 2) {
+      if (e.touches.length == 2) {
         this.state.do = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
@@ -89,7 +89,7 @@ class Camera2D {
     this.el.addEventListener("touchmove", (e) => {
       if (this.state.locked) return;
       e.preventDefault();
-      if (e.touches.length === 2) {
+      if (e.touches.length == 2) {
         const ndist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
