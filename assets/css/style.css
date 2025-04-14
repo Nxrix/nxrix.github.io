@@ -370,11 +370,11 @@ input[type="text"]:focus ,input[type="password"]:focus {
   user-select: none;
   -webkit-user-select: none;
 }
-ul:not(.ul) {
+ul {
   list-style: disc outside none;
   list-style: initial;
 }
-ol, ul:not(.ul) {
+ol, ul {
   list-style: none;
 }
 .pixelated {
