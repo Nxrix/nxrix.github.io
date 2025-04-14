@@ -38,6 +38,7 @@ class CoreEditor {
       if (this.options.lang == "js") this.code.innerHTML = highlighter.light_js(this.options.value);
     }
 
+    this.textarea.addEventListener("keydown",(e)=>this.handleKeys(e));
     this.textarea.addEventListener("input", () => {
       this.resize();
     });
@@ -48,6 +49,68 @@ class CoreEditor {
       this.resize();
     });
     this.resize();
+  }
+  handle_keys(e) {
+    const textarea = this.textarea;
+    const indentUnit = "  ";
+    if (e.key === "Tab") {
+      e.preventDefault();
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const value = textarea.value;
+      const selected = value.slice(start, end);
+      const lines = selected.split("\n");
+  
+      if (e.shiftKey) {
+        const unindented = lines.map(line => line.startsWith(indentUnit) ? line.slice(2) : line);
+        const newText = unindented.join("\n");
+        document.execCommand("insertText", false, newText);
+        textarea.selectionStart = start;
+        textarea.selectionEnd = end - (selected.length - newText.length);
+      } else {
+        const indented = lines.map(line => indentUnit + line);
+        const newText = indented.join("\n");
+        document.execCommand("insertText", false, newText);
+        textarea.selectionStart = start;
+        textarea.selectionEnd = end + (newText.length - selected.length);
+      }
+      this.resize();
+    }
+  
+    else if (e.key === "Enter") {
+      const start = textarea.selectionStart;
+      const value = textarea.value;
+      const before = value.slice(0, start);
+      const lines = before.split("\n");
+      const currentLine = lines[lines.length - 1];
+      const indentMatch = currentLine.match(/^\s*/);
+      const currentIndent = indentMatch ? indentMatch[0] : "";
+      const shouldIndentMore = /[\{\[\(]\s*$/.test(currentLine);
+      const newIndent = currentIndent + (shouldIndentMore ? indentUnit : "");
+  
+      e.preventDefault();
+      document.execCommand("insertText", false, "\n" + newIndent);
+      this.resize();
+    }
+  
+    else if (e.key === "Backspace") {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+  
+      if (start !== end) return; // Let normal delete happen if there's a selection
+  
+      const value = textarea.value;
+      const before = value.slice(0, start);
+      const lineStart = before.lastIndexOf("\n") + 1;
+      const inLine = before.slice(lineStart, start);
+  
+      if (inLine.endsWith(indentUnit)) {
+        e.preventDefault();
+        textarea.setSelectionRange(start - 2, start);
+        document.execCommand("delete");
+        this.resize();
+      }
+    }
   }
   resize() {
     this.textarea.style.width = "";
