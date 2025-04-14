@@ -90,18 +90,17 @@ highlighter.light_js_v2 = (newCode) => {
   const prevHighlighted = highlighter.glsl_cache.highlighted_lines;
   let highlighted_lines = [];
   for (let i = 0; i < newLines.length; i++) {
-    if (i < prevLines.length && newLines[i] === prevLines[i]) {
+    if (i < prevLines.length && newLines[i] == prevLines[i]) {
       highlighted_lines[i] = prevHighlighted[i];
     } else {
-      const tokens = highlighter.tok(newLines[i],highlighter.glsl_regex);
-      highlighted_lines[i] = highlighter.light(tokens);
+      highlighted_lines[i] = highlighter.light(highlighter.tok(newLines[i],highlighter.glsl_regex));
     }
   }
   highlighted_lines = highlighted_lines.slice(0,newLines.length);
   highlighter.glsl_cache.text = newCode;
   highlighter.glsl_cache.lines = newLines;
   highlighter.glsl_cache.highlighted_lines = highlighted_lines;
-  return highlightedLines.join("\n");
+  return highlighted_lines.join("\n");
 };
 
 highlighter.light_js_v2 = (newCode) => {
@@ -110,16 +109,15 @@ highlighter.light_js_v2 = (newCode) => {
   const prevHighlighted = highlighter.js_cache.highlighted_lines;
   let highlighted_lines = [];
   for (let i = 0; i < newLines.length; i++) {
-    if (i < prevLines.length && newLines[i] === prevLines[i]) {
+    if (i < prevLines.length && newLines[i] == prevLines[i]) {
       highlighted_lines[i] = prevHighlighted[i];
     } else {
-      const tokens = highlighter.tok(newLines[i],highlighter.js_regex);
-      highlighted_lines[i] = highlighter.light(tokens);
+      highlighted_lines[i] = highlighter.light(highlighter.tok(newLines[i],highlighter.js_regex));
     }
   }
   highlighted_lines = highlighted_lines.slice(0,newLines.length);
   highlighter.js_cache.text = newCode;
   highlighter.js_cache.lines = newLines;
   highlighter.js_cache.highlighted_lines = highlighted_lines;
-  return highlightedLines.join("\n");
+  return highlighted_lines.join("\n");
 };
