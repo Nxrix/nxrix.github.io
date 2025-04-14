@@ -38,7 +38,7 @@ class CoreEditor {
       if (this.options.lang == "js") this.code.innerHTML = highlighter.light_js(this.options.value);
     }
 
-    this.textarea.addEventListener("keydown",(e)=>this.handleKeys(e));
+    this.textarea.addEventListener("keydown",(e)=>this.handle_keys(e));
     this.textarea.addEventListener("input", () => {
       this.resize();
     });
