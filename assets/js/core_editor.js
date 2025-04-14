@@ -53,33 +53,57 @@ class CoreEditor {
   handle_keys(e) {
     const textarea = this.textarea;
     const indentUnit = "  ";
-    if (e.key === "Tab") {
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const value = textarea.value;
+    if (e.key=="Tab") {
       e.preventDefault();
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const value = textarea.value;
-      const selected = value.slice(start, end);
-      const lines = selected.split("\n");
-  
+      const hasSelection = start !== end;
       if (e.shiftKey) {
-        const unindented = lines.map(line => line.startsWith(indentUnit) ? line.slice(2) : line);
-        const newText = unindented.join("\n");
+        const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+        const lineEnd = value.indexOf("\n", end);
+        const selectionEnd = lineEnd === -1 ? value.length : lineEnd;
+        const affected = value.slice(lineStart, selectionEnd);
+        const lines = affected.split("\n");
+        const newLines = lines.map(line =>
+          line.startsWith(indentUnit) ? line.slice(indentUnit.length)
+          : line.startsWith(" ") ? line.slice(1)
+          : line
+        );
+        const newText = newLines.join("\n");
+        textarea.setSelectionRange(lineStart, selectionEnd);
         document.execCommand("insertText", false, newText);
-        textarea.selectionStart = start;
-        textarea.selectionEnd = end - (selected.length - newText.length);
+        const removed = affected.length - newText.length;
+        if (hasSelection) {
+          textarea.setSelectionRange(start, end - removed);
+        } else {
+          const cursorOffset = start - lineStart >= indentUnit.length ? indentUnit.length : 0;
+          textarea.setSelectionRange(start - cursorOffset, start - cursorOffset);
+        }
       } else {
-        const indented = lines.map(line => indentUnit + line);
-        const newText = indented.join("\n");
-        document.execCommand("insertText", false, newText);
-        textarea.selectionStart = start;
-        textarea.selectionEnd = end + (newText.length - selected.length);
+        if (hasSelection) {
+          const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+          const lineEnd = value.indexOf("\n", end);
+          const selectionEnd = lineEnd === -1 ? value.length : lineEnd;
+
+          const affected = value.slice(lineStart, selectionEnd);
+          const lines = affected.split("\n");
+          const newLines = lines.map(line => indentUnit + line);
+          const newText = newLines.join("\n");
+
+          textarea.setSelectionRange(lineStart, selectionEnd);
+          document.execCommand("insertText", false, newText);
+          const added = newText.length - affected.length;
+          textarea.setSelectionRange(start, end + added);
+        } else {
+          document.execCommand("insertText", false, indentUnit);
+          textarea.setSelectionRange(start + indentUnit.length, start + indentUnit.length);
+        }
       }
       this.resize();
     }
   
-    else if (e.key === "Enter") {
-      const start = textarea.selectionStart;
-      const value = textarea.value;
+    else if (e.key=="Enter") {
       const before = value.slice(0, start);
       const lines = before.split("\n");
       const currentLine = lines[lines.length - 1];
@@ -93,20 +117,15 @@ class CoreEditor {
       this.resize();
     }
   
-    else if (e.key === "Backspace") {
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
+    else if (e.key=="Backspace") {
+      if (start !== end) return;
   
-      if (start !== end) return; // Let normal delete happen if there's a selection
-  
-      const value = textarea.value;
-      const before = value.slice(0, start);
-      const lineStart = before.lastIndexOf("\n") + 1;
-      const inLine = before.slice(lineStart, start);
+      const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+      const inLine = value.slice(lineStart, start);
   
       if (inLine.endsWith(indentUnit)) {
         e.preventDefault();
-        textarea.setSelectionRange(start - 2, start);
+        textarea.setSelectionRange(start - indentUnit.length, start);
         document.execCommand("delete");
         this.resize();
       }
