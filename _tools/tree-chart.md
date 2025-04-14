@@ -16,6 +16,7 @@ hidden: true
   width: 100%;
   aspect-ratio: 4/3;
   outline: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 24px;
 }
 .tree {
   width: fit-content;
@@ -159,6 +160,7 @@ const create_tree = (node) => {
 const render_tree = (data) => {
   tree.innerHTML = "";
   const ul = document.createElement("ul");
+  ul.classList.add("ul");
   ul.appendChild(create_tree(data));
   tree.appendChild(ul);
 }
