@@ -19,8 +19,8 @@ The generator uses a JSON configuration to determine how names are generated. Yo
 <div id="editor"></div>
 <div id="result" class="info-result"></div>
 
-<script src="./js/highlighter.js"></script>
-<script src="./js/core_editor.js"></script>
+<script src="./js/highlighter.js?{{site.time|date:'%s%N'}}"></script>
+<script src="./js/core_editor.js?{{site.time|date:'%s%N'}}"></script>
 
 <script>
 "use strict";

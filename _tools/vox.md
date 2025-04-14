@@ -116,10 +116,10 @@ Pitch:
 <br>
 <div id="items"></div>
 
-<script src="./js/storage.js"></script>
-<script src="./js/highlighter.js"></script>
-<script src="./js/core_editor.js"></script>
-<script src="./js/offscreen.js"></script>
+<script src="./js/storage.js?{{site.time|date:'%s%N'}}"></script>
+<script src="./js/highlighter.js?{{site.time|date:'%s%N'}}"></script>
+<script src="./js/core_editor.js?{{site.time|date:'%s%N'}}"></script>
+<script src="./js/offscreen.js?{{site.time|date:'%s%N'}}"></script>
 
 <script>
 "use strict";

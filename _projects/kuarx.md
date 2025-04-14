@@ -14,8 +14,8 @@ A Voxel Engine that works using ThreeJS with a few other things
 <canvas id="canvas" width="1200" height="900" class="canvas_4x3 pixelated center" style="border-radius:16px;"></canvas>
 <!--img src="./img/misc/screenshots/kuarx-vx6-alpha.png" class="center"-->
 
-<script src="./js/three.min.js"></script>
-<script src="./js/kuarx-alpha.js"></script>
+<script src="./js/three.min.js?{{site.time|date:'%s%N'}}"></script>
+<script src="./js/kuarx-alpha.js?{{site.time|date:'%s%N'}}"></script>
 
 <script>
 kuarx.init(canvas,1,30,0.125,1024,true);

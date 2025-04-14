@@ -54,9 +54,9 @@ description: ""
 const  width = 128;
 const height = 32;
 </script>
-<script src="./js/three.min.js"></script>
-<script src="./js/px8_raw.js"></script>
-<script src="./js/events.js"></script>
+<script src="./js/three.min.js?{{site.time|date:'%s%N'}}"></script>
+<script src="./js/px8_raw.js?{{site.time|date:'%s%N'}}"></script>
+<script src="./js/events.js?{{site.time|date:'%s%N'}}"></script>
 <script>
 const context = canvas.getContext("webgl",{ antialias: false, preserveDrawingBuffer: true });
 

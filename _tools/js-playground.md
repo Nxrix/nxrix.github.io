@@ -11,8 +11,8 @@ cid: 0
 <div id="editor"></div>
 <div id="error" class="info-error"></div>
 
-<script src="./js/highlighter.js"></script>
-<script src="./js/core_editor.js"></script>
+<script src="./js/highlighter.js?{{site.time|date:'%s%N'}}"></script>
+<script src="./js/core_editor.js?{{site.time|date:'%s%N'}}"></script>
 
 <script>
 "use strict";
