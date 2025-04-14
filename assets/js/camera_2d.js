@@ -98,12 +98,15 @@ class Camera2D {
           Math.max(this.state.z * ndist / this.state.do, this.opts.minZoom),
           this.opts.maxZoom
         );
+        this.state.do = ndist;
         const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
         const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
         const ox = mx - this.el.clientWidth / 2;
         const oy = my - this.el.clientHeight / 2;
         this.state.x -= (ox / this.state.z - ox / nz) - ((mx - this.state.cx) / nz);
         this.state.y -= (oy / this.state.z - oy / nz) - ((my - this.state.cy) / nz);
+        this.state.xo = ox;
+        this.state.yo = oy;
         this.state.cx = mx;
         this.state.cy = my;
         this.state.z = nz;
