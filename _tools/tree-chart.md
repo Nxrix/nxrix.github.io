@@ -164,7 +164,7 @@ const editor = new CoreEditor("#editor", { value: `A
     E
     G` });
 
-const camera = new Camera2D({},(e)=>{
+const camera = new Camera2D(canvas,{},(e)=>{
   tree.style.transform = "scale("+e.z+") translateX("+e.x+"px) translateY("+e.y+"px)";
 });
 
