@@ -84,7 +84,7 @@ highlighter.js_cache = {
   highlighted_lines: []
 };
 
-highlighter.light_js_v2 = (newCode) => {
+highlighter.light_glsl_v2 = (newCode) => {
   const newLines = newCode.split("\n");
   const prevLines = highlighter.glsl_cache.lines;
   const prevHighlighted = highlighter.glsl_cache.highlighted_lines;
