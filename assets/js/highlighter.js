@@ -40,34 +40,69 @@ highlighter.light = (tokens) => {
   ).join("");
 };
 
+highlighter.glsl_regex = [
+  { regex: /\/\/.*|\/\*[\s\S]*?\*\//g, name: "c" },
+  { regex: /"(?:[^"\\]|\\.)*"/g, name: "s" },
+  { regex: /\b(true|false)\b/g, name: "b" },
+  { regex: /\b(?:float|int|bool|void|vec2|vec3|vec4|mat2|mat3|mat4|if|else|for|while|return|discard|f|f[234]|i|i[234]|b|b[234]|m[234])\b/g, name: "k" },
+  { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
+  { regex: /\b(?:0[xX][0-9a-fA-F]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
+  { regex: /[{}[\]().,:;]/g, name: "d" },
+  { regex: /[+\-*/%=~^&|<>!]+/g, name: "o" },
+];
+
+highlighter.js_regex = [
+  { regex: /\/\/.*|\/\*[\s\S]*?\*\//g, name: "c" },
+  { regex: /"(?:[^"\\]|\\.)*"/g, name: "s" },
+  { regex: /'(?:[^'\\]|\\.)*'/g, name: "s" },
+  { regex: /`(?:[^`\\]|\\.)*`/g, name: "s" },
+  { regex: /\b(true|false)\b/g, name: "b" },
+  { regex: /\b(?:const|let|var|function|if|else|for|while|return|class|new|this|async|await)\b/g, name: "k" },
+  { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
+  { regex: /\b(?:0[xX][0-9a-fA-F]+|0[bB][01]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
+  { regex: /[{}[\]().,:;]/g, name: "d" },
+  { regex: /[+\-*/%=^&|<>!]+/g, name: "o" }
+];
+
 highlighter.light_glsl = (code) => {
-  const regexes = [
-    { regex: /\/\/.*|\/\*[\s\S]*?\*\//g, name: "c" },
-    { regex: /"(?:[^"\\]|\\.)*"/g, name: "s" },
-    { regex: /\b(true|false)\b/g, name: "b" },
-    { regex: /\b(?:float|int|bool|void|vec2|vec3|vec4|mat2|mat3|mat4|if|else|for|while|return|discard|f|f[234]|i|i[234]|b|b[234]|m[234])\b/g, name: "k" },
-    { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
-    //{ regex: /\d+(\.\d+)?/g, name: "n" },
-    { regex: /\b(?:0[xX][0-9a-fA-F]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
-    { regex: /[{}[\]().,:;]/g, name: "d" },
-    { regex: /[+\-*/%=~^&|<>!]+/g, name: "o" },
-  ];
-  return highlighter.light(highlighter.tok(code,regexes));
+  return highlighter.light(highlighter.tok(code,highlighter.glsl_regex));
 }
 
 highlighter.light_js = (code) => {
-  const regexes = [
-    { regex: /\/\/.*|\/\*[\s\S]*?\*\//g, name: "c" },
-    { regex: /"(?:[^"\\]|\\.)*"/g, name: "s" },
-    { regex: /'(?:[^'\\]|\\.)*'/g, name: "s" },
-    { regex: /`(?:[^`\\]|\\.)*`/g, name: "s" },
-    { regex: /\b(true|false)\b/g, name: "b" },
-    { regex: /\b(?:const|let|var|function|if|else|for|while|return|class|new|this|async|await)\b/g, name: "k" },
-    { regex: /\b[a-zA-Z_]\w*(?=\s*\()/g, name: "f" },
-    //{ regex: /\d+(\.\d+)?/g, name: "n" },
-    { regex: /\b(?:0[xX][0-9a-fA-F]+|0[bB][01]+|\d+(\.\d+)?|\.\d+)\b/g, name: "n" },
-    { regex: /[{}[\]().,:;]/g, name: "d" },
-    { regex: /[+\-*/%=^&|<>!]+/g, name: "o" }
-  ];
-  return highlighter.light(highlighter.tok(code,regexes));
+  return highlighter.light(highlighter.tok(code,highlighter.js_regex));
+};
+
+highlighter.prevCode = "";
+highlighter.prevHighlighted = "";
+
+highlighter.diff = (oldCode, newCode) => {
+  let diffStart = 0;
+  while (diffStart < oldCode.length && oldCode[diffStart] == newCode[diffStart]) {
+    diffStart++;
+  }
+  let diffEndOld = oldCode.length - 1;
+  let diffEndNew = newCode.length - 1;
+  while (diffEndOld >= diffStart && diffEndNew >= diffStart && oldCode[diffEndOld] == newCode[diffEndNew]) {
+    diffEndOld--;
+    diffEndNew--;
+  }
+  return {
+    before: newCode.slice(0, diffStart),
+    changed: newCode.slice(diffStart,diffEndNew+1),
+    after: newCode.slice(diffEndNew+1)
+  };
+};
+
+highlighter.light_glsl_v2 = (newCode) => {
+  const { before, changed, after } = highlighter.diff(highlighter.prevCode, newCode);
+  highlighter.prevCode = newCode;
+  highlighter.prevHighlighted = before + highlighter.light(highlighter.tok(changed,highlighter.highlighter.glsl_regex)) + after;
+  return highlighter.prevHighlighted;
+};
+
+highlighter.light_js_v2 = (newCode) => {
+  const { before, changed, after } = highlighter.diff(highlighter.prevCode, newCode);
+  highlighter.prevCode = newCode;
+  highlighter.prevHighlighted = before + highlighter.light(highlighter.tok(changed,highlighter.js_regex)) + after;
+  return highlighter.prevHighlighted;
 };
