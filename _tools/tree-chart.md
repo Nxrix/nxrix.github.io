@@ -149,6 +149,7 @@ const create_tree = (node) => {
   li.appendChild(div);
   if (node.children&&node.children.length>0) {
     const ul = document.createElement("ul");
+    ul.classList.add("ul");
     node.children.forEach(child => {
       ul.appendChild(create_tree(child));
     });
