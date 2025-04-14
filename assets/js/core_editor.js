@@ -34,8 +34,8 @@ class CoreEditor {
 
     if (this.options.value) {
       this.textarea.value = this.options.value;
-      if (this.options.lang == "glsl") this.code.innerHTML = highlighter.light_glsl(this.options.value);
-      if (this.options.lang == "js") this.code.innerHTML = highlighter.light_js(this.options.value);
+      if (this.options.lang == "glsl") this.code.innerHTML = highlighter.light_glsl_v2(this.options.value);
+      if (this.options.lang == "js") this.code.innerHTML = highlighter.light_js_v2(this.options.value);
     }
 
     this.textarea.addEventListener("keydown",(e)=>this.handle_keys(e));
