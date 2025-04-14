@@ -13,6 +13,7 @@ hidden: true
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  width: 100%;
 }
 .tree {
   width: fit-content;
@@ -92,7 +93,7 @@ hidden: true
 }
 </style>
 
-<div id="canvas" class="canvas_4x3 center">
+<div id="canvas" class="canvas_4x3">
   <div id="tree" class="tree"></div>
 </div>
 
@@ -127,7 +128,7 @@ const parse_tree = (text,indentSize=2,rtl=false) => {
       if (!parent.children) {
         parent.children = [];
       }
-      rtl?parent.children.unshift(node):parent.children.shift(node);
+      if (rtl) parent.children.unshift(node) else parent.children.shift(node);
       stack.push(node);
     }
   });
