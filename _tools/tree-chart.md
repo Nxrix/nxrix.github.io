@@ -15,6 +15,7 @@ hidden: true
   overflow: hidden;
   width: 100%;
   aspect-ratio: 4/3;
+  border-left: 1px solid var(--md-sys-color-outline-variant);
 }
 .tree {
   width: fit-content;
