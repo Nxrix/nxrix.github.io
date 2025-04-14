@@ -96,7 +96,7 @@ hidden: true
 <div id="canvas" class="canvas_4x3">
   <div id="tree" class="tree"></div>
 </div>
-
+<br>
 <div id="editor"></div>
 
 <script src="./js/highlighter.js?{{site.time|date:'%s%N'}}"></script>
@@ -128,7 +128,11 @@ const parse_tree = (text,indentSize=2,rtl=false) => {
       if (!parent.children) {
         parent.children = [];
       }
-      if (rtl) parent.children.unshift(node) else parent.children.shift(node);
+      if (rtl) {
+        parent.children.unshift(node);
+      } else {
+        parent.children.shift(node);
+      }
       stack.push(node);
     }
   });
