@@ -104,7 +104,6 @@ class Camera2D {
         const oy = my - this.el.clientHeight / 2;
         this.state.x -= (ox / this.state.z - ox / nz) - ((mx - this.state.cx) / nz);
         this.state.y -= (oy / this.state.z - oy / nz) - ((my - this.state.cy) / nz);
-        this.state.do = ndist;
         this.state.cx = mx;
         this.state.cy = my;
         this.state.z = nz;
