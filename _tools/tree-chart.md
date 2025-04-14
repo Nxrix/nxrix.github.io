@@ -15,7 +15,7 @@ hidden: true
   overflow: hidden;
   width: 100%;
   aspect-ratio: 4/3;
-  border-left: 1px solid var(--md-sys-color-outline-variant);
+  outline: 1px solid var(--md-sys-color-outline-variant);
 }
 .tree {
   width: fit-content;
@@ -95,7 +95,7 @@ hidden: true
 }
 </style>
 
-<div id="canvas" class="canvas_4x3">
+<div id="canvas" class="canvas_4x3 center">
   <div id="tree" class="tree"></div>
 </div>
 <br>
