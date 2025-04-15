@@ -3,7 +3,7 @@ layout: default
 title: "Unicode Table"
 description: "Explore & View Unicode characters"
 image: "unicode.png"
-cid: 1
+cid: 2
 ---
 
 <style>
