@@ -101,8 +101,8 @@ class Camera2D {
         this.state.do = ndist;
         const mx = (e.touches[0].clientX+e.touches[1].clientX)/2;
         const my = (e.touches[0].clientY+e.touches[1].clientY)/2;
-        const ox = mx-window.innerWidth/2;
-        const oy = my-window.innerHeight/2;
+        const ox = mx-this.el.clientWidth/2;
+        const oy = my-this.el.clientHeight/2;
         this.state.x -= (ox/this.state.z -ox/nz)-((mx-this.state.cx)/nz);
         this.state.y -= (oy/this.state.z-oy/nz)-((my-this.state.cy)/nz);
         this.state.xo = ox;
@@ -146,8 +146,8 @@ class Camera2D {
     this.el.addEventListener("wheel", (e) => {
       if (this.state.locked) return;
       e.preventDefault();
-      const mx = e.clientX-window.innerWidth/2;
-      const my = e.clientY-window.innerHeight/2;
+      const mx = e.clientX-this.el.clientWidth/2;
+      const my = e.clientY-this.el.clientHeight/2;
       const factor = e.deltaY<0?1.125:0.875;
       const nz = Math.min(
         Math.max(this.state.z*factor,this.opts.minZoom),
