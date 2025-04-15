@@ -94,8 +94,8 @@ class Camera2D {
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
-        const nz = Math.min(
-          Math.max(this.state.z * ndist / this.state.do, this.opts.minZoom),
+        const nz = Math.max(
+          Math.min(this.state.z * ndist / this.state.do, this.opts.minZoom),
           this.opts.maxZoom
         );
         this.state.do = ndist;
