@@ -9,14 +9,24 @@ hidden: true
 
 <style>
 #canvas {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
   width: 100%;
   aspect-ratio: 4/3;
   outline: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 24px;
+}
+#wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+}
+.tree {
+  width: fit-content;
+  height: fit-content;
+  white-space: nowrap;
 }
 .tree {
   width: fit-content;
@@ -97,7 +107,9 @@ hidden: true
 </style>
 
 <div id="canvas" class="canvas_4x3 center">
-  <div id="tree" class="tree"></div>
+  <div id="wrap">
+    <div id="tree" class="tree"></div>
+  </div>
 </div>
 <br>
 <div id="editor"></div>
@@ -174,8 +186,8 @@ const editor = new CoreEditor("#editor", { value: `A
     E
     G` });
 
-const camera = new Camera2D(tree,{},(e)=>{
-  tree.style.transform = "scale("+e.z+") translateX("+e.x+"px) translateY("+e.y+"px)";
+const camera = new Camera2D(canvas,{},(e)=>{
+  wrap.style.transform = "scale("+e.z+") translateX("+e.x+"px) translateY("+e.y+"px)";
 });
 
 const update = () => {
