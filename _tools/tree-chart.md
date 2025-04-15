@@ -16,6 +16,7 @@ cid: 3
   aspect-ratio: 4/3;
   outline: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 24px;
+  margin-bottom: 24px;
 }
 .tree {
   transform-origin: center;
@@ -95,10 +96,13 @@ cid: 3
 }
 </style>
 
+## Tree Chart
+
+Use indentation to define parent-child relationships. Each line represents a node, and its indentation (2 spaces) determines its depth in the hierarchy.
+
 <div id="canvas">
   <div id="tree" class="tree"></div>
 </div>
-<br>
 <div id="editor"></div>
 
 <script src="./js/highlighter.js?{{site.time|date:'%s%N'}}"></script>
@@ -180,7 +184,7 @@ const camera = new Camera2D(canvas,{},(e)=>{
 const update = () => {
   const val = editor.textarea.value;
   try {
-    render_tree(parse_tree(val));
+    render_tree(parse_tree(val),2,/[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/.test(val));
   } catch (err) {
     render_tree(parse_tree("Error\n  "+err.toString()));
   }
