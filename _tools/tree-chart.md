@@ -12,7 +12,6 @@ cid: 3
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  width: 100%;
   aspect-ratio: 4/3;
   outline: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 24px;
@@ -101,7 +100,7 @@ cid: 3
 
 Use indentation to define parent-child relationships. Each line represents a node, and its indentation (2 spaces) determines its depth in the hierarchy.
 
-<div id="canvas" class="canvas_4x3">
+<div id="canvas" class="canvas_4x3 center">
   <div id="tree" class="tree"></div>
 </div>
 <div id="editor"></div>
