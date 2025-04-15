@@ -121,7 +121,7 @@ class CoreEditor {
       this.resize();
     }
   
-    else if (e.key=="Backspace") {
+    /*else if (e.key=="Backspace") {
       if (start !== end) return;
   
       const lineStart = value.lastIndexOf("\n", start - 1) + 1;
@@ -130,6 +130,25 @@ class CoreEditor {
       if (inLine.endsWith(indentUnit)) {
         e.preventDefault();
         textarea.setSelectionRange(start - indentUnit.length, start);
+        document.execCommand("delete");
+        this.resize();
+      }
+    }*/
+    else if (e.key == "Backspace") {
+      if (start !== end) return;
+      const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+      const inLine = value.slice(lineStart, start);
+      const spaceMatch = inLine.match(/ *$/);
+      const spaceCount = spaceMatch ? spaceMatch[0].length : 0;
+      if (spaceCount > 0) {
+        e.preventDefault();
+        let deleteCount;
+        if (spaceCount > indentUnit.length) {
+          deleteCount = 1;
+        } else {
+          deleteCount = indentUnit.length;
+        }
+        textarea.setSelectionRange(start - deleteCount, start);
         document.execCommand("delete");
         this.resize();
       }
