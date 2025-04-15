@@ -143,10 +143,10 @@ class CoreEditor {
       if (spaceCount > 0) {
         e.preventDefault();
         let deleteCount;
-        if (spaceCount > indentUnit.length) {
-          deleteCount = 1;
-        } else {
+        if (spaceCount%indentUnit.length==0) {
           deleteCount = indentUnit.length;
+        } else {
+          deleteCount = 1;
         }
         textarea.setSelectionRange(start - deleteCount, start);
         document.execCommand("delete");
