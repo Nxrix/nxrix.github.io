@@ -99,10 +99,10 @@ class Camera2D {
           this.opts.maxZoom
         );
         this.state.do = ndist;
-        const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-        const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-        const ox = mx - this.el.clientWidth / 2;
-        const oy = my - this.el.clientHeight / 2;
+        const mx = (e.touches[0].clientX+e.touches[1].clientX)/2;
+        const my = (e.touches[0].clientY+e.touches[1].clientY)/2;
+        const ox = mx-window.innerWidth/2;
+        const oy = my-window.innerHeight/2;
         this.state.x -= (ox/this.state.z -ox/nz)-((mx-this.state.cx)/nz);
         this.state.y -= (oy/this.state.z-oy/nz)-((my-this.state.cy)/nz);
         this.state.xo = ox;
@@ -112,8 +112,8 @@ class Camera2D {
         this.state.z = nz;
       } else {
         if (!this.state.touch) {
-          this.state.x += (e.touches[0].clientX - this.state.xo) / this.state.z;
-          this.state.y += (e.touches[0].clientY - this.state.yo) / this.state.z;
+          this.state.x += (e.touches[0].clientX-this.state.xo)/this.state.z;
+          this.state.y += (e.touches[0].clientY-this.state.yo)/this.state.z;
           this.state.xo = e.touches[0].clientX;
           this.state.yo = e.touches[0].clientY;
         }
@@ -130,8 +130,8 @@ class Camera2D {
     });
     this.el.addEventListener("mousemove", (e) => {
       if (this.state.locked || !this.state.drag) return;
-      this.state.x += (e.clientX - this.state.xo) / this.state.z;
-      this.state.y += (e.clientY - this.state.yo) / this.state.z;
+      this.state.x += (e.clientX-this.state.xo)/this.state.z;
+      this.state.y += (e.clientY-this.state.yo)/this.state.z;
       this.state.xo = e.clientX;
       this.state.yo = e.clientY;
       this._clampValues();
@@ -146,15 +146,15 @@ class Camera2D {
     this.el.addEventListener("wheel", (e) => {
       if (this.state.locked) return;
       e.preventDefault();
-      const mx = e.clientX - this.el.clientWidth / 2;
-      const my = e.clientY - this.el.clientHeight / 2;
-      const factor = e.deltaY < 0 ? 1.125 : 0.875;
+      const mx = e.clientX-window.innerWidth/2;
+      const my = e.clientY-window.innerHeight/2;
+      const factor = e.deltaY<0?1.125:0.875;
       const nz = Math.min(
-        Math.max(this.state.z * factor, this.opts.minZoom),
+        Math.max(this.state.z*factor,this.opts.minZoom),
         this.opts.maxZoom
       );
-      this.state.x -= (mx / this.state.z - mx / nz);
-      this.state.y -= (my / this.state.z - my / nz);
+      this.state.x -= (mx/this.state.z-mx/nz);
+      this.state.y -= (my/this.state.z-my/nz);
       this.state.z = nz;
       this._clampValues();
       this._update();
