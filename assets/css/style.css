@@ -626,7 +626,7 @@ ol li:before {
   text-align: center;
   content: counter(item);
 }
-ul:not(.footer ul) {
+ul:not(.ul) {
   margin-left: 22px;
 }
 ul:not(.ul) li {
