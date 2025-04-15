@@ -216,8 +216,8 @@ canvas.addEventListener("touchmove",(e) => {
     camera.do = ndist;
     const mx = (e.touches[0].clientX+e.touches[1].clientX)/2;
     const my = (e.touches[0].clientY+e.touches[1].clientY)/2;
-    const ox =  mx-screen.clientWidth/2;
-    const oy = my-screen.clientHeight/2;
+    const ox =  mx-canvas.clientWidth/2;
+    const oy = my-canvas.clientHeight/2;
     camera.x -= (ox/camera.z-ox/nz)-(mx-camera.cx)/nz;
     camera.y -= (oy/camera.z-oy/nz)-(my-camera.cy)/nz;
     camera.xo = ox;
@@ -260,8 +260,8 @@ canvas.addEventListener("mouseleave",() => {
 });
 canvas.addEventListener("wheel",(e) => {
   e.preventDefault();
-  const mx = e.clientX-screen.clientWidth/2;
-  const my = e.clientY-screen.clientHeight/2;
+  const mx = e.clientX-canvas.clientWidth/2;
+  const my = e.clientY-canvas.clientHeight/2;
   const nz = Math.max(Math.min(camera.z*(e.deltaY<0?1.125:0.875),camera.min),camera.max);
   camera.x -= (mx/camera.z-mx/nz);
   camera.y -= (my/camera.z-my/nz);
