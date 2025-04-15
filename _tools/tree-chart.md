@@ -16,6 +16,7 @@ cid: 3
   aspect-ratio: 4/3;
   outline: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 24px;
+  margin-top: 24px;
   margin-bottom: 24px;
 }
 .tree {
@@ -100,7 +101,7 @@ cid: 3
 
 Use indentation to define parent-child relationships. Each line represents a node, and its indentation (2 spaces) determines its depth in the hierarchy.
 
-<div id="canvas">
+<div id="canvas" class="canvas_4x3">
   <div id="tree" class="tree"></div>
 </div>
 <div id="editor"></div>
