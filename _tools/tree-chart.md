@@ -166,7 +166,7 @@ const render_tree = (data) => {
   tree.appendChild(ul);
 }
 
-const editor = new CoreEditor("#editor", { value: `
+const editor = new CoreEditor("#editor", { value: `A
   B
     D
     F
