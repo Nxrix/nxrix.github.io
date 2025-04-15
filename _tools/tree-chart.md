@@ -4,7 +4,6 @@ title: "Tree Chart"
 description: "Easily create tree charts"
 image: "tree-chart.png"
 cid: 3
-hidden: true
 ---
 
 <style>
@@ -96,7 +95,7 @@ hidden: true
 }
 </style>
 
-<div id="canvas" class="canvas_4x3 center">
+<div id="canvas">
   <div id="tree" class="tree"></div>
 </div>
 <br>
