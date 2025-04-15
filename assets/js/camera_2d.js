@@ -5,8 +5,8 @@ class Camera2D {
       x: 0,
       y: 0,
       z: 1,
-      minZoom: 0.5,
-      maxZoom: 10,
+      minZoom: 10,
+      maxZoom: 0.5,
       minX: -Infinity,
       maxX: Infinity,
       minY: -Infinity,
@@ -72,11 +72,11 @@ class Camera2D {
       e.preventDefault();
       if (e.touches.length == 2) {
         this.state.do = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
+          e.touches[0].clientX-e.touches[1].clientX,
+          e.touches[0].clientY-e.touches[1].clientY
         );
-        this.state.xo = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-        this.state.yo = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        this.state.xo = (e.touches[0].clientX+e.touches[1].clientX)/2;
+        this.state.yo = (e.touches[0].clientY+e.touches[1].clientY)/2;
         this.state.cx = this.state.xo;
         this.state.cy = this.state.yo;
         this.state.touch = true;
@@ -91,8 +91,8 @@ class Camera2D {
       e.preventDefault();
       if (e.touches.length == 2) {
         const ndist = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
+          e.touches[0].clientX-e.touches[1].clientX,
+          e.touches[0].clientY-e.touches[1].clientY
         );
         const nz = Math.max(
           Math.min(this.state.z * ndist / this.state.do, this.opts.minZoom),
@@ -103,8 +103,8 @@ class Camera2D {
         const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
         const ox = mx - this.el.clientWidth / 2;
         const oy = my - this.el.clientHeight / 2;
-        this.state.x -= (ox / this.state.z - ox / nz) - ((mx - this.state.cx) / nz);
-        this.state.y -= (oy / this.state.z - oy / nz) - ((my - this.state.cy) / nz);
+        this.state.x -= (ox/this.state.z -ox/nz)-((mx-this.state.cx)/nz);
+        this.state.y -= (oy/this.state.z-oy/nz)-((my-this.state.cy)/nz);
         this.state.xo = ox;
         this.state.yo = oy;
         this.state.cx = mx;
