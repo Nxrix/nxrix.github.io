@@ -2,20 +2,33 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  
-  <meta http-equiv="cache-control" content="no-cache"> 
-  <meta http-equiv="expires" content="0">
-  <meta http-equiv="pragma" content="no-cache">
-  
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--meta name="theme-color" content=""-->
   <base href="/assets/">
-  <link rel="icon" href="./img/icons/clown-48x.png" type="image/png">
-  <!--link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"-->
+  
   <link rel="stylesheet" href="./css/style.css?{{site.time|date:'%s%N'}}">
   <script src="./js/theme.js?{{site.time|date:'%s%N'}}"></script>
   <script src="./js/screen.js"></script>
-  <title>Nxrix : {{ page.title }}</title>
+
+  <link rel="icon" href="./img/icons/clown-48x.png" type="image/png">
+
+  <meta name="title" content="Nxrix : {{ page.title }}" />
+  <meta name="description" content="{{ page.description}}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nxrix.github.io/" />
+  <meta property="og:title" content="Nxrix : {{ page.title }}" />
+  <meta property="og:description" content="{{ page.description}}" />
+  <meta property="og:image" content="./img/misc/banners/0.png" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://nxrix.github.io/" />
+  <meta property="twitter:title" content="Nxrix : {{ page.title }}" />
+  <meta property="twitter:description" content="{{ page.description}}" />
+  <meta property="twitter:image" content="./img/misc/banners/0.png" />
+  
+  <!--meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache"-->
+
+  <!--meta name="theme-color" content=""-->
 </head>
 <body>
   <div class="top_bar">
