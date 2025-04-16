@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Core Voxel Shaders"
+title: "Core Voxel Editor"
 description: ""
 image: "vox.png"
 cid: 4
