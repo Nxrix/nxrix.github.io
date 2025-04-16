@@ -270,7 +270,7 @@ vec3 rotx(vec3 v,float s,float c) {
 void main() {
   vec2 uv = gl_FragCoord.xy/r.xy * 2.0 - 1.0;
   uv.x *= r.z;
-  vec3 col = palette[3]/256.0;
+  vec4 col = vec4(0);//palette[3]/256.0;
   vec3 o = vec3(0,0,sz*1.5);
   vec3 d;
   if (CAM_TYPE) {
@@ -309,7 +309,7 @@ void main() {
     if (v.x>=0.0&&v.x<sz&&v.y>=0.0&&v.y<sz&&v.z>=0.0&&v.z<sz) {
       int c = int(map(v));
       if (c>0) {
-        col = palette[palsh[((c-1)/cs&31)+(n.x!=0.0?32:(n.y!=0.0?64:0))]]/256.0;
+        col.rgb = palette[palsh[((c-1)/cs&31)+(n.x!=0.0?32:(n.y!=0.0?64:0))]]/256.0;
         break;
       }
     }
@@ -328,7 +328,7 @@ void main() {
     }
     itr++;
   }
-  fragColor = vec4(col,1.0);
+  fragColor = col;
 }`;
 
 const editor = new CoreEditor("#editor", { highlight: true , lang: "glsl" , value: `// name //
