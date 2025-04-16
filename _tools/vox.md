@@ -309,7 +309,7 @@ void main() {
     if (v.x>=0.0&&v.x<sz&&v.y>=0.0&&v.y<sz&&v.z>=0.0&&v.z<sz) {
       int c = int(map(v));
       if (c>0) {
-        col.rgb = palette[palsh[((c-1)/cs&31)+(n.x!=0.0?32:(n.y!=0.0?64:0))]]/256.0;
+        col = vec4(palette[palsh[((c-1)/cs&31)+(n.x!=0.0?32:(n.y!=0.0?64:0))]]/256.0,1);
         break;
       }
     }
