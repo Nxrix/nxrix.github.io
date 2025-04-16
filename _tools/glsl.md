@@ -214,7 +214,7 @@ gl.FS2 = `void main() {
 
 const editor = new CoreEditor("#editor", { highlight: true , lang: "glsl" , value: `// name //
 f4 k() {
-  f2 v = gl_Fragcoord.xy/r.xy;
+  f2 v = gl_FragCoord.xy/r.xy;
   return vec4(v,0,1);
 }` });
 
