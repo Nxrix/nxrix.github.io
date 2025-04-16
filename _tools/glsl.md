@@ -244,7 +244,7 @@ gl.setProgram = (fsrc) => {
     gl.ctx.compileShader(gl.fs);
     gl.ctx.linkProgram(gl.pg);
     gl.ctx.validateProgram(gl.pg);
-    return fix_error_line(log,-gl.FS.split("\n").length+1).slice(0,-1);
+    return fix_error_line(log,-gl.FS1.split("\n").length+1).slice(0,-1);
   } else {
     gl.FSO = fsrc;
     return ">";
