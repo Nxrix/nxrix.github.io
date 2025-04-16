@@ -91,6 +91,7 @@ input[type="range"]:focus {
 Resolution: <input id="res" type="range" min="7" max="10" step="1" value="8">
 <span id="resv">256</span>
 <br>
+<br>
 <button id="save_item">Save item</button>
 <br>
 <div id="items"></div>
