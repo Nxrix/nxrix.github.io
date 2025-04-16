@@ -282,9 +282,7 @@ res.addEventListener("input",()=>{
 });
 
 let t_speed = 1;
-gl.cam_t = 0;
 gl.time = -1000;//-16.667;
-gl.vox_size = 2**size.value;
 
 gl.draw = () => {
   if (!gl.pause) {
