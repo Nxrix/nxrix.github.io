@@ -677,26 +677,21 @@ ul:not(.ul) li:nth-child(4n+3) {
   --rotation: 3;
 }
 
+.info-result, .info-error {  
+  font-family: "mono";
+  font-size: 14px;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+}
 .info-result {
   background-color: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-secondary);
-  font-family: "mono";
-  font-size: 14px;
-  margin-top: 16px;
-  padding: 16px;
-  border-radius: 8px;
-  white-space: pre;
 }
-
 .info-error {
   background-color: var(--md-sys-color-error-container);
   color: var(--md-sys-color-error);
-  font-family: "mono";
-  font-size: 14px;
-  margin-top: 16px;
-  padding: 16px;
-  border-radius: 8px;
-  white-space: pre;
 }
 
 .cart_set {
