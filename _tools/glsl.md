@@ -88,7 +88,7 @@ input[type="range"]:focus {
 <div id="editor"></div>
 <div id="error" class="info-error"></div>
 <br>
-Resolution: <input id="res" type="range" min="7" max="10" step="1" value="8">
+Resolution: <input id="res" type="range" min="7" max="12" step="1" value="8">
 <span id="resv">256</span>
 <br>
 <br>
