@@ -115,12 +115,8 @@ gl.ctx.attachShader(gl.pg,gl.vs);
 gl.ctx.attachShader(gl.pg,gl.fs);
 
 gl.VS = `#version 300 es
-in vec4 p;
-
-uniform vec3 r;
-
+in vec2 p;
 void main() {
-  gl_PointSize = r.x;
   gl_Position = p;
 }`;
 
