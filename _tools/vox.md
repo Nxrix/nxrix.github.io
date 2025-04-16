@@ -135,7 +135,7 @@ gl.ctx.attachShader(gl.pg,gl.vs);
 gl.ctx.attachShader(gl.pg,gl.fs);
 
 gl.VS = `#version 300 es
-in vec2 p;
+in vec4 p;
 void main() {
   gl_Position = p;
 }`;
