@@ -79,7 +79,7 @@ input[type="range"]:focus {
 }
 </style>
 
-<canvas width="256" height="256" class="canvas_1x1 pixelated"></canvas>
+<canvas width="256" height="256" class="canvas_1x1 pixelated" style="background-color:var(--md-sys-color-pixel-bg);"></canvas>
 <button onclick="gl.time=0;gl.ctx.uniform1f(gl.tLoc,gl.time*0.001);gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);">Reset</button>
 <button onclick="gl.pause=!gl.pause;this.innerText=gl.pause?'Play':'Stop'">Play</button>
 <button id="save_img">Save img</button>
@@ -135,8 +135,7 @@ gl.ctx.attachShader(gl.pg,gl.vs);
 gl.ctx.attachShader(gl.pg,gl.fs);
 
 gl.VS = `#version 300 es
-in vec4 p;
-
+in vec2 p;
 void main() {
   gl_Position = p;
 }`;
@@ -294,10 +293,10 @@ void main() {
   float tmin = max(max(min(t1.x,t2.x),min(t1.y,t2.y)),min(t1.z,t2.z));
   float tmax = min(min(max(t1.x,t2.x),max(t1.y,t2.y)),max(t1.z,t2.z));
   if (tmax<0.0) {
-    fragColor = vec4(palette[3]/256.0,1);
+    fragColor = vec4(0);//vec4(palette[3]/256.0,1);
   }
   if (tmin>tmax) {
-    fragColor = vec4(palette[3]/256.0,1);
+    fragColor = vec4(0);//vec4(palette[3]/256.0,1);
   }
   if (tmin>0.0) o += tmin*d*0.999999;
   vec3 v = floor(o);
@@ -329,7 +328,7 @@ void main() {
     }
     itr++;
   }
-  fragColor = vec4(col, 1.0);
+  fragColor = vec4(col,1.0);
 }`;
 
 const editor = new CoreEditor("#editor", { highlight: true , lang: "glsl" , value: `// name //
