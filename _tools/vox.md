@@ -80,11 +80,11 @@ input[type="range"]:focus {
 </style>
 
 <canvas width="256" height="256" class="canvas_1x1 pixelated"></canvas>
-<button onclick="gl.time=0;gl.ctx.uniform1f(gl.tLoc,gl.time*0.001);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);">Reset</button>
+<button onclick="gl.time=0;gl.ctx.uniform1f(gl.tLoc,gl.time*0.001);gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);">Reset</button>
 <button onclick="gl.pause=!gl.pause;this.innerText=gl.pause?'Play':'Stop'">Play</button>
 <button id="save_img">Save img</button>
 <button id="save_txt">Save txt</button>
-<button id="cam_tInput" onclick="gl.cam_t=!gl.cam_t;gl.ctx.uniform1i(gl.cam_tLoc,gl.cam_t);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);this.innerText=gl.cam_t?'Orthographic':'Perspective'">Perspective</button>
+<button id="cam_tInput" onclick="gl.cam_t=!gl.cam_t;gl.ctx.uniform1i(gl.cam_tLoc,gl.cam_t);gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);this.innerText=gl.cam_t?'Orthographic':'Perspective'">Perspective</button>
 <br>
 <div id="editor"></div>
 <div id="error" class="info-error"></div>
@@ -102,15 +102,15 @@ Speed:
 <br>
 Dist:
 <br>
-<input id="cam_dInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_dLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="0.0">
+<input id="cam_dInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_dLoc,this.value);gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);" value="0.0">
 <br>
 Yaw:
 <br>
-<input id="cam_yInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_yLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="30">
+<input id="cam_yInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_yLoc,this.value);gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);" value="30">
 <br>
 Pitch:
 <br>
-<input id="cam_pInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_pLoc,this.value);gl.ctx.drawArrays(gl.ctx.POINTS,0,1);" value="-30">
+<input id="cam_pInput" type="text" oninput="gl.ctx.uniform1f(gl.cam_pLoc,this.value);gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);" value="-30">
 <br>
 <button id="save_item">Save item</button>
 <br>
@@ -382,8 +382,13 @@ gl.update = () => {
   gl.ctx.useProgram(gl.pg);
   gl.buffer = gl.ctx.createBuffer();
   gl.ctx.bindBuffer(gl.ctx.ARRAY_BUFFER,gl.buffer);
-  gl.vertices = new Float32Array([0,0]);
-  gl.ctx.bufferData(gl.ctx.ARRAY_BUFFER,gl.vertices,gl.ctx.STATIC_DRAW);
+  gl.vertices = new Float32Array([
+    -1.0, -1.0,
+     1.0, -1.0,
+    -1.0,  1.0,
+     1.0,  1.0
+  ]);
+  gl.ctx.bufferData(gl.ctx.ARRAY_BUFFER, gl.vertices, gl.ctx.STATIC_DRAW);
 
   gl.pLoc = gl.ctx.getAttribLocation(gl.pg,"p");
   gl.ctx.enableVertexAttribArray(gl.pLoc);
@@ -407,20 +412,20 @@ gl.update = () => {
 editor.textarea.addEventListener("input",()=>{
   gl.update();
   gl.ctx.uniform1f(gl.tLoc,gl.time*0.001);
-  gl.ctx.drawArrays(gl.ctx.POINTS,0,1);
+  gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);
 });
 res.addEventListener("input",()=>{
   gl.canvas.width = gl.canvas.height = 2**res.value;
   resv.innerText = 2**res.value;
   gl.ctx.viewport(0,0,gl.canvas.width,gl.canvas.height);
   gl.ctx.uniform3f(gl.rLoc,gl.canvas.width,gl.canvas.height,gl.canvas.width/gl.canvas.height);
-  gl.ctx.drawArrays(gl.ctx.POINTS,0,1);
+  gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);
 });
 size.addEventListener("input",()=>{
   gl.vox_size = 2**size.value;
   sizev.innerText = gl.vox_size;
   gl.ctx.uniform1f(gl.szLoc,gl.vox_size);
-  gl.ctx.drawArrays(gl.ctx.POINTS,0,1);
+  gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);
 });
 
 let t_speed = 1;
@@ -432,7 +437,7 @@ gl.draw = () => {
   if (!gl.pause) {
     gl.time += 1000*t_speed;//16.667;
     gl.ctx.uniform1f(gl.tLoc,gl.time*0.001);
-    gl.ctx.drawArrays(gl.ctx.POINTS,0,1);
+    gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);
   }
   requestAnimationFrame(gl.draw);
 };
@@ -511,7 +516,7 @@ const open_item = async (i) => {
     }
     editor.resize();
     gl.update();
-    gl.ctx.drawArrays(gl.ctx.POINTS,0,1);
+    gl.ctx.drawArrays(gl.ctx.TRIANGLE_STRIP,0,4);
   }
 };
 
