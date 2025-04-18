@@ -261,7 +261,7 @@ const extract_chart = (svg,rv=0) => {
   const min = Math.min(...v);
   const max = Math.max(...v);
   const r = max-min||1;
-  return v.map(y => ( rv? 1/(1-(y-min)/r) : (1-(y-min)/r) ));
+  return v.map(y => ( rv? ((y-min)/r) : (1-(y-min)/r) ));
 }
 
 const types = ["gold","currency","cryptocurrency"];
