@@ -308,14 +308,14 @@ const items = [
     slug: "TON",
     icon: "ton",
     unit: "usd"
-  },/*{
+  },{
     type: 2,
     name: "تانل",
     ename: "Tonnel",
     slug: "TONNEL",
     icon: "tonnel",
     unit: "usd"
-  },*/{
+  },{
     type: 1,
     name: "یورو",
     ename: "Euro",
@@ -504,15 +504,17 @@ window.onload = async () => {
     chart: make_chart(extract_chart(ton_chart,1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,4,0.2,0.25)
   });
 
-  /*const tonnel_data = await(await fetch("https://api.ston.fi/v1/assets/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json();
+  const tonnel_data = await(await fetch("https://corsproxy.io/?url=https://dyor.io/api/v4/jettons/slug/tonnel/details")).json();
+  const tonnel_chart = await(await fetch("https://corsproxy.io/?url=https://storage.dyor.io/jettons/239/chart_dark_m1.svg")).text();
   data.currencies.push({
     code: "tonnel",
     en: "Tonnel",
     name: "تانل",
-    price: parseFloat(tonnel_data.asset.dex_price_usd),
-    change_percent: 0,
-    iconf: "png"
-  });*/
+    iconf: "png",
+    price: parseFloat(tonnel_data.cachedJetton.priceUsd),
+    change_percent: tonnel_data.cachedJetton.priceUsd*tonnel_data.cachedJetton.priceChange24h,
+    chart: make_chart(extract_chart(tonnel_chart,1),tonnel_data.cachedJetton.priceChange24h>0?"green":"red",400,400,4,0.2,0.25)
+  });
   
   load_items(data);
 }
