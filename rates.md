@@ -261,7 +261,7 @@ const extract_chart = (svg,rv=0) => {
   const min = Math.min(...v);
   const max = Math.max(...v);
   const r = max-min||1;
-  return v.map(y => ( rv? 1/(1-(y-min)/r) : (1-(y-min)/r) );
+  return v.map(y => ( rv? 1/(1-(y-min)/r) : (1-(y-min)/r) ));
 }
 
 const types = ["gold","currency","cryptocurrency"];
@@ -492,7 +492,7 @@ window.onload = async () => {
     name: "تون کوین",
     price: ton_data.Price,
     change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100,
-    chart: make_chart(extract_chart((await(await fetch("https://storage.dyor.io/jettons/10778/chart_dark_m1.svg")).text()),1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,8,0.15,0.3);
+    chart: make_chart(extract_chart((await(await fetch("https://storage.dyor.io/jettons/10778/chart_dark_m1.svg")).text()),1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,8,0.15,0.3)
   });
 
   /*const tonnel_data = await(await fetch("https://api.ston.fi/v1/assets/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json();
