@@ -127,9 +127,9 @@ image: "rates.png"
 #list .item .content .change {
   color: var(--md-sys-color-outline);
   position: absolute;
-  bottom: 1%;
+  bottom: 0;
   left: 0;
-  padding: 27% 10%;
+  padding: 25% 10%;
   font-size: calc(var(--font)/100*7);
   font-weight: 600;
   z-index: 2;
@@ -143,7 +143,7 @@ image: "rates.png"
 }
 
 #list .item .content:has(.chart) .price, #list .item .content:has(.chart) .change {
-  -webkit-text-stroke: calc(var(--font)/100) #fff;
+  -webkit-text-stroke: calc(var(--font)/50) var(--md-sys-color-background);
   paint-order: stroke fill;
 }
 
