@@ -492,7 +492,7 @@ window.onload = async () => {
     name: "تون کوین",
     price: ton_data.Price,
     change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100,
-    chart: make_chart(extract_chart((await(await fetch("https://storage.dyor.io/jettons/10778/chart_dark_m1.svg")).json()),1),400,400,8,0.15,0.3);
+    chart: make_chart(extract_chart((await(await fetch("https://storage.dyor.io/jettons/10778/chart_dark_m1.svg")).json()),1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,8,0.15,0.3);
   });
 
   /*const tonnel_data = await(await fetch("https://api.ston.fi/v1/assets/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json();
