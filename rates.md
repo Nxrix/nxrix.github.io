@@ -57,6 +57,7 @@ image: "rates.png"
 }
 
 #list .item .content {
+  overflow: hidden;
   background-color: var(--md-sys-color-surface);
   position: relative;
   width: 100%;
@@ -71,6 +72,7 @@ image: "rates.png"
   height: 30%;
   display: flex;
   padding: 5%;
+  z-index: 2;
 }
 
 #list .item .content .info .names {
@@ -122,6 +124,29 @@ image: "rates.png"
   z-index: 2;
 }
 
+#list .item .content .change {
+  color: var(--md-sys-color-outline);
+  position: absolute;
+  bottom: 1%;
+  left: 0;
+  padding: 27% 10%;
+  font-size: calc(var(--font)/100*7);
+  font-weight: 600;
+  z-index: 2;
+}
+
+#list .item .content .change.green {
+  color: #16C784;
+}
+#list .item .content .change.red {
+  color: #EA3943;
+}
+
+#list .item .content:has(.chart) .price, #list .item .content:has(.chart) .change {
+  -webkit-text-stroke: calc(var(--font)/100) #000;
+  paint-order: stroke fill;
+}
+
 #list .item .content .chart {
   position: absolute;
   width: 100%;
@@ -133,24 +158,7 @@ image: "rates.png"
   width: 100%;
   height: 100%;
 }
-
-#list .item .content .change {
-  color: var(--md-sys-color-outline);
-  position: absolute;
-  bottom: 1%;
-  left: 0;
-  padding: 27% 10%;
-  font-size: calc(var(--font)/100*7);
-  font-weight: 600;
-}
-
-#list .item .content .change.green {
-  color: #16C784;
-}
-#list .item .content .change.red {
-  color: #EA3943;
-}
-
+  
 #list .item .content .limage {
   position: absolute;
   top: 6%;
@@ -486,13 +494,14 @@ window.onload = async () => {
     }
   }
   const ton_data = await(await fetch("https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
+  const ton_chart = await(await fetch("https://corsproxy.io/?url=https://storage.dyor.io/jettons/10778/chart_dark_m1.svg")).text();
   data.currencies.push({
     code: "ton",
     en: "Toncoin",
     name: "تون کوین",
     price: ton_data.Price,
     change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100,
-    chart: make_chart(extract_chart((await(await fetch("https://storage.dyor.io/jettons/10778/chart_dark_m1.svg")).text()),1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,8,0.15,0.3)
+    chart: make_chart(extract_chart(ton_chart,1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,8,0.2,0.25)
   });
 
   /*const tonnel_data = await(await fetch("https://api.ston.fi/v1/assets/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json();
