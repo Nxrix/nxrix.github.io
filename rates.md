@@ -129,6 +129,11 @@ image: "rates.png"
   z-index: 1;
 }
 
+#list .item .content .chart svg {
+  width: 100%;
+  height: 100%;
+}
+
 #list .item .content .change {
   color: var(--md-sys-color-outline);
   position: absolute;
@@ -206,6 +211,58 @@ image: "rates.png"
 <script src="./js/storage.js"></script>
 
 <script>
+
+const make_chart = (prices,color,w,h,s=8,p=0,o=0) => {
+  const viewBoxWidth = w;
+  const viewBoxHeight = h;
+  const padding = viewBoxHeight*p;
+  const effectiveHeight = viewBoxHeight-2*padding;
+  const colors = {
+    green: "#16C784",
+    red: "#EA3943"
+  };
+  const hex = colors[color.toLowerCase()]||color;
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const priceRange = maxPrice-minPrice;
+  let linePath = "";
+  let areaPath = `M 0 ${viewBoxHeight} `;
+  prices.forEach((price,index) => {
+    const x = (index/(prices.length-1))*viewBoxWidth;
+    const normalized = priceRange==0?0.5:(price-minPrice)/priceRange;
+    const y = padding+(1-normalized+o)*effectiveHeight;
+    if (index == 0) {
+      linePath += `M ${x.toFixed(6)} ${y.toFixed(6)}`;
+    } else {
+      linePath += ` L ${x.toFixed(6)} ${y.toFixed(6)}`;
+    }
+    areaPath += `L ${x.toFixed(6)} ${y.toFixed(6)} `;
+  });
+  areaPath += `L ${viewBoxWidth} ${viewBoxHeight} Z`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}">
+    <defs>
+      <linearGradient id="color${hex}" x1="0%" x2="0%" y1="0%" y2="100%">
+        <stop offset="0%" style="stop-color:${hex};stop-opacity:0.4;"></stop>
+        <stop offset="100%" style="stop-color:${hex};stop-opacity:0.0;"></stop>
+      </linearGradient>
+    </defs>
+    <g>
+      <path stroke="${hex}" stroke-width="${s}" stroke-linecap="round" stroke-linejoin="round" fill="none" d="${linePath}"></path>
+      <path stroke="none" fill-opacity="0.6" fill="url(#color${hex})" d="${areaPath}"></path>
+    </g>
+  </svg>`;
+}
+
+const extract_chart = (svg,rv=0) => {
+  const dMatch = svg.match(/<path[^>]*stroke=["'][^"']+["'][^>]*fill=["']none["'][^>]*d=["']([^"']+)["']/);
+  if (!dMatch) return [];
+  const d = dMatch[1];
+  const v = [...d.matchAll(/([ML])\s*([0-9.]+)\s+([0-9.]+)/g)].map(m=>parseFloat(m[3]));
+  const min = Math.min(...v);
+  const max = Math.max(...v);
+  const r = max-min||1;
+  return v.map(y => ( rv? 1/(1-(y-min)/r) : (1-(y-min)/r) );
+}
 
 const types = ["gold","currency","cryptocurrency"];
 
@@ -363,6 +420,7 @@ const load_items = (data) => {
             </div>
             <div class="price">${(item.unit=="usd"?"$":"")+format_num(info.price)}</div>
             <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">":"red\">↓"))+format_num1(Math.abs(info.change_percent))}</div>
+            ${info.chart?`<div class="chart">${info.chart}</div>`:""}
           </div>
         </div>`;
       }
@@ -433,7 +491,8 @@ window.onload = async () => {
     en: "Toncoin",
     name: "تون کوین",
     price: ton_data.Price,
-    change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100
+    change_percent: Math.round((ton_data.Price-ton_data.PriceYesterday)*100)/100,
+    chart: make_chart(extract_chart((await(await fetch("https://storage.dyor.io/jettons/10778/chart_dark_m1.svg")).json()),1),400,400,8,0.15,0.3);
   });
 
   /*const tonnel_data = await(await fetch("https://api.ston.fi/v1/assets/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv")).json();
