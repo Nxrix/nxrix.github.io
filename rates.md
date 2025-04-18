@@ -143,7 +143,7 @@ image: "rates.png"
 }
 
 #list .item .content:has(.chart) .price, #list .item .content:has(.chart) .change {
-  -webkit-text-stroke: calc(var(--font)/50) var(--md-sys-color-background);
+  -webkit-text-stroke: calc(var(--font)/75) var(--md-sys-color-background);
   paint-order: stroke fill;
 }
 
