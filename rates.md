@@ -512,7 +512,7 @@ window.onload = async () => {
     name: "تانل",
     iconf: "png",
     price: parseFloat(tonnel_data.cachedJetton.priceUsd),
-    change_percent: tonnel_data.cachedJetton.priceUsd/tonnel_data.cachedJetton.price*tonnel_data.cachedJetton.priceChange24h,
+    change_percent: tonnel_data.cachedJetton.priceUsd*tonnel_data.cachedJetton.priceChange24h/100,
     chart: make_chart(extract_chart(tonnel_chart),tonnel_data.cachedJetton.priceChange24h>0?"green":"red",400,400,4,0.2,0.25)
   });
   
