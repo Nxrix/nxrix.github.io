@@ -454,11 +454,7 @@ window.onload = async () => {
         </div>
       </div>`;
   }
-  const json = await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json?t="+Date.now());
-  const data = await json.json();
-  update_time.style.display = "block";
-  update_time.innerText = data.date;
-
+  let data = await(await fetch("https://raw.githubusercontent.com/CertMusashi/Chand-api/refs/heads/main/arz.json?t="+Date.now())).json();
   let data1;
   try {
     await storage.init();
@@ -471,7 +467,6 @@ window.onload = async () => {
       const until = new Date(yesterday.getTime()+10*60*1000).toISOString();
       //const res = await fetch(`https://api.github.com/repos/CertMusashi/Chand-api/commits?path=arz.json&until=${until}&per_page=1`);
       const res = await fetch(`https://api.github.com/repositories/930913626/commits?path=arz.json&until=${until}&per_page=1`);
-      
       const commits = await res.json();
       const target = yesterday.getTime();
       for (const commit of commits) {
@@ -481,10 +476,13 @@ window.onload = async () => {
       }
     }
   } catch (err) {
-    //for (let i=0;i<data.currencies.length;i++) {
-      //data.currencies[i].change_percent = 0;
-    //}
   }
+  if (data.currencies == null) {
+    data = data1;
+  }
+  update_time.style.display = "block";
+  update_time.innerText = data.date;
+
   for (let i=0;i<data.currencies.length;i++) {
     //data.currencies[i].change_percent = ((data.currencies[i]||data1.currencies[i]).price-(data1.currencies[i]||data.currencies[i]).price);
     if (data.currencies[i]&&data1.currencies[i]) {
