@@ -339,10 +339,10 @@ button {
   width: fit-content;
   height: fit-content;
   min-width: 75px;
-  font-size: 16px;
-  padding: 8px;
+  font-size: 14px;
+  padding: 11px;
   margin: 4px;
-  border-radius: 32px;
+  border-radius: 20px;
   transition: background-color .3s cubic-bezier(.2,0,0,1);
 }
 button:hover {
@@ -513,7 +513,9 @@ ol, ul {
   justify-content: center;
   align-items: center;
   outline: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: 50%;
+  border-radius: 100vmin;
+}
+.top_bar #theme_btn {
   aspect-ratio: 1;
   margin-left: auto;
   margin-right: -8px;
