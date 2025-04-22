@@ -260,10 +260,10 @@
   background-color: #0000;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #2253;
+  background-color: var(--md-sys-color-outline-variant);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #2255;
+  background-color: var(--md-sys-color-outline);
 }
 ::-webkit-scrollbar-corner {
   background-color: #0000;
@@ -799,7 +799,7 @@ ul:not(.ul) li:nth-child(4n+3) {
   outline: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 16px;
 }
-.timer .text {
+.timer .name {
   display: flex;
   justify-content: center;
   align-items: center;
