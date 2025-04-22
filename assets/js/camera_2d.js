@@ -1,3 +1,7 @@
+/**
+ * @copyright (c) 2025 Nxrix. All rights reserved.
+ */
+
 class Camera2D {
   constructor(element, options = {}, onUpdate = () => {}) {
     this.el = element;

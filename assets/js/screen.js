@@ -1,4 +1,3 @@
-//--current viewport size--//
 window.resize = () => {
   var root = document.querySelector(":root");
   var width = window.innerWidth;
@@ -8,7 +7,5 @@ window.resize = () => {
   root.style.setProperty("--vmin",(width<height?width:height)+"px");
   root.style.setProperty("--vmax",(width>height?width:height)+"px");
 }
-//--resize on start--//
 window.resize();
-//--screen resize event--//
 window.addEventListener("resize",window.resize);

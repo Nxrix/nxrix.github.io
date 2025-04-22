@@ -1,3 +1,7 @@
+/**
+ * @copyright (c) 2025 Nxrix. All rights reserved.
+ */
+
 class Offscreen {
   constructor(w,h) {
     this.w = w;

@@ -1,6 +1,7 @@
 /**
  * @copyright   (c) 2025 Nxrix. All rights reserved.
  */
+
 "use strict";
 
 const palette = [
