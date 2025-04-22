@@ -819,7 +819,10 @@ ul:not(.ul) li:nth-child(4n+3) {
   height: 100%;
   aspect-ratio: 1;
   outline: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: 25%;
+  border-radius: 8px;
+}
+.timer .time .day {
+  aspect-ratio: 2;
 }
 
 code.highlighter-rouge {
