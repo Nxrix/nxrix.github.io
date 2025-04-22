@@ -1,6 +1,7 @@
 /**
  * @copyright (c) 2025 Nxrix. All rights reserved.
  */
+
 :root {
   --md-sys-color-background: #fef7ff;
   --md-sys-color-on-background: #1d1a24;
@@ -822,7 +823,9 @@ ul:not(.ul) li:nth-child(4n+3) {
   border-radius: 8px;
 }
 .timer .time .day {
-  aspect-ratio: 2;
+  width: max-content;
+  aspect-ratio: auto;
+  padding: 0 8px;
 }
 
 code.highlighter-rouge {
