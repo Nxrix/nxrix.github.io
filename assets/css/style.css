@@ -789,6 +789,39 @@ ul:not(.ul) li:nth-child(4n+3) {
   margin: 0 max(calc(50% - 300px),0px);
 }
 
+.timer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 48px;
+  padding: 8px;
+  gap: 8px;
+  outline: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 16px;
+}
+.timer .text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.timer .time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  gap: 8px;
+}
+.timer .time div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 1;
+  outline: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 25%;
+}
+
 code.highlighter-rouge {
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: 4px;
