@@ -354,15 +354,27 @@ const items = [
     unit: "usd"
   },{
     type: 0,
+    name: "طلا 18 عیار",
+    ename: "18 Karat Gold",
+    slug: "18KGOLD",
+    icon: "gold"
+  },{
+    type: 0,
     name: "سکه بهار آزادی",
     ename: "Azadi",
     slug: "AZADI",
     icon: "gold"
   },{
     type: 0,
-    name: "طلا 18 عیار",
-    ename: "18 Karat Gold",
-    slug: "18KGOLD",
+    name: "سکه امامی",
+    ename: "Emami",
+    slug: "EMAMI",
+    icon: "gold"
+  },{
+    type: 0,
+    name: "سکه گرمی",
+    ename: "Gram",
+    slug: "GRAM",
     icon: "gold"
   },{
     type: 0,
