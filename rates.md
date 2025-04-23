@@ -360,6 +360,12 @@ const items = [
     icon: "gold"
   },{
     type: 0,
+    name: "مثقال طلا",
+    ename: "Mithqal",
+    slug: "MITHQAL",
+    icon: "gold"
+  },{
+    type: 0,
     name: "سکه بهار آزادی",
     ename: "Azadi",
     slug: "AZADI",
@@ -375,12 +381,6 @@ const items = [
     name: "سکه گرمی",
     ename: "Gram",
     slug: "GRAM",
-    icon: "gold"
-  },{
-    type: 0,
-    name: "مثقال طلا",
-    ename: "Mithqal",
-    slug: "MITHQAL",
     icon: "gold"
   }
 ];
