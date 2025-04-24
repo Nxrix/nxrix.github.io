@@ -289,17 +289,17 @@ const items = [
     icon: "tether"
   },{
     type: 2,
-    name: "تون کوین",
-    ename: "Toncoin",
-    slug: "TON",
-    icon: "ton",
-    unit: "usd"
-  },{
-    type: 2,
     name: "بیت کوین",
     ename: "Bitcoin",
     slug: "BTC",
     icon: "btc",
+    unit: "usd"
+  },{
+    type: 2,
+    name: "تون کوین",
+    ename: "Toncoin",
+    slug: "TON",
+    icon: "ton",
     unit: "usd"
   },{
     type: 2,
