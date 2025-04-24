@@ -462,6 +462,14 @@ ol, ul {
   width: 100%;
   height: 100%;
 }
+.top_bar .content .title-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--md-sys-color-on-surface);
+  font-weight: bold;
+  text-decoration: none;
+}
 .top_bar .content .title-img {
   display: flex;
   align-items: center;
