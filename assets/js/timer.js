@@ -9,6 +9,7 @@ class Timer {
     this.id = null;
   }
   start(callback) {
+    callback({remaining:this.target-new Date()});
     this.id = setInterval(() => {
       const now = new Date();
       const diff = this.target-now;
