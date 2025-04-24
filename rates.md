@@ -289,6 +289,13 @@ const items = [
     icon: "tether"
   },{
     type: 2,
+    name: "تون کوین",
+    ename: "Toncoin",
+    slug: "TON",
+    icon: "ton",
+    unit: "usd"
+  },{
+    type: 2,
     name: "بیت کوین",
     ename: "Bitcoin",
     slug: "BTC",
@@ -303,10 +310,10 @@ const items = [
     unit: "usd"
   },{
     type: 2,
-    name: "تون کوین",
-    ename: "Toncoin",
-    slug: "TON",
-    icon: "ton",
+    name: "لایت کوین",
+    ename: "Litecoin",
+    slug: "LTC",
+    icon: "ltc",
     unit: "usd"
   },{
     type: 2,
@@ -349,7 +356,7 @@ const items = [
     type: 0,
     name: "انس طلا",
     ename: "Gold",
-    slug: "XAUUSD",
+    slug: "XAU",
     icon: "gold",
     unit: "usd"
   },{
@@ -428,7 +435,7 @@ const load_items = (data) => {
         <div class="item">
           <div class="content">
             <div class="info">
-              <div class="image">${item.type==0?"<div></div>":`<img src="../api/icons/${item.icon+"."+(info.iconf?info.iconf:"svg")}">`}</div>
+              <div class="image">${item.type==0?"<div></div>":`<img src="./img/svg/circle/${item.icon+"."+(info.iconf?info.iconf:"svg")}">`}</div>
               <div class="names">
                 <div class="name">
                   ${item.ename}
