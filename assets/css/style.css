@@ -350,6 +350,10 @@ button:hover {
   background-color: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
 }
+input::placeholder {
+  text-align: auto !important;
+  unicode-bidi: plaintext !important;
+}
 input[type="text"] ,input[type="password"] {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-surface);
