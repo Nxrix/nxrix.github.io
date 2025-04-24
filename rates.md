@@ -385,6 +385,18 @@ const items = [
     icon: "gold"
   },{
     type: 0,
+    name: "نیم سکه",
+    ename: "Half",
+    slug: "HALF",
+    icon: "gold"
+  },{
+    type: 0,
+    name: "ربع سکه",
+    ename: "Quarter",
+    slug: "QUARTER",
+    icon: "gold"
+  },{
+    type: 0,
     name: "سکه گرمی",
     ename: "Gram",
     slug: "GRAM",
