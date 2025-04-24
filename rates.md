@@ -32,7 +32,7 @@ image: "rates.png"
     --font: var(--fw);
   }
 }
-@media screen and (width > 400px) {
+@media screen and (width > 350px) {
   #list {
     grid-template-columns: repeat(2,1fr);
     --font: calc(var(--fw)/2);
