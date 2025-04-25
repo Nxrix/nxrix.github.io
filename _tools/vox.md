@@ -89,10 +89,10 @@ input[type="range"]:focus {
 <div id="editor"></div>
 <div id="error" class="info-error"></div>
 <br>
-Resolution: <input id="res" type="range" min="7" max="12" step="1" value="8">
+Resolution: <input id="res" type="range" min="7" max="13" step="1" value="8">
 <span id="resv">256</span>
 <br>
-World Size: <input id="size" type="range" min="5" max="8" step="1" value="5">
+World Size: <input id="size" type="range" min="5" max="9" step="1" value="5">
 <span id="sizev">32</span>
 <br>
 <br>
