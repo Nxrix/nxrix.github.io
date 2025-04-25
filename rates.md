@@ -143,26 +143,25 @@ image: "rates.png"
 }
 
 #list .item .content:has(.chart) .price, #list .item .content:has(.chart) .change {
-  -webkit-text-stroke: calc(var(--font)/75) var(--md-sys-color-background);
-  paint-order: stroke fill;
-  /*&:after {
+  /*-webkit-text-stroke: calc(var(--font)/75) var(--md-sys-color-background);
+  paint-order: stroke fill;*/
+  &:after {
     content: attr(data-text);
     position: absolute;
     bottom: 0;
     left: 0;
+    z-index: -1;
     -webkit-text-stroke: calc(var(--font)/75) var(--md-sys-color-background);
-    z-index: 2;
-    font-weight: 600;
-  }*/
+  }
 }
-/*#list .item .content:has(.chart) .price:after {
+#list .item .content:has(.chart) .price:after {
   font-size: calc(var(--font)/100*12);
   padding: 8.5% 10%;
 }
 #list .item .content:has(.chart) .change:after {
   font-size: calc(var(--font)/100*7);
   padding: 25% 10%;
-}*/
+}
 
 #list .item .content .chart {
   position: absolute;
@@ -493,8 +492,10 @@ const load_items = (data) => {
                 </div>
               </div>
             </div>
-            <div class="price">${(item.unit=="usd"?"$":"")+format_num(info.price)}</div>
-            <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">":"red\">↓"))+format_num1(Math.abs(info.change_percent))}</div>
+            ${info.chart?`<div class="price" data-text="${(item.unit=="usd"?"$":"")+format_num(info.price)}">${(item.unit=="usd"?"$":"")+format_num(info.price)}</div>
+            <div data-text="${format_num1(Math.abs(info.change_percent))}" class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">":"red\">↓"))+format_num1(Math.abs(info.change_percent))}</div>`:
+            `<div class="price">${(item.unit=="usd"?"$":"")+format_num(info.price)}</div>
+            <div class="change ${(parseFloat(info.change_percent)>0?" green\">↑":(parseFloat(info.change_percent)==0?"\">":"red\">↓"))+format_num1(Math.abs(info.change_percent))}</div>`}
             ${info.chart?`<div class="chart">${info.chart}</div>`:""}
           </div>
         </div>`;
