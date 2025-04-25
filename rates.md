@@ -121,7 +121,7 @@ image: "rates.png"
   padding: 8.5% 10%;
   font-size: calc(var(--font)/100*12);
   font-weight: 600;
-  z-index: 2;
+  z-index: 3;
 }
 
 #list .item .content .change {
@@ -132,7 +132,7 @@ image: "rates.png"
   padding: 25% 10%;
   font-size: calc(var(--font)/100*7);
   font-weight: 600;
-  z-index: 2;
+  z-index: 3;
 }
 
 #list .item .content .change.green {
@@ -151,8 +151,7 @@ image: "rates.png"
     bottom: 0;
     left: 0;
     -webkit-text-stroke: calc(var(--font)/75) var(--md-sys-color-background);
-    -webkit-text-fill-color: transparent;
-    z-index: 1;
+    z-index: 2;
     font-weight: 600;
   }
 }
