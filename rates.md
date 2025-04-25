@@ -143,8 +143,26 @@ image: "rates.png"
 }
 
 #list .item .content:has(.chart) .price, #list .item .content:has(.chart) .change {
-  -webkit-text-stroke: calc(var(--font)/75) var(--md-sys-color-background);
-  paint-order: stroke fill;
+  /*-webkit-text-stroke: calc(var(--font)/75) var(--md-sys-color-background);
+  paint-order: stroke fill;*/
+  &:after {
+    content: attr(data-text);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    -webkit-text-stroke: calc(var(--font)/75) var(--md-sys-color-background);
+    -webkit-text-fill-color: transparent;
+    z-index: 1;
+    font-weight: 600;
+  }
+}
+#list .item .content:has(.chart) .price:after {
+  font-size: calc(var(--font)/100*12);
+  padding: 8.5% 10%;
+}
+#list .item .content:has(.chart) .change:after {
+  font-size: calc(var(--font)/100*7);
+  padding: 25% 10%;
 }
 
 #list .item .content .chart {
