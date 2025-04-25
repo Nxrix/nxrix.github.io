@@ -280,9 +280,9 @@ const make_chart = (prices,color,w,h,s=8,p=0,o=0) => {
 
 const extract_chart = (svg,rv=0) => {
   const m = svg.match(/<path[^>]*stroke=["'][^"']+["'][^>]*fill=["']none["'][^>]*d=["']([^"']+)["']/);
-  if (m) return [];
+  if (!m) return [];
   const d = m[1];
-  const v = [...d.matchAll(/([ML])\s*([0-9.]+)\s+([0-9.]+)/g)].map(i=>parseFloat(i[3]));
+  const v = [...d.matchAll(/([ML])\s*([0-9.]+)\s+([0-9.]+)/g)].map(m=>parseFloat(m[3]));
   const min = Math.min(...v);
   const max = Math.max(...v);
   const r = max-min||1;
@@ -291,7 +291,7 @@ const extract_chart = (svg,rv=0) => {
 const extract_chart2 = (svg,rv=0) => {
   const m = [...svg.matchAll(/<line[^>]*y1=["']([^"']+)["'][^>]*y2=["']([^"']+)["']/g)];
   if (!m.length) return [];
-  const v = m.flatMap(i=>[parseFloat(i[1]),parseFloat(i[2])]);
+  const v = m.flatMap(m=>[parseFloat(m[1]),parseFloat(m[2])]);
   const min = Math.min(...v);
   const max = Math.max(...v);
   const r = max-min||1;
@@ -301,7 +301,7 @@ const extract_chart3 = (svg,rv=0) => {
   const m = svg.match(/<polyline[^>]*points=["']([^"']+)["'][^>]*>/);
   if (!m) return [];
   const d = m[1];
-  const v = [...d.matchAll(/(?:\d+(\.\d+)?),\s*(\d+(\.\d+)?)/g)].map(i=>parseFloat(i[2]));
+  const v = [...d.matchAll(/(?:\d+(\.\d+)?),\s*(\d+(\.\d+)?)/g)].map(m=>parseFloat(m[2]));
   const min = Math.min(...v);
   const max = Math.max(...v);
   const r = max-min||1;
