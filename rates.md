@@ -337,14 +337,14 @@ const items = [
     slug: "TON",
     icon: "ton",
     unit: "usd"
-  },{
+  },/*{
     type: 2,
     name: "اتریوم",
     ename: "Ethereum",
     slug: "ETH",
     icon: "eth",
     unit: "usd"
-  },/*{
+  },{
     type: 2,
     name: "لایت کوین",
     ename: "Litecoin",
