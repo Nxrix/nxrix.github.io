@@ -344,7 +344,7 @@ const items = [
     slug: "ETH",
     icon: "eth",
     unit: "usd"
-  },{
+  },/*{
     type: 2,
     name: "لایت کوین",
     ename: "Litecoin",
@@ -358,7 +358,7 @@ const items = [
     slug: "TONNEL",
     icon: "tonnel",
     unit: "usd"
-  },{
+  },*/{
     type: 1,
     name: "یورو",
     ename: "Euro",
@@ -569,7 +569,7 @@ window.onload = async () => {
     chart: make_chart(extract_chart(ton_chart,1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,4,0.2,0.25)
   });
 
-  const tonnel_data = await(await fetch("https://corsproxy.io/?url=https://dyor.io/api/v4/jettons/slug/tonnel/details")).json();
+  /*const tonnel_data = await(await fetch("https://corsproxy.io/?url=https://dyor.io/api/v4/jettons/slug/tonnel/details")).json();
   const tonnel_chart = await(await fetch("https://corsproxy.io/?url=https://storage.dyor.io/jettons/239/chart_dark_w1.svg")).text();
   data.currencies.push({
     code: "tonnel",
@@ -579,7 +579,7 @@ window.onload = async () => {
     price: parseFloat(tonnel_data.cachedJetton.priceUsd),
     change_percent: tonnel_data.cachedJetton.priceUsd*tonnel_data.cachedJetton.priceChange24h/100,
     chart: make_chart(extract_chart(tonnel_chart),tonnel_data.cachedJetton.priceChange24h>0?"green":"red",400,400,4,0.2,0.25)
-  });
+  });*/
 
   const btc_data = data.currencies.find(c=>c.code=="btc");
   const btc_chart = await(await fetch("https://corsproxy.io/?url=https://www.coingecko.com/coins/1/sparkline.svg")).text();
