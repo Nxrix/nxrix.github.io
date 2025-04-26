@@ -541,7 +541,7 @@ window.onload = async () => {
       data.currencies[i].change_percent = 0;
     }
   }
-  const ton_data = await(await fetch("https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
+  const ton_data = await(await fetch("https://corsproxy.io/?url=https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
   const ton_chart = await(await fetch("https://corsproxy.io/?url=https://storage.dyor.io/jettons/10778/chart_dark_w1.svg")).text();
   data.currencies.push({
     code: "ton",
