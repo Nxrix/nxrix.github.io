@@ -35,8 +35,8 @@ class CoreEditor {
     if (this.options.value) {
       this.textarea.value = this.options.value;
       if (this.options.highlight) {
-        if (this.options.lang == "glsl") this.code.innerHTML = highlighter.light_glsl_v2(this.textarea.value);
-        if (this.options.lang == "js") this.code.innerHTML = highlighter.light_js_v2(this.textarea.value);
+        if (this.options.lang == "glsl") this.code.innerHTML = highlighter.light_glsl(this.textarea.value);
+        if (this.options.lang == "js") this.code.innerHTML = highlighter.light_js(this.textarea.value);
       } else {
         this.code.innerHTML = this.textarea.value;
       }
@@ -175,8 +175,8 @@ class CoreEditor {
     }
 
     if (this.options.highlight) {
-      if (this.options.lang == "glsl") this.code.innerHTML = highlighter.light_glsl_v2(this.textarea.value);
-      if (this.options.lang == "js") this.code.innerHTML = highlighter.light_js_v2(this.textarea.value);
+      if (this.options.lang == "glsl") this.code.innerHTML = highlighter.light_glsl(this.textarea.value);
+      if (this.options.lang == "js") this.code.innerHTML = highlighter.light_js(this.textarea.value);
     } else {
       this.code.innerHTML = this.textarea.value;
     }
