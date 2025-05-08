@@ -421,6 +421,12 @@ const items = [
     icon: "jp"
   },{
     type: 1,
+    name: "درهم امارات",
+    ename: "United Arab Emirates Dirham",
+    slug: "AED",
+    icon: "ae"
+  },{
+    type: 1,
     name: "ریال عمان",
     ename: "Omani Rial",
     slug: "OMR",
