@@ -329,20 +329,6 @@ const items = [
     unit: "usd"
   },/*{
     type: 2,
-    name: "اتریوم",
-    ename: "Ethereum",
-    slug: "ETH",
-    icon: "eth",
-    unit: "usd"
-  },{
-    type: 2,
-    name: "لایت کوین",
-    ename: "Litecoin",
-    slug: "LTC",
-    icon: "ltc",
-    unit: "usd"
-  },{
-    type: 2,
     name: "تانل",
     ename: "Tonnel",
     slug: "TONNEL",
@@ -366,19 +352,7 @@ const items = [
     ename: "Russian Ruble",
     slug: "RUB",
     icon: "ru"
-  },/*{
-    type: 1,
-    name: "ریال عمان",
-    ename: "Omani Rial",
-    slug: "OMR",
-    icon: "om"
   },{
-    type: 1,
-    name: "یوان چین",
-    ename: "Chinese Yuan",
-    slug: "CNY",
-    icon: "cn"
-  },*/{
     type: 0,
     name: "انس طلا",
     ename: "Gold",
@@ -427,7 +401,33 @@ const items = [
     ename: "Gram",
     slug: "GRAM",
     icon: "gold"
-  }
+  },{
+    type: 1,
+    name: "ریال عمان",
+    ename: "Omani Rial",
+    slug: "OMR",
+    icon: "om"
+  },{
+    type: 1,
+    name: "یوان چین",
+    ename: "Chinese Yuan",
+    slug: "CNY",
+    icon: "cn"
+  },{
+    type: 2,
+    name: "اتریوم",
+    ename: "Ethereum",
+    slug: "ETH",
+    icon: "eth",
+    unit: "usd"
+  },{
+    type: 2,
+    name: "لایت کوین",
+    ename: "Litecoin",
+    slug: "LTC",
+    icon: "ltc",
+    unit: "usd"
+  },
 ];
 
 const format_num = (n) => {
