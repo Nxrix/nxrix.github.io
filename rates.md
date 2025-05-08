@@ -38,23 +38,26 @@ image: "rates.png"
   width: 100%;
   aspect-ratio: 1;
   border-radius: 10%;
+  margin: auto;
   outline: 2px solid var(--md-sys-color-outline-variant);
 }
 
 @media screen and (width > 100px) {
   #list {
     grid-template-columns: repeat(1,1fr);
-    --font: calc(var(--fw)/2);
+    --font: calc(var(--fw)/4*3);
   }
   #list .item .content {
-    margin: auto;
-    width: 50%;
+    width: 75%;
   }
 }
 @media screen and (width > 400px) {
   #list {
     grid-template-columns: repeat(2,1fr);
     --font: calc(var(--fw)/2);
+  }
+  #list .item .content {
+    width: 100%;
   }
 }
 @media screen and (width > 700px) {
