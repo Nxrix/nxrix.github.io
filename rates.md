@@ -403,16 +403,28 @@ const items = [
     icon: "gold"
   },{
     type: 1,
-    name: "ریال عمان",
-    ename: "Omani Rial",
-    slug: "OMR",
-    icon: "om"
+    name: "لیر ترکیه",
+    ename: "Turkish Lira",
+    slug: "TRY",
+    icon: "tr"
   },{
     type: 1,
     name: "یوان چین",
     ename: "Chinese Yuan",
     slug: "CNY",
     icon: "cn"
+  },{
+    type: 1,
+    name: "ین ژاپن",
+    ename: "Japanese Yen",
+    slug: "JPY",
+    icon: "jp"
+  },{
+    type: 1,
+    name: "ریال عمان",
+    ename: "Omani Rial",
+    slug: "OMR",
+    icon: "om"
   },{
     type: 2,
     name: "اتریوم",
