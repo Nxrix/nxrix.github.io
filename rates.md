@@ -48,8 +48,7 @@ image: "rates.png"
   }
   #list .item .content {
     margin: auto;
-    width: 100%;
-    aspect-ratio: 2;
+    width: 50%;
   }
 }
 @media screen and (width > 400px) {
