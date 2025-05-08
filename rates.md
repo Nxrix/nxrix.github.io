@@ -422,7 +422,7 @@ const items = [
   },{
     type: 1,
     name: "درهم امارات",
-    ename: "United Arab Emirates Dirham",
+    ename: "UAE Dirham",
     slug: "AED",
     icon: "ae"
   },{
