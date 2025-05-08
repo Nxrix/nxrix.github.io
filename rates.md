@@ -26,13 +26,33 @@ image: "rates.png"
   --fw: min(calc(100vw - 56px),980px)
 }
 
+#list .item {
+  height: min-content;
+  margin: 15px 0 0 15px;
+}
+
+#list .item .content {
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 10%;
+  outline: 2px solid var(--md-sys-color-outline-variant);
+}
+
 @media screen and (width > 100px) {
   #list {
     grid-template-columns: repeat(1,1fr);
-    --font: var(--fw);
+    --font: calc(var(--fw)/2);
+  }
+  #list .item .content {
+    margin: auto;
+    width: 100%;
+    aspect-ratio: 2;
   }
 }
-@media screen and (width > 350px) {
+@media screen and (width > 400px) {
   #list {
     grid-template-columns: repeat(2,1fr);
     --font: calc(var(--fw)/2);
@@ -49,21 +69,6 @@ image: "rates.png"
     grid-template-columns: repeat(4,1fr);
     --font: calc(var(--fw)/4);
   }
-}
-
-#list .item {
-  height: min-content;
-  margin: 15px 0 0 15px;
-}
-
-#list .item .content {
-  overflow: hidden;
-  background-color: var(--md-sys-color-surface);
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 10%;
-  outline: 2px solid var(--md-sys-color-outline-variant);
 }
 
 #list .item .content .info {
