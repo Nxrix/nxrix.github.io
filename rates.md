@@ -3,6 +3,7 @@ layout: default
 title: "Rates"
 description: ""
 image: "rates.png"
+banner: "../../cards/rates.png"
 ---
 
 <style>
