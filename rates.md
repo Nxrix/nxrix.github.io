@@ -40,6 +40,11 @@ image: "rates.png"
   border-radius: 10%;
   margin: auto;
   outline: 2px solid var(--md-sys-color-outline-variant);
+  transition: transform 0.125s ease, box-shadow 0.25s ease;
+}
+
+#list .item .content:hover {
+  /*transform: scale(1.0625);*/
 }
 
 @media screen and (width > 100px) {
