@@ -41,11 +41,13 @@ banner: "../../carts/rates.png"
   border-radius: 10%;
   margin: auto;
   outline: 2px solid var(--md-sys-color-outline-variant);
-  transition: transform 0.125s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease , outline 0.25s ease;
 }
 
 #list .item .content:hover {
+  /*z-index: 1;*/
   /*transform: scale(1.0625);*/
+  /*outline: 2px solid var(--md-sys-color-primary);*/
 }
 
 @media screen and (width > 100px) {
