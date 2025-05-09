@@ -422,9 +422,15 @@ const items = [
   },{
     type: 1,
     name: "ین ژاپن",
-    ename: "Japanese Yen",
+    ename: "100 Japanese Yen",
     slug: "JPY",
     icon: "jp"
+  },{
+    type: 1,
+    name: "دینار عراق",
+    ename: "100 Iraqi Dinar",
+    slug: "IQD",
+    icon: "iq"
   },{
     type: 1,
     name: "درهم امارات",
