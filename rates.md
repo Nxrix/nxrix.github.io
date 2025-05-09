@@ -403,6 +403,12 @@ const items = [
     icon: "gold"
   },{
     type: 1,
+    name: "دلار کانادا",
+    ename: "Canadian Dollar",
+    slug: "CAD",
+    icon: "ca"
+  },{
+    type: 1,
     name: "لیر ترکیه",
     ename: "Turkish Lira",
     slug: "TRY",
