@@ -1020,9 +1020,6 @@ div.highlighter-rouge {
   outline-color: var(--md-sys-color-outline-variant);
   outline-width: 1px;
 }
-.core_editor textarea {
-  text-align: left;
-}
 .core_editor .wrap {
   position: relative;
   width: 100%;
@@ -1056,6 +1053,8 @@ div.highlighter-rouge {
   border: none;
   resize: none;
   white-space: nowrap;
+  text-align: left;
+  unicode-bidi: normal;
 }
 .core_editor .wrap pre {
   min-width: 100%;
@@ -1065,6 +1064,8 @@ div.highlighter-rouge {
   position: absolute;
   top: 0;
   padding: 1em;
+  text-align: left;
+  unicode-bidi: normal;
 }
 .core_editor .wrap code {
   font-family: var(--font);
