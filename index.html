@@ -186,30 +186,21 @@ const palsh = [
 
 //---1632640020000---//
 const k = new Date("2021-09-26T10:37:00.000+03:30");
-const _second = 1000;
-const _minute = _second*60;
-const _hour = _minute*60;
-const _day = _hour*24;
-const _month = _day*30;
-const _year = _month*12;
 
 let t = 0;
 let update = () => {
   cls();
   const now = new Date(new Date().getTime());
   const e = find_event(now);
-  const dist = now-k;
-  const d = Math.floor(dist/_day);
-  const h = Math.floor((dist%  _day)/   _hour).toString().padStart(2,0);
-  const m = Math.floor((dist% _hour)/ _minute).toString().padStart(2,0);
-  const s = Math.floor((dist%_minute)/_second).toString().padStart(2,0);
-  const str1 = `${d}`;
-  const str2 = `${h}:${m}:${s}`;
+  const diff = new Date(now-k);
+  const n = Math.floor(diff.getTime()/1000);
+  const str1 = Math.floor(n/(60*60*24));
+  const str2 = [diff.getUTCHours(),diff.getUTCMinutes(),diff.getUTCSeconds()].map(n=>n.toString().padStart(2,"0")).join(":");;
   const w = e!==null?e.w:0;
   const strl2 = str1.length+w/4+1/2+str2.length;
   const str2p = w+str1.length*4+3;
 
-  const rn = srnd(Math.floor(dist/1000));
+  const rn = srnd(n);
   let c1 = palsh[rn&31];
   let c2 = palsh[(rn&31)+32];
 
