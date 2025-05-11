@@ -210,9 +210,8 @@ let update = () => {
   const strl2 = str1.length+w/4+1/2+str2.length;
   const str2p = w+str1.length*4+3;
 
-  const rnd = new srnd();
   const n = Math.floor(dist/1000);
-  const rn = rnd.gen(n);
+  const rn = srnd(n);
   let c1 = rn&31;
   let c2 = palsh[c1+32];
 
