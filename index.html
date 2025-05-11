@@ -142,12 +142,11 @@ scene.add(plane);
 }*/
 
 const srnd = (n) => {
-    const a = 1664525;
-    const c = 1013904223;
-    n = n|0;
-    n = (a*n+c)&0xFFFFFFFF;
-    return (n>>>16)&0xFFFF;
-  }
+  const a = 1664525;
+  const c = 1013904223;
+  n = n|0;
+  n = (a*n+c)&0xFFFFFFFF;
+  return (n>>>16)&0xFFFF;
 }
 
 class frnd {
