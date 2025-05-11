@@ -196,8 +196,7 @@ const _year = _month*12;
 let t = 0;
 let update = () => {
   cls();
-  const date = new Date();
-  const now = new Date(date.getTime());
+  const now = new Date(new Date().getTime());
   const e = find_event(now);
   const dist = now-k;
   const d = Math.floor(dist/_day);
@@ -210,10 +209,9 @@ let update = () => {
   const strl2 = str1.length+w/4+1/2+str2.length;
   const str2p = w+str1.length*4+3;
 
-  const n = Math.floor(dist/1000);
-  const rn = srnd(n);
-  let c1 = rn&31;
-  let c2 = palsh[c1+32];
+  const rn = srnd(Math.floor(dist/1000));
+  let c1 = palsh[rn&31];
+  let c2 = palsh[(rn&31)+32];
 
   if (e!=null) {
     if (Array.isArray(e.c1)) {
@@ -229,11 +227,7 @@ let update = () => {
   }
 
   fillp(rn,c2);
-  for (let i=0;i<width;i++) {
-    for (let j=0;j<height;j++) {
-      pset(i,j,c1);
-    }
-  }
+  rectfill(0,0,width-1,height-1,c1);
   fillp();
 
   for (let i=0;i<4*strl2+8;i++) {
@@ -249,14 +243,6 @@ let update = () => {
   if (e!=null) {
     sspr(e.icon,17+width2-2*strl2,height2-3,e.w,6);
   }
-  //print(str,width2-1-2*strl,height2-3,20);
-  //print(str,width2  -2*strl,height2-3,20);
-  //print(str,width2+1-2*strl,height2-3,20);
-  //print(str,width2-1-2*strl,height2-2,0);
-  //print(str,width2+1-2*strl,height2-2,0);
-  //print(str,width2-1-2*strl,height2-1,0);
-  //print(str,width2  -2*strl,height2-1,0);
-  //print(str,width2+1-2*strl,height2-1,0);
 
   print(str1,width2-2*strl2-1,height2-3,20);
   print(str1,width2-2*strl2  ,height2-3,20);
@@ -276,7 +262,6 @@ let update = () => {
   print(str2,str2p+width2-2*strl2  ,height2-1,0);
   print(str2,str2p+width2-2*strl2+1,height2-1,0);
 
-  //print(str,width2-2*strl,height2-2,3);
   print(str1,width2-2*strl2,height2-2,3);
   print(str2,str2p+width2-2*strl2,height2-2,3);
 
