@@ -1046,7 +1046,7 @@ div.highlighter-rouge {
   font-size: var(--font-size);
   position: absolute;
   background-color: #fff0;
-  color: #0005;
+  color: #0000;
   caret-color: var(--md-sys-color-on-surface);
   top: 0;
   padding: 1em;
