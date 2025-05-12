@@ -1,8 +1,8 @@
 /*
 
 const n = new Date();
-e = events[0];
-a = events_parse(e);
+const e = events[0];
+const a = events_parse(e);
 events.push(
 `${n.getMonth()+1}:${n.getDate()+(a.s&&events_leap(n.getYear()+a.o))}:`+
   e.replace(/^([^:]*:){2}/,"")
