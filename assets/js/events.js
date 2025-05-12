@@ -1,15 +1,12 @@
-/*const t = new Date();
-const d = t.getDate();
-const m = t.getMonth();
-events[m+1]=[{
-  day: d,
-  solar: true,
-  icon: "0,0,",
-  c: 0
-}];
-m+1+" "+d*/
-
 /*
+
+const n = new Date();
+e = events[0];
+a = events_parse(e);
+events.push(
+`${n.getMonth()+1}:${n.getDate()+(a.s&&events_leap(n.getYear()+a.o))}:`+
+  e.replace(/^([^:]*:){2}/,"")
+);
 
   Jan  Feb  Mar
   Apr  May  Jun
@@ -36,9 +33,9 @@ let events = [
   "12:25:0:5,16,2:5,6,wwfwwwgg6ww6ccwggggg22822ww2ww"
 ];
 
-const leap_year = year => (year%4==0&&year%100!=0)||(year%400==0);
+const events_leap = year => (year%4==0&&year%100!=0)||(year%400==0);
 
-const parse_event = (str) => {
+const events_parse = (str) => {
   const parts = str.split(":");
   let [ mraw , draw , braw , craw , i ] = parts;
   const m = parseInt(mraw);
@@ -50,7 +47,7 @@ const parse_event = (str) => {
   return { m , d , s , o , c , i };
 }
 
-const find_event = (input) => {
+const events_find = (input) => {
   const date = input instanceof Date?input:new Date(input);
   const year = date.getFullYear();
   const month = date.getMonth()+1;
@@ -59,7 +56,7 @@ const find_event = (input) => {
   for (const event of e) {
     if (event.m == month) {
       for (const d of event.d) {
-        if (day == ( d - (event.s&&leap_year(year+event.o)) )) {
+        if (day == ( d - (event.s&&events_leap(year+event.o)) )) {
           return event;
         }
       }

@@ -147,7 +147,7 @@ let t = 0;
 let update = () => {
   cls();
   const now = new Date(new Date().getTime());
-  const e = find_event(now);
+  const e = events_find(now);
   const diff = new Date(now-k);
   const n = Math.floor(diff.getTime()/1000);
   const str1 = Math.floor(n/(60*60*24)).toString();
