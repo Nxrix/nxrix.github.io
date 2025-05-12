@@ -229,7 +229,7 @@ let update = () => {
   }
 
   if (e!=null) {
-    sspr(e.icon,17+width2-2*strl2,height2-3,e.w,6);
+    sspr(e.icon,17+width2-2*strl2,height2-3,w,6);
   }
 
   [
