@@ -44,7 +44,7 @@ const parse_event = (str) => {
   const m = parseInt(mraw);
   const d = draw.split(",").map(x=>parseInt(x));
   const b = parseInt(braw);
-  const s = Boolean(b&0b001);
+  const s = (b&0b001);
   const o = (b&0b110)>>1;
   const c = craw.split(",").map(x=>parseInt(x));
   return { m , d , s , o , c , i };
@@ -59,7 +59,7 @@ const find_event = (input) => {
   for (const event of e) {
     if (event.m == month) {
       for (const d of event.d) {
-        if (day == ( d - (event.solar&&leap_year(year+event.offset)) )) {
+        if (day == ( d - (event.s&&leap_year(year+event.o)) )) {
           return event;
         }
       }
