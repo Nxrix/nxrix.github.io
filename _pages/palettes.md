@@ -6,3 +6,7 @@ image: "palette.png"
 ---
 
 ## Palettes
+
+### Pixel-8
+
+### Fancade

@@ -70,5 +70,4 @@ editor.textarea.addEventListener("input",() => {
 });
 update();
 
-  
 </script>

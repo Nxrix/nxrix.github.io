@@ -38,15 +38,15 @@ description: ""
 <div class="cart_set">
   {% assign sorted_tools = site.tools | sort: "cid" | reverse %}
   {% for tool in sorted_tools %}
-  {% unless tool.hidden %}
-  <a href="{{ tool.rdurl | default: tool.url }}" class="cart">
-    <img class="pixelated" src="./img/carts/{{ tool.image }}">
-    <div class="content">
-      <div class="title">{{ tool.title }}</div>
-      <div class="description">{{ tool.description }}</div>
-    </div>
-  </a>
-  {% endunless %}
+    {% unless tool.hidden %}
+      <a href="{{ tool.rdurl | default: tool.url }}" class="cart">
+        <img {% unless tool.pixelated == false %}class="pixelated"{% endunless %} src="./img/carts/{{ tool.image }}">
+        <div class="content">
+          <div class="title">{{ tool.title }}</div>
+          <div class="description">{{ tool.description }}</div>
+        </div>
+      </a>
+    {% endunless %}
   {% endfor %}
 </div>
 
