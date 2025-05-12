@@ -205,15 +205,12 @@ let update = () => {
   let c2 = palsh[(rn&31)+32];
 
   if (e!=null) {
-    if (Array.isArray(e.c1)) {
-      c1 = e.c1[rn%e.c1.length];
+    if (Array.isArray(e.c)) {
+      c1 = palsh[e.c[rn%e.c.length]&31];
+      c2 = palsh[(e.c[rn%e.c.length]&31)+32];
     } else {
-      c1 = e.c1;
-    }
-    if (Array.isArray(e.c2)) {
-      c2 = e.c2[rn%e.c2.length];
-    } else {
-      c2 = e.c2;
+      c1 = palsh[e.c&31];
+      c2 = palsh[(e.c&31)+32];
     }
   }
 
