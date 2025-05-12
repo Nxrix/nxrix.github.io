@@ -52,7 +52,7 @@ const events_find = (input) => {
   const year = date.getFullYear();
   const month = date.getMonth()+1;
   const day = date.getDate();
-  const e = events.map(parse_event);
+  const e = events.map(events_parse);
   for (const event of e) {
     if (event.m == month) {
       for (const d of event.d) {
