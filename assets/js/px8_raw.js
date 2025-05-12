@@ -1,5 +1,5 @@
 /**
- * @copyright   (c) 2025 Nxrix. All rights reserved.
+ * @copyright (c) 2025 Nxrix. All rights reserved.
  */
 
 "use strict";
@@ -13,11 +13,12 @@ const palette = [
   [0x2b,0x27,0x54],[0x3c,0x51,0xaf],[0x18,0x88,0xde],[0x00,0xa9,0xe1],
   [0x59,0x3c,0x97],[0x89,0x44,0xcf],[0xb4,0x4a,0xff],[0xe9,0x59,0xff],
   [0xe7,0x87,0x6d],[0xff,0xba,0x8c],[0xff,0xef,0x5c],[0xff,0x9c,0xde]
-];
+]
+
 const  width2 = width/2;
 const height2 = height/2;
-const  widthm1 = width-1;
-const heightm1 = height-1;
+const  width1 = width-1;
+const height1 = height-1;
 const buffer = new Uint8Array(width*height);
 
 const palette_mask = [];
@@ -37,7 +38,8 @@ const bayer4x4 = [
   [12, 4, 14, 6],
   [ 3, 11, 1, 9],
   [15, 7, 13, 5]
-];
+]
+
 const bayer8x8 = [
   [ 0, 32,  8, 40,  2, 34, 10, 42],
   [48, 16, 56, 24, 50, 18, 58, 26],
@@ -47,7 +49,8 @@ const bayer8x8 = [
   [51, 19, 59, 27, 49, 17, 57, 25],
   [15, 47,  7, 39, 13, 45,  5, 37],
   [63, 31, 55, 23, 61, 29, 53, 21]
-];
+]
+
 const px8_pset = (x,y,col) => {
   x -= cameraX;
   y -= cameraY;
@@ -59,44 +62,52 @@ const px8_pset = (x,y,col) => {
       buffer[x+y*width] = col&31;
     }
   }
-};
+}
+
 const cls = (col) => {
   pattern = 0;
   pattern_color = 0;
   palette_mask.fill(false);
   buffer.fill(Math.round(col)&0xff);
-};
+}
+
 const pset = (x,y,col) => {
   x = Math.round(x);
   y = Math.round(y);
   px8_pset(x,y,col);
-};
+}
+
 const pget = (x, y) => {
-  x = Math.round(x)&widthm1;
-  y = Math.round(y)&heightm1;
+  x = Math.round(x)&width1;
+  y = Math.round(y)&height1;
   return buffer[x+(y*width)];
-};
+}
+
 const fillp = (p,col) => {
   pattern = Math.round(p)||0;
   pattern_color = Math.round(col)||0;
-};
+}
+
 const palt = (col,t) => {
   if (col) {
     palette_mask[Math.round(col)&0xff]=t;
   } else {
     palette_mask.fill(false);
   }
-};
+}
+
 const camera = (x, y) => {
   cameraX = Math.round(x)||0;
   cameraY = Math.round(y)||0;
-};
+}
+
 const clip = (x0,y0,x1,y1) => {
   clipX0 = Math.round(x0)||0;
   clipY0 = Math.round(y0)||0;
   clipX1 = Math.round(x1)||width;
   clipY1 = Math.round(y1)||height;
-};
+}
+
 const line = (x0,y0,x1,y1,col) => {
   x0 = Math.round(x0);
   y0 = Math.round(y0);
@@ -114,7 +125,8 @@ const line = (x0,y0,x1,y1,col) => {
     if (e2>-dy) { err -= dy;x0 += sx; }
     if (e2< dx) { err += dx;y0 += sy; }
   }
-};
+}
+
 const rect = (x0,y0,x1,y1,col) => {
   x0 = Math.round(x0);
   y0 = Math.round(y0);
@@ -138,7 +150,8 @@ const rect = (x0,y0,x1,y1,col) => {
     px8_pset(x0,y,col);
     px8_pset(x1,y,col);
   }
-};
+}
+
 const rectfill = (x0,y0,x1,y1,col) => {
   x0 = Math.round(x0);
   y0 = Math.round(y0);
@@ -159,7 +172,8 @@ const rectfill = (x0,y0,x1,y1,col) => {
       px8_pset(x,y,col);
     }
   }
-};
+}
+
 const circ = (x,y,r,col) => {
   x = Math.round(x);
   y = Math.round(y);
@@ -187,7 +201,8 @@ const circ = (x,y,r,col) => {
     dx +=  2;
      f += dx;
   }
-};
+}
+
 const circfill = (x, y, r, col) => {
   x = Math.round(x);
   y = Math.round(y);
@@ -216,12 +231,14 @@ const circfill = (x, y, r, col) => {
     dx += 2;
     f += dx;
   }
-};
+}
+
 const tri = (x0,y0,x1,y1,x2,y2,col) => {
   line(x0,y0,x1,y1,col);
   line(x1,y1,x2,y2,col);
   line(x2,y2,x0,y0,col);
-};
+}
+
 const trifill = (x0,y0,x1,y1,x2,y2,col) => {
   x0 = Math.round(x0);
   y0 = Math.round(y0);
@@ -276,7 +293,8 @@ const trifill = (x0,y0,x1,y1,x2,y2,col) => {
     xl += m3;
     xr += m2;
   }
-};
+}
+
 const sspr = (spr,x,y,w,h) => {
   x = Math.round(x);
   y = Math.round(y);
@@ -292,7 +310,8 @@ const sspr = (spr,x,y,w,h) => {
       }
     }
   }
-};
+}
+
 const print = (text,x,y,col) => {
   x = Math.round(x);
   y = Math.round(y);
@@ -313,4 +332,4 @@ const print = (text,x,y,col) => {
       }
     }
   }
-};
+}

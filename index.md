@@ -118,29 +118,6 @@ scene.add(plane);
   }
 }*/
 
-/*class srnd {
-  lcg(seed) {
-    const a = 1664525;
-    const c = 1013904223;
-    const m = Math.pow(2,32);
-    return (seed*a+c)%m;
-  }
-  gen(n) {
-    return this.lcg(n)%33;
-  }
-}*/
-
-/*class srnd {
-  gen(n) {
-    let hash = 0;
-    for (let i = 0; i < n.toString().length; i++) {
-      hash = (hash << 5) - hash + n.toString().charCodeAt(i);
-      hash |= 0;
-    }
-    return Math.abs(hash)&0xffff;
-  }
-}*/
-
 const srnd = (n) => {
   const a = 1664525;
   const c = 1013904223;
@@ -156,27 +133,6 @@ class frnd {
   gen(n) {
     return this.fh(n,32);
   }
-}
-
-const leap_year = (year) => {
-  return (year%4==0&&year%100!=0)||(year%400==0);
-  //return (year%4==0);
-}
-  
-const find_event = (input) => {
-  const date = (input instanceof Date)?input:new Date(input);
-  const year = date.getFullYear();
-  const month = date.getMonth()+1;
-  const day = date.getDate();
-  const e = events[month]||[];
-  for (const event of e) {
-    let eday = event.day;
-    if (event.solar&&leap_year(year+event.offset)) eday-=1;
-    if (day==eday) {
-      return event;
-    }
-  }
-  return null;
 }
 
 const palsh = [
@@ -196,7 +152,7 @@ let update = () => {
   const n = Math.floor(diff.getTime()/1000);
   const str1 = Math.floor(n/(60*60*24)).toString();
   const str2 = [diff.getUTCHours(),diff.getUTCMinutes(),diff.getUTCSeconds()].map(n=>n.toString().padStart(2,"0")).join(":");
-  const w = e!==null?parseInt(e.icon.substr(0,1)):0;
+  const w = e!==null?parseInt(e.i.substr(0,1)):0;
   const strl2 = str1.length+w/4+1/2+str2.length;
   const str2p = w+str1.length*4+3;
 
@@ -205,13 +161,8 @@ let update = () => {
   let c2 = palsh[(rn&31)+32];
 
   if (e!=null) {
-    if (Array.isArray(e.c)) {
-      c1 = palsh[e.c[rn%e.c.length]&31];
-      c2 = palsh[(e.c[rn%e.c.length]&31)+32];
-    } else {
-      c1 = palsh[e.c&31];
-      c2 = palsh[(e.c&31)+32];
-    }
+    c1 = palsh[e.c[rn%e.c.length]&31];
+    c2 = palsh[(e.c[rn%e.c.length]&31)+32];
   }
 
   fillp(rn,c2);
@@ -229,7 +180,7 @@ let update = () => {
   }
 
   if (e!=null) {
-    sspr(e.icon,17+width2-2*strl2,height2-3,w,6);
+    sspr(e.i,17+width2-2*strl2,height2-3,w,6);
   }
 
   [
@@ -251,8 +202,8 @@ let update = () => {
 
   /*const oldb = buffer;
   const pget2 = (x,y) => {
-    x = x&widthm1;
-    y = y&heightm1;
+    x = x&width1;
+    y = y&height1;
     return oldb[x+y*width];
   }
   for (let i=0;i<width;i++) {
