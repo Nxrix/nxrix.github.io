@@ -196,7 +196,7 @@ let update = () => {
   const n = Math.floor(diff.getTime()/1000);
   const str1 = Math.floor(n/(60*60*24)).toString();
   const str2 = [diff.getUTCHours(),diff.getUTCMinutes(),diff.getUTCSeconds()].map(n=>n.toString().padStart(2,"0")).join(":");
-  const w = e!==null?e.w:0;
+  const w = e!==null?parseInt(e.icon.substr(0,1)):0;
   const strl2 = str1.length+w/4+1/2+str2.length;
   const str2p = w+str1.length*4+3;
 
