@@ -232,23 +232,19 @@ let update = () => {
     sspr(e.icon,17+width2-2*strl2,height2-3,e.w,6);
   }
 
-  print(str1,width2-2*strl2-1,height2-3,20);
-  print(str1,width2-2*strl2  ,height2-3,20);
-  print(str1,width2-2*strl2+1,height2-3,20);
-  print(str1,width2-2*strl2-1,height2-2,0);
-  print(str1,width2-2*strl2+1,height2-2,0);
-  print(str1,width2-2*strl2-1,height2-1,0);
-  print(str1,width2-2*strl2  ,height2-1,0);
-  print(str1,width2-2*strl2+1,height2-1,0);
-
-  print(str2,str2p+width2-2*strl2-1,height2-3,20);
-  print(str2,str2p+width2-2*strl2  ,height2-3,20);
-  print(str2,str2p+width2-2*strl2+1,height2-3,20);
-  print(str2,str2p+width2-2*strl2-1,height2-2,0);
-  print(str2,str2p+width2-2*strl2+1,height2-2,0);
-  print(str2,str2p+width2-2*strl2-1,height2-1,0);
-  print(str2,str2p+width2-2*strl2  ,height2-1,0);
-  print(str2,str2p+width2-2*strl2+1,height2-1,0);
+  [
+    [-1,-1],
+    [ 0,-1],
+    [ 1,-1],
+    [-1, 0],
+    [ 1, 0],
+    [-1, 1],
+    [ 0, 1],
+    [ 1, 1]
+  ].forEach(([x,y],i) => {
+    print(str1,      width2-2*strl2+x,height2-2+y,i<3?20:0);
+    print(str2,str2p+width2-2*strl2+x,height2-2+y,i<3?20:0);
+  });
 
   print(str1,width2-2*strl2,height2-2,3);
   print(str2,str2p+width2-2*strl2,height2-2,3);
