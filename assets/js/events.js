@@ -18,7 +18,6 @@ let events = {
       solar: true,
       offset: 3,
       icon: "5,6,wwfwwfffffbfffb2fbf2wb2bww2w2w",
-      w: 5,
       c: 25
     },
     {
@@ -26,7 +25,6 @@ let events = {
       solar: true,
       offset: 3,
       icon: "5,6,wwfwwfffffbfffb2fbf2wb2bww2w2w",
-      w: 5,
       c: 0
     }
   ],
@@ -35,7 +33,6 @@ let events = {
       day: 14,
       solar: false,
       icon: "5,6,55w55565654565424542w242www2ww",
-      w: 5,
       c: 5
     }
   ],
@@ -44,15 +41,13 @@ let events = {
       day: 20,
       solar: true,
       icon: "7,6,wwwwwcdccgwcdgcddcdg22ccg22ww22gwwww88k88w",
-      w: 7,
-      c: [4,12,11]
+      c: [9,12]
     },
     {
       day: 21,
       solar: true,
       icon: "7,6,wwwwwcdccgwcdgcddcdg22ccg22ww22gwwww88k88w",
-      w: 7,
-      c: [4,12,11]
+      c: [9,12]
     }
   ],
   12: [
@@ -60,7 +55,6 @@ let events = {
       day: 25,
       solar: false,
       icon: "5,6,wwfwwwgg6ww6ccwggggg22822ww2ww",
-      w: 5,
       c: [5,16,2]
     }
   ]
