@@ -11,6 +11,25 @@ events[m+1]=[{
 }];
 m+1+" "+d*/
 
+/*
+
+  Jan  Feb  Mar
+  Apr  May  Jun
+  Jul  Aug  Sep
+  Oct  Nov  Dec
+
+  Far  Ord  Kho
+  Tir  Mor  Sha
+  Meh  Aba  Aza
+  Dey  Bah  Esf
+
+  Jan (Dey, Bah)  Feb (Bah, Esf)  Mar (Esf, Far)
+  Apr (Far, Ord)  May (Ord, Kho)  Jun (Kho, Tir)
+  Jul (Tir, Mor)  Aug (Mor, Sha)  Sep (Sha, Meh)
+  Oct (Meh, Aba)  Nov (Aba, Aza)  Dec (Aza, Dey)
+
+*/
+
 let events = {
   1: [
     {
