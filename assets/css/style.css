@@ -250,7 +250,7 @@
   unicode-bidi: plaintext !important;
   -webkit-tap-highlight-color: transparent;
 }
-*:not(.core_editor *):not(.highlighter-rouge .highlight *) {
+*:not(.core_editor *):not(.highlighter-rouge .highlight *):not(.info-result):not(.info-error) {
   font-family: "en","fa";
 }
 ::-webkit-scrollbar {
