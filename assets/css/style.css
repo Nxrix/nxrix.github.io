@@ -250,7 +250,7 @@
   unicode-bidi: plaintext !important;
   -webkit-tap-highlight-color: transparent;
 }
-*:not(.core_editor *):not(.highlighter-rouge .highlight pre code) {
+*:not(.core_editor *):not(.highlighter-rouge .highlight *) {
   font-family: "en","fa";
 }
 ::-webkit-scrollbar {
@@ -862,6 +862,7 @@ div.highlighter-rouge {
 }
 .highlighter-rouge pre {
   margin: 1em;
+  font-family: "firacode";
 }
 .highlighter-rouge .highlight pre code {
   font-family: "firacode";
