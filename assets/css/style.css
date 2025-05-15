@@ -250,7 +250,7 @@
   unicode-bidi: plaintext !important;
   -webkit-tap-highlight-color: transparent;
 }
-*:not(.core_editor *) {
+*:not(.core_editor *):not(.highlighter-rouge .highlight pre code) {
   font-family: "en","fa";
 }
 ::-webkit-scrollbar {
@@ -906,7 +906,7 @@ div.highlighter-rouge {
   color: #1888de;
 }
 .highlighter-rouge .highlight pre code span.kd {
-  color: #3c51af;
+  color: #00AE85;
 }
 
 .footer {
