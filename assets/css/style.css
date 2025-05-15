@@ -873,6 +873,9 @@ div.highlighter-rouge {
 .highlighter-rouge .highlight pre code span.dl {
   color: #B44AFF;
 }
+.highlighter-rouge .highlight pre code span.s {
+  color: #B44AFF;
+}
 .highlighter-rouge .highlight pre code span.s2 {
   color: #B44AFF;
 }
@@ -885,9 +888,9 @@ div.highlighter-rouge {
 .highlighter-rouge .highlight pre code span.o {
   color: #8944cf;
 }
-.highlighter-rouge .highlight pre code span.nx {
+/*.highlighter-rouge .highlight pre code span.nx {
   color: #DE1b45;
-}
+}*/
 /*.highlighter-rouge .highlight pre code span.na {
   color: #2b2754;
 }*/
