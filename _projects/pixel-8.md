@@ -136,7 +136,7 @@ const update = () => {
     txt = rndascii();
   }
   px8.cls();
-  px8.print(txt,(64-txt.length*2+(t&31)-16),14,3);
+  px8.print(txt,(64-txt.length*2+((t*4)&31)-16),14,3);
   for (i=0;i<64;i++) {
     for (j=0;j<64;j++) {
       d = Pixel8.bayer8x8[i&7][j&7];
