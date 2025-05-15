@@ -853,7 +853,7 @@ div.highlighter-rouge {
   width: fit-content;
   max-width: 100%;
   border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: 24px;
+  border-radius: 8px;
   overflow: auto;
 }
 .highlighter-rouge div {
@@ -861,10 +861,10 @@ div.highlighter-rouge {
   height: fit-content;
 }
 .highlighter-rouge pre {
-  margin: 24px;
+  margin: 1em;
 }
 .highlighter-rouge .highlight pre code {
-  font-family: "mono";
+  font-family: "firacode";
 }
 .highlighter-rouge .highlight pre code span.p {
   color: #ff9500;
