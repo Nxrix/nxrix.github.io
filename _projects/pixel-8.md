@@ -6,7 +6,7 @@ image: "px8.png"
 banner: "px8.png"
 ---
 
-<img src="https://nxrix.github.io/pixel-8/icon.png" class="pixelated">
+<img src="https://nxrix.github.io/pixel-8/icon.png" class="pixelated" style="width:205px">
 
 A web based fantasy console inspired by Pico-8.
 
@@ -35,7 +35,7 @@ let t = 0;
 const update = () => {
 
   px8.cls();
-  px8.print("Hello",px8.w2-2*5,px8.h2-2,3);
+  px8.print("hello",px8.w2-2*5,px8.h2-2,3);
   t++;
 
   for (let i = 0; i < px8.w*px8.h; i++) {
@@ -51,6 +51,7 @@ const update = () => {
 };
 update();
 ```
+To remove the blurry effect of canvas add `image-rendering: pixelated;` CSS property to it.
 
 ## API
 
