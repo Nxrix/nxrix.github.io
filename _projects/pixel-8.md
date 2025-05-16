@@ -6,7 +6,7 @@ image: "px8.png"
 banner: "px8.png"
 ---
 
-## Pixel-8
+<img src="https://nxrix.github.io/pixel-8/icon.png" class="pixelated">
 
 A web based fantasy console inspired by Pico-8.
 
