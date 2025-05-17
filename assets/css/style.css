@@ -861,8 +861,9 @@ div.highlighter-rouge {
   height: fit-content;
 }
 .highlighter-rouge pre {
-  margin: 1em;
   font-family: "firacode";
+  font-size: 14px;
+  margin: 1em;
 }
 .highlighter-rouge .highlight pre code {
   font-family: "firacode";
