@@ -9,8 +9,10 @@ url: "https://nxrix.github.io/"
 
 twitter_username: ZNxrix
 github_username:  Nxrix
+
 theme: null
 permalink: pretty
+
 collections:
   pages:
     output: true
@@ -21,10 +23,10 @@ collections:
   tools:
     output: true
 
-kramdown:
-  syntax_highlighter_opts:
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
+#kramdown:
+#  syntax_highlighter_opts:
+#    span:
+#      line_numbers: false
+#    block:
+#      line_numbers: true
+#      start_line: 1
