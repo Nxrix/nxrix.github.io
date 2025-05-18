@@ -10,6 +10,7 @@ hidden: true
 
 #list {
   display: grid;
+  --fw: min(calc(100vw - 56px),980px);
 }
 #list .item {
   position: relative;
