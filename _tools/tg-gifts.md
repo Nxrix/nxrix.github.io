@@ -28,7 +28,7 @@ hidden: true
 }
 #list .id {
   background-color: #0014;
-  color: var(--md-sys-color-on-surface);
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
