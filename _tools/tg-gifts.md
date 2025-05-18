@@ -83,11 +83,28 @@ hidden: true
   }
 }
 
+.controls {
+  display: flex;
+  width: 100%;
+  height: 32px;
+  padding: 4px;
+}
+
+.controls button {
+  height: 100%;
+  aspect-ratio: 1;
+}
+
 </style>
 
 <select id="type">
 </select>
 <div id="list"></div>
+<div class="controls">
+  <button><</button>
+  <input id="pagei">
+  <button>></button>
+</div>
 
 <script>
 
