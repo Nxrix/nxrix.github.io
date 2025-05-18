@@ -286,14 +286,6 @@ html,body {
   /*overflow: hidden;*/
   overscroll-behavior: none;
 }
-textarea:focus, input:focus, select:focus {
-  outline: 0;
-}
-select {
-  background-color: var(--md-sys-color-background);
-  outline: 1px solid var(--md-sys-color-outline-variant);
-  padding: 5px;
-}
 i {
   user-select: none;
   -webkit-user-select: none;
@@ -355,6 +347,16 @@ button:hover {
   background-color: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
 }
+textarea:focus, input:focus, select:focus {
+  outline: 0;
+}
+select {
+  background-color: var(--md-sys-color-background);
+  outline: 1px solid var(--md-sys-color-outline-variant);
+  padding: 5px;
+  border-radius: 8px;
+  transition: outline .2s linear;
+}
 input, textarea {
   color: var(--md-sys-color-on-surface);
   caret-color: var(--md-sys-color-on-surface);
@@ -371,10 +373,10 @@ input[type="text"] ,input[type="password"] {
   border-radius: 8px;
   transition: outline .2s linear;
 }
-input[type="text"]::placeholder ,input[type="password"]::placeholder,textarea::placeholder {
+input[type="text"]::placeholder , input[type="password"]::placeholder , textarea::placeholder {
   color: var(--md-sys-color-outline);
 }
-input[type="text"]:focus ,input[type="password"]:focus {
+input[type="text"]:focus , input[type="password"]:focus , select:focus {
   outline: 3px solid var(--md-sys-color-primary-container);
 }
 .img {
