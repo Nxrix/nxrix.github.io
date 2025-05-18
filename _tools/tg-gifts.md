@@ -29,12 +29,13 @@ hidden: true
 }
 #list .q {
   color: var(--md-sys-color-outline-variant);
+  font-size: calc(var(--font)/100*30);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
-  font-size: calc(var(--font)/100*20);
+  height: auto;
+  aspect-ratio: 1;
 }
 #list .id {
   background-color: #0014;
@@ -109,11 +110,11 @@ hidden: true
   min-width: 0;
 }
 
-.controls button:nth-child(1) {
+.controls:nth-child(1) {
   border-radius: 16px 8px 8px 16px;
 }
 
-.controls button:nth-child(2) {
+.controls:nth-child(3) {
   border-radius: 8px 16px 16px 8px;
 }
 
