@@ -96,6 +96,7 @@ hexpot
 homemadecake
 hypnolollipop
 iongem
+jackinthebox
 jellybunny
 jesterhat
 jinglebells
@@ -137,6 +138,9 @@ gifts.forEach(gift => {
   option.value = gift;
   option.textContent = gift.charAt(0).toUpperCase()+gift.slice(1);
   type.appendChild(option);
+  if (gift == "plushpepe") {
+    type.value = gift;
+  }
 });
 
 const get_src = (a,b,c=0) => {
