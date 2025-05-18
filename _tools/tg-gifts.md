@@ -160,9 +160,9 @@ const get_src = (a,b,c=0) => {
   return `https://nft.fragment.com/gift/${a}-${b}.${["small","medium","large"][c]||c}.jpg`
 }
 
-load_gifts = (a=1,b=65) => {
+load_gifts = (a=1,b=32) => {
   list.innerHTML = "";
-  for (i=a;i<b;i++) {
+  for (i=a;i<=b;i++) {
     const gift = document.createElement("div");
     gift.classList.add("item");
 
@@ -184,5 +184,5 @@ type.addEventListener("change",() => {
   //const b = a+parseInt(limit.value);
   load_gifts();
 });
-
+load_gifts();
 </script>
