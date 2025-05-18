@@ -43,7 +43,6 @@ hidden: true
 }
 
 @media screen and (width > 100px) {
-@media screen and (width > 100px) {
   #list {
     grid-template-columns: repeat(1,1fr);
     --font: calc(var(--fw)/4*3);
@@ -61,16 +60,22 @@ hidden: true
     width: 100%;
   }
 }
-@media screen and (width > 700px) {
+@media screen and (width > 600px) {
   #list {
     grid-template-columns: repeat(3,1fr);
     --font: calc(var(--fw)/3);
   }
 }
-@media screen and (width > 900px) {
+@media screen and (width > 800px) {
   #list {
     grid-template-columns: repeat(4,1fr);
     --font: calc(var(--fw)/4);
+  }
+}
+@media screen and (width > 1000px) {
+  #list {
+    grid-template-columns: repeat(5,1fr);
+    --font: calc(var(--fw)/5);
   }
 }
 
