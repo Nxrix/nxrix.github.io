@@ -27,6 +27,15 @@ hidden: true
   width: 100%;
   aspect-ratio: 1;
 }
+#list .q {
+  color: var(--md-sys-color-outline-variant);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: calc(var(--font)/100*10);
+}
 #list .id {
   background-color: #0014;
   color: #fff;
@@ -101,7 +110,7 @@ hidden: true
 }
 
 .controls input {
-  width: calc(100% - 128px - 8px);
+  width: calc(100% - 128px - 4px);
   height: 100%;
   text-align: center;
   margin: 0 auto;
@@ -201,7 +210,12 @@ const add_gift = (c,n,p) => {
   gift.appendChild(img);
 
   img.onerror = () => {
-    gift.remove();
+    img.remove();
+    const q = document.createElement("div");
+    q.classList.add("q");
+    q.innerText = "?";
+    gift.appendChild(q);
+    //gift.remove();
   };
 
   const id = document.createElement("div");
