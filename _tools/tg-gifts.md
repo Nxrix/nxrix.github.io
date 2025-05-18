@@ -114,9 +114,9 @@ hidden: true
 <div id="list"></div>
 
 <div class="controls">
-  <button><</button>
+  <button onclick="page--;load_gifts()"><</button>
   <input type="text" id="pagei">
-  <button>></button>
+  <button onclick="page++;load_gifts()">></button>
 </div>
 
 <script>
@@ -183,9 +183,6 @@ gifts.forEach(gift => {
   option.value = gift;
   option.textContent = gift.charAt(0).toUpperCase()+gift.slice(1);
   type.appendChild(option);
-  if (gift == "plushpepe") {
-    type.value = gift;
-  }
 });
 
 const get_src = (a,b,c=0) => {
@@ -219,9 +216,11 @@ const add_gift = (c,n,p) => {
   list.appendChild(gift);
 }
   
-load_gifts = (a=1,b=32) => {
-  list.innerHTML = "";
-  for (i=a;i<=b;i++) {
+load_gifts = () => {
+  list.innerHTML = "Loading...";
+  pagei.value = Math.max(page,0)+1;
+  history.replaceState({},null,`../tools/tg-gifts/?c=${type.value}&p=${page}`);
+  for (i=page*32;i<=page+32;i++) {
     add_gift(type.value,i);
   }
 }
@@ -231,5 +230,15 @@ type.addEventListener("change",() => {
   //const b = a+parseInt(limit.value);
   load_gifts();
 });
+
+const url_string = window.location.href;
+const url = new URL(url_string);
+const page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
+pagei.value = page+1;
+type.value = "plushpepe";
+if (gifts.includes(url.searchParams.get("c"))) {
+  type.value = url.searchParams.get("c");
+}
 load_gifts();
+
 </script>
