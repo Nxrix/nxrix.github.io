@@ -109,6 +109,14 @@ hidden: true
   min-width: 0;
 }
 
+.controls > button:nth-child(1) {
+  border-radius: 16px 8px 8px 16px;
+}
+
+.controls > button:nth-child(2) {
+  border-radius: 8px 16px 16px 8px;
+}
+
 .controls input {
   width: calc(100% - 128px - 4px);
   height: 100%;
