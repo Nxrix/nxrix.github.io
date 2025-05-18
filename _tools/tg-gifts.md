@@ -101,8 +101,7 @@ hidden: true
 }
 
 .controls input {
-  width: 100%;
-  padding: auto 5px;
+  width: 80%;
   height: 100%;
   text-align: center;
   margin: 0 auto;
