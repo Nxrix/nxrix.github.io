@@ -162,7 +162,7 @@ load_gifts = (a=1,b=32) => {
     gift.classList.add("item");
 
     const img = document.createElement("img");
-    img.src = get_src(type.value,i,2);
+    img.src = get_src(type.value,i,1);
     gift.appendChild(img);
 
     const id = document.createElement("div");
