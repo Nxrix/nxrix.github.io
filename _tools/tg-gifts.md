@@ -52,7 +52,7 @@ hidden: true
     width: 75%;
   }
 }
-@media screen and (width > 400px) {
+@media screen and (width > 300px) {
   #list {
     grid-template-columns: repeat(2,1fr);
     --font: calc(var(--fw)/2);
@@ -61,19 +61,19 @@ hidden: true
     width: 100%;
   }
 }
-@media screen and (width > 600px) {
+@media screen and (width > 500px) {
   #list {
     grid-template-columns: repeat(3,1fr);
     --font: calc(var(--fw)/3);
   }
 }
-@media screen and (width > 800px) {
+@media screen and (width > 700px) {
   #list {
     grid-template-columns: repeat(4,1fr);
     --font: calc(var(--fw)/4);
   }
 }
-@media screen and (width > 1000px) {
+@media screen and (width > 900px) {
   #list {
     grid-template-columns: repeat(5,1fr);
     --font: calc(var(--fw)/5);
