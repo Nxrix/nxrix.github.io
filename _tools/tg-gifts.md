@@ -13,14 +13,14 @@ hidden: true
 }
 #list .item {
   position: relative;
-  background-color: #111;
+  background-color: var(--md-sys-color-background);
   box-sizing: border-box;
   overflow: hidden;
   width: 96%;
   margin: 2%;
   border-radius: calc(var(--font)/100*10);
   font-size: 0;
-  outline: calc(var(--font)/100) solid #222;
+  outline: calc(var(--font)/100) solid var(--md-sys-color-outline-variant);
 }
 #list img {
   width: 100%;
@@ -28,7 +28,7 @@ hidden: true
 }
 #list .id {
   background-color: #0014;
-  color: #fff;
+  color: var(--md-sys-color-on-surface);
   display: flex;
   justify-content: center;
   align-items: center;
