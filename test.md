@@ -30,6 +30,12 @@ hidden: true
 
 <input type="password" placeholder="password">
 
+<select>
+  <option>Item 1</option>
+  <option>Item 2</option>
+  <option>Item 3</option>
+</select>
+
 <div id="editor"></div>
 <div class="info-error">Test</div>
 
