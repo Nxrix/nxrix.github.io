@@ -86,7 +86,7 @@ hidden: true
 .controls {
   display: flex;
   width: 100%;
-  height: 32px;
+  height: 64px;
   padding: 4px;
 }
 
@@ -101,6 +101,7 @@ hidden: true
 .controls input {
   width: 100%;
   height: 100%;
+  text-align: center;
 }
 
 </style>
@@ -192,7 +193,7 @@ const add_gift = (c,n,p) => {
   gift.classList.add("item");
 
   const img = document.createElement("img");
-  img.src = get_src(c,n,2);
+  img.src = get_src(c,n,1);
   gift.appendChild(img);
 
   img.onerror = () => {
