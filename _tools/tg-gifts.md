@@ -231,6 +231,16 @@ type.addEventListener("change",() => {
   load_gifts();
 });
 
+pagei.onkeydown = e => {
+  if (e.key=="Enter"){
+    let n = +pagei.value;
+    if(n>0&&Number.isInteger(n)) {
+      page = n-1;
+      load_gifts();
+    }
+  }
+};
+
 const url_string = window.location.href;
 const url = new URL(url_string);
 const limit = 32;
