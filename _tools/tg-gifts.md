@@ -130,9 +130,6 @@ hidden: true
 ## Telegram Gifts
 With this tool you can view all upgraded Telegram gifts.
 
-You can support development by sending TON or TONNEL to my address :)
-`UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx`
-
 <select id="type">
 </select>
 <div id="list"></div>
@@ -142,6 +139,11 @@ You can support development by sending TON or TONNEL to my address :)
   <input type="text" id="pagei">
   <button onclick="page++;load_gifts()">></button>
 </div>
+
+<br>
+
+You can support development by sending TON or TONNEL to my address :>
+`UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx`
 
 <script>
 
@@ -247,7 +249,8 @@ const add_gift = (c,n,p) => {
   
 load_gifts = () => {
   list.innerHTML = "";
-  pagei.value = Math.max(page,0)+1;
+  page = Math.max(page,0);
+  pagei.value = page+1;
   history.replaceState({},null,`../tools/tg-gifts/?c=${type.value}&p=${page}`);
   for (i=page*limit+1;i<=page*limit+limit;i++) {
     add_gift(type.value,i);
