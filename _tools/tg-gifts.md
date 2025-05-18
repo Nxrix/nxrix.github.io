@@ -34,7 +34,7 @@ hidden: true
   align-items: center;
   width: 100%;
   height: 100%;
-  font-size: calc(var(--font)/100*10);
+  font-size: calc(var(--font)/100*20);
 }
 #list .id {
   background-color: #0014;
@@ -120,6 +120,8 @@ hidden: true
 
 ## Gifts
 With this tool you can view all upgraded Telegram gifts.
+
+<br>
 
 <select id="type">
 </select>
