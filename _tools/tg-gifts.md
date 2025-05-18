@@ -96,6 +96,7 @@ hidden: true
   align-items: center;
   height: 100%;
   aspect-ratio: 1;
+  margin: 0;
 }
 
 .controls input {
