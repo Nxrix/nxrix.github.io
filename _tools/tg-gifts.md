@@ -43,45 +43,34 @@ hidden: true
 }
 
 @media screen and (width > 100px) {
+@media screen and (width > 100px) {
   #list {
     grid-template-columns: repeat(1,1fr);
-    --font: 100vw;
+    --font: calc(var(--fw)/4*3);
   }
-}
-@media screen and (width > 250px) {
-  #list {
-    grid-template-columns: repeat(2,1fr);
-    --font: 50vw;
+  #list .item .content {
+    width: 75%;
   }
 }
 @media screen and (width > 400px) {
   #list {
-    grid-template-columns: repeat(3,1fr);
-    --font: 33vw;
+    grid-template-columns: repeat(2,1fr);
+    --font: calc(var(--fw)/2);
+  }
+  #list .item .content {
+    width: 100%;
   }
 }
-@media screen and (width > 600px) {
+@media screen and (width > 700px) {
+  #list {
+    grid-template-columns: repeat(3,1fr);
+    --font: calc(var(--fw)/3);
+  }
+}
+@media screen and (width > 900px) {
   #list {
     grid-template-columns: repeat(4,1fr);
-    --font: 25vw;
-  }
-}
-@media screen and (width > 800px) {
-  #list {
-    grid-template-columns: repeat(5,1fr);
-    --font: 20vw;
-  }
-}
-@media screen and (width > 1000px) {
-  #list {
-    grid-template-columns: repeat(6,1fr);
-    --font: 16vw;
-  }
-}
-@media screen and (width > 1200px) {
-  #list {
-    grid-template-columns: repeat(7,1fr);
-    --font: 14vw;
+    --font: calc(var(--fw)/4);
   }
 }
 
