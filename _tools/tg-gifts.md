@@ -100,8 +100,8 @@ hidden: true
 }
 
 .controls input {
-  width: 100%;
-  height: calc(90% - 32px);
+  width: calc(90% - 32px);
+  height: 100%;
   text-align: center;
 }
 
@@ -110,6 +110,7 @@ hidden: true
 <select id="type">
 </select>
 <div id="list"></div>
+
 <div class="controls">
   <button><</button>
   <input type="text" id="pagei">
