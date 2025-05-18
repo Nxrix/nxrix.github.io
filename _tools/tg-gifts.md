@@ -110,11 +110,11 @@ hidden: true
   min-width: 0;
 }
 
-.controls:nth-child(1) {
+.controls:nth-child(0) {
   border-radius: 16px 8px 8px 16px;
 }
 
-.controls:nth-child(3) {
+.controls:nth-child(2) {
   border-radius: 8px 16px 16px 8px;
 }
 
