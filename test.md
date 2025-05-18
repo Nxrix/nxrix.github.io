@@ -36,6 +36,8 @@ hidden: true
   <option>Item 3</option>
 </select>
 
+<progress value="50" max="100"></progress>
+
 <div id="editor"></div>
 <div class="info-error">Test</div>
 
