@@ -170,6 +170,10 @@ const add_gift = (c,n,p) => {
   img.src = get_src(c,n,2);
   gift.appendChild(img);
 
+  img.onerror = () => {
+    gift.remove();
+  };
+
   const id = document.createElement("div");
   id.classList.add("id");
   id.innerText = "#"+n;
