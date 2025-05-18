@@ -118,10 +118,8 @@ hidden: true
 
 </style>
 
-## Gifts
+## Telegram Gifts
 With this tool you can view all upgraded Telegram gifts.
-
-<br>
 
 <select id="type">
 </select>
