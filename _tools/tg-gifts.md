@@ -103,6 +103,7 @@ hidden: true
   width: calc(80% - 32px);
   height: 100%;
   text-align: center;
+  margin: auto 0;
 }
 
 </style>
