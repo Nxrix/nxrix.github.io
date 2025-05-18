@@ -43,6 +43,21 @@ hidden: true
   font-size: calc(var(--font)/100*6);
 }
 
+#list .price {
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-surface);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  width: 40%;
+  height: 15%;
+  border-radius: calc(var(--font)/100*5);
+  font-size: calc(var(--font)/100*6);
+}
+
 @media screen and (width > 100px) {
   #list {
     grid-template-columns: repeat(2,1fr);
@@ -147,22 +162,33 @@ const get_src = (a,b,c=0) => {
   return `https://nft.fragment.com/gift/${a}-${b}.${["small","medium","large"][c]||c}.jpg`
 }
 
+const add_gift = (c,n,p) => {
+  const gift = document.createElement("div");
+  gift.classList.add("item");
+
+  const img = document.createElement("img");
+  img.src = get_src(c,n,2);
+  gift.appendChild(img);
+
+  const id = document.createElement("div");
+  id.classList.add("id");
+  id.innerText = "#"+n;
+  gift.appendChild(id);
+
+  if (p) {
+    const price = document.createElement("div");
+    price.classList.add("price");
+    price.innerText = p;
+    gift.appendChild(price);
+  }
+
+  list.appendChild(gift);
+}
+  
 load_gifts = (a=1,b=32) => {
   list.innerHTML = "";
   for (i=a;i<=b;i++) {
-    const gift = document.createElement("div");
-    gift.classList.add("item");
-
-    const img = document.createElement("img");
-    img.src = get_src(type.value,i,1);
-    gift.appendChild(img);
-
-    const id = document.createElement("div");
-    id.classList.add("id");
-    id.innerText = "#"+i;
-    gift.appendChild(id);
-
-    list.appendChild(gift);
+    add_gift(type.value,i);
   }
 }
 
