@@ -24,7 +24,7 @@ banner: "../../carts/rates.png"
   grid-template-columns: repeat(1,1fr);
   margin: 0 15px 15px 0;
   user-select: none;
-  --fw: min(calc(100vw - 56px),980px)
+  --fw: min(calc(100vw - 56px),980px);
 }
 
 #list .item {
