@@ -131,7 +131,7 @@ hidden: true
 With this tool you can view all upgraded Telegram gifts.
 
 You can support development by sending TON or TONNEL to my address :)
-UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx
+`UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx`
 
 <select id="type">
 </select>
