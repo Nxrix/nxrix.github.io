@@ -251,8 +251,6 @@ load_gifts = () => {
 }
 
 type.addEventListener("change",() => {
-  //const a = parseInt(from.value);
-  //const b = a+parseInt(limit.value);
   load_gifts();
 });
 
