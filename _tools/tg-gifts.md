@@ -97,10 +97,12 @@ hidden: true
   height: 100%;
   aspect-ratio: 1;
   margin: 0;
+  min-width: 0;
 }
 
 .controls input {
-  width: calc(80% - 32px);
+  width: 100%;
+  padding: 5px auto;
   height: 100%;
   text-align: center;
   margin: 0 auto;
