@@ -21,7 +21,7 @@ hidden: true
   margin: 2%;
   border-radius: calc(var(--font)/100*10);
   font-size: 0;
-  outline: calc(var(--font)/100) solid var(--md-sys-color-outline-variant);
+  outline: 1px solid var(--md-sys-color-outline-variant);
 }
 #list img {
   width: 100%;
