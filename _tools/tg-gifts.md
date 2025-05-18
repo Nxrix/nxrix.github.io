@@ -179,16 +179,10 @@ load_gifts = (a=1,b=65) => {
   }
 }
 
-load_btn.onclick = () => {
-  const a = parseInt(from.value);
-  const b = a+parseInt(limit.value);
-  load_gifts(a,b);
-}
-
 type.addEventListener("change",() => {
-  const a = parseInt(from.value);
-  const b = a+parseInt(limit.value);
-  load_gifts(a,b);
+  //const a = parseInt(from.value);
+  //const b = a+parseInt(limit.value);
+  load_gifts();
 });
 
 </script>
