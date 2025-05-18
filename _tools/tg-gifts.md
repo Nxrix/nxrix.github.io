@@ -110,11 +110,11 @@ hidden: true
   min-width: 0;
 }
 
-.controls:nth-child(0) {
+.controls button:first-of-type {
   border-radius: 16px 8px 8px 16px;
 }
 
-.controls:nth-child(2) {
+.controls button:last-of-type {
   border-radius: 8px 16px 16px 8px;
 }
 
@@ -139,6 +139,9 @@ With this tool you can view all upgraded Telegram gifts.
   <input type="text" id="pagei">
   <button onclick="page++;load_gifts()">></button>
 </div>
+
+You can support development by sending TON or TONNEL to my address :)
+UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx
 
 <script>
 
