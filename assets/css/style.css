@@ -352,10 +352,22 @@ textarea:focus, input:focus, select:focus {
 }
 select {
   background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-surface);
+  font-size: 14px;
   outline: 1px solid var(--md-sys-color-outline-variant);
-  padding: 5px;
+  padding: 6px 8px;
   border-radius: 8px;
   transition: outline .2s linear;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-size: auto 75%;
+  background-position: right 4px center;
+}
+:root[data-theme="dark"] select {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMWQxYTI0Ij48cGF0aCBkPSJNNDgwLTM0NCAyNDAtNTg0bDU2LTU2IDE4NCAxODQgMTg0LTE4NCA1NiA1Ni0yNDAgMjQwWiIvPjwvc3ZnPg==);
+}
+:root[data-theme="dark"] select {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZTdlMGVlIj48cGF0aCBkPSJNNDgwLTM0NCAyNDAtNTg0bDU2LTU2IDE4NCAxODQgMTg0LTE4NCA1NiA1Ni0yNDAgMjQwWiIvPjwvc3ZnPg==);
 }
 input, textarea {
   color: var(--md-sys-color-on-surface);
