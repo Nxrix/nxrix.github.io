@@ -289,6 +289,11 @@ html,body {
 textarea:focus, input:focus, select:focus {
   outline: 0;
 }
+select {
+  background-color: var(--md-sys-color-background);
+  outline: 1px solid var(--md-sys-color-outline-variant);
+  padding: 5px;
+}
 i {
   user-select: none;
   -webkit-user-select: none;
