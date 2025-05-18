@@ -217,7 +217,7 @@ const add_gift = (c,n,p) => {
 }
   
 load_gifts = () => {
-  list.innerHTML = "Loading...";
+  list.innerHTML = "";
   pagei.value = Math.max(page,0)+1;
   history.replaceState({},null,`../tools/tg-gifts/?c=${type.value}&p=${page}`);
   for (i=page*32;i<=page+32;i++) {
@@ -233,8 +233,7 @@ type.addEventListener("change",() => {
 
 const url_string = window.location.href;
 const url = new URL(url_string);
-const page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
-pagei.value = page+1;
+let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
 type.value = "plushpepe";
 if (gifts.includes(url.searchParams.get("c"))) {
   type.value = url.searchParams.get("c");
