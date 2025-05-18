@@ -220,7 +220,7 @@ load_gifts = () => {
   list.innerHTML = "";
   pagei.value = Math.max(page,0)+1;
   history.replaceState({},null,`../tools/tg-gifts/?c=${type.value}&p=${page}`);
-  for (i=page*limit;i<=page*limit+limit;i++) {
+  for (i=page*limit+1;i<=page*limit+limit;i++) {
     add_gift(type.value,i);
   }
 }
