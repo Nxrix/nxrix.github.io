@@ -101,7 +101,7 @@ hidden: true
 }
 
 .controls input {
-  width: 80%;
+  width: calc(100% - 128px - 8px);
   height: 100%;
   text-align: center;
   margin: 0 auto;
@@ -220,7 +220,7 @@ load_gifts = () => {
   list.innerHTML = "";
   pagei.value = Math.max(page,0)+1;
   history.replaceState({},null,`../tools/tg-gifts/?c=${type.value}&p=${page}`);
-  for (i=page*32;i<=page+32;i++) {
+  for (i=page*limit;i<=page*limit+limit;i++) {
     add_gift(type.value,i);
   }
 }
@@ -233,6 +233,7 @@ type.addEventListener("change",() => {
 
 const url_string = window.location.href;
 const url = new URL(url_string);
+const limit = 32;
 let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
 type.value = "plushpepe";
 if (gifts.includes(url.searchParams.get("c"))) {
