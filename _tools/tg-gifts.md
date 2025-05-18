@@ -130,6 +130,9 @@ hidden: true
 ## Telegram Gifts
 With this tool you can view all upgraded Telegram gifts.
 
+You can support development by sending TON or TONNEL to my address :)
+UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx
+
 <select id="type">
 </select>
 <div id="list"></div>
@@ -139,9 +142,6 @@ With this tool you can view all upgraded Telegram gifts.
   <input type="text" id="pagei">
   <button onclick="page++;load_gifts()">></button>
 </div>
-
-You can support development by sending TON or TONNEL to my address :)
-UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx
 
 <script>
 
