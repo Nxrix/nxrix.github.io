@@ -91,8 +91,16 @@ hidden: true
 }
 
 .controls button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   aspect-ratio: 1;
+}
+
+.controls input {
+  width: 100%;
+  height: 100%;
 }
 
 </style>
@@ -102,7 +110,7 @@ hidden: true
 <div id="list"></div>
 <div class="controls">
   <button><</button>
-  <input id="pagei">
+  <input type="text" id="pagei">
   <button>></button>
 </div>
 
