@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Telegram Gifts"
+title: "TG Gifts"
 description: "All Upgraded Telegram Gifts"
 image: ".png"
 cid: 0
@@ -108,6 +108,9 @@ hidden: true
 }
 
 </style>
+
+## Gifts
+With this tool you can view all upgraded Telegram gifts.
 
 <select id="type">
 </select>
