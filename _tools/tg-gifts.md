@@ -45,20 +45,8 @@ hidden: true
 
 @media screen and (width > 100px) {
   #list {
-    grid-template-columns: repeat(1,1fr);
-    --font: calc(var(--fw)/4*3);
-  }
-  #list .item .content {
-    width: 75%;
-  }
-}
-@media screen and (width > 300px) {
-  #list {
     grid-template-columns: repeat(2,1fr);
     --font: calc(var(--fw)/2);
-  }
-  #list .item .content {
-    width: 100%;
   }
 }
 @media screen and (width > 500px) {
