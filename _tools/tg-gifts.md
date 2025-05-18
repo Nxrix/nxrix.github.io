@@ -101,7 +101,7 @@ hidden: true
 
 .controls input {
   width: 100%;
-  height: 100%;
+  height: calc(90% - 32px);
   text-align: center;
 }
 
