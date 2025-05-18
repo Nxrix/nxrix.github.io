@@ -119,7 +119,7 @@ hidden: true
 }
 
 .controls input {
-  width: calc(100% - 128px - 2px);
+  width: calc(100% - 128px);
   height: 100%;
   text-align: center;
   margin: 0 auto;
