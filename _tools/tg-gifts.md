@@ -147,66 +147,73 @@ You can support development by sending TON or TONNEL to my address :>
 
 <script>
 
-const gifts = `astralshard
-bdaycandle
-berrybox
-bunnymuffin
-cookieheart
-crystalball
-deskcalendar
-diamondring
-durovscap
-eternalcandle
-eternalrose
-evileye
-flyingbroom
-genielamp
-gingercookie
-hangingstar
-hexpot
-homemadecake
-hypnolollipop
-iongem
-jackinthebox
-jellybunny
-jesterhat
-jinglebells
-kissedfrog
-lolpop
-lootbag
-lovecandle
-lovepotion
-lunarsnake
-madpumpkin
-magicpotion
-minioscar
-partysparkler
-perfumebottle
-plushpepe
-preciouspeach
-recordplayer
-sakuraflower
-santahat
-scaredcat
-sharptongue
-signetring
-skullflower
-sleighbell
-snowmittens
-spicedwine
-spyagaric
-starnotepad
-swisswatch
-tophat
-toybear
-trappedheart
-vintagecigar
-voodoodoll
-witchhat`.split("\n");
+const gifts = `Astral Shard
+B-Day Candle
+Berry Box
+Bunny Muffin
+Candy Cane
+Cookie Heart
+Crystal Ball
+Desk Calendar
+Diamond Ring
+Durov's Cap
+Easter Egg
+Electric Skull
+Eternal Candle
+Eternal Rose
+Evil Eye
+Flying Broom
+Genie Lamp
+Ginger Cookie
+Hanging Star
+Hex Pot
+Homemade Cake
+Hypno Lollipop
+Ion Gem
+Jack-in-the-Box
+Jelly Bunny
+Jester Hat
+Jingle Bells
+Kissed Frog
+LolPop
+Loot Bag
+Love Candle
+Love Potion
+Lunar Snake
+Mad Pumpkin
+Magic Potion
+Mini Oscar
+Neko Helmet
+Party Sparkler
+Perfume Bottle
+Plush Pepe
+Precious Peach
+Record Player
+Sakura Flower
+Santa Hat
+Scared Cat
+Sharp Tongue
+Signet Ring
+Skull Flower
+Sleigh Bell
+Snow Globe
+Snow Mittens
+Spiced Wine
+Spy Agaric
+Star Notepad
+Swiss Watch
+Tama Gadget
+Top Hat
+Toy Bear
+Trapped Heart
+Vintage Cigar
+Voodoo Doll
+Winter Wreath
+Witch Hat`.split("\n");
 
 gifts.forEach(gift => {
   const option = document.createElement("option");
-  option.value = gift;
+  option.value = gift.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
   option.textContent = gift.charAt(0).toUpperCase()+gift.slice(1);
   type.appendChild(option);
 });
