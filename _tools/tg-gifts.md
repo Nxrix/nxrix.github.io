@@ -147,7 +147,7 @@ You can support development by sending TON or TONNEL to my address :>
 
 <script>
 
-const gifts = `Astral Shard
+const gift_names = `Astral Shard
 B-Day Candle
 Berry Box
 Bunny Muffin
@@ -209,7 +209,12 @@ Trapped Heart
 Vintage Cigar
 Voodoo Doll
 Winter Wreath
-Witch Hat`.split("\n");
+Witch Hat`;
+
+const gift_names0 = gift_names.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
+
+const gifts = gift_names.split("\n");
+const gifts0 = gift_names0.split("\n");
 
 gifts.forEach(gift => {
   const option = document.createElement("option");
@@ -283,7 +288,7 @@ const url = new URL(url_string);
 const limit = 32;
 let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
 type.value = "plushpepe";
-if (gifts.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase().includes(url.searchParams.get("c"))) {
+if (gifts0.includes(url.searchParams.get("c"))) {
   type.value = url.searchParams.get("c");
 }
 load_gifts();
