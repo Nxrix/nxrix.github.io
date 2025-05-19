@@ -283,7 +283,7 @@ const url = new URL(url_string);
 const limit = 32;
 let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
 type.value = "plushpepe";
-if (gifts.includes(url.searchParams.get("c"))) {
+if (gifts.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase().includes(url.searchParams.get("c"))) {
   type.value = url.searchParams.get("c");
 }
 load_gifts();
