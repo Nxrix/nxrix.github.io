@@ -231,6 +231,8 @@ banner: "../../carts/rates.png"
 <div id="list"></div>
 <div id="update_time" style="display:none;width:100%;padding:20px 0 0 0;text-align:center;color:var(--md-sys-color-outline);"></div>
 
+<br>
+
 You can support development by sending TON or TONNEL to my address :>
 `UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx`
 
