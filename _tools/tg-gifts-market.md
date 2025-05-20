@@ -328,7 +328,7 @@ pagei.onkeydown = e => {
 
 const url_string = window.location.href;
 const url = new URL(url_string);
-const limit = 32;
+const limit = 24;
 
 let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
 
