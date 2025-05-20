@@ -91,28 +91,6 @@ hidden: true
   }
 }
 
-.filter {
-  display: flex;
-  width: 100%;
-  height: 32px;
-}
-
-.filter div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.filter .button {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  aspect-ratio: 1;
-}
-
 .controls {
   display: flex;
   width: 100%;
@@ -145,43 +123,21 @@ hidden: true
   margin: 0 auto;
 }
 
+.filterd { display: none; border: 1px solid #ccc; padding: 5px; max-width: 200px; }
+.filterd div { cursor: pointer; padding: 4px; }
+.filterd div.active { background: #d1e7dd; }
+
 </style>
 
 ## Telegram Gifts Market
 
-<div class="filter">
-  <input id="collectionsi" type="text" placeholder="Collection">
-  <div id="collectionss" class="suggestion"></div>
-  <div id="collectionsb" class="button">Add</div>
+<div id="collectionst" class="filteri">Collection</div>
+<div id="collectionsd" class="filterd">
+  <input id="collectionss" class="filters" type="text" placeholder="Search...">
+  <div id="collectionsl" class="filterl"></div>
 </div>
-<div id="collectionsl"></div>
 
 <br>
-
-<div class="filter">
-  <input id="modelsi" type="text" placeholder="Model">
-  <div id="modelss" class="suggestion"></div>
-  <div id="modelsb" class="button">Add</div>
-</div>
-<div id="modelsl"></div>
-
-<br>
-
-<div class="filter">
-  <input id="backdropsi" type="text" placeholder="Backdrop">
-  <div id="backdropss" class="suggestion"></div>
-  <div id="backdropsb" class="button">Add</div>
-</div>
-<div id="backdropsl"></div>
-
-<br>
-
-<div class="filter">
-  <input id="symbolsi" type="text" placeholder="Symbol">
-  <div id="symbolss" class="suggestion"></div>
-  <div id="symbolsb" class="button">Add</div>
-</div>
-<div id="symbolsl"></div>
 
 <select id="sort">
   <option value="d">Sort: Latest</option>
@@ -390,48 +346,29 @@ let models = [];
 let backdrops = [];
 let symbols = [];
 
-const update_collections = () => {
+collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="block"?"none":"block";
+
+const update_collections = (filter = "") => {
   collectionsl.innerHTML = "";
-  collections.forEach((c,i) => {
-    const d = document.createElement("div");
-    d.classList.add("filter-item");
-    const n = document.createElement("div");
-    n.innerText = c;
-    const x = document.createElement("div");
-    x.innerText = "x";
-    x.onclick = () => {
-      collections.splice(i,1);
-      update_collections();
-      load_gifts();
+  gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase())).forEach(gift => {
+    const div = document.createElement("div");
+    div.innerText = gift;
+    div.className = collections.includes(gift)?"active":"";
+    div.onclick = () => {
+      if (collections.includes(gift)) {
+        collections = collections.filter(g =>g!=gift);
+      } else {
+        collections.push(gift);
+      }
+      update_collections(collectionss.value);
     };
-    d.appendChild(n);
-    d.appendChild(x);
-    collectionsl.appendChild(d);
+    collectionst.appendChild(div);
   });
 }
 
-collectionsi.addEventListener("input",() => {
-  if (collectionsi.value.trim().length>0) {
-    collectionsb.style.display = "flex";
-    const s = gifts.filter(g => g.toLowerCase().includes(collectionsi.value.toLowerCase()));
-    collectionss.innerText = s[0] || "";
-  } else {
-    collectionsb.style.display = "none";
-    collectionss.innerText = "";
-  }
-});
+collectionss.oninput = () => renderList(collectionss.value);
 
-collectionsb.onclick = () => {
-  const s = collectionss.innerText;
-  if (s&&!collections.includes(s)) {
-    collectionsb.style.display = "none";
-    collectionsi.value = "";
-    collectionss.innerText = "";
-    collections.push(s);
-    update_collections();
-    load_gifts();
-  }
-};
+update_collectionst();
 
 load_gifts();
 
