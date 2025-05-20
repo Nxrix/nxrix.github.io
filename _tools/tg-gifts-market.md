@@ -362,6 +362,24 @@ let models = [];
 let backdrops = [];
 let symbols = [];
 
+const update_collections = () => {
+  collectionso.innerHTML = "";
+  collections.forEach((c,i) => {
+    const c = document.createElement("div");
+    const n = document.createElement("div");
+    n.innerText = c;
+    const x = document.createElement("div");
+    x.innerText = "x";
+    x.onclick = () => {
+      collections.splice(i,1);
+      update_collections();
+      load_gifts();
+    };
+    c.appendChild(n);
+    c.appendChild(x);
+  });
+}
+
 collectionsi.addEventListener("input",() => {
   const s = gifts.filter(g => g.toLowerCase().includes(collectionsi.value.toLowerCase()));
   collectionss.innerText = s[0] || "";
@@ -372,7 +390,7 @@ collectionsb.onclick = () => {
   if (s&&!collections.includes(s)) {
     collections.push(s);
   }
-});
+};
 
 load_gifts();
 
