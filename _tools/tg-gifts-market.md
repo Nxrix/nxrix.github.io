@@ -362,7 +362,7 @@ const update_collections = (filter = "") => {
       }
       update_collections(collectionss.value);
     };
-    collectionst.appendChild(div);
+    collectionsl.appendChild(div);
   });
 }
 
