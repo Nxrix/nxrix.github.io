@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "TG Gifts Market"
+title: "Telegram Gifts Market"
 description: "Telegram Gifts Market"
 image: ".png"
 cid: 0
@@ -139,7 +139,6 @@ hidden: true
   <option value="b">Sort: Backdrop</option>
   <option value="s">Sort: Symbol</option>
 </select>
-
 <button onclick="page=0;load_gifts()">Search</button>
 
 <div id="list"></div>
@@ -270,7 +269,7 @@ const add_gift = (c,n,p) => {
   gift.classList.add("item");
 
   const img = document.createElement("img");
-  img.src = get_src(c,n,1);
+  img.src = get_img(c,n,1);
   gift.appendChild(img);
 
   img.onerror = () => {
