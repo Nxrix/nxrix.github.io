@@ -91,10 +91,24 @@ hidden: true
   }
 }
 
+.filter {
+  display: flex;
+  width: 100%;
+  height: 32px;
+}
+
+.filter button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 1;
+}
+
 .controls {
   display: flex;
   width: 100%;
-  height: 64px;
+  height: 48px;
   padding: 4px;
 }
 
@@ -130,28 +144,28 @@ hidden: true
 <div class="filter">
   <input id="collectionsi" type="text" placeholder="Collection">
   <div id="collectionss" class="suggestion"></div>
-  <div id="collectionsb" class="button"></div>
+  <div id="collectionsb" class="button">Add</div>
 </div>
 <div id="collectionsl"></div>
 
 <div class="filter">
   <input id="modelsi" type="text" placeholder="Model">
   <div id="modelss" class="suggestion"></div>
-  <div id="modelsb" class="button"></div>
+  <div id="modelsb" class="button">Add</div>
 </div>
 <div id="modelsl"></div>
 
 <div class="filter">
   <input id="backdropsi" type="text" placeholder="Backdrop">
   <div id="backdropss" class="suggestion"></div>
-  <div id="backdropsb" class="button"></div>
+  <div id="backdropsb" class="button">Add</div>
 </div>
 <div id="backdropsl"></div>
 
 <div class="filter">
   <input id="symbolsi" type="text" placeholder="Symbol">
   <div id="symbolss" class="suggestion"></div>
-  <div id="symbolsb" class="button"></div>
+  <div id="symbolsb" class="button">Add</div>
 </div>
 <div id="symbolsl"></div>
 
@@ -381,13 +395,17 @@ const update_collections = () => {
 }
 
 collectionsi.addEventListener("input",() => {
-  const s = gifts.filter(g => g.toLowerCase().includes(collectionsi.value.toLowerCase()));
-  collectionss.innerText = s[0] || "";
+  if (collectionsi.value.trim().length>0) {
+    const s = gifts.filter(g => g.toLowerCase().includes(collectionsi.value.toLowerCase()));
+    collectionss.innerText = s[0] || "";
+  }
 });
 
 collectionsb.onclick = () => {
   const s = collectionss.innerText;
   if (s&&!collections.includes(s)) {
+    collectionsi.value = "";
+    collectionss.innerText = "";
     collections.push(s);
   }
 };
