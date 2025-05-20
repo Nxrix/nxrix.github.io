@@ -54,18 +54,16 @@ hidden: true
 }
 
 #list .price {
-  background: var(--md-sys-color-background);
-  color: var(--md-sys-color-on-surface);
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 5%;
-  left: 5%;
-  width: 40%;
-  height: 15%;
-  border-radius: calc(var(--font)/100*5);
-  font-size: calc(var(--font)/100*6);
+  bottom: 9%;
+  left: 10%;
+  font-family: "mono";
+  font-size: calc(var(--font)/100*8);
+  text-shadow: 0 0 1px black;
+  color: #fff;
 }
 
 @media screen and (width > 100px) {
@@ -128,6 +126,34 @@ hidden: true
 </style>
 
 ## Telegram Gifts Market
+
+<div class="filter">
+  <input type="text" id="collectionsi">
+  <div class="suggestion"></div>
+  <div class="button"></div>
+</div>
+<div id="collectionsl"></div>
+
+<div class="filter">
+  <input type="text" id="modelsi">
+  <div class="suggestion"></div>
+  <div class="button"></div>
+</div>
+<div id="modelsl"></div>
+
+<div class="filter">
+  <input type="text" id="backdropsi">
+  <div class="suggestion"></div>
+  <div class="button"></div>
+</div>
+<div id="backdropsl"></div>
+
+<div class="filter">
+  <input type="text" id="symbolsi">
+  <div class="suggestion"></div>
+  <div class="button"></div>
+</div>
+<div id="symbolsl"></div>
 
 <select id="sort">
   <option value="d">Sort: Latest</option>
