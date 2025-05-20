@@ -97,6 +97,14 @@ hidden: true
   height: 32px;
 }
 
+.filter div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .filter button {
   display: flex;
   justify-content: center;
@@ -407,6 +415,7 @@ collectionsb.onclick = () => {
     collectionsi.value = "";
     collectionss.innerText = "";
     collections.push(s);
+    load_gifts();
   }
 };
 
