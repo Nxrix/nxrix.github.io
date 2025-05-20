@@ -123,9 +123,9 @@ hidden: true
   margin: 0 auto;
 }
 
-.filterd { display: none; border: 1px solid #ccc; padding: 5px; }
+.filterd { display: none; border: 1px solid #ccc; padding: 5px; width: fit-content; max-height: 256px; }
 .filterd div { cursor: pointer; padding: 4px; }
-.filterd div.active { background: #d1e7dd; }
+.filterd div.active { outline: 1px solid #fff; }
 
 </style>
 
@@ -368,7 +368,7 @@ const update_collections = (filter = "") => {
 
 collectionss.oninput = () => update_collections(collectionss.value);
 
-update_collectionst();
+update_collections();
 
 load_gifts();
 
