@@ -128,30 +128,30 @@ hidden: true
 ## Telegram Gifts Market
 
 <div class="filter">
-  <input type="text" id="collectionsi" placeholder="Collection">
-  <div class="suggestion"></div>
-  <div class="button"></div>
+  <input id="collectionsi" type="text" placeholder="Collection">
+  <div id="collectionss" class="suggestion"></div>
+  <div id="collectionsb" class="button"></div>
 </div>
 <div id="collectionsl"></div>
 
 <div class="filter">
-  <input type="text" id="modelsi" placeholder="Model">
-  <div class="suggestion"></div>
-  <div class="button"></div>
+  <input id="modelsi" type="text" placeholder="Model">
+  <div id="modelss" class="suggestion"></div>
+  <div id="modelsb" class="button"></div>
 </div>
 <div id="modelsl"></div>
 
 <div class="filter">
-  <input type="text" id="backdropsi" placeholder="Backdrop">
-  <div class="suggestion"></div>
-  <div class="button"></div>
+  <input id="backdropsi" type="text" placeholder="Backdrop">
+  <div id="backdropss" class="suggestion"></div>
+  <div id="backdropsb" class="button"></div>
 </div>
 <div id="backdropsl"></div>
 
 <div class="filter">
-  <input type="text" id="symbolsi" placeholder="Symbol">
-  <div class="suggestion"></div>
-  <div class="button"></div>
+  <input id="symbolsi" type="text" placeholder="Symbol">
+  <div id="symbolss" class="suggestion"></div>
+  <div id="symbolsb" class="button"></div>
 </div>
 <div id="symbolsl"></div>
 
@@ -361,6 +361,18 @@ let collections = [];
 let models = [];
 let backdrops = [];
 let symbols = [];
+
+collectionsi.addEventListener("input",() => {
+  const s = gifts.filter(g => g.toLowerCase().includes(collectionsi.value.toLowerCase()));
+  collectionss.innerText = s[0] || "";
+});
+
+collectionsb.onclick = () => {
+  const s = collectionss.innerText;
+  if (s&&!collections.includes(s)) {
+    collections.push(s);
+  }
+});
 
 load_gifts();
 
