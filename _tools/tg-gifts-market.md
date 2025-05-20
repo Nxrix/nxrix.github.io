@@ -123,7 +123,7 @@ hidden: true
   margin: 0 auto;
 }
 
-.filterd { display: none; border: 1px solid #ccc; padding: 5px; width: fit-content; max-height: 256px; }
+.filterd { display: none; border: 1px solid #ccc; padding: 5px; width: fit-content; max-height: 256px; overflow-y: auto; }
 .filterd div { cursor: pointer; padding: 4px; }
 .filterd div.active { outline: 1px solid #fff; }
 
@@ -350,7 +350,10 @@ collectionst.onclick = () => collectionsd.style.display = collectionsd.style.dis
 
 const update_collections = (filter = "") => {
   collectionsl.innerHTML = "";
-  gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase())).forEach(gift => {
+  const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
+  const selected = collections.filter(g => filtered.includes(g));
+  const unselected = filtered.filter(g => !collections.includes(g));
+  [...selected, ...unselected].forEach(gift => {
     const div = document.createElement("div");
     div.innerText = gift;
     div.className = collections.includes(gift)?"active":"";
