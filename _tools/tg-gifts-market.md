@@ -128,28 +128,28 @@ hidden: true
 ## Telegram Gifts Market
 
 <div class="filter">
-  <input type="text" id="collectionsi">
+  <input type="text" id="collectionsi" placeholder="Collection">
   <div class="suggestion"></div>
   <div class="button"></div>
 </div>
 <div id="collectionsl"></div>
 
 <div class="filter">
-  <input type="text" id="modelsi">
+  <input type="text" id="modelsi" placeholder="Model">
   <div class="suggestion"></div>
   <div class="button"></div>
 </div>
 <div id="modelsl"></div>
 
 <div class="filter">
-  <input type="text" id="backdropsi">
+  <input type="text" id="backdropsi" placeholder="Backdrop">
   <div class="suggestion"></div>
   <div class="button"></div>
 </div>
 <div id="backdropsl"></div>
 
 <div class="filter">
-  <input type="text" id="symbolsi">
+  <input type="text" id="symbolsi" placeholder="Symbol">
   <div class="suggestion"></div>
   <div class="button"></div>
 </div>
