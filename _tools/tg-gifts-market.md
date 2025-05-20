@@ -388,6 +388,7 @@ const update_collections = () => {
   collectionsl.innerHTML = "";
   collections.forEach((c,i) => {
     const d = document.createElement("div");
+    d.classList.add("filter-item");
     const n = document.createElement("div");
     n.innerText = c;
     const x = document.createElement("div");
@@ -410,6 +411,7 @@ collectionsi.addEventListener("input",() => {
     collectionss.innerText = s[0] || "";
   } else {
     collectionsb.style.display = "none";
+    collectionss.innerText = "";
   }
 });
 
