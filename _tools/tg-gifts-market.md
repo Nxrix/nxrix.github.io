@@ -420,6 +420,7 @@ collectionsb.onclick = () => {
     collectionsi.value = "";
     collectionss.innerText = "";
     collections.push(s);
+    update_collections();
     load_gifts();
   }
 };
