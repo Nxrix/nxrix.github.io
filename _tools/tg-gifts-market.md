@@ -139,7 +139,7 @@ hidden: true
 }
 
 .controls input {
-  width: calc(100% - 128px);
+  width: calc(100% - 90px);
   height: 100%;
   text-align: center;
   margin: 0 auto;
@@ -156,6 +156,8 @@ hidden: true
 </div>
 <div id="collectionsl"></div>
 
+<br>
+
 <div class="filter">
   <input id="modelsi" type="text" placeholder="Model">
   <div id="modelss" class="suggestion"></div>
@@ -163,12 +165,16 @@ hidden: true
 </div>
 <div id="modelsl"></div>
 
+<br>
+
 <div class="filter">
   <input id="backdropsi" type="text" placeholder="Backdrop">
   <div id="backdropss" class="suggestion"></div>
   <div id="backdropsb" class="button">Add</div>
 </div>
 <div id="backdropsl"></div>
+
+<br>
 
 <div class="filter">
   <input id="symbolsi" type="text" placeholder="Symbol">
