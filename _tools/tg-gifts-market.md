@@ -399,6 +399,7 @@ const update_collections = () => {
     };
     d.appendChild(n);
     d.appendChild(x);
+    collectionso.appendChild(d);
   });
 }
 
