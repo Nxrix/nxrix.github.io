@@ -365,7 +365,7 @@ let symbols = [];
 const update_collections = () => {
   collectionso.innerHTML = "";
   collections.forEach((c,i) => {
-    const c = document.createElement("div");
+    const i = document.createElement("div");
     const n = document.createElement("div");
     n.innerText = c;
     const x = document.createElement("div");
@@ -375,8 +375,8 @@ const update_collections = () => {
       update_collections();
       load_gifts();
     };
-    c.appendChild(n);
-    c.appendChild(x);
+    i.appendChild(n);
+    i.appendChild(x);
   });
 }
 
