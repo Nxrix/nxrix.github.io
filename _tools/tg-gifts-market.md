@@ -105,8 +105,8 @@ hidden: true
   height: 100%;
 }
 
-.filter button {
-  display: flex;
+.filter .button {
+  display: none;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -404,14 +404,18 @@ const update_collections = () => {
 
 collectionsi.addEventListener("input",() => {
   if (collectionsi.value.trim().length>0) {
+    collectionsb.style.display = "flex";
     const s = gifts.filter(g => g.toLowerCase().includes(collectionsi.value.toLowerCase()));
     collectionss.innerText = s[0] || "";
+  } else {
+    collectionsb.style.display = "none";
   }
 });
 
 collectionsb.onclick = () => {
   const s = collectionss.innerText;
   if (s&&!collections.includes(s)) {
+    collectionsb.style.display = "none";
     collectionsi.value = "";
     collectionss.innerText = "";
     collections.push(s);
