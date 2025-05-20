@@ -123,7 +123,7 @@ hidden: true
   margin: 0 auto;
 }
 
-.filterd { display: none; border: 1px solid #ccc; padding: 5px; max-width: 200px; }
+.filterd { display: none; border: 1px solid #ccc; padding: 5px; }
 .filterd div { cursor: pointer; padding: 4px; }
 .filterd div.active { background: #d1e7dd; }
 
@@ -366,7 +366,7 @@ const update_collections = (filter = "") => {
   });
 }
 
-collectionss.oninput = () => renderList(collectionss.value);
+collectionss.oninput = () => update_collections(collectionss.value);
 
 update_collectionst();
 
