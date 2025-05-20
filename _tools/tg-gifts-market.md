@@ -385,7 +385,7 @@ let backdrops = [];
 let symbols = [];
 
 const update_collections = () => {
-  collectionso.innerHTML = "";
+  collectionsl.innerHTML = "";
   collections.forEach((c,i) => {
     const d = document.createElement("div");
     const n = document.createElement("div");
@@ -399,7 +399,7 @@ const update_collections = () => {
     };
     d.appendChild(n);
     d.appendChild(x);
-    collectionso.appendChild(d);
+    collectionsl.appendChild(d);
   });
 }
 
