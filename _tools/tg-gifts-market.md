@@ -378,34 +378,37 @@ let models = [];
 let backdrops = [];
 let symbols = [];
 
+collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
+
 const gift_elements = {};
+
 gifts.forEach(gift => {
   const div = document.createElement("div");
   div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp">${gift}`;
-  div.className = collections.includes(gift) ? "active" : "";
   div.onclick = () => {
     if (collections.includes(gift)) {
-      collections = collections.filter(g => g != gift);
-      div.classList.remove("active");
+      collections = collections.filter(g=>g!=gift);
     } else {
       collections.push(gift);
-      div.classList.add("active");
     }
+    update_collections(collectionss.value);
   };
-  collectionsl.appendChild(div);
   gift_elements[gift] = div;
+  collectionsl.appendChild(div);
 });
 
 const update_collections = (filter = "") => {
+  const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
   gifts.forEach(gift => {
     const div = gift_elements[gift];
-    if (gift.toLowerCase().includes(filter.toLowerCase())) {
-      div.classList.remove("hidden");
+    if (filtered.includes(gift)) {
+      div.style.display = "block";
     } else {
-      div.classList.add("hidden");
+      div.style.display = "none";
     }
+    div.className = collections.includes(gift)?"active":"";
   });
-};
+}
 
 collectionss.oninput = () => update_collections(collectionss.value);
 update_collections();
