@@ -416,13 +416,14 @@ let backdrops = parse("backdrops");
 let symbols = parse("symbols");
 
 const update_url = () => {
-  const encode = (arr) => arr.map(encodeURIComponent).join(",");
-  history.replaceState({},null,`../tools/tonnel-market/?p=${page}&s=${sort.value}` +
-    (collections.length ? `&collections=${encode(collections)}` : "") +
-    (models.length ? `&models=${encode(models)}` : "") +
-    (backdrops.length ? `&backdrops=${encode(backdrops)}` : "") +
-    (symbols.length ? `&symbols=${encode(symbols)}` : "")
-  );
+  const encode = (arr) => arr.map(encodeURIComponent).join(",");
+  history.replaceState({}, null, `../tools/tonnel-market/?p=${page}&s=${sort.value}` +
+    (collections.length ? `&collections=${encode(collections)}` : "") +
+    (models.length ? `&models=${encode(models)}` : "") +
+    (backdrops.length ? `&backdrops=${encode(backdrops)}` : "") +
+    (symbols.length ? `&symbols=${encode(symbols)}` : "") +
+    location.hash
+  );
 }
 
 const get_backdrops = (list) => {
@@ -584,18 +585,18 @@ const update_backdrops = (filter = "") => {
   }).forEach(b => {
     const div = document.createElement("div");
     const color = gift_backdrops.find(x => x.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b)?.color?.centerColor;
-    const hex = color ? "#" + color.toString(16).padStart(6, "0") : "#000000";
+    const hex = color ? "#" + color.toString(16).padStart(6,"0") : "#000000";
     const dot = document.createElement("span");
     dot.style.background = hex;
     dot.style.display = "inline-block";
-    dot.style.width = "15px";
-    dot.style.height = "15px";
+    dot.style.width = "16px";
+    dot.style.height = "16px";
     dot.style.borderRadius = "50%";
     dot.style.marginLeft = "4px";
     dot.style.marginRight = "8px";
     div.appendChild(dot);
     div.appendChild(document.createTextNode(b));
-    div.className = backdrops.includes(b) ? "active" : "";
+    div.className = backdrops.includes(b)?"active":"";
     div.onclick = () => {
       if (backdrops.includes(b)) {
         backdrops = backdrops.filter(x => x != b);
