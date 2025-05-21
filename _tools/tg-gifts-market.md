@@ -123,6 +123,9 @@ hidden: true
   margin: 0 auto;
 }
 
+.filteri {
+  padding: 8px;
+}
 .filterd {
   display: none;
   flex-direction: column;
@@ -347,7 +350,7 @@ load_gifts = async () => {
     //const p = Math.ceil(g.price*ton*usd/1000).toLocaleString("en-US")+"K IRT";
     add_gift(fix_name(g.name),g.gift_num,p);
   }
-  if (data.length==0) list.innerHTML = "No Gifts Found"
+  if (data.length==0) list.innerHTML = "No Gifts Found";
 }
 
 pagei.onkeydown = e => {
@@ -379,7 +382,7 @@ gifts.forEach(gift => {
     gift_thumbs[gift] = img;
 });
 
-collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="block"?"none":"block";
+collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
 
 const update_collections = (filter = "") => {
   collectionsl.innerHTML = "";
