@@ -314,8 +314,8 @@ const tonnel_search = async (page=1,limit=8,sort="d",asset="TON",{name,model,bac
             ...(symbol?.length && { symbol: { $in: symbol } })
           }
           :{
-            ...(backdrop?.length && { backdrop: { $regex: backdrop.map(val => `^${val}\\(`).join("|") } }),
-            ...(symbol?.length && { symbol: { $regex: symbol.map(val => `^${val}\\(`).join("|") } })
+            ...(backdrop?.length && { backdrop: { $regex: "^"+backdrop.join("|")+" \\(" } }),
+            ...(symbol?.length && { symbol: { $regex: "^"+symbol.join("|")+" \\(" } })
           }
         )
       }),
