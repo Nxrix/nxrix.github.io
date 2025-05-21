@@ -137,7 +137,7 @@ hidden: true
   outline: 1px solid var(--md-sys-color-outline-variant);
 }
 .filterd .filters {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 .filterd .filterl {
   padding: 4px;
@@ -376,11 +376,11 @@ let backdrops = [];
 let symbols = [];
 
 const gift_thumbs = {};
-Promise.all(gifts.map(gift =>
-  fetch(`https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp`)
-    .then(r => r.blob())
-    .then(b => gift_thumbs[gift] = URL.createObjectURL(b))
-));
+gifts.forEach(gift => {
+    const img = new Image();
+    img.src = `https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp`;
+    gift_thumbs[gift] = img;
+});
 
 collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
 
@@ -392,7 +392,10 @@ const update_collections = (filter = "") => {
   [...selected, ...unselected].forEach(gift => {
     const div = document.createElement("div");
 
-    div.innerHTML = `<img src="${gift_thumbs[gift]}">${gift}`;
+    const img = gift_thumbs[gift].cloneNode();
+    div.appendChild(img);
+    div.appendChild(document.createTextNode(gift));
+
     div.className = collections.includes(gift)?"active":"";
     
     div.onclick = () => {
