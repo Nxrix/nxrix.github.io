@@ -356,7 +356,7 @@ const load_gifts = async () => {
   pagei.value = page+1;
 
   const encode = (arr) => arr.map(encodeURIComponent).join(",");
-  history.replaceState({},null,`../tools/tg-gifts-market/?p=${page}&s=${sort.type}` +
+  history.replaceState({},null,`../tools/tonnel-market/?p=${page}&s=${sort.type}` +
     (collections.length ? `&collections=${encode(collections)}` : "") +
     (models.length ? `&models=${encode(models)}` : "") +
     (backdrops.length ? `&backdrops=${encode(backdrops)}` : "") +
