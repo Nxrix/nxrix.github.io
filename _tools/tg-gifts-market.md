@@ -96,6 +96,7 @@ hidden: true
   width: 100%;
   height: 48px;
   padding: 4px;
+  margin-top: 8px;
 }
 
 .controls button {
@@ -124,7 +125,9 @@ hidden: true
 }
 
 .filteri {
+  display: inline;
   padding: 8px;
+  margin: 4px;
 }
 .filterd {
   display: none;
@@ -163,21 +166,18 @@ hidden: true
 
 ## Telegram Gifts Market
 
-<div style="display: grid;grid-template-columns: auto auto">
-  <div>
-    <div id="collectionst" class="filteri">Collection</div>
-    <div id="collectionsd" class="filterd">
-      <input id="collectionss" class="filters" type="text" placeholder="Search...">
-      <div id="collectionsl" class="filterl"></div>
-    </div>
+
+<div id="collectionst" class="filteri">Collection</div>
+<div id="modelst" class="filteri">Model</div>
+<div>
+  <div id="collectionsd" class="filterd">
+    <input id="collectionss" class="filters" type="text" placeholder="Search...">
+    <div id="collectionsl" class="filterl"></div>
   </div>
   
-  <div>
-    <div id="modelst" class="filteri">Model</div>
-    <div id="modelsd" class="filterd" style="display:none">
-      <input id="modelss" class="filters" type="text" placeholder="Search...">
-      <div id="modelsl" class="filterl"></div>
-    </div>
+  <div id="modelsd" class="filterd" style="display:none">
+    <input id="modelss" class="filters" type="text" placeholder="Search...">
+    <div id="modelsl" class="filterl"></div>
   </div>
 </div>
 
@@ -194,8 +194,6 @@ hidden: true
 <button onclick="page=0;load_gifts()">Search</button>
 
 <div id="list"></div>
-
-<br>
 
 <div class="controls">
   <button onclick="page--;load_gifts()"><</button>
@@ -390,8 +388,15 @@ let models = [];
 let backdrops = [];
 let symbols = [];
 
-collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
-modelst.onclick = () => modelsd.style.display = modelsd.style.display=="flex"?"none":"flex";
+collectionst.onclick = () => {
+  collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
+  modelsd.style.display = "none";
+}
+
+modelst.onclick = () => {
+  modelsd.style.display = modelsd.style.display=="flex"?"none":"flex";
+  collectionsd.style.display = "none";
+}
 
 const gift_elements = {};
 
@@ -456,7 +461,11 @@ const update_models = (filter = "") => {
     modelsl.appendChild(div);
     return;
   }
-  filtered.forEach(({gift,model}) => {
+  filtered.sort((a, b) => {
+    const ain = models.includes(a.model)?-1:1;
+    const bin = models.includes(b.model)?-1:1;
+    return ain - bin;
+  }).forEach(({gift, model}) => {
     const div = document.createElement("div");
     div.innerText = gift + " - " + model;
     div.className = models.includes(model)?"active":"";
