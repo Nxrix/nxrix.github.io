@@ -167,6 +167,7 @@ hidden: true
 <div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
   <button id="modelst" class="filteri">Model</button>
+  <button id="backdropst" class="filteri">Backdrop</button>
 </div>
 <div style="display:flex;align-items:center;justify-content:center">
 
@@ -178,6 +179,11 @@ hidden: true
   <div id="modelsd" class="filterd" style="display:none">
     <input id="modelss" class="filters" type="text" autocomplete="off" placeholder="Search...">
     <div id="modelsl" class="filterl"></div>
+  </div>
+
+  <div id="backdropsd" class="filterd" style="display:none">
+    <input id="backdropss" class="filters" type="text" autocomplete="off" placeholder="Search...">
+    <div id="backdropsl" class="filterl"></div>
   </div>
 
 </div>
@@ -409,16 +415,6 @@ let models = parse("models");
 let backdrops = parse("backdrops");
 let symbols = parse("symbols");
 
-collectionst.onclick = () => {
-  collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
-  modelsd.style.display = "none";
-}
-
-modelst.onclick = () => {
-  modelsd.style.display = modelsd.style.display=="flex"?"none":"flex";
-  collectionsd.style.display = "none";
-}
-
 const gift_elements = {};
 
 gifts.forEach(gift => {
@@ -510,14 +506,71 @@ const update_models = (filter = "") => {
   });
 }
 
+const update_backdrops = (filter = "") => {
+  backdropsl.innerHTML = "";
+  let all = [];
+  if (collections.length == 0) {
+    const allData = gift_models.find(g => g._id == "All Names");
+    if (allData) all = allData.backgrounds.map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+  } else {
+    collections.forEach(gift => {
+      const gm = gift_models.find(g => g._id == gift);
+      if (gm) all = all.concat(gm.backgrounds.map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+    });
+  }
+  all = [...new Set(all)];
+  const filtered = all.filter(b => b.toLowerCase().includes(filter.toLowerCase()));
+  if (filtered.length == 0) {
+    const div = document.createElement("div");
+    div.innerText = "no backdrops found";
+    backdropsl.appendChild(div);
+    return;
+  }
+  filtered.forEach(b => {
+    const div = document.createElement("div");
+    div.innerText = b;
+    div.className = backdrops.includes(b)?"active":"";
+    div.onclick = () => {
+      if (backdrops.includes(b)) {
+        backdrops = backdrops.filter(x=>x!=b);
+      } else {
+        backdrops.push(b);
+      }
+      update_backdrops(backdropss.value);
+    };
+    backdropsl.appendChild(div);
+  });
+}
+
+collectionst.onclick = () => {
+  collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
+  modelsd.style.display = "none";
+  backdropsd.style.display = "none";
+}
+
+modelst.onclick = () => {
+  modelsd.style.display = modelsd.style.display=="flex"?"none":"flex";
+  collectionsd.style.display = "none";
+  backdropsd.style.display = "none";
+}
+
+backdropst.onclick = () => {
+  backdropsd.style.display = backdropsd.style.display=="flex"?"none":"flex";
+  collectionsd.style.display = "none";
+  modelsd.style.display = "none";
+}
+
 collectionss.oninput = () => {
   update_collections(collectionss.value);
   update_models(modelss.value);
+  update_backdrops(backdropss.value);
 }
 
 modelss.oninput = () => {
   update_models(modelss.value);
 }
+
+backdropss.oninput = () => update_backdrops(backdropss.value);
 
 window.onload = async () => {
   window.gift_models = await(await fetch("./json/gift-models.json")).json();
