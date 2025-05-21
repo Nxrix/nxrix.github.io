@@ -533,7 +533,7 @@ const update_backdrops = (filter = "") => {
     return ain - bin;
   }).forEach(b => {
     const div = document.createElement("div");
-    const color = gift_backdrops.find(x => x.backdrop == b)?.color?.centerColor;
+    const color = gift_backdrops.find(x => x.backdrop?.includes(b))?.color?.centerColor;
     const hex = color ? "#" + color.toString(16).padStart(6, "0") : "#000000";
     const dot = document.createElement("span");
     dot.style.background = hex;
