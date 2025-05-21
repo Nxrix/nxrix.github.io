@@ -397,22 +397,23 @@ gifts.forEach(gift => {
   collectionsl.appendChild(div);
 });
 
-const update_collections = (filter = "") => {
-  const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
-  gifts.forEach(gift => {
-    const div = gift_elements[gift];
-    if (filtered.includes(gift)) {
-      div.style.display = "block";
-    } else {
-      div.style.display = "none";
-    }
-    div.className = collections.includes(gift)?"active":"";
-  });
+window.onload = async () => {
+  window.models = await(await fetch("./json/gift-models.json")).json();
+  const update_collections = (filter = "") => {
+    const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
+    gifts.forEach(gift => {
+      const div = gift_elements[gift];
+      if (filtered.includes(gift)) {
+        div.style.display = "block";
+      } else {
+        div.style.display = "none";
+      }
+      div.className = collections.includes(gift)?"active":"";
+    });
+  }
+  collectionss.oninput = () => update_collections(collectionss.value);
+  update_collections();
+  load_gifts();
 }
-
-collectionss.oninput = () => update_collections(collectionss.value);
-update_collections();
-
-load_gifts();
 
 </script>
