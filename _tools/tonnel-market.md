@@ -378,7 +378,7 @@ const load_gifts = async () => {
   const data = await tonnel_search(page+1,limit,sort.value,"TON",{
     name: collections,
     model: models,
-    backdrop: backdrops,
+    backdrop: get_backdrops(backdrops),
     symbols: symbols
   });
   list.innerHTML = "";
@@ -414,6 +414,23 @@ let collections = parse("collections");
 let models = parse("models");
 let backdrops = parse("backdrops");
 let symbols = parse("symbols");
+
+const get_backdrops = (list) => {
+  let matched = [];
+  collections.forEach(gift => {
+    const gm = gift_models.find(g => g._id == gift);
+    if (!gm) return;
+    list.forEach(item => {
+      gm.backgrounds.forEach(bg => {
+        if (bg.includes(item)) {
+          const found = gift_backdrops.find(e => e.backdrop && e.backdrop.includes(item));
+          if (found && !matched.includes(found)) matched.push(found);
+        }
+      });
+    });
+  });
+  return matched;
+}
 
 const gift_elements = {};
 
@@ -542,8 +559,7 @@ const update_backdrops = (filter = "") => {
     dot.style.height = "15px";
     dot.style.borderRadius = "50%";
     dot.style.marginLeft = "4px";
-    dot.style.marginRight = "4px";
-    dot.style.verticalAlign = "middle";
+    dot.style.marginRight = "8px";
     div.appendChild(dot);
     div.appendChild(document.createTextNode(b));
     div.className = backdrops.includes(b) ? "active" : "";
