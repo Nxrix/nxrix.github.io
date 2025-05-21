@@ -125,15 +125,14 @@ hidden: true
 }
 
 .filteri {
-  display: inline;
-  padding: 8px;
-  margin: 4px;
+  margin: 8px 2px;
 }
 .filterd {
   display: none;
   flex-direction: column;
   overflow: hidden;
-  width: fit-content;
+  width: 100%;
+  max-width: 400px;
   max-height: 256px;
   padding: 8px;
   border-radius: 12px;
@@ -167,18 +166,20 @@ hidden: true
 ## Telegram Gifts Market
 
 
-<div id="collectionst" class="filteri">Collection</div>
-<div id="modelst" class="filteri">Model</div>
-<div>
+<button id="collectionst" class="filteri">Collection</button>
+<button id="modelst" class="filteri">Model</button>
+<div style="display:flex;align-items:center;justify-content:center">
+
   <div id="collectionsd" class="filterd">
     <input id="collectionss" class="filters" type="text" placeholder="Search...">
     <div id="collectionsl" class="filterl"></div>
   </div>
-  
+
   <div id="modelsd" class="filterd" style="display:none">
     <input id="modelss" class="filters" type="text" placeholder="Search...">
     <div id="modelsl" class="filterl"></div>
   </div>
+
 </div>
 
 <select id="sort">
@@ -351,7 +352,15 @@ load_gifts = async () => {
   list.innerHTML = "Loading...";
   page = Math.max(page,0);
   pagei.value = page+1;
-  //history.replaceState({},null,`../tools/tg-gifts-market/?p=${page}`);
+
+  const encode = (arr) => arr.map(encodeURIComponent).join(",");
+  history.replaceState({},null,`../tools/tg-gifts-market/p=${page}` +
+    (collections.length ? `&collections=${encode(collections)}` : "") +
+    (models.length ? `&models=${encode(models)}` : "") +
+    (backdrops.length ? `&backdrops=${encode(backdrops)}` : "") +
+    (symbols.length ? `&symbols=${encode(symbols)}` : "")
+  );
+
   const data = await tonnel_search(page+1,limit,sort.value,"TON",{
     name: collections,
     model: models,
@@ -383,10 +392,14 @@ const limit = 24;
 
 let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
 
-let collections = [];
-let models = [];
-let backdrops = [];
-let symbols = [];
+const parse = (key) => {
+  const val = url.searchParams.get(key);
+  return val ? val.split(",").map(decodeURIComponent) : [];
+}
+let collections = parse("collections");
+let models = parse("models");
+let backdrops = parse("backdrops");
+let symbols = parse("symbols");
 
 collectionst.onclick = () => {
   collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
