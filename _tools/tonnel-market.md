@@ -429,6 +429,7 @@ gifts.forEach(gift => {
     }
     update_collections(collectionss.value);
     update_models(modelss.value);
+    update_backdrops(backdropss.value);
   };
   gift_elements[gift] = div;
   collectionsl.appendChild(div);
@@ -577,6 +578,7 @@ window.onload = async () => {
   window.gift_backdrops = await(await fetch("./json/gift-backdrops.json")).json();
   update_collections();
   update_models();
+  update_backdrops();
   load_gifts();
 }
 
