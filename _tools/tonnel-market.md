@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Telegram Gifts Market"
-description: "Telegram Gifts Market"
+title: "Tonnel Marketplace"
+description: ""
 image: ".png"
 cid: 0
 hidden: true
@@ -163,10 +163,10 @@ hidden: true
 
 </style>
 
-## Telegram Gifts Market
+## Tonnel Marketplace
 
 
-<div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin: 0 auto;">
+<div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
   <button id="modelst" class="filteri">Model</button>
 </div>
@@ -350,8 +350,8 @@ const add_gift = (c,n,p) => {
   list.appendChild(gift);
 }
   
-load_gifts = async () => {
-  list.innerHTML = "Loading...";
+const load_gifts = async () => {
+  list.innerHTML = `<div style="padding:8px;">Loading...</div>`;
   page = Math.max(page,0);
   pagei.value = page+1;
 
@@ -375,7 +375,7 @@ load_gifts = async () => {
     //const p = Math.ceil(g.price*ton*usd/1000).toLocaleString("en-US")+"K IRT";
     add_gift(fix_name(g.name),g.gift_num,p);
   }
-  if (data.length==0) list.innerHTML = "No Gifts Found";
+  if (data.length==0) list.innerHTML = `<div style="padding:8px;">No Gifts Found</div>`;
 }
 
 pagei.onkeydown = e => {
@@ -396,7 +396,7 @@ let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
 sort.type = url.searchParams.get("s")||"d";
 const parse = (key) => {
   const val = url.searchParams.get(key);
-  return val ? val.split(",").map(decodeURIComponent) : [];
+  return val?val.split(",").map(decodeURIComponent):[];
 }
 let collections = parse("collections");
 let models = parse("models");
@@ -438,7 +438,7 @@ const remove_models_of_gift = (gift) => {
   if (!gm) return;
   gm.models.forEach(m => {
     const i = models.indexOf(m);
-    if (i > -1) models.splice(i, 1);
+    if (i > -1) models.splice(i,1);
   });
 }
 
@@ -476,7 +476,7 @@ const update_models = (filter = "") => {
     modelsl.appendChild(div);
     return;
   }
-  filtered.sort((a, b) => {
+  filtered.sort((a,b) => {
     const ain = models.includes(a.model)?-1:1;
     const bin = models.includes(b.model)?-1:1;
     return ain - bin;
