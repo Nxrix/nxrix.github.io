@@ -423,7 +423,7 @@ const get_backdrops = (list) => {
         const gm = gift_models.find(g => g._id == gift);
         if (!gm) return;
           gm.backgrounds.forEach(bg => {
-          if (bg.includes(item) && !matched.includes(bg)) {
+          if (bg.replace(/\s*\(\d+(\.\d+)?%\)/,"")==item && !matched.includes(bg)) {
             matched.push(bg);
           }
         });
@@ -553,7 +553,7 @@ const update_backdrops = (filter = "") => {
     return ain - bin;
   }).forEach(b => {
     const div = document.createElement("div");
-    const color = gift_backdrops.find(x => x.backdrop?.includes(b))?.color?.centerColor;
+    const color = gift_backdrops.find(x => x.backdrop.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b)?.color?.centerColor;
     const hex = color ? "#" + color.toString(16).padStart(6, "0") : "#000000";
     const dot = document.createElement("span");
     dot.style.background = hex;
