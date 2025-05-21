@@ -169,8 +169,6 @@ hidden: true
   <div id="collectionsl" class="filterl"></div>
 </div>
 
-<br>
-
 <select id="sort">
   <option value="d">Sort: Latest</option>
   <option value="p0">Sort: Price low to high</option>
@@ -184,6 +182,8 @@ hidden: true
 <button onclick="page=0;load_gifts()">Search</button>
 
 <div id="list"></div>
+
+<br>
 
 <div class="controls">
   <button onclick="page--;load_gifts()"><</button>
@@ -398,7 +398,7 @@ gifts.forEach(gift => {
 });
 
 window.onload = async () => {
-  window.models = await(await fetch("./json/gift-models.json")).json();
+  window.gift_models = await(await fetch("./json/gift-models.json")).json();
   const update_collections = (filter = "") => {
     const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
     gifts.forEach(gift => {
