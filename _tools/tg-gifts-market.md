@@ -433,31 +433,45 @@ const update_models = (filter = "") => {
   modelsl.innerHTML = "";
   if (collections.length == 0) {
     models.length = 0;
+    const div = document.createElement("div");
+    div.innerText = "no models found";
+    modelsl.appendChild(div);
     return;
   }
   let all = [];
   collections.forEach(gift => {
     const gm = gift_models.find(g => g._id == gift);
-    if (gm) all = all.concat(gm.models.map(m => ({gift,model:m})));
+    if (gm) all = all.concat(gm.models.slice(0, -1).map(m => ({gift,model:m})));
   });
   const filtered = all.filter(({model}) => model.toLowerCase().includes(filter.toLowerCase()));
-  models.length = 0;
+  if (filtered.length == 0) {
+    const div = document.createElement("div");
+    div.innerText = "no models found";
+    modelsl.appendChild(div);
+    return;
+  }
   filtered.forEach(({gift, model}) => {
     const div = document.createElement("div");
     div.innerText = model;
-    div.onclick = () => {
-      const index = models.indexOf(model);
-      if (index > -1) models.splice(index,1);
-      else models.push(model);
-      update_models(modelss.value);
-    };
     div.className = models.includes(model)?"active":"";
+    div.onclick = () => {
+      if (models.includes(model)) {
+        models = models.filter(m=>m!=model);
+      } else {
+        models.push(model);
+      }
+      update_models(filter);
+    };
     modelsl.appendChild(div);
   });
 }
 
 collectionss.oninput = () => {
   update_collections(collectionss.value);
+  update_models(modelss.value);
+}
+
+modelss.oninput = () => {
   update_models(modelss.value);
 }
 
