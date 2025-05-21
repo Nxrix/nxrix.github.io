@@ -171,12 +171,12 @@ hidden: true
 <div style="display:flex;align-items:center;justify-content:center">
 
   <div id="collectionsd" class="filterd">
-    <input id="collectionss" class="filters" type="text" autocomplete="false" placeholder="Search...">
+    <input id="collectionss" class="filters" type="text" autocomplete="off" placeholder="Search...">
     <div id="collectionsl" class="filterl"></div>
   </div>
 
   <div id="modelsd" class="filterd" style="display:none">
-    <input id="modelss" class="filters" type="text" autocomplete="false" placeholder="Search...">
+    <input id="modelss" class="filters" type="text" autocomplete="off" placeholder="Search...">
     <div id="modelsl" class="filterl"></div>
   </div>
 
@@ -513,6 +513,7 @@ modelss.oninput = () => {
 
 window.onload = async () => {
   window.gift_models = await(await fetch("./json/gift-models.json")).json();
+  window.gift_backdrops = await(await fetch("./json/gift-backdrops.json")).json();
   update_collections();
   update_models();
   load_gifts();
