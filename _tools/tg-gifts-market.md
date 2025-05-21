@@ -169,6 +169,12 @@ hidden: true
   <div id="collectionsl" class="filterl"></div>
 </div>
 
+<div id="modelst" class="filteri">Model</div>
+<div id="modelsd" class="filterd" style="display:none">
+  <input id="modelss" class="filters" type="text" placeholder="Search...">
+  <div id="modelsl" class="filterl"></div>
+</div>
+
 <select id="sort">
   <option value="d">Sort: Latest</option>
   <option value="p0">Sort: Price low to high</option>
@@ -379,6 +385,7 @@ let backdrops = [];
 let symbols = [];
 
 collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
+modelst.onclick = () => modelsd.style.display = modelsd.style.display=="flex"?"none":"flex";
 
 const gift_elements = {};
 
@@ -388,31 +395,76 @@ gifts.forEach(gift => {
   div.onclick = () => {
     if (collections.includes(gift)) {
       collections = collections.filter(g=>g!=gift);
+      remove_models_of_gift(gift);
     } else {
       collections.push(gift);
     }
     update_collections(collectionss.value);
+    update_models(modelss.value);
   };
   gift_elements[gift] = div;
   collectionsl.appendChild(div);
 });
 
+const remove_models_of_gift = (gift) => {
+  if (!gift_models) return;
+  const gm = gift_models.find(g => g._id == gift);
+  if (!gm) return;
+  gm.models.forEach(m => {
+    const i = models.indexOf(m);
+    if (i > -1) models.splice(i, 1);
+  });
+}
+
+const update_collections = (filter = "") => {
+  const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
+  gifts.forEach(gift => {
+    const div = gift_elements[gift];
+    if (filtered.includes(gift)) {
+      div.style.display = "block";
+    } else {
+      div.style.display = "none";
+    }
+    div.className = collections.includes(gift)?"active":"";
+  });
+}
+
+const update_models = (filter = "") => {
+  modelsl.innerHTML = "";
+  if (collections.length == 0) {
+    models.length = 0;
+    return;
+  }
+  let all = [];
+  collections.forEach(gift => {
+    const gm = gift_models.find(g => g._id == gift);
+    if (gm) all = allModels.concat(gm.models.map(m => ({gift, model: m})));
+  });
+  const filtered = all.filter(({model}) => model.toLowerCase().includes(filter.toLowerCase()));
+  models.length = 0;
+  filtered.forEach(({gift, model}) => {
+    const div = document.createElement("div");
+    div.innerText = model;
+    div.onclick = () => {
+      const index = models.indexOf(model);
+      if (index > -1) models.splice(index, 1);
+      else models.push(model);
+      update_models(modelss.value);
+    };
+    div.className = models.includes(model)?"active":"";
+    modelsl.appendChild(div);
+  });
+}
+
+collectionss.oninput = () => {
+  update_collections(collectionss.value);
+  update_models(modelss.value);
+}
+
 window.onload = async () => {
   window.gift_models = await(await fetch("./json/gift-models.json")).json();
-  const update_collections = (filter = "") => {
-    const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
-    gifts.forEach(gift => {
-      const div = gift_elements[gift];
-      if (filtered.includes(gift)) {
-        div.style.display = "block";
-      } else {
-        div.style.display = "none";
-      }
-      div.className = collections.includes(gift)?"active":"";
-    });
-  }
-  collectionss.oninput = () => update_collections(collectionss.value);
   update_collections();
+  update_models();
   load_gifts();
 }
 
