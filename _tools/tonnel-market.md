@@ -21,7 +21,7 @@ hidden: true
   margin: 2%;
   border-radius: calc(var(--font)/100*10);
   font-size: 0;
-  outline: 1px solid var(--md-sys-color-outline-variant);
+  /*outline: 1px solid var(--md-sys-color-outline-variant);*/
 }
 #list img {
   width: 100%;
@@ -60,7 +60,6 @@ hidden: true
   position: absolute;
   bottom: 9%;
   left: 10%;
-  font-family: "mono";
   font-size: calc(var(--font)/100*8);
   text-shadow: 0 0 1px black;
   color: #fff;
@@ -303,8 +302,16 @@ const tonnel_search = async (page=1,limit=8,sort="d",asset="TON",{name,model,bac
         asset,
         ...(     name?.length && { gift_name: name }),
         ...(    model?.length && {     model: { $in:    model } }),
-        ...( backdrop?.length && {  backdrop: { $in: backdrop } }),
-        ...(   symbol?.length && {    symbol: { $in:   symbol } })
+        ...(     name?.length
+          ?{
+            ...(backdrop?.length && { backdrop: { $in: backdrop } }),
+            ...(symbol?.length && { symbol: { $in: symbol } })
+          }
+          :{
+            ...(backdrop?.length && { backdrop: { $regex: backdrop.map(val => `^${val}\\(`).join("|") } }),
+            ...(symbol?.length && { symbol: { $regex: symbol.map(val => `^${val}\\(`).join("|") } })
+          }
+        )
       }),
       ref: 0,
       price_range: null,
