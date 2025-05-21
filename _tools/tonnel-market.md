@@ -512,11 +512,11 @@ const update_backdrops = (filter = "") => {
   let all = [];
   if (collections.length == 0) {
     const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.backgrounds.map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
   } else {
     collections.forEach(gift => {
       const gm = gift_models.find(g => g._id == gift);
-      if (gm) all = all.concat(gm.backgrounds.map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+      if (gm) all = all.concat(gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
     });
   }
   all = [...new Set(all)];
@@ -527,17 +527,33 @@ const update_backdrops = (filter = "") => {
     backdropsl.appendChild(div);
     return;
   }
-  filtered.forEach(b => {
+  filtered.sort((a, b) => {
+    const ain = backdrops.includes(a) ? -1 : 1;
+    const bin = backdrops.includes(b) ? -1 : 1;
+    return ain - bin;
+  }).forEach(b => {
     const div = document.createElement("div");
-    div.innerText = b;
-    div.className = backdrops.includes(b)?"active":"";
+    const color = gift_backdrops.find(x => x.backdrop == b)?.color?.centerColor;
+    const hex = color ? "#" + color.toString(16).padStart(6, "0") : "#000000";
+    const dot = document.createElement("span");
+    dot.style.background = hex;
+    dot.style.display = "inline-block";
+    dot.style.width = "15px";
+    dot.style.height = "15px";
+    dot.style.borderRadius = "50%";
+    dot.style.marginLeft = "4px";
+    dot.style.marginRight = "4px";
+    dot.style.verticalAlign = "middle";
+    div.appendChild(dot);
+    div.appendChild(document.createTextNode(b));
+    div.className = backdrops.includes(b) ? "active" : "";
     div.onclick = () => {
       if (backdrops.includes(b)) {
-        backdrops = backdrops.filter(x=>x!=b);
+        backdrops = backdrops.filter(x => x != b);
       } else {
         backdrops.push(b);
       }
-      update_backdrops(backdropss.value);
+      update_backdrops(filter);
     };
     backdropsl.appendChild(div);
   });
