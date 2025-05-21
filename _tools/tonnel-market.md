@@ -473,7 +473,15 @@ const update_models = (filter = "") => {
   let all = [];
   collections.forEach(gift => {
     const gm = gift_models.find(g => g._id == gift);
-    if (gm) all = all.concat(gm.models.slice(0, -1).map(m => ({gift,model:m})));
+    //if (gm) all = all.concat(gm.models.slice(0, -1).map(m => ({gift,model:m})));
+    if (gm) {
+    const sorted = gm.models.slice(0, -1).sort((a, b) => {
+      const pa = parseFloat(a.match(/\(([\d.]+)%\)/)?.[1] || 0);
+      const pb = parseFloat(b.match(/\(([\d.]+)%\)/)?.[1] || 0);
+      return pa - pb;
+    });
+    all = all.concat(sorted.map(m => ({gift,model:m})));
+  }
   });
   const filtered = all.filter(({model}) => model.toLowerCase().includes(filter.toLowerCase()));
   if (filtered.length == 0) {
