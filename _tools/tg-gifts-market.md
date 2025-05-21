@@ -123,9 +123,24 @@ hidden: true
   margin: 0 auto;
 }
 
-.filterd { display: none; border: 1px solid #ccc; padding: 5px; width: fit-content; max-height: 256px; overflow-y: auto; }
-.filterd div { cursor: pointer; padding: 4px; }
-.filterd div.active { outline: 1px solid #fff; }
+.filterd {
+  display: none;
+  width: fit-content;
+  max-height: 256px;
+  padding: 4px;
+  border-radius: 12px;
+  outline: 1px solid var(--md-sys-color-outline-variant);
+}
+.filterd .filterl {
+  overflow-y: auto;
+}
+.filterd .filterl div {
+  cursor: pointer;
+  padding: 4px;
+}
+.filterd .filterl div.active {
+  outline: 1px solid var(--md-sys-color-primary-container);
+}
 
 </style>
 
@@ -355,11 +370,11 @@ const update_collections = (filter = "") => {
   const unselected = filtered.filter(g => !collections.includes(g));
   [...selected, ...unselected].forEach(gift => {
     const div = document.createElement("div");
-    div.innerText = gift;
+    div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp">${gift}`;
     div.className = collections.includes(gift)?"active":"";
     div.onclick = () => {
       if (collections.includes(gift)) {
-        collections = collections.filter(g =>g!=gift);
+        collections = collections.filter(g=>g!=gift);
       } else {
         collections.push(gift);
       }
