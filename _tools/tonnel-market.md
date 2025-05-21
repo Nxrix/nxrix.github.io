@@ -533,7 +533,7 @@ const update_models = (filter = "") => {
   const filtered = all.filter(({model}) => model.toLowerCase().includes(filter.toLowerCase()));
   if (filtered.length == 0) {
     const div = document.createElement("div");
-    div.innerText = "no models found";
+    div.innerText = "No Models Found";
     modelsl.appendChild(div);
     return;
   }
@@ -573,7 +573,7 @@ const update_backdrops = (filter = "") => {
   const filtered = all.filter(b => b.toLowerCase().includes(filter.toLowerCase()));
   if (filtered.length == 0) {
     const div = document.createElement("div");
-    div.innerText = "no backdrops found";
+    div.innerText = "No Backdrops Found";
     backdropsl.appendChild(div);
     return;
   }
@@ -613,18 +613,18 @@ const update_symbols = (filter = "") => {
   let all = [];
   if (collections.length == 0) {
     const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.backgrounds.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,""));
+    if (allData) all = allData.symbols.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,""));
   } else {
     collections.forEach(gift => {
       const gm = gift_models.find(g => g._id == gift);
-      if (gm) all = all.concat(gm.backgrounds.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,"")));
+      if (gm) all = all.concat(gm.symbols.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,"")));
     });
   }
   all = [...new Set(all)];
   const filtered = all.filter(s => s.toLowerCase().includes(filter.toLowerCase()));
   if (filtered.length == 0) {
     const div = document.createElement("div");
-    div.innerText = "no symbols found";
+    div.innerText = "No Symbols Found";
     symbolsl.appendChild(div);
     return;
   }
@@ -652,18 +652,21 @@ collectionst.onclick = () => {
   collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
   modelsd.style.display = "none";
   backdropsd.style.display = "none";
+  symbolsd.style.display = "none";
 }
 
 modelst.onclick = () => {
   modelsd.style.display = modelsd.style.display=="flex"?"none":"flex";
   collectionsd.style.display = "none";
   backdropsd.style.display = "none";
+  symbolsd.style.display = "none";
 }
 
 backdropst.onclick = () => {
   backdropsd.style.display = backdropsd.style.display=="flex"?"none":"flex";
   collectionsd.style.display = "none";
   modelsd.style.display = "none";
+  symbolsd.style.display = "none";
 }
 
 symbolst.onclick = () => {
