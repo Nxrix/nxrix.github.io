@@ -168,6 +168,7 @@ hidden: true
   <button id="collectionst" class="filteri">Collection</button>
   <button id="modelst" class="filteri">Model</button>
   <button id="backdropst" class="filteri">Backdrop</button>
+  <button id="symbolst" class="filteri">Symbol</button>
 </div>
 <div style="display:flex;align-items:center;justify-content:center">
 
@@ -184,6 +185,11 @@ hidden: true
   <div id="backdropsd" class="filterd" style="display:none">
     <input id="backdropss" class="filters" type="text" autocomplete="off" placeholder="Search...">
     <div id="backdropsl" class="filterl"></div>
+  </div>
+
+  <div id="symbolsd" class="filterd" style="display:none">
+    <input id="symbolss" class="filters" type="text" autocomplete="off" placeholder="Search...">
+    <div id="symbolsl" class="filterl"></div>
   </div>
 
 </div>
@@ -367,19 +373,13 @@ const load_gifts = async () => {
   page = Math.max(page,0);
   pagei.value = page+1;
 
-  const encode = (arr) => arr.map(encodeURIComponent).join(",");
-  history.replaceState({},null,`../tools/tonnel-market/?p=${page}&s=${sort.value}` +
-    (collections.length ? `&collections=${encode(collections)}` : "") +
-    (models.length ? `&models=${encode(models)}` : "") +
-    (backdrops.length ? `&backdrops=${encode(backdrops)}` : "") +
-    (symbols.length ? `&symbols=${encode(symbols)}` : "")
-  );
+  update_url();
 
   const data = await tonnel_search(page+1,limit,sort.value,"TON",{
     name: collections,
     model: models,
     backdrop: get_backdrops(backdrops),
-    symbols: symbols
+    symbols: get_symbols(symbols)
   });
   list.innerHTML = "";
   for (g of data) {
@@ -415,6 +415,16 @@ let models = parse("models");
 let backdrops = parse("backdrops");
 let symbols = parse("symbols");
 
+const update_url = () => {
+  const encode = (arr) => arr.map(encodeURIComponent).join(",");
+  history.replaceState({},null,`../tools/tonnel-market/?p=${page}&s=${sort.value}` +
+    (collections.length ? `&collections=${encode(collections)}` : "") +
+    (models.length ? `&models=${encode(models)}` : "") +
+    (backdrops.length ? `&backdrops=${encode(backdrops)}` : "") +
+    (symbols.length ? `&symbols=${encode(symbols)}` : "")
+  );
+}
+
 const get_backdrops = (list) => {
   if (collections.length>0) {
     let matched = [];
@@ -425,6 +435,25 @@ const get_backdrops = (list) => {
           gm.backgrounds.forEach(bg => {
           if (bg.replace(/\s*\(\d+(\.\d+)?%\)/,"")==item && !matched.includes(bg)) {
             matched.push(bg);
+          }
+        });
+      });
+    });
+    return matched;
+  } else {
+    return list;
+  }
+}
+const get_symbols = (list) => {
+  if (collections.length>0) {
+    let matched = [];
+    list.forEach(item => {
+      collections.forEach(gift => {
+        const gm = gift_models.find(g => g._id == gift);
+        if (!gm) return;
+          gm.symbols.forEach(s => {
+          if (s.replace(/\s*\(\d+(\.\d+)?%\)/,"")==item && !matched.includes(s)) {
+            matched.push(s);
           }
         });
       });
@@ -450,6 +479,7 @@ gifts.forEach(gift => {
     update_collections(collectionss.value);
     update_models(modelss.value);
     update_backdrops(backdropss.value);
+    update_symbols(symbols.value);
   };
   gift_elements[gift] = div;
   collectionsl.appendChild(div);
@@ -553,7 +583,7 @@ const update_backdrops = (filter = "") => {
     return ain - bin;
   }).forEach(b => {
     const div = document.createElement("div");
-    const color = gift_backdrops.find(x => x.backdrop.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b)?.color?.centerColor;
+    const color = gift_backdrops.find(x => x.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b)?.color?.centerColor;
     const hex = color ? "#" + color.toString(16).padStart(6, "0") : "#000000";
     const dot = document.createElement("span");
     dot.style.background = hex;
@@ -578,6 +608,46 @@ const update_backdrops = (filter = "") => {
   });
 }
 
+const update_symbols = (filter = "") => {
+  symbolsl.innerHTML = "";
+  let all = [];
+  if (collections.length == 0) {
+    const allData = gift_models.find(g => g._id == "All Names");
+    if (allData) all = allData.backgrounds.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,""));
+  } else {
+    collections.forEach(gift => {
+      const gm = gift_models.find(g => g._id == gift);
+      if (gm) all = all.concat(gm.backgrounds.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,"")));
+    });
+  }
+  all = [...new Set(all)];
+  const filtered = all.filter(s => s.toLowerCase().includes(filter.toLowerCase()));
+  if (filtered.length == 0) {
+    const div = document.createElement("div");
+    div.innerText = "no symbols found";
+    symbolsl.appendChild(div);
+    return;
+  }
+  filtered.sort((a, b) => {
+    const ain = symbols.includes(a) ? -1 : 1;
+    const bin = symbols.includes(b) ? -1 : 1;
+    return ain - bin;
+  }).forEach(s => {
+    const div = document.createElement("div");
+    div.innerText = s;
+    div.className = symbols.includes(s) ? "active" : "";
+    div.onclick = () => {
+      if (symbols.includes(s)) {
+        symbols = symbols.filter(x => x != s);
+      } else {
+        symbols.push(s);
+      }
+      update_symbols(filter);
+    };
+    symbolsl.appendChild(div);
+  });
+}
+
 collectionst.onclick = () => {
   collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
   modelsd.style.display = "none";
@@ -596,17 +666,24 @@ backdropst.onclick = () => {
   modelsd.style.display = "none";
 }
 
+symbolst.onclick = () => {
+  symbolsd.style.display = symbolsd.style.display=="flex"?"none":"flex";
+  collectionsd.style.display = "none";
+  modelsd.style.display = "none";
+  backdropsd.style.display = "none";
+}
+
 collectionss.oninput = () => {
   update_collections(collectionss.value);
   update_models(modelss.value);
   update_backdrops(backdropss.value);
+  update_symbols(symbolss.value);
 }
 
-modelss.oninput = () => {
-  update_models(modelss.value);
-}
-
+modelss.oninput = () => update_models(modelss.value);
 backdropss.oninput = () => update_backdrops(backdropss.value);
+symbolss.oninput = () => update_symbols(symbolss.value);
+
 
 window.onload = async () => {
   window.gift_models = await(await fetch("./json/gift-models.json")).json();
@@ -614,6 +691,7 @@ window.onload = async () => {
   update_collections();
   update_models();
   update_backdrops();
+  update_symbols();
   load_gifts();
 }
 
