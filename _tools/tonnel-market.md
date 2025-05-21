@@ -379,7 +379,7 @@ const load_gifts = async () => {
     name: collections,
     model: models,
     backdrop: get_backdrops(backdrops),
-    symbols: get_symbols(symbols)
+    symbol: get_symbols(symbols)
   });
   list.innerHTML = "";
   for (g of data) {
