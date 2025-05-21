@@ -166,7 +166,7 @@ hidden: true
 ## Telegram Gifts Market
 
 
-<div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;">
+<div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin: 0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
   <button id="modelst" class="filteri">Model</button>
 </div>
