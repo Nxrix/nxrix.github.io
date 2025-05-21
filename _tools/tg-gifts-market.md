@@ -155,6 +155,9 @@ hidden: true
 .filterd .filterl div.active {
   border-left: 2px solid var(--md-sys-color-primary-container);
 }
+.filterd .filterl div.hidden {
+  diplay: none;
+}
 
 </style>
 
@@ -375,43 +378,36 @@ let models = [];
 let backdrops = [];
 let symbols = [];
 
-const gift_thumbs = {};
+const gift_elements = {};
 gifts.forEach(gift => {
-    const img = new Image();
-    img.src = `https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp`;
-    gift_thumbs[gift] = img;
+  const div = document.createElement("div");
+  div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp">${gift}`;
+  div.className = collections.includes(gift) ? "active" : "";
+  div.onclick = () => {
+    if (collections.includes(gift)) {
+      collections = collections.filter(g => g != gift);
+      div.classList.remove("active");
+    } else {
+      collections.push(gift);
+      div.classList.add("active");
+    }
+  };
+  collectionsl.appendChild(div);
+  gift_elements[gift] = div;
 });
 
-collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
-
 const update_collections = (filter = "") => {
-  collectionsl.innerHTML = "";
-  const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
-  const selected = collections.filter(g => filtered.includes(g));
-  const unselected = filtered.filter(g => !collections.includes(g));
-  [...selected, ...unselected].forEach(gift => {
-    const div = document.createElement("div");
-
-    const img = gift_thumbs[gift].cloneNode();
-    div.appendChild(img);
-    div.appendChild(document.createTextNode(gift));
-
-    div.className = collections.includes(gift)?"active":"";
-    
-    div.onclick = () => {
-      if (collections.includes(gift)) {
-        collections = collections.filter(g=>g!=gift);
-      } else {
-        collections.push(gift);
-      }
-      update_collections(collectionss.value);
-    };
-    collectionsl.appendChild(div);
+  gifts.forEach(gift => {
+    const div = gift_elements[gift];
+    if (gift.toLowerCase().includes(filter.toLowerCase())) {
+      div.classList.remove("hidden");
+    } else {
+      div.classList.add("hidden");
+    }
   });
-}
+};
 
 collectionss.oninput = () => update_collections(collectionss.value);
-
 update_collections();
 
 load_gifts();
