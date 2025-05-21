@@ -395,7 +395,7 @@ let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
 sort.value = url.searchParams.get("s")||"d";
 const parse = (key) => {
   const val = url.searchParams.get(key);
-  return val?val.split(",").map(decodeURIComponent):[];
+  return val?val.split(","):[];
 }
 let collections = parse("collections");
 let models = parse("models");
