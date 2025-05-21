@@ -163,16 +163,22 @@ hidden: true
 
 ## Telegram Gifts Market
 
-<div id="collectionst" class="filteri">Collection</div>
-<div id="collectionsd" class="filterd">
-  <input id="collectionss" class="filters" type="text" placeholder="Search...">
-  <div id="collectionsl" class="filterl"></div>
-</div>
-
-<div id="modelst" class="filteri">Model</div>
-<div id="modelsd" class="filterd" style="display:none">
-  <input id="modelss" class="filters" type="text" placeholder="Search...">
-  <div id="modelsl" class="filterl"></div>
+<div style="display: grid;grid-template-columns: auto auto">
+  <div>
+    <div id="collectionst" class="filteri">Collection</div>
+    <div id="collectionsd" class="filterd">
+      <input id="collectionss" class="filters" type="text" placeholder="Search...">
+      <div id="collectionsl" class="filterl"></div>
+    </div>
+  </div>
+  
+  <div>
+    <div id="modelst" class="filteri">Model</div>
+    <div id="modelsd" class="filterd" style="display:none">
+      <input id="modelss" class="filters" type="text" placeholder="Search...">
+      <div id="modelsl" class="filterl"></div>
+    </div>
+  </div>
 </div>
 
 <select id="sort">
@@ -434,7 +440,7 @@ const update_models = (filter = "") => {
   if (collections.length == 0) {
     models.length = 0;
     const div = document.createElement("div");
-    div.innerText = "no models found";
+    div.innerText = "No Models Found";
     modelsl.appendChild(div);
     return;
   }
@@ -450,9 +456,9 @@ const update_models = (filter = "") => {
     modelsl.appendChild(div);
     return;
   }
-  filtered.forEach(({gift, model}) => {
+  filtered.forEach(({gift,model}) => {
     const div = document.createElement("div");
-    div.innerText = model;
+    div.innerText = gift + " - " + model;
     div.className = models.includes(model)?"active":"";
     div.onclick = () => {
       if (models.includes(model)) {
