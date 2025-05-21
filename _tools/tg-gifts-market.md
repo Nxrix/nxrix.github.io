@@ -438,7 +438,7 @@ const update_models = (filter = "") => {
   let all = [];
   collections.forEach(gift => {
     const gm = gift_models.find(g => g._id == gift);
-    if (gm) all = allModels.concat(gm.models.map(m => ({gift, model: m})));
+    if (gm) all = all.concat(gm.models.map(m => ({gift,model:m})));
   });
   const filtered = all.filter(({model}) => model.toLowerCase().includes(filter.toLowerCase()));
   models.length = 0;
@@ -447,7 +447,7 @@ const update_models = (filter = "") => {
     div.innerText = model;
     div.onclick = () => {
       const index = models.indexOf(model);
-      if (index > -1) models.splice(index, 1);
+      if (index > -1) models.splice(index,1);
       else models.push(model);
       update_models(modelss.value);
     };
