@@ -166,8 +166,10 @@ hidden: true
 ## Telegram Gifts Market
 
 
-<button id="collectionst" class="filteri">Collection</button>
-<button id="modelst" class="filteri">Model</button>
+<div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;">
+  <button id="collectionst" class="filteri">Collection</button>
+  <button id="modelst" class="filteri">Model</button>
+</div>
 <div style="display:flex;align-items:center;justify-content:center">
 
   <div id="collectionsd" class="filterd">
@@ -354,7 +356,7 @@ load_gifts = async () => {
   pagei.value = page+1;
 
   const encode = (arr) => arr.map(encodeURIComponent).join(",");
-  history.replaceState({},null,`../tools/tg-gifts-market/p=${page}` +
+  history.replaceState({},null,`../tools/tg-gifts-market/?p=${page}&s=${sort.type}` +
     (collections.length ? `&collections=${encode(collections)}` : "") +
     (models.length ? `&models=${encode(models)}` : "") +
     (backdrops.length ? `&backdrops=${encode(backdrops)}` : "") +
@@ -391,7 +393,7 @@ const url = new URL(url_string);
 const limit = 24;
 
 let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
-
+sort.type = url.searchParams.get("s"))||"d";
 const parse = (key) => {
   const val = url.searchParams.get(key);
   return val ? val.split(",").map(decodeURIComponent) : [];
