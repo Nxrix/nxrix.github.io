@@ -129,6 +129,7 @@ hidden: true
 .filterd {
   display: none;
   flex-direction: column;
+  overflow: hidden;
   width: fit-content;
   max-height: 256px;
   padding: 4px;
