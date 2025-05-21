@@ -162,7 +162,7 @@ hidden: true
 
 </style>
 
-## Tonnel Marketplace
+### Tonnel Marketplace
 
 <div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
@@ -210,7 +210,7 @@ hidden: true
 
 <div class="controls">
   <button onclick="page--;load_gifts()"><</button>
-  <input type="text" id="pagei">
+  <input id="pagei" type="text" autocomplete="off">
   <button onclick="page++;load_gifts()">></button>
 </div>
 
