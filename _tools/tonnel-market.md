@@ -165,7 +165,6 @@ hidden: true
 
 ## Tonnel Marketplace
 
-
 <div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
   <button id="modelst" class="filteri">Model</button>
@@ -173,12 +172,12 @@ hidden: true
 <div style="display:flex;align-items:center;justify-content:center">
 
   <div id="collectionsd" class="filterd">
-    <input id="collectionss" class="filters" type="text" placeholder="Search...">
+    <input id="collectionss" class="filters" type="text" autocomplete="false" placeholder="Search...">
     <div id="collectionsl" class="filterl"></div>
   </div>
 
   <div id="modelsd" class="filterd" style="display:none">
-    <input id="modelss" class="filters" type="text" placeholder="Search...">
+    <input id="modelss" class="filters" type="text" autocomplete="false" placeholder="Search...">
     <div id="modelsl" class="filterl"></div>
   </div>
 
@@ -356,7 +355,7 @@ const load_gifts = async () => {
   pagei.value = page+1;
 
   const encode = (arr) => arr.map(encodeURIComponent).join(",");
-  history.replaceState({},null,`../tools/tonnel-market/?p=${page}&s=${sort.type}` +
+  history.replaceState({},null,`../tools/tonnel-market/?p=${page}&s=${sort.value}` +
     (collections.length ? `&collections=${encode(collections)}` : "") +
     (models.length ? `&models=${encode(models)}` : "") +
     (backdrops.length ? `&backdrops=${encode(backdrops)}` : "") +
@@ -393,7 +392,7 @@ const url = new URL(url_string);
 const limit = 24;
 
 let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
-sort.type = url.searchParams.get("s")||"d";
+sort.value = url.searchParams.get("s")||"d";
 const parse = (key) => {
   const val = url.searchParams.get(key);
   return val?val.split(",").map(decodeURIComponent):[];
