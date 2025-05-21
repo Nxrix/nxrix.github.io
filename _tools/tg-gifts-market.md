@@ -393,7 +393,7 @@ const url = new URL(url_string);
 const limit = 24;
 
 let page = Math.max(parseInt(url.searchParams.get("p"))||0,0);
-sort.type = url.searchParams.get("s"))||"d";
+sort.type = url.searchParams.get("s")||"d";
 const parse = (key) => {
   const val = url.searchParams.get(key);
   return val ? val.split(",").map(decodeURIComponent) : [];
