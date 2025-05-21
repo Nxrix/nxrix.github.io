@@ -416,19 +416,23 @@ let backdrops = parse("backdrops");
 let symbols = parse("symbols");
 
 const get_backdrops = (list) => {
-  let matched = [];
-  list.forEach(item => {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (!gm) return;
-        gm.backgrounds.forEach(bg => {
-        if (bg.includes(item) && !matched.includes(bg)) {
-          matched.push(bg);
-        }
+  if (collections.length>0) {
+    let matched = [];
+    list.forEach(item => {
+      collections.forEach(gift => {
+        const gm = gift_models.find(g => g._id == gift);
+        if (!gm) return;
+          gm.backgrounds.forEach(bg => {
+          if (bg.includes(item) && !matched.includes(bg)) {
+            matched.push(bg);
+          }
+        });
       });
     });
-  });
-  return matched;
+    return matched;
+  } else {
+    return list;
+  }
 }
 
 const gift_elements = {};
