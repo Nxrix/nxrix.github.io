@@ -132,7 +132,7 @@ hidden: true
   overflow: hidden;
   width: fit-content;
   max-height: 256px;
-  padding: 4px;
+  padding: 8px;
   border-radius: 12px;
   outline: 1px solid var(--md-sys-color-outline-variant);
 }
@@ -144,7 +144,7 @@ hidden: true
   overflow-y: auto;
 }
 .filterd .filterl div img {
-  width: 16px;
+  width: 15px;
   margin-left: 4px;
   margin-right: 4px;
 }
@@ -376,12 +376,11 @@ let backdrops = [];
 let symbols = [];
 
 const gift_thumbs = {};
-
-gifts.forEach(gift => {
-    const img = new Image();
-    img.src = `https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp`;
-    gift_thumbs[gift] = img;
-});
+Promise.all(gifts.map(gift =>
+  fetch(`https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp`)
+    .then(r => r.blob())
+    .then(b => gift_thumbs[gift] = URL.createObjectURL(b))
+));
 
 collectionst.onclick = () => collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
 
@@ -392,10 +391,8 @@ const update_collections = (filter = "") => {
   const unselected = filtered.filter(g => !collections.includes(g));
   [...selected, ...unselected].forEach(gift => {
     const div = document.createElement("div");
-    
-    const img = gift_thumbs[gift].cloneNode();
-    div.appendChild(img);
-    div.appendChild(document.createTextNode(gift));
+
+    div.innerHTML = `<img src="${gift_thumbs[gift]}">${gift}`;
     div.className = collections.includes(gift)?"active":"";
     
     div.onclick = () => {
