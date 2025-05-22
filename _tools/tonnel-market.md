@@ -193,26 +193,23 @@ hidden: true
   </div>
 
 </div>
-<div style="width:fit-content;max-width:400px;margin:0 auto;">
 
-  <select id="sort">
-    <option value="d">Sort By Latest</option>
-    <option value="p0">Sort By Price low to high</option>
-    <option value="p1">Sort By Price high to low</option>
-    <option value="i">Sort By ID</option>
-    <option value="r">Sort By Rarity</option>
-    <option value="m">Sort By Model</option>
-    <option value="b">Sort By Backdrop</option>
-    <option value="s">Sort By Symbol</option>
-  </select>
-  <select id="asset" style="margin-left: 8px;">
-    <option value="TON">Ton</option>
-    <option value="TONNEL">Tonnel</option>
-    <option value="USDT">USDT</option>
-  </select>
-  <button id="btn_s">Search</button>
-
-</div>
+<select id="sort" style="margin-right:8px;">
+  <option value="d">Sort By Latest</option>
+  <option value="p0">Sort By Price low to high</option>
+  <option value="p1">Sort By Price high to low</option>
+  <option value="i">Sort By ID</option>
+  <option value="r">Sort By Rarity</option>
+  <option value="m">Sort By Model</option>
+  <option value="b">Sort By Backdrop</option>
+  <option value="s">Sort By Symbol</option>
+</select>
+<select id="asset">
+  <option value="TON">Ton</option>
+  <option value="TONNEL">Tonnel</option>
+  <option value="USDT">USDT</option>
+</select>
+<button id="btn_s">Search</button>
 
 <div id="list"></div>
 
