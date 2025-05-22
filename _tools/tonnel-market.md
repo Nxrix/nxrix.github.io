@@ -166,7 +166,7 @@ hidden: true
 
 Donate TON to support development
 <br>
-`UQBEsTMky8JjYU2lF0uyWPrg\_XtyPNUzix888KF424wHv-Nx`
+`UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx`
 
 <div style="width:fit-content;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
