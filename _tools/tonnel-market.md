@@ -162,7 +162,7 @@ hidden: true
 
 </style>
 
-### Tonnel Marketplace
+### Tonnel Market
 
 <div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
@@ -193,18 +193,26 @@ hidden: true
   </div>
 
 </div>
+<div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin:0 auto;">
 
-<select id="sort">
-  <option value="d">Sort: Latest</option>
-  <option value="p0">Sort: Price low to high</option>
-  <option value="p1">Sort: Price high to low</option>
-  <option value="i">Sort: ID</option>
-  <option value="r">Sort: Rarity</option>
-  <option value="m">Sort: Model</option>
-  <option value="b">Sort: Backdrop</option>
-  <option value="s">Sort: Symbol</option>
-</select>
-<button id="btn_s">Search</button>
+  <select id="sort">
+    <option value="d">Sort By Latest</option>
+    <option value="p0">Sort By Price low to high</option>
+    <option value="p1">Sort By Price high to low</option>
+    <option value="i">Sort By ID</option>
+    <option value="r">Sort By Rarity</option>
+    <option value="m">Sort By Model</option>
+    <option value="b">Sort By Backdrop</option>
+    <option value="s">Sort By Symbol</option>
+  </select>
+    <select id="asset">
+    <option value="TON">Ton</option>
+    <option value="TONNEL">Tonnel</option>
+    <option value="USDT">USDT</option>
+  </select>
+  <button id="btn_s">Search</button>
+
+</div>
 
 <div id="list"></div>
 
