@@ -205,7 +205,7 @@ hidden: true
     <option value="b">Sort By Backdrop</option>
     <option value="s">Sort By Symbol</option>
   </select>
-    <select id="asset">
+  <select id="asset" style="margin-left: 8px;">
     <option value="TON">Ton</option>
     <option value="TONNEL">Tonnel</option>
     <option value="USDT">USDT</option>
