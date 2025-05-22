@@ -164,7 +164,7 @@ hidden: true
 
 ### Tonnel Market
 
-<div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin:0 auto;">
+<div style="width:max-content;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
   <button id="modelst" class="filteri">Model</button>
   <button id="backdropst" class="filteri">Backdrop</button>
@@ -193,7 +193,7 @@ hidden: true
   </div>
 
 </div>
-<div style="display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;margin:0 auto;">
+<div style="width:max-content;max-width:400px;margin:0 auto;">
 
   <select id="sort">
     <option value="d">Sort By Latest</option>
