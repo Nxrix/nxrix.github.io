@@ -58,7 +58,7 @@ hidden: true
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 9%;
+  bottom: 8%;
   left: 10%;
   font-size: calc(var(--font)/100*8);
   text-shadow: 0 0 1px black;
@@ -163,6 +163,10 @@ hidden: true
 </style>
 
 ### Tonnel Market
+
+Donate TON to support development
+<br>
+`UQBEsTMky8JjYU2lF0uyWPrg\_XtyPNUzix888KF424wHv-Nx`
 
 <div style="width:fit-content;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
