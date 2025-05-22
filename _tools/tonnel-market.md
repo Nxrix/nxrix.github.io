@@ -223,4 +223,8 @@ Donate TON to support development
   <button id="btn_p">></button>
 </div>
 
+<script src="./js/telegram-web-app.js?{{site.time|date:'%s%N'}}"></script>
+<script>
+window.Telegram.WebApp.disableVerticalSwipes();
+</script>
 <script src="./js/tonnel-market.js?{{site.time|date:'%s%N'}}"></script>
