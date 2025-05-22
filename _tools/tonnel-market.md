@@ -204,14 +204,14 @@ hidden: true
   <option value="b">Sort: Backdrop</option>
   <option value="s">Sort: Symbol</option>
 </select>
-<button onclick="page=0;load_gifts()">Search</button>
+<button id="btn_s">Search</button>
 
 <div id="list"></div>
 
 <div class="controls">
-  <button onclick="page--;load_gifts()"><</button>
+  <button id="btn_q"><</button>
   <input id="pagei" type="text" autocomplete="off">
-  <button onclick="page++;load_gifts()">></button>
+  <button id="btn_p">></button>
 </div>
 
-<script src="./js/tonnel-market.js"></script>
+<script src="./js/tonnel-market.js?{{site.time|date:'%s%N'}}"></script>
