@@ -165,8 +165,8 @@ hidden: true
 ### Tonnel Market
 
 Donate TON to support development
-<br>
 <div style="user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
+<br>
 
 <div style="width:fit-content;max-width:400px;margin:0 auto;">
   <button id="collectionst" class="filteri">Collection</button>
