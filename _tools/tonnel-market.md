@@ -181,7 +181,7 @@ Donate TON to support development
     <button id="backdropst" class="filteri">Backdrop</button>
     <button id="symbolst" class="filteri">Symbol</button>
   </div>
-
+‌‌  <br>
   <div style="display:flex;align-items:center;justify-content:center">
 
     <div id="collectionsd" class="filterd">
