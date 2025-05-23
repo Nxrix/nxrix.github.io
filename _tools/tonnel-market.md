@@ -225,6 +225,7 @@ Donate TON to support development
     <option value="usd">USD</option>
     <option value="irt">IRT</option>
     <option value="rub">RUB</option>
+    <option value="eur">EUR</option>
   </select>
   <button id="btn_s">Search</button>
 
