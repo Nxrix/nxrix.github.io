@@ -217,6 +217,7 @@ Donate TON to support development
   <option value="def">Asset</option>
   <option value="usd">USD</option>
   <option value="irt">IRT</option>
+  <option value="rub">RUB</option>
 </select>
 <button id="btn_s">Search</button>
 
