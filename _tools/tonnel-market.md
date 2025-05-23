@@ -181,7 +181,6 @@ hidden: true
     <button id="backdropst" class="filteri">Backdrop</button>
     <button id="symbolst" class="filteri">Symbol</button>
   </div>
-‌‌
   <div style="display:flex;align-items:center;justify-content:center">
 
     <div id="collectionsd" class="filterd">
