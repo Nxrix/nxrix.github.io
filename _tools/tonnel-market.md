@@ -181,7 +181,7 @@ Donate TON to support development
     <button id="backdropst" class="filteri">Backdrop</button>
     <button id="symbolst" class="filteri">Symbol</button>
   </div>
-‌‌  <br>
+‌‌
   <div style="display:flex;align-items:center;justify-content:center">
 
     <div id="collectionsd" class="filterd">
@@ -205,7 +205,7 @@ Donate TON to support development
     </div>
 
   </div>
-
+  <br>
   <select id="sort" style="margin-right:8px;">
     <option value="d">Sort By Latest</option>
     <option value="p0">Sort By Price low to high</option>
