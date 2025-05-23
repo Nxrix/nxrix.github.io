@@ -174,13 +174,14 @@ Donate TON to support development
 <div id="loading1" style="display: none;">
   <div id="ton_price"></div>
   <div id="tonnel_price"></div>
-
+  <br>
   <div style="width:fit-content;max-width:400px;margin:0 auto;">
     <button id="collectionst" class="filteri">Collection</button>
     <button id="modelst" class="filteri">Model</button>
     <button id="backdropst" class="filteri">Backdrop</button>
     <button id="symbolst" class="filteri">Symbol</button>
   </div>
+
   <div style="display:flex;align-items:center;justify-content:center">
 
     <div id="collectionsd" class="filterd">
