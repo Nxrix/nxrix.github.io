@@ -164,7 +164,7 @@ hidden: true
 
 ### Tonnel Market
 
-Donate TON to support development
+<div>Donate TON to support development</div>
 <div style="user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
 <br>
 
