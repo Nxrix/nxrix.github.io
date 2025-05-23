@@ -168,65 +168,73 @@ Donate TON to support development
 <div style="user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
 <br>
 
-<div style="width:fit-content;max-width:400px;margin:0 auto;">
-  <button id="collectionst" class="filteri">Collection</button>
-  <button id="modelst" class="filteri">Model</button>
-  <button id="backdropst" class="filteri">Backdrop</button>
-  <button id="symbolst" class="filteri">Symbol</button>
+<div id="loading0" style="display:flex;justify-content:center;align-items:center;aspect-ratio:2;font-size:32px;">
+  Loading...
 </div>
-<div style="display:flex;align-items:center;justify-content:center">
+<div id="loading1" style="display: none;">
+  <div id="ton_price"></div>
+  <div id="tonnel_price"></div>
 
-  <div id="collectionsd" class="filterd">
-    <input id="collectionss" class="filters" type="text" autocomplete="off" placeholder="Search...">
-    <div id="collectionsl" class="filterl"></div>
+  <div style="width:fit-content;max-width:400px;margin:0 auto;">
+    <button id="collectionst" class="filteri">Collection</button>
+    <button id="modelst" class="filteri">Model</button>
+    <button id="backdropst" class="filteri">Backdrop</button>
+    <button id="symbolst" class="filteri">Symbol</button>
   </div>
+  <div style="display:flex;align-items:center;justify-content:center">
 
-  <div id="modelsd" class="filterd" style="display:none">
-    <input id="modelss" class="filters" type="text" autocomplete="off" placeholder="Search...">
-    <div id="modelsl" class="filterl"></div>
-  </div>
+    <div id="collectionsd" class="filterd">
+      <input id="collectionss" class="filters" type="text" autocomplete="off" placeholder="Search...">
+      <div id="collectionsl" class="filterl"></div>
+    </div>
 
-  <div id="backdropsd" class="filterd" style="display:none">
-    <input id="backdropss" class="filters" type="text" autocomplete="off" placeholder="Search...">
-    <div id="backdropsl" class="filterl"></div>
-  </div>
+    <div id="modelsd" class="filterd" style="display:none">
+      <input id="modelss" class="filters" type="text" autocomplete="off" placeholder="Search...">
+      <div id="modelsl" class="filterl"></div>
+    </div>
 
-  <div id="symbolsd" class="filterd" style="display:none">
-    <input id="symbolss" class="filters" type="text" autocomplete="off" placeholder="Search...">
+    <div id="backdropsd" class="filterd" style="display:none">
+      <input id="backdropss" class="filters" type="text" autocomplete="off" placeholder="Search...">
+      <div id="backdropsl" class="filterl"></div>
+    </div>
+
+    <div id="symbolsd" class="filterd" style="display:none">
+      <input id="symbolss" class="filters" type="text" autocomplete="off" placeholder="Search...">
     <div id="symbolsl" class="filterl"></div>
+    </div>
+
   </div>
 
-</div>
+  <select id="sort" style="margin-right:8px;">
+    <option value="d">Sort By Latest</option>
+    <option value="p0">Sort By Price low to high</option>
+    <option value="p1">Sort By Price high to low</option>
+    <option value="i">Sort By ID</option>
+    <option value="r">Sort By Rarity</option>
+    <option value="m">Sort By Model</option>
+    <option value="b">Sort By Backdrop</option>
+    <option value="s">Sort By Symbol</option>
+  </select>
+  <select id="asset" style="margin-right:8px;">
+    <option value="TON">Ton</option>
+    <option value="TONNEL">Tonnel</option>
+    <option value="USDT">USDT</option>
+  </select>
+  <select id="format">
+    <option value="def">Asset</option>
+    <option value="usd">USD</option>
+    <option value="irt">IRT</option>
+    <option value="rub">RUB</option>
+  </select>
+  <button id="btn_s">Search</button>
 
-<select id="sort" style="margin-right:8px;">
-  <option value="d">Sort By Latest</option>
-  <option value="p0">Sort By Price low to high</option>
-  <option value="p1">Sort By Price high to low</option>
-  <option value="i">Sort By ID</option>
-  <option value="r">Sort By Rarity</option>
-  <option value="m">Sort By Model</option>
-  <option value="b">Sort By Backdrop</option>
-  <option value="s">Sort By Symbol</option>
-</select>
-<select id="asset" style="margin-right:8px;">
-  <option value="TON">Ton</option>
-  <option value="TONNEL">Tonnel</option>
-  <option value="USDT">USDT</option>
-</select>
-<select id="format">
-  <option value="def">Asset</option>
-  <option value="usd">USD</option>
-  <option value="irt">IRT</option>
-  <option value="rub">RUB</option>
-</select>
-<button id="btn_s">Search</button>
+  <div id="list"></div>
 
-<div id="list"></div>
-
-<div class="controls">
-  <button id="btn_q"><</button>
-  <input id="pagei" type="text" autocomplete="off">
-  <button id="btn_p">></button>
+  <div class="controls">
+    <button id="btn_q"><</button>
+    <input id="pagei" type="text" autocomplete="off">
+    <button id="btn_p">></button>
+  </div>
 </div>
 
 <script src="./js/telegram-web-app.js?{{site.time|date:'%s%N'}}"></script>
