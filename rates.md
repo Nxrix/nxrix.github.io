@@ -231,11 +231,6 @@ banner: "../../carts/rates.png"
 <div id="list"></div>
 <div id="update_time" style="display:none;width:100%;padding:20px 0 0 0;text-align:center;color:var(--md-sys-color-outline);"></div>
 
-<br>
-
-You can support development by sending TON or TONNEL to my address :>
-`UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx`
-
 <script src="./js/storage.js"></script>
 
 <script>
@@ -340,14 +335,14 @@ const items = [
     slug: "TON",
     icon: "ton",
     unit: "usd"
-  },/*{
+  },{
     type: 2,
     name: "تانل",
     ename: "Tonnel",
     slug: "TONNEL",
     icon: "tonnel",
     unit: "usd"
-  },*/{
+  },{
     type: 1,
     name: "یورو",
     ename: "Euro",
@@ -463,14 +458,14 @@ const items = [
     slug: "ETH",
     icon: "eth",
     unit: "usd"
-  },{
+  }/*,{
     type: 2,
     name: "لایت کوین",
     ename: "Litecoin",
     slug: "LTC",
     icon: "ltc",
     unit: "usd"
-  },
+  },*/
 ];
 
 const format_num = (n) => {
@@ -602,7 +597,7 @@ window.onload = async () => {
     chart: make_chart(extract_chart(ton_chart,1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,4,0.2,0.25)
   });
 
-  /*const tonnel_data = await(await fetch("https://corsproxy.io/?url=https://dyor.io/api/v4/jettons/slug/tonnel/details")).json();
+  const tonnel_data = await(await fetch("https://corsproxy.io/?url=https://dyor.io/api/v4/jettons/slug/tonnel/details")).json();
   const tonnel_chart = await(await fetch("https://corsproxy.io/?url=https://storage.dyor.io/jettons/239/chart_dark_w1.svg")).text();
   data.currencies.push({
     code: "tonnel",
@@ -612,7 +607,7 @@ window.onload = async () => {
     price: parseFloat(tonnel_data.cachedJetton.priceUsd),
     change_percent: tonnel_data.cachedJetton.priceUsd*tonnel_data.cachedJetton.priceChange24h/100,
     chart: make_chart(extract_chart(tonnel_chart),tonnel_data.cachedJetton.priceChange24h>0?"green":"red",400,400,4,0.2,0.25)
-  });*/
+  });
 
   const btc_data = data.currencies.find(c=>c.code=="btc");
   const btc_chart = await(await fetch("https://corsproxy.io/?url=https://www.coingecko.com/coins/1/sparkline.svg")).text();
