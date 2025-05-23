@@ -208,10 +208,15 @@ Donate TON to support development
   <option value="b">Sort By Backdrop</option>
   <option value="s">Sort By Symbol</option>
 </select>
-<select id="asset">
+<select id="asset" style="margin-right:8px;">
   <option value="TON">Ton</option>
   <option value="TONNEL">Tonnel</option>
   <option value="USDT">USDT</option>
+</select>
+<select id="format">
+  <option value="def">Asset</option>
+  <option value="usd">USD</option>
+  <option value="irt">IRT</option>
 </select>
 <button id="btn_s">Search</button>
 
