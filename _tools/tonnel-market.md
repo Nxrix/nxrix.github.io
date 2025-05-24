@@ -124,6 +124,7 @@ hidden: true
 }
 
 .filteri {
+  width: 100%;
   margin: 0;
 }
 .filterd {
@@ -179,7 +180,7 @@ hidden: true
     <button id="collectionst" class="filteri" style="border-radius: 11px 4px 4px 4px;">Collection</button>
     <button id="modelst" class="filteri" style="border-radius: 4px 11px 4px 4px;">Model</button>
     <button id="backdropst" class="filteri" style="border-radius: 4px 4px 4px 11px;">Backdrop</button>
-    <button id="symbolst" class="filteri" style="border-radius: 4px 4px 4px 11px;">Symbol</button>
+    <button id="symbolst" class="filteri" style="border-radius: 4px 4px 11px 4px;">Symbol</button>
   </div>
   <div style="display:flex;align-items:center;justify-content:center">
 
