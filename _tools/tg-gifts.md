@@ -96,8 +96,9 @@ hidden: true
 .controls {
   display: flex;
   width: 100%;
-  height: 64px;
+  height: 48px;
   padding: 4px;
+  margin-top: 8px;
 }
 
 .controls button {
@@ -119,7 +120,7 @@ hidden: true
 }
 
 .controls input {
-  width: calc(100% - 128px);
+  width: calc(100% - 90px);
   height: 100%;
   text-align: center;
   margin: 0 auto;
@@ -136,20 +137,21 @@ With this tool you can view all upgraded Telegram gifts.
 
 <div class="controls">
   <button onclick="page--;load_gifts()"><</button>
-  <input type="text" id="pagei">
+  <input type="text" id="pagei" autocomplete="off">
   <button onclick="page++;load_gifts()">></button>
 </div>
 
 <br>
-
-You can support development by sending TON or TONNEL to my address :>
-`UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx`
+<div>Donate TON to support development</div>
+<div style="user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
 
 <script>
 
 const gift_names = `Astral Shard
 B-Day Candle
 Berry Box
+Big Year
+Bonded Ring
 Bunny Muffin
 Candy Cane
 Cookie Heart
@@ -163,10 +165,12 @@ Eternal Candle
 Eternal Rose
 Evil Eye
 Flying Broom
+Gem Signet
 Genie Lamp
 Ginger Cookie
 Hanging Star
 Hex Pot
+Holiday Drink
 Homemade Cake
 Hypno Lollipop
 Ion Gem
@@ -175,7 +179,8 @@ Jelly Bunny
 Jester Hat
 Jingle Bells
 Kissed Frog
-LolPop
+Light Sword
+Lol Pop
 Loot Bag
 Love Candle
 Love Potion
@@ -183,12 +188,15 @@ Lunar Snake
 Mad Pumpkin
 Magic Potion
 Mini Oscar
+Nail Bracelet
 Neko Helmet
 Party Sparkler
 Perfume Bottle
+Pet Snake
 Plush Pepe
 Precious Peach
 Record Player
+Restless Jar
 Sakura Flower
 Santa Hat
 Scared Cat
@@ -196,6 +204,7 @@ Sharp Tongue
 Signet Ring
 Skull Flower
 Sleigh Bell
+Snake Box
 Snow Globe
 Snow Mittens
 Spiced Wine
@@ -209,7 +218,8 @@ Trapped Heart
 Vintage Cigar
 Voodoo Doll
 Winter Wreath
-Witch Hat`;
+Witch Hat
+Xmas Stocking`;
 
 const gift_names0 = gift_names.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
 
