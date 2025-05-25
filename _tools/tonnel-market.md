@@ -175,6 +175,7 @@ hidden: true
 <div id="loading1" style="display: none;">
   <div id="ton_price"></div>
   <div id="tonnel_price"></div>
+  <div id="tonnel_chart"></div>
   <br>
   <div style="width: 100%;max-width: 400px;display: grid;grid-template-columns: auto auto;justify-items: center;margin: 8px auto;gap: 4px;">
     <button id="collectionst" class="filteri" style="border-radius: 11px 4px 2px 4px;">Collection</button>
@@ -237,6 +238,8 @@ hidden: true
     <input id="pagei" type="text" autocomplete="off">
     <button id="btn_p">></button>
   </div>
+
+  <div id="donations"></div>
 </div>
 
 <script src="./js/telegram-web-app.js?{{site.time|date:'%s%N'}}"></script>
