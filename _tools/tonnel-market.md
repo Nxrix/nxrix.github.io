@@ -191,6 +191,7 @@ hidden: true
 
 .filters2 button {
   padding: 6px;
+  margin: 0;
 }
 
 </style>
