@@ -281,8 +281,8 @@ hidden: true
     <input id="pagei" type="text" autocomplete="off">
     <button id="btn_p">></button>
   </div>
-  <h3>Donations</h3>
-  <div id="donations"></div>
+  <!--h3>Donations</h3>
+  <div id="donations"></div-->
 </div>
 
 <script src="./js/telegram-web-app.js?{{site.time|date:'%s%N'}}"></script>
@@ -292,7 +292,7 @@ window.Telegram.WebApp.disableVerticalSwipes();
 <script src="./js/tonnel-market.js?{{site.time|date:'%s%N'}}"></script>
 <script>
 
-(async () => {
+/*(async () => {
   const crc16 = (data) => {
     let reg = 0;
     const message = new Uint8Array(data.length+2);
@@ -342,6 +342,6 @@ window.Telegram.WebApp.disableVerticalSwipes();
       donations.appendChild(line);
     }
   });
-})();
+})();*/
 
 </script>
