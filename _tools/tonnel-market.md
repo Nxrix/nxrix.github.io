@@ -292,7 +292,7 @@ window.Telegram.WebApp.disableVerticalSwipes();
 <script src="./js/tonnel-market.js?{{site.time|date:'%s%N'}}"></script>
 <script>
 
-(async () = {
+(async () => {
   const crc16 = (data) => {
     let reg = 0;
     const message = new Uint8Array(data.length+2);
