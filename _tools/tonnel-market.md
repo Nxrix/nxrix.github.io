@@ -6,6 +6,7 @@ image: ".png"
 cid: 0
 hidden: true
 ---
+
 <style>
 
 #list {
@@ -21,6 +22,7 @@ hidden: true
   margin: 2%;
   border-radius: calc(var(--font)/100*10);
   font-size: 0;
+  text-decoration: none;
   /*outline: 1px solid var(--md-sys-color-outline-variant);*/
 }
 #list .item.bundle {
@@ -107,7 +109,6 @@ hidden: true
   width: 100%;
   height: 48px;
   padding: 4px;
-  margin-top: 8px;
 }
 
 .controls button {
@@ -219,33 +220,41 @@ hidden: true
 
   </div>
   <br>
-  <select id="sort" style="margin-right:8px;">
-    <option value="d">Sort By Latest</option>
-    <option value="p0">Sort By Price low to high</option>
-    <option value="p1">Sort By Price high to low</option>
-    <option value="i">Sort By ID</option>
-    <option value="r">Sort By Rarity</option>
-    <option value="m">Sort By Model</option>
-    <option value="b">Sort By Backdrop</option>
-    <option value="s">Sort By Symbol</option>
+  <select id="sort" style="margin-right:2px;">
+    <option value="d">Sort by Latest</option>
+    <option value="p0">Sort by Price low to high</option>
+    <option value="p1">Sort by Price high to low</option>
+    <option value="i">Sort by ID 1,2,3</option>
+    <option value="j">Sort by ID 3,2,1</option>
+    <option value="r">Sort by Rarity</option>
+    <option value="m">Sort by Model</option>
+    <option value="b">Sort by Backdrop</option>
+    <option value="s">Sort by Symbol</option>
   </select>
-  <select id="asset" style="margin-right:8px;">
+  <select id="asset" style="margin-right:2px;">
     <option value="TON">Ton</option>
     <option value="TONNEL">Tonnel</option>
     <option value="USDT">USDT</option>
   </select>
-  <select id="format">
-    <option value="def">Asset</option>
-    <option value="usd">USD</option>
-    <option value="irt">IRT</option>
-    <option value="rub">RUB</option>
-    <option value="eur">EUR</option>
+  <select id="format" style="margin-right:2px;">
+    <option value="def">Price by Asset</option>
+    <option value="usd">Price in USD</option>
+    <option value="irt">Price in IRT</option>
+    <option value="rub">Price in RUB</option>
+    <option value="eur">Price in EUR</option>
   </select>
+  <select id="tag" style="margin-right:2px;">
+    <option value="all">All Gifts</option>
+    <option value="telegram">Telegram</option>
+    <option value="premarket">Premarket</option>
+    <option value="bundle">Bundles</option>
+  </select>
+  <input id="numbers" type="text" placeholder="Gift ID">
   <button id="btn_s">Search</button>
 
   <div id="list"></div>
 
-  <div class="controls">
+  <div class="controls" style="margin-top: 8px;">
     <button id="btn_q"><</button>
     <input id="pagei" type="text" autocomplete="off">
     <button id="btn_p">></button>
