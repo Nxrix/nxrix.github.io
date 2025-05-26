@@ -176,7 +176,7 @@ hidden: true
 
 .filters2 {
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   display: grid;
   grid-template-columns: auto auto;
   justify-items: center;
