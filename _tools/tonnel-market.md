@@ -150,7 +150,6 @@ hidden: true
   padding: 8px;
   border-radius: 12px;
   outline: 1px solid var(--md-sys-color-outline-variant);
-  margin: 8px 0;
 }
 .filterd .filters {
   margin-bottom: 8px;
@@ -217,7 +216,7 @@ hidden: true
     <button id="backdropst" class="filteri" style="border-radius: 4px 2px 4px 11px;">Backdrop</button>
     <button id="symbolst" class="filteri" style="border-radius: 2px 4px 11px 4px;">Symbol</button>
   </div>
-  <div style="display:flex;align-items:center;justify-content:center;">
+  <div style="display:flex;align-items:center;justify-content:center;margin: 8px auto;">
 
     <div id="collectionsd" class="filterd">
       <input id="collectionss" class="filters" type="text" autocomplete="off" placeholder="Search...">
