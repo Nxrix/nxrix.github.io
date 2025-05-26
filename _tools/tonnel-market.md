@@ -180,7 +180,7 @@ hidden: true
   display: grid;
   grid-template-columns: auto auto;
   justify-items: center;
-  margin: 0 auto;
+  margin: 8px auto;
   gap: 4px;
 }
 
@@ -210,13 +210,13 @@ hidden: true
   <div id="tonnel_price"></div>
   <div id="tonnel_chart"></div>
   <br>
-  <div style="width: 100%;max-width: 400px;display: grid;grid-template-columns: auto auto;justify-items: center;margin: 0 auto;gap: 4px;">
+  <div style="width: 100%;max-width: 400px;display: grid;grid-template-columns: auto auto;justify-items: center;margin: 8px auto;gap: 4px;">
     <button id="collectionst" class="filteri" style="border-radius: 11px 4px 2px 4px;">Collection</button>
     <button id="modelst" class="filteri" style="border-radius: 4px 11px 4px 2px;">Model</button>
     <button id="backdropst" class="filteri" style="border-radius: 4px 2px 4px 11px;">Backdrop</button>
     <button id="symbolst" class="filteri" style="border-radius: 2px 4px 11px 4px;">Symbol</button>
   </div>
-  <div style="display:flex;align-items:center;justify-content:center;margin: 8px auto;">
+  <div style="display:flex;justify-content:center;align-items:center;">
 
     <div id="collectionsd" class="filterd">
       <input id="collectionss" class="filters" type="text" autocomplete="off" placeholder="Search...">
