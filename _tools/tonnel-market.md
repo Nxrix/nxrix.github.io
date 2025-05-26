@@ -270,7 +270,7 @@ hidden: true
       <option value="premarket">Premarket</option>
       <option value="bundle">Bundles</option>
     </select>
-    <input id="numbers" type="text" placeholder="Gift ID">
+    <input id="numbers" type="text" autocomplete="off" placeholder="Gift ID">
     <button id="btn_s">Search</button>
   </div>
 
