@@ -146,12 +146,12 @@ With this tool you can view all upgraded Telegram gifts.
 <div style="user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
 
 <script>
-
 const gift_names = `Astral Shard
 B-Day Candle
 Berry Box
 Big Year
 Bonded Ring
+Bow Tie
 Bunny Muffin
 Candy Cane
 Cookie Heart
@@ -169,6 +169,7 @@ Gem Signet
 Genie Lamp
 Ginger Cookie
 Hanging Star
+Heroic Helmet
 Hex Pot
 Holiday Drink
 Homemade Cake
