@@ -281,7 +281,7 @@ hidden: true
     <input id="pagei" type="text" autocomplete="off">
     <button id="btn_p">></button>
   </div>
-  ### Donations
+  <h3>Donations</h3>
   <div id="donations"></div>
 </div>
 
