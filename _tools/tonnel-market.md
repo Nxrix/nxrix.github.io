@@ -281,7 +281,7 @@ hidden: true
     <input id="pagei" type="text" autocomplete="off">
     <button id="btn_p">></button>
   </div>
-
+  <br>
   <div id="donations"></div>
 </div>
 
@@ -290,3 +290,58 @@ hidden: true
 window.Telegram.WebApp.disableVerticalSwipes();
 </script>
 <script src="./js/tonnel-market.js?{{site.time|date:'%s%N'}}"></script>
+<script>
+
+(async () = {
+  const crc16 = (data) => {
+    let reg = 0;
+    const message = new Uint8Array(data.length+2);
+    message.set(data);
+    for (let byte of message) {
+      let mask = 0x80;
+      while (mask>0) {
+        reg <<= 1;
+        if (byte&mask) {
+          reg += 1;
+        }
+        mask >>= 1
+        if (reg>0xffff) {
+          reg &= 0xffff;
+          reg ^= 0x1021;
+        }
+      }
+    }
+    return new Uint8Array([Math.floor(reg/256),reg%256]);
+  }
+  const raw2friendly = (raw,bounceable = true,testnet = false) => {
+    try {
+      raw = raw.split(":");
+      const workchain = raw[0];
+      raw = raw[1];
+      let bytes = [(bounceable?0x11:0x51)|(testnet?0x80:0),workchain=="-1"?0xFF:parseInt(workchain)];
+      for (let i=0;i<32;i++) bytes.push(+("0x"+raw[i*2]+raw[i*2+1]));
+      const crc = crc16(bytes.slice(0,34));
+      bytes.push(crc[0],crc[1]);
+      return btoa(String.fromCodePoint(...bytes)).replace(/\+/g,"-").replace(/\//g,"_");
+    } catch (error) {
+      throw new Error("Failed to parse address :(");
+    }
+  }
+  const w = "0:44b13324cbc263614da5174bb258fae0fd7b723cd5338b1f3cf0a178db8c07bf";
+  const fix_address = (a) => a.substr(2,4)+".."+a.substr(a.length-4);
+  const data = await (await fetch(`https://tonapi.io/v2/accounts/${w}/events?limit=32&start_date=1717627010`)).json();
+  data.events.forEach(event => {
+    const action = event.actions[0];
+    const preview = action.simple_preview;
+    const sender = action[action.type]?.sender?.address;
+    const recipient = action[action.type]?.recipient?.address;
+    if (recipient==w && sender!=w && action.type!="NftItemTransfer" && ((action.type=="JettonTransfer" && action.JettonTransfer.jetton.verification=="whitelist") || action[action.type].amount>50000000)) {
+      const name = preview.accounts?.[0]?.name || fix_address(raw2friendly(preview.accounts?.[0]?.address,false)) || sender;
+      const line = document.createElement("div");
+      line.innerHTML = `<a href="https://tonviewer.com/transaction/${action.base_transactions?.[0]}" target="_blank">${name}</a> has donated ${preview.value}`;
+      donations.appendChild(line);
+    }
+  });
+})();
+
+</script>
