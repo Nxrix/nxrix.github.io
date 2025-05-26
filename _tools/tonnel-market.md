@@ -196,7 +196,7 @@ hidden: true
     <button id="backdropst" class="filteri" style="border-radius: 4px 2px 4px 11px;">Backdrop</button>
     <button id="symbolst" class="filteri" style="border-radius: 2px 4px 11px 4px;">Symbol</button>
   </div>
-  <div style="display:flex;align-items:center;justify-content:center">
+  <div style="display:flex;align-items:center;justify-content:center;">
 
     <div id="collectionsd" class="filterd">
       <input id="collectionss" class="filters" type="text" autocomplete="off" placeholder="Search...">
@@ -219,38 +219,40 @@ hidden: true
     </div>
 
   </div>
-  <br>
-  <select id="sort" style="margin-right:2px;">
-    <option value="d">Sort by Latest</option>
-    <option value="p0">Sort by Price low to high</option>
-    <option value="p1">Sort by Price high to low</option>
-    <option value="i">Sort by ID 1,2,3</option>
-    <option value="j">Sort by ID 3,2,1</option>
-    <option value="r">Sort by Rarity</option>
-    <option value="m">Sort by Model</option>
-    <option value="b">Sort by Backdrop</option>
-    <option value="s">Sort by Symbol</option>
-  </select>
-  <select id="asset" style="margin-right:2px;">
-    <option value="TON">Ton</option>
-    <option value="TONNEL">Tonnel</option>
-    <option value="USDT">USDT</option>
-  </select>
-  <select id="format" style="margin-right:2px;">
-    <option value="def">Price by Asset</option>
-    <option value="usd">Price in USD</option>
-    <option value="irt">Price in IRT</option>
-    <option value="rub">Price in RUB</option>
-    <option value="eur">Price in EUR</option>
-  </select>
-  <select id="tag" style="margin-right:2px;">
-    <option value="all">All Gifts</option>
-    <option value="telegram">Telegram</option>
-    <option value="premarket">Premarket</option>
-    <option value="bundle">Bundles</option>
-  </select>
-  <input id="numbers" type="text" placeholder="Gift ID">
-  <button id="btn_s">Search</button>
+
+  <div style="width: 100%;max-width: 600px;display: grid;grid-template-columns: auto auto;justify-items: center;margin: 8px auto;gap: 4px;">
+    <select id="sort">
+      <option value="d">Sort by Latest</option>
+      <option value="p0">Sort by Price low to high</option>
+      <option value="p1">Sort by Price high to low</option>
+      <option value="i">Sort by ID 1,2,3</option>
+      <option value="j">Sort by ID 3,2,1</option>
+      <option value="r">Sort by Rarity</option>
+      <option value="m">Sort by Model</option>
+      <option value="b">Sort by Backdrop</option>
+      <option value="s">Sort by Symbol</option>
+    </select>
+    <select id="asset" style="margin-right:2px;">
+      <option value="TON">Ton</option>
+      <option value="TONNEL">Tonnel</option>
+      <option value="USDT">USDT</option>
+    </select>
+    <select id="format" style="margin-right:2px;">
+      <option value="def">Price by Asset</option>
+      <option value="usd">Price in USD</option>
+      <option value="irt">Price in IRT</option>
+      <option value="rub">Price in RUB</option>
+      <option value="eur">Price in EUR</option>
+    </select>
+    <select id="tag" style="margin-right:2px;">
+      <option value="all">All Gifts</option>
+      <option value="telegram">Telegram</option>
+      <option value="premarket">Premarket</option>
+      <option value="bundle">Bundles</option>
+    </select>
+    <input id="numbers" type="text" placeholder="Gift ID">
+    <button id="btn_s">Search</button>
+  </div>
 
   <div id="list"></div>
 
