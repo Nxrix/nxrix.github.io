@@ -184,9 +184,13 @@ hidden: true
   gap: 4px;
 }
 
-.filters2 select, .filters2 input, .filters2 buttons {
+.filters2 select, .filters2 input, .filters2 button {
   width: 100%;
   height: 100%;
+}
+
+.filters2 button {
+  padding: 6px;
 }
 
 </style>
