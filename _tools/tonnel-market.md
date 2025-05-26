@@ -174,6 +174,21 @@ hidden: true
   diplay: none;
 }
 
+.filters2 {
+  width: 100%;
+  max-width: 500px;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: center;
+  margin: 8px auto;
+  gap: 4px;
+}
+
+.filters2 select, .filters2 input, .filters2 buttons {
+  width: 100%;
+  height: 100%;
+}
+
 </style>
 
 ### Tonnel Market
@@ -220,7 +235,7 @@ hidden: true
 
   </div>
 
-  <div style="width: 100%;max-width: 600px;display: grid;grid-template-columns: auto auto;justify-items: center;margin: 8px auto;gap: 4px;">
+  <div class="filters2">
     <select id="sort">
       <option value="d">Sort by Latest</option>
       <option value="p0">Sort by Price low to high</option>
@@ -232,19 +247,19 @@ hidden: true
       <option value="b">Sort by Backdrop</option>
       <option value="s">Sort by Symbol</option>
     </select>
-    <select id="asset" style="margin-right:2px;">
+    <select id="asset">
       <option value="TON">Ton</option>
       <option value="TONNEL">Tonnel</option>
       <option value="USDT">USDT</option>
     </select>
-    <select id="format" style="margin-right:2px;">
+    <select id="format">
       <option value="def">Price by Asset</option>
       <option value="usd">Price in USD</option>
       <option value="irt">Price in IRT</option>
       <option value="rub">Price in RUB</option>
       <option value="eur">Price in EUR</option>
     </select>
-    <select id="tag" style="margin-right:2px;">
+    <select id="tag">
       <option value="all">All Gifts</option>
       <option value="telegram">Telegram</option>
       <option value="premarket">Premarket</option>
