@@ -9,6 +9,15 @@ hidden: true
 
 <style>
 
+@font-face {
+  font-family: "sfr";
+  src: url("./fonts/SFRounded/SFRounded-Semibold.ttf");
+}
+
+#list * {
+  font-family: "sfr";
+}
+
 #list {
   display: grid;
   --fw: min(calc(100vw - 56px),980px);
@@ -61,10 +70,10 @@ hidden: true
   width: 100%;
   height: 10%;
   position: absolute;
-  top: 0;
+  top: 45%;
   right: 0;
   transform-origin: center center;
-  transform: translateX(45%) rotateZ(45deg) translateY(80%);
+  transform: rotateZ(45deg) translateY(-525%);
   font-size: calc(var(--font)/100*6);
 }
 #list .price {
