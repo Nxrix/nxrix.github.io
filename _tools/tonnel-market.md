@@ -200,6 +200,7 @@ hidden: true
   justify-items: center;
   margin: 0 auto;
   gap: 4px;
+  margin-bottom: 8px;
 }
 
 .filters3 select, .filters3 input, .filters3 button {
