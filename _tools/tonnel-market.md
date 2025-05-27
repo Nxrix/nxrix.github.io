@@ -49,6 +49,8 @@ hidden: true
   align-items: center;
   width: 100%;
   aspect-ratio: 1;
+  border-radius: calc(var(--font)/100*10);
+  box-shadow: inset 0 0 0 2px var(--md-sys-color-outline-variant);
 }
 #list .id {
   background-color: #0014;
