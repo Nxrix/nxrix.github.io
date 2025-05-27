@@ -202,7 +202,7 @@ hidden: true
   gap: 4px;
 }
 
-.filters3 select, .filters2 input, .filters2 button {
+.filters3 select, .filters3 input, .filters3 button {
   width: 100%;
   height: 100%;
 }
