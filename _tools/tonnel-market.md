@@ -81,7 +81,7 @@ hidden: true
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 9%;
+  bottom: 8%;
   left: 10%;
   font-size: calc(var(--font)/100*8);
   color: #fff;
@@ -214,14 +214,20 @@ hidden: true
   margin-bottom: 8px;
 }
 
+.filters3 .range {
+  display: flex;
+  gap: 4px;
+}
+
 .filters3 select, .filters3 input, .filters3 button {
   width: 100%;
   height: 100%;
 }
 
 .filters3 button {
-  padding: 6px;
+  padding: px;
   margin: 0;
+  grid-column: span 2;
 }
 
 </style>
@@ -296,15 +302,25 @@ hidden: true
       <option value="bundle">Bundles</option>
     </select>
     <input id="numbers" type="text" autocomplete="off" placeholder="Gift ID">
+    <div class="range">
+      <input id="min" type="text" autocomplete="off" placeholder="Min">
+      <input id="max" type="text" autocomplete="off" placeholder="Max">
+    </div>
     <button id="btn_s">Search</button>
+  </div>
+
+  <div class="controls">
+    <button id="btn_q1"><</button>
+    <input id="pagei1" type="text" autocomplete="off">
+    <button id="btn_p1">></button>
   </div>
 
   <div id="list"></div>
 
-  <div class="controls" style="margin-top: 8px;">
-    <button id="btn_q"><</button>
-    <input id="pagei" type="text" autocomplete="off">
-    <button id="btn_p">></button>
+  <div class="controls">
+    <button id="btn_q2"><</button>
+    <input id="pagei2" type="text" autocomplete="off">
+    <button id="btn_p2">></button>
   </div>
   <!--h3>Donations</h3>
   <div id="donations"></div-->
