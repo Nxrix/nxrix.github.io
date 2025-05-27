@@ -9,14 +9,14 @@ hidden: true
 
 <style>
 
-@font-face {
+/*@font-face {
   font-family: "sfr";
   src: url("./fonts/SFRounded/SFRounded-Semibold.ttf");
 }
 
 #list * {
   font-family: "sfr";
-}
+}*/
 
 #list {
   display: grid;
