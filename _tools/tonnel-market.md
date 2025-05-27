@@ -150,6 +150,7 @@ hidden: true
   padding: 8px;
   border-radius: 12px;
   outline: 1px solid var(--md-sys-color-outline-variant);
+  margin-bottom: 8px;
 }
 .filterd .filters {
   margin-bottom: 8px;
@@ -174,22 +175,39 @@ hidden: true
   diplay: none;
 }
 
-.filters2 {
+.filters1 {
   width: 100%;
   max-width: 400px;
   display: grid;
   grid-template-columns: auto auto;
   justify-items: center;
-  margin: 8px auto;
+  margin: 0 auto;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.filters2 {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.filters3 {
+  width: 100%;
+  max-width: 400px;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: center;
+  margin: 0 auto;
   gap: 4px;
 }
 
-.filters2 select, .filters2 input, .filters2 button {
+.filters3 select, .filters2 input, .filters2 button {
   width: 100%;
   height: 100%;
 }
 
-.filters2 button {
+.filters3 button {
   padding: 6px;
   margin: 0;
 }
@@ -210,37 +228,32 @@ hidden: true
   <div id="tonnel_price"></div>
   <div id="tonnel_chart"></div>
   <br>
-  <div style="width: 100%;max-width: 400px;display: grid;grid-template-columns: auto auto;justify-items: center;margin: 8px auto;gap: 4px;">
+  <div class="filters1">
     <button id="collectionst" class="filteri" style="border-radius: 11px 4px 2px 4px;">Collection</button>
     <button id="modelst" class="filteri" style="border-radius: 4px 11px 4px 2px;">Model</button>
     <button id="backdropst" class="filteri" style="border-radius: 4px 2px 4px 11px;">Backdrop</button>
     <button id="symbolst" class="filteri" style="border-radius: 2px 4px 11px 4px;">Symbol</button>
   </div>
-  <div style="display:flex;justify-content:center;align-items:center;">
-
+  <div class="filters2">
     <div id="collectionsd" class="filterd">
       <input id="collectionss" class="filters" type="text" autocomplete="off" placeholder="Search...">
       <div id="collectionsl" class="filterl"></div>
     </div>
-
     <div id="modelsd" class="filterd" style="display:none">
       <input id="modelss" class="filters" type="text" autocomplete="off" placeholder="Search...">
       <div id="modelsl" class="filterl"></div>
     </div>
-
     <div id="backdropsd" class="filterd" style="display:none">
       <input id="backdropss" class="filters" type="text" autocomplete="off" placeholder="Search...">
       <div id="backdropsl" class="filterl"></div>
     </div>
-
     <div id="symbolsd" class="filterd" style="display:none">
       <input id="symbolss" class="filters" type="text" autocomplete="off" placeholder="Search...">
     <div id="symbolsl" class="filterl"></div>
     </div>
-
   </div>
 
-  <div class="filters2">
+  <div class="filters3">
     <select id="sort">
       <option value="d">Sort by Latest</option>
       <option value="p0">Sort by Price low to high</option>
