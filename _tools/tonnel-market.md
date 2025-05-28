@@ -9,18 +9,22 @@ hidden: true
 
 <style>
 
-/*@font-face {
+@font-face {
   font-family: "sfr";
-  src: url("./fonts/SFRounded/SFRounded-Semibold.ttf");
+  src: url("./fonts/sf-pro-rounded.woff2");
 }
 
 #list * {
   font-family: "sfr";
-}*/
+  font-weight: 600;
+}
 
 #list {
   display: grid;
   --fw: min(calc(100vw - 56px),980px);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  overflow: hidden;
 }
 #list .item {
   position: relative;
@@ -33,15 +37,15 @@ hidden: true
   font-size: 0;
   text-decoration: none;
   /*outline: 1px solid var(--md-sys-color-outline-variant);*/
+  aspect-ratio: 1;
 }
 #list .item.bundle {
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
-  aspect-ratio: 1;
 }
 #list .item.bundle .image {
-  flex: 1 1 calc(100% / var(--cols));
+  flex: 1 1 calc(100%/var(--cols));
   width: 100%;
   aspect-ratio: 2;
 }
@@ -52,7 +56,7 @@ hidden: true
 }
 #list .q {
   color: var(--md-sys-color-outline-variant);
-  font-size: calc(var(--font)/100*30);
+  font-size: calc(var(--font)/100*8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,7 +66,7 @@ hidden: true
   box-shadow: inset 0 0 0 2px var(--md-sys-color-outline-variant);
 }
 #list .id {
-  background-color: #0014;
+  background-color: #0023;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -74,20 +78,20 @@ hidden: true
   right: 0;
   transform-origin: center center;
   transform: rotateZ(45deg) translateY(-525%);
-  font-size: calc(var(--font)/100*6);
+  font-size: calc(var(--font)/100*5.5);
 }
 #list .price {
+  background-color: #0023;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 8%;
-  left: 10%;
-  font-size: calc(var(--font)/100*8);
-  color: #fff;
-}
-#list .price.stroke {
-  -webkit-text-stroke: calc(var(--font)/100*1.5) #000;
+  bottom: 7%;
+  left: 7%;
+  padding: 2% 4%;
+  border-radius: calc(var(--font)/100*6);
+  font-size: calc(var(--font)/100*6);
 }
 
 @media screen and (width > 100px) {
@@ -126,10 +130,10 @@ hidden: true
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  aspect-ratio: 1;
-  margin: 0;
   min-width: 0;
+  height: 100%;
+  margin: 0;
+  aspect-ratio: 1;
 }
 
 .controls button:first-of-type {
@@ -190,7 +194,7 @@ hidden: true
   width: 100%;
   max-width: 400px;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(2,1fr);
   justify-items: center;
   margin: 0 auto;
   gap: 4px;
@@ -207,27 +211,50 @@ hidden: true
   width: 100%;
   max-width: 400px;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(2,1fr);
   justify-items: center;
   margin: 0 auto;
-  gap: 4px;
+  gap: 8px;
   margin-bottom: 8px;
+}
+
+.filters3 .item {
+  position: relative;
+  width: 100%;
+  height: 40px;
+}
+
+.filters3 .item .label {
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-outline);
+  position: absolute;
+  top: -7px;
+  left: 7px;
+  font-size: 10px;
+  padding: 0 2px;
+  border-radius: 2px;
 }
 
 .filters3 .range {
   display: flex;
-  gap: 4px;
+  gap: 8px;
 }
 
-.filters3 select, .filters3 input, .filters3 button {
+.filters3 .item select, .filters3 .item input, .filters3 .item button {
   width: 100%;
   height: 100%;
+  font-size: 15px;
+  padding-left: 12px;
 }
 
-.filters3 button {
-  padding: px;
-  margin: 0;
+.filters3 .item.last {
+  height: 40px;
   grid-column: span 2;
+}
+
+.filters3 .item.last button {
+  padding: 5px;
+  margin: 0;
 }
 
 </style>
@@ -270,43 +297,60 @@ hidden: true
     <div id="symbolsl" class="filterl"></div>
     </div>
   </div>
-
   <div class="filters3">
-    <select id="sort">
-      <option value="d">Sort by Latest</option>
-      <option value="p0">Sort by Price low to high</option>
-      <option value="p1">Sort by Price high to low</option>
-      <option value="i">Sort by ID 1,2,3</option>
-      <option value="j">Sort by ID 3,2,1</option>
-      <option value="r">Sort by Rarity</option>
-      <option value="m">Sort by Model</option>
-      <option value="b">Sort by Backdrop</option>
-      <option value="s">Sort by Symbol</option>
-    </select>
-    <select id="asset">
-      <option value="TON">Ton</option>
-      <option value="TONNEL">Tonnel</option>
-      <option value="USDT">USDT</option>
-    </select>
-    <select id="format">
-      <option value="def">Price by Asset</option>
-      <option value="usd">Price in USD</option>
-      <option value="irt">Price in IRT</option>
-      <option value="rub">Price in RUB</option>
-      <option value="eur">Price in EUR</option>
-    </select>
-    <select id="tag">
-      <option value="all">All Gifts</option>
-      <option value="telegram">Telegram</option>
-      <option value="premarket">Premarket</option>
-      <option value="bundle">Bundles</option>
-    </select>
-    <input id="numbers" type="text" autocomplete="off" placeholder="Gift ID">
-    <div class="range">
+    <div class="item">
+      <!--div class="label">Sort By</div-->
+      <select id="sort">
+        <option value="d">Latest</option>
+        <option value="p0">Price low to high</option>
+        <option value="p1">Price high to low</option>
+        <option value="i">ID ascending</option>
+        <option value="j">ID descending</option>
+        <option value="r">Rarity</option>
+        <option value="m">Model</option>
+        <option value="b">Backdrop</option>
+        <option value="s">Symbol</option>
+      </select>
+    </div>
+    <div class="item">
+      <!--div class="label">Asset</div-->
+      <select id="asset">
+        <option value="TON">Ton</option>
+        <option value="TONNEL">Tonnel</option>
+        <option value="USDT">USDT</option>
+      </select>
+    </div>
+    <div class="item">
+      <!--div class="label">Price in</div-->
+      <select id="format">
+        <option value="def">Asset</option>
+        <option value="usd">USD</option>
+        <option value="irt">IRT</option>
+        <option value="rub">RUB</option>
+        <option value="eur">EUR</option>
+      </select>
+    </div>
+    <div class="item">
+      <!--div class="label">List</div-->
+      <select id="tag">
+        <option value="all">All Gifts</option>
+        <option value="telegram">Telegram</option>
+        <option value="premarket">Premarket</option>
+        <option value="bundle">Bundles</option>
+      </select>
+    </div>
+    <div class="item">
+      <!--div class="label"></div-->
+      <input id="numbers" type="text" autocomplete="off" placeholder="Gift ID">
+    </div>
+    <div class="item range">
+      <!--div class="label"></div-->
       <input id="min" type="text" autocomplete="off" placeholder="Min">
       <input id="max" type="text" autocomplete="off" placeholder="Max">
     </div>
-    <button id="btn_s">Search</button>
+    <div class="item last">
+      <button id="btn_s">Search</button>
+    </div>
   </div>
 
   <div class="controls">
