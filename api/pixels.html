@@ -27,8 +27,8 @@ html , body {
 .pixelated {
   image-rendering: optimizeSpeed;
   image-rendering: -moz-crisp-edges;
-	image-rendering: -webkit-optimize-contrast;
-	image-rendering: optimize-contrast;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
   image-rendering: pixelated;
   -ms-interpolation-mode: nearest-neighbor;
   -webkit-optimize-contrast: off;
@@ -207,12 +207,12 @@ nxstr.socket.addEventListener("open", async (e) => {
   console.log("Connected.");
   nxstr.socket.send(JSON.stringify([
     "REQ","msgs",
-    { "kinds":[666],"authors":[host_pk],"limit":0 },
-    { "kinds":[999],"authors":[host_pk],"#p":[nxstr.pk],"limit":0 }
+    { "kinds":[20666],"authors":[host_pk],"limit":0 },
+    { "kinds":[20999],"authors":[host_pk],"#p":[nxstr.pk],"limit":0 }
   ]));
   const signed = await nxstr.sign({
     "content": "",
-    "kind": 999,
+    "kind": 20999,
     "tags": [["p",host_pk]]
   });
   nxstr.socket.send(JSON.stringify(["EVENT",signed]));
@@ -222,9 +222,9 @@ nxstr.socket.addEventListener("message", async (message) => {
   const [type,sub,event] = JSON.parse(message.data);
   if (!event) return;
   let { kind , content , tags , pubkey , created_at , id } = event || {};
-  if (kind==999) {
+  if (kind==20999) {
     data = content;
-  } else if (kind==666) {
+  } else if (kind==20666) {
     const [x,y,c] = content.split(",");
     if (x&&y&&c) {
       const xi = parseInt(x);
@@ -245,7 +245,7 @@ const pset = async (x,y,c) => {
   if (xi>-1&&yi>-1&&xi<128&&yi<128) {
     const signed = await nxstr.sign({
       "content": `${xi},${yi},${ci}`,
-      "kind": 666,
+      "kind": 20666,
       "tags": [["p",host_pk]]
     });
     nxstr.socket.send(JSON.stringify(["EVENT",signed]));
