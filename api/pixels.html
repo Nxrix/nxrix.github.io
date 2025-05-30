@@ -107,7 +107,9 @@ html , body {
     <div id="info">
       Welcome to Pixels Alpha
       <br>
-      Try to avoid spamming or you'll lose access permanently
+      The server turns on each day at an specific hour
+      <br>
+      Try to avoid spamming or you'll lose access permanently!
       <br>
       - nxrix
     </div>
@@ -168,7 +170,7 @@ const update = () => {
     px8.buffer[i] = parseInt(data[i],32)&31;
   }
 
-  px8.sspr("13,6,000000000000003330333033000131031303130003003330303000100111010100000000000000",0,0,13,6);
+  px8.sspr("25,6,000000000000000000000000003330333033303330333030000131031303130313033103000003003330303030303330333000100111010101010111011100000000000000000000000000",0,0,25,6);
 
   const ratio = Math.max(canvas.clientWidth,canvas.clientHeight)/128;
   const x = (63.5-camera.state.x/ratio)|0;
