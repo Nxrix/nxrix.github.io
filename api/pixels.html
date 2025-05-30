@@ -154,12 +154,13 @@ const camera = new Camera2D(canvas_container,{y:-window.innerHeight/3,z:0.5},(e)
 let data = "0".repeat(128*128);
 let color = 3;
 
-const host_pk = "906b4b816a94101b9225fdb6afbaa50dc23694b9938a822c6ea4b1051818b2b9";
+let host_pk;
 if (location.hash.length==65) {
-  nxstr.login(location.hash.substring(1));
+  host_pk = location.hash.substring(1);
 } else {
-  nxstr.generate_keys();
+  host_pk = "906b4b816a94101b9225fdb6afbaa50dc23694b9938a822c6ea4b1051818b2b9";
 }
+nxstr.generate_keys();
 nxstr.connect("wss://nostr.yael.at");
 
 let t = 0;
