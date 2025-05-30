@@ -146,7 +146,7 @@ const img_data = img.data;
 canvas.width = px8.w;
 canvas.height = px8.h;
 
-const camera = new Camera2D(canvas_container,{y:-window.innerHeight/3,z:0.5},(e) => {
+const camera = new Camera2D(canvas_container,{z:0.5},(e) => {
   canvas.style.transform = "scale("+e.z+") translateX("+e.x+"px) translateY("+e.y+"px)";
   info.style.transform = "scale("+e.z+") translateX("+e.x+"px) translateY("+(e.y+canvas.clientHeight)+"px)";
 });
