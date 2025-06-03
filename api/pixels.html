@@ -112,6 +112,7 @@ html , body {
       Try to avoid spamming or you'll lose access permanently!
       <br>
       - nxrix
+      <br>
     </div>
   </div>
   <div id="palette"></div>
@@ -209,10 +210,12 @@ update();
 
 nxstr.socket.addEventListener("close", async (e) => {
   console.log("Disconnected.");
+  info.innerHTML += "Disconnected.";
 });
 
 nxstr.socket.addEventListener("open", async (e) => {
   console.log("Connected.");
+  info.innerHTML += "Connected.";
   nxstr.socket.send(JSON.stringify([
     "REQ","msgs",
     { "kinds":[20666],"authors":[host_pk],"limit":0 },
