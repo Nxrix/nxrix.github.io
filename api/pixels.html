@@ -166,7 +166,7 @@ try {
   nxstr.generate_keys();
   nxstr.connect("wss://nostr.dbtc.link");
 } catch (e) {
-  info.innerHTML += e.toString().replaceAll("\n","<br>");
+  info.innerHTML += e.toString().replaceAll("\n","<br>")+"<br>";
 }
 let t = 0;
 const update = () => {
@@ -210,12 +210,12 @@ update();
 
 nxstr.socket.addEventListener("close", async (e) => {
   console.log("Disconnected.");
-  info.innerHTML += "Disconnected.";
+  info.innerHTML += "Disconnected.<br>";
 });
 
 nxstr.socket.addEventListener("open", async (e) => {
   console.log("Connected.");
-  info.innerHTML += "Connected.";
+  info.innerHTML += "Connected.<br>";
   nxstr.socket.send(JSON.stringify([
     "REQ","msgs",
     { "kinds":[20666],"authors":[host_pk],"limit":0 },
