@@ -163,7 +163,7 @@ if (location.hash.length==65) {
 
 try {
   nxstr.generate_keys();
-  nxstr.connect("wss://nostr.yael.at");
+  nxstr.connect("wss://relay.nostr.net");
 } catch (e) {
   info.innerHTML += e.toString().replaceAll("\n","<br>");
 }
