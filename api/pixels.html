@@ -188,8 +188,7 @@ const update = () => {
   for (i=0;i<5;i++) {
     for (j=0;j<5;j++) {
       if ((i==0||j==0||i==4||j==4)&&Math.min(Math.abs(i-2),Math.abs(j-2))!=0) {
-        const c = palsh[(px8.pget(x+i-2,y+j-2)&31)+32];
-        px8.pset(x+i-2,y+j-2,c);
+        px8.pset(x+i-2,y+j-2,palsh[px8.pget(x+i-2,y+j-2)]);
       }
     }
   }
