@@ -239,7 +239,7 @@ nxstr.socket.addEventListener("message", async (message) => {
       const yi = parseInt(y);
       const ci = parseInt(c)&31;
       if (xi>-1&&yi>-1&&xi<128&&yi<128) {
-        data = data.slice(0,xi+yi*128)+ci.toString(32)+data.slice(xi+yi*128+1);
+        data = data.slice(0,xi+yi*256)+ci.toString(32)+data.slice(xi+yi*256+1);
       }
     }
   }
