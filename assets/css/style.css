@@ -287,11 +287,12 @@ input, textarea, select, button {
   font-family: inherit;
 }
 :focus {
-  outline: 2px solid var(--md-sys-color-primary-container);
-  border-radius: 2px;
+  outline: 3px solid var(--md-sys-color-primary-container);
 }
 :focus-visible {
-  outline: 2px solid var(--md-sys-color-primary-container);
+  outline: 3px solid var(--md-sys-color-primary-container);
+}
+a:focus, a:focus-visible {
   border-radius: 2px;
 }
 i {
