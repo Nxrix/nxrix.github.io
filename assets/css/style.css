@@ -286,7 +286,7 @@ html, body {
 input, textarea, select, button {
   font-family: inherit;
 }
-:focus {
+:focus:not(button) {
   outline: 3px solid var(--md-sys-color-primary-container);
 }
 :focus-visible {
