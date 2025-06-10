@@ -250,9 +250,6 @@
   unicode-bidi: plaintext !important;
   -webkit-tap-highlight-color: transparent;
 }
-*:not(.core_editor *):not(.highlighter-rouge .highlight *):not(.info-result):not(.info-error) {
-  font-family: "en","fa";
-}
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -286,6 +283,16 @@ html, body {
   /*overflow: hidden;*/
   overscroll-behavior: none;
 }
+input, textarea, select, button {
+  font-family: inherit;
+}
+:focus {
+  outline: 3px solid var(--md-sys-color-primary-container);
+}
+:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  border-radius: 2px;
+}
 i {
   user-select: none;
   -webkit-user-select: none;
@@ -318,18 +325,14 @@ p:not(.footer p) {
   margin-top: 12px;
   margin-bottom: 12px;
 }
-a:hover {
-  cursor: pointer;
-}
 a {
   color: var(--md-sys-color-primary);
 }
+a:hover {
+  cursor: pointer;
+}
 a:not(.cart):hover {
   text-decoration: underline;
-}
-a:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary);
-  border-radius: 2px;
 }
 button {
   background-color: var(--md-sys-color-surface-container);
@@ -346,9 +349,6 @@ button {
 button:hover {
   background-color: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
-}
-textarea:focus, input:focus, select:focus {
-  outline: 0;
 }
 select {
   background-color: var(--md-sys-color-background);
@@ -373,11 +373,7 @@ input, textarea {
   color: var(--md-sys-color-on-surface);
   caret-color: var(--md-sys-color-on-surface);
 }
-input::placeholder {
-  text-align: auto !important;
-  unicode-bidi: plaintext !important;
-}
-input[type="text"] ,input[type="password"] {
+input {
   background-color: var(--md-sys-color-background);
   font-size: 1em;
   padding: 8px;
@@ -385,11 +381,12 @@ input[type="text"] ,input[type="password"] {
   border-radius: 8px;
   transition: outline .2s linear;
 }
-input[type="text"]::placeholder , input[type="password"]::placeholder , textarea::placeholder {
-  color: var(--md-sys-color-outline);
+input::placeholder {
+  text-align: auto !important;
+  unicode-bidi: plaintext !important;
 }
-input[type="text"]:focus , input[type="password"]:focus , select:focus {
-  outline: 3px solid var(--md-sys-color-primary-container);
+input::placeholder , textarea::placeholder {
+  color: var(--md-sys-color-outline);
 }
 .img {
   max-width: 100%;
