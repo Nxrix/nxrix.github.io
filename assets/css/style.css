@@ -286,13 +286,13 @@ html, body {
 input, textarea, select, button {
   font-family: inherit;
 }
-:focus:not(button) {
+:focus:not(button):not(a) {
   outline: 3px solid var(--md-sys-color-primary-container);
 }
 :focus-visible {
   outline: 3px solid var(--md-sys-color-primary-container);
 }
-a:focus, a:focus-visible {
+a:focus-visible {
   border-radius: 2px;
 }
 i {
@@ -757,6 +757,9 @@ ul:not(.ul) li:nth-child(4n+3) {
   transition: border-radius .3s cubic-bezier(.2,0,0,1), background-color .3s cubic-bezier(.2,0,0,1), color .3s cubic-bezier(.2,0,0,1);
   text-decoration: none;
   color: var(--md-sys-color-on-surface);
+}
+.cart_set .cart:focus {
+  outline: 3px solid var(--md-sys-color-primary-container);
 }
 .cart_set .cart:hover {
   background-color: var(--md-sys-color-secondary-container);
