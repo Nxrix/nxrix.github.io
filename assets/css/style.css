@@ -337,6 +337,7 @@ a:not(.cart):hover {
   text-decoration: underline;
 }
 button {
+  cursor: pointer;
   background-color: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
   width: fit-content;
