@@ -4,7 +4,7 @@
 }
 
 .body {
-  height: calc(var(--vh) - 136px);
+  height: calc(var(--vh) - 128px);
   overflow-x: hidden;
   overflow-y: auto;
 }
