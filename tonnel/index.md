@@ -3,7 +3,6 @@ layout: empty
 title: "Tonnel"
 description: ""
 ---
-<!DOCTYPE html>
 <html data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -188,6 +187,6 @@ const set_tab = (n) => {
     }
   }
 }
-set_tab(1);
+set_tab(0);
 </script>
 </html>
