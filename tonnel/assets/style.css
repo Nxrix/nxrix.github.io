@@ -23,16 +23,16 @@
 .bar {
   background-color: var(--md-sys-color-background);
   width: 100%;
-  height: 72px;
+  height: 64px;
   outline: 1px solid var(--md-sys-color-outline-variant);
   position: fixed;
   bottom: 0;
 }
 .bar .content {
   display: flex;
-  width: fit-content;
-  /*max-width: 350px;*/
-  height: 72px;
+  width: 100%;
+  max-width: 200px;
+  height: 64px;
   margin: 0 auto;
   gap: 4px;
   padding: 0 16px;
@@ -52,7 +52,7 @@
 .bar svg {
   width: 100%;
   max-width: 75px;
-  height: 32px;
+  height: 28px;
   padding: 4px;
   transition: background-color 0.25s ease,color 0.25s ease;
   border-radius: 16px;
