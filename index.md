@@ -50,14 +50,11 @@ description: ""
   {% endfor %}
 </div>
 
-<script>
-const  width = 128;
-const height = 32;
-</script>
 <script src="./js/three.min.js?{{site.time|date:'%s%N'}}"></script>
-<script src="./js/px8_raw.js?{{site.time|date:'%s%N'}}"></script>
+<script src="https://nxrix.github.io/pixel-8/src/pixel8.js?{{site.time|date:'%s%N'}}"></script>
 <script src="./js/events.js?{{site.time|date:'%s%N'}}"></script>
 <script>
+const px8 = new Pixel8(128,32);
 const context = canvas.getContext("webgl",{ antialias: false, preserveDrawingBuffer: true });
 
 const renderer = new THREE.WebGLRenderer({canvas:canvas,context:context});
@@ -69,11 +66,11 @@ const scene = new THREE.Scene();
 cam.position.set(0,0,0);
 cam.lookAt(0,0,1);
 
-const buffer_texture = new THREE.DataTexture(buffer,width,height,THREE.AlphaFormat,THREE.UnsignedByteType);
+const buffer_texture = new THREE.DataTexture(px8.buffer,px8.w,px8.h,THREE.AlphaFormat,THREE.UnsignedByteType);
 
 const data_pal = new Uint8Array(32*4);
 for (let i=0;i<32;i++) {
-  const c = palette[i&31];
+  const c = Pixel8.palette[i&31];
   const n = i*4;
   data_pal[n  ] = c[0];
   data_pal[n+1] = c[1];
@@ -139,9 +136,9 @@ let update = () => {
     c2 = palsh[(e.c[rn%e.c.length]&31)+32];
   }
 
-  fillp(rn,c2);
-  rectfill(0,0,width-1,height-1,c1);
-  fillp();
+  px8.fillp(rn,c2);
+  px8.rectfill(0,0,px8.w-1,px8.h-1,c1);
+  px8.fillp();
 
   for (let i=0;i<4*strl2+8;i++) {
     for (let j=0;j<12;j++) {
@@ -149,12 +146,12 @@ let update = () => {
       if ((i==1||j==1||i==strl2*4+6||j==10)&&(i>0)&&(j>0)&&(i<strl2*4+7)&&(j<11)) {
         v = (Math.abs(i-(4*strl2+7)/2)^Math.abs(j-5.5))+n*4+t/4;
       }
-      pset(i+width2-4-strl2*2,j+height2-6,v);
+      px8.pset(i+px8.w2-4-strl2*2,j+px8.h2-6,v);
     }
   }
 
   if (e!=null) {
-    sspr(e.i,17+width2-2*strl2,height2-3,w,6);
+    px8.sspr(e.i,17+px8.w2-2*strl2,px8.h2-3,w,6);
   }
 
   [
@@ -167,22 +164,22 @@ let update = () => {
     [ 0, 1],
     [ 1, 1]
   ].forEach(([x,y],i) => {
-    print(str1,      width2-2*strl2+x,height2-2+y,i<3?20:0);
-    print(str2,str2p+width2-2*strl2+x,height2-2+y,i<3?20:0);
+    px8.print(str1,      px8.w2-2*strl2+x,px8.h2-2+y,i<3?20:0);
+    px8.print(str2,str2p+px8.w2-2*strl2+x,px8.h2-2+y,i<3?20:0);
   });
 
-  print(str1,width2-2*strl2,height2-2,3);
-  print(str2,str2p+width2-2*strl2,height2-2,3);
+  px8.print(str1,px8.w2-2*strl2,px8.h2-2,3);
+  px8.print(str2,str2p+px8.w2-2*strl2,px8.h2-2,3);
 
-  /*const oldb = buffer;
+  /*const oldb = px8.buffer;
   const pget2 = (x,y) => {
-    x = x&width1;
-    y = y&height1;
-    return oldb[x+y*width];
+    x = x&px8.w1;
+    y = y&px8.h1;
+    return oldb[x+y*px8.w];
   }
-  for (let i=0;i<width;i++) {
-    for (let j=0;j<height;j++) {
-      pset(i,j,pget2(i+rnd.gen(n*width+j+t),j));
+  for (let i=0;i<px8.w;i++) {
+    for (let j=0;j<px8.h;j++) {
+      px8.pset(i,j,pget2(i+rnd.gen(n*px8.w+j+t),j));
     }
   }*/
 
