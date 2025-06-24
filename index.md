@@ -109,32 +109,6 @@ plane.rotation.y = -Math.PI;
 plane.position.z = 7.5;
 scene.add(plane);
 
-/*class srnd {
-  static d = 0xFFFFFFFF;
-  static u = 1664525;
-  static a = 1013904223;
-  gen(s) {
-    return ((s*srnd.u+srnd.a)%srnd.d)/srnd.d;
-  }
-}*/
-
-const srnd = (n) => {
-  const a = 1664525;
-  const c = 1013904223;
-  n = n|0;
-  n = (a*n+c)&0xFFFFFFFF;
-  return (n>>>16)&0xFFFF;
-}
-
-class frnd {
-  fh(n,f=2) {
-    return (n^(n%2)^(n%3)^(n%5)^(n%7)^(n%11)^(n%13)^(n%17)^(n%19)^(n%27)^(n%29))%f/(f-1);
-  }
-  gen(n) {
-    return this.fh(n,32);
-  }
-}
-
 const palsh = [
     0,24, 1, 2,20, 4, 5, 6, 4, 8, 9,10,16,12,13,11,20,16,17,18, 0,20,21,22,20,24,25,26, 9,28,15,27,
    20, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
@@ -156,7 +130,7 @@ let update = () => {
   const strl2 = str1.length+w/4+1/2+str2.length;
   const str2p = w+str1.length*4+3;
 
-  const rn = srnd(n);
+  const rn = px8.rng(BigInt(n))();
   let c1 = palsh[rn&31];
   let c2 = palsh[(rn&31)+32];
 
