@@ -116,7 +116,6 @@ const k = new Date("2021-09-26T10:37:00.000+03:30");
 
 let t = 0;
 let update = () => {
-  cls();
   const now = new Date(new Date().getTime());
   const e = events_find(now);
   const diff = new Date(now-k);
@@ -136,6 +135,7 @@ let update = () => {
     c2 = palsh[(e.c[rn%e.c.length]&31)+32];
   }
 
+  px8.cls();
   px8.fillp(rn,c2);
   px8.rectfill(0,0,px8.w-1,px8.h-1,c1);
   px8.fillp();
