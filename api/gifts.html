@@ -71,9 +71,10 @@ const u = () => {
   const t = camera.state;
   const s = 0.25;
   const s1 = s*1.5;
-  c.x = f(c.x,t.x,s1);
+  /*c.x = f(c.x,t.x,s1);
   c.y = f(c.y,t.y,s1);
-  c.z = t.z;//f(c.z,t.z,s);
+  c.z = f(c.z,t.z,s);*/
+  c = t;
   canvas.style.transform = `scale(${c.z}) translateX(${c.x}px) translateY(${c.y}px)`;
   requestAnimationFrame(u);
 }
