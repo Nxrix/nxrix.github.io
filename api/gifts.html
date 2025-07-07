@@ -32,7 +32,7 @@ html,body {
 }
 
 #canvas img {
-  width: 100%;
+  width: 100vmin;
 }
 
 </style>
@@ -42,7 +42,7 @@ html,body {
   <div id="wrapper">
     <div id="canvas">
       <img id="img" draggable="false" src="https://raw.githubusercontent.com/Nxrix/workflows/refs/heads/main/gifts/prices.png" onload="cl()" hidden>
-      <div id="info">Loading...</div>
+      <div id="info"><span style="font-size: 150%;">Loading...</span></div>
   </div>
 
 </body>
@@ -73,7 +73,7 @@ const u = () => {
   const s1 = s*1.5;
   c.x = f(c.x,t.x,s1);
   c.y = f(c.y,t.y,s1);
-  c.z = f(c.z,t.z,s);
+  c.z = t.z;//f(c.z,t.z,s);
   canvas.style.transform = `scale(${c.z}) translateX(${c.x}px) translateY(${c.y}px)`;
   requestAnimationFrame(u);
 }
