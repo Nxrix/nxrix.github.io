@@ -32,7 +32,20 @@ html,body {
 }
 
 #canvas img {
-  width: 100vmin;
+  max-width: 100vmin;
+  max-height: 100vmin;
+}
+@media (aspect-ratio > 1) {
+  #canvas img {
+    width: auto;
+    height: 100vmin;
+  }
+}
+@media (aspect-ratio < 1) {
+  #canvas img {
+    width: 100vmin;
+    height: auto;
+  }
 }
 
 </style>
