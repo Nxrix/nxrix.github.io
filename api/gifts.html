@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gifts</title>
+</head>
+<style>
+
+* {
+  background-color: #000;
+  color: #fff;
+}
+html,body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: monospace;
+}
+
+#wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#canvas {
+  font-size: 50%;
+}
+
+#canvas img {
+  width: 100%;
+}
+
+</style>
+
+<body>
+
+  <div id="wrapper">
+    <div id="canvas">
+      <img id="img" draggable="false" src="https://raw.githubusercontent.com/Nxrix/workflows/refs/heads/main/gifts/prices.png" onload="cl()" hidden>
+      <div id="info">Loading...</div>
+  </div>
+
+</body>
+
+<script src="https://nxrix.github.io/assets/js/camera_2d.js"></script>
+<script>
+
+const cl = () => {
+  window.camera = new Camera2D(wrapper,{
+    z: 1,
+    minZ: 1,
+    maxZ: 4,
+  });
+  u();
+  img.removeAttribute("hidden");
+  info.innerHTML = ``;
+}
+const f = (c,t,s) => {
+  return c+(t-c)*s;
+}
+const f1 = (c,t,s) => {
+  return c+(t-c)*(1-Math.exp(-s));
+}
+let c = { x: 0 , y: 0 , z: 1 };
+const u = () => {
+  const t = camera.state;
+  const s = 0.25;
+  const s1 = s*1.5;
+  c.x = f(c.x,t.x,s1);
+  c.y = f(c.y,t.y,s1);
+  c.z = f(c.z,t.z,s);
+  canvas.style.transform = `scale(${c.z}) translateX(${c.x}px) translateY(${c.y}px)`;
+  requestAnimationFrame(u);
+}
+
+</script>
+</html>
