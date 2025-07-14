@@ -212,13 +212,14 @@ const load = async () => {
       [e||"",n],
       [round(k[1])+" TON",-k[1]],
       ["$"+round(k[2]).toLocaleString("en-US"),-k[2]],
-      ["★ "+round(k[2]/0.015).toLocaleString("en-US"),-k[2]],
+      //["★ "+round(k[2]/0.015).toLocaleString("en-US"),-k[2]],
       [`<span style="color:${c==0?"#888":(c>0?"#16C784":"#EA3943")}">${c}%</span>`,-c],
       [`<span style="color:${c7==0?"#888":(c7>0?"#16C784":"#EA3943")}">${c7}%</span>`,-c7],
       [`<img src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/svg/${k[0]}.svg" width="120">`,n]
     ];
   });
-  data.unshift([["Name",0],["Price TON",1],["Price USD",0],["Price Stars",0],["24h",2],["1w",2],["Chart 1w",0]]);
+  //["Price Stars",0],
+  data.unshift([["Name",0],["Price TON",1],["Price USD",0],["24h",2],["1w",2],["Chart 1w",0]]);
   let cs = { index: 1, asc: true };
   const render = (data,sortBy,asc) => {
     const container = document.querySelector("#table");
