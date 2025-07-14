@@ -8,6 +8,15 @@
 
 <style>
 
+::-moz-selection {
+  color: #211e28;
+  background-color:  #9a5dff;
+}
+::selection {
+  color: #211e28;
+  background-color:  #9a5dff;
+}
+  
 @font-face {
   font-family: "en";
   src: url("https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/assets/fonts/SF-Pro/SF-Pro-Rounded-Medium.ttf");
@@ -201,6 +210,7 @@ const load = async () => {
   for (let i=0;i<6;i++) {
     const img = document.createElement("img");
     img.src = `https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/webp/${r.sort((a,b)=>Math.abs(b[4][0][0])-Math.abs(a[4][0][0]))[i][0]}.webp`;
+    img.setAttribute("draggable","false");
     grid.appendChild(img);
   }
   const round = (n,d=1)=>(n*d+0.5|0)/d;
@@ -215,7 +225,7 @@ const load = async () => {
       //["★ "+round(k[2]/0.015).toLocaleString("en-US"),-k[2]],
       [`<span style="color:${c==0?"#888":(c>0?"#16C784":"#EA3943")}">${c}%</span>`,-c],
       [`<span style="color:${c7==0?"#888":(c7>0?"#16C784":"#EA3943")}">${c7}%</span>`,-c7],
-      [`<img src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/svg/${k[0]}.svg" width="120">`,n]
+      [`<img src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/svg/${k[0]}.svg" width="120" draggable="false">`,n]
     ];
   });
   //["Price Stars",0],
