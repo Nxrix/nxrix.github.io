@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tonnel Gifts Charts</title>
+</head>
+
+<style>
+
+@font-face {
+  font-family: "en";
+  src: url("https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/assets/fonts/SF-Pro/SF-Pro-Rounded-Medium.ttf");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,body {
+  background: #000;
+  color: #fff;
+  font-family: "en";
+}
+
+body {
+  margin: 0;
+  padding: 32px;
+}
+
+#grid {
+  display: grid;
+  width: 100%;
+  max-width: 800px;
+  font-size: 0;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+  padding: 16px;
+  margin: 0 auto;
+}
+
+#grid img {
+  width: 100%;
+}
+
+#table {
+  width: fit-content;
+  max-width: 100%;
+  overflow-y: auto;
+  margin: 0 auto;
+}
+table {
+  width: max-content;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 8px;
+}
+thead {
+  outline: 1px solid #222;
+  outline-offset: -1px;
+  border-radius: 32px;
+}
+thead tr th {
+  background: #111;
+  font-weight: 500;
+  padding: 16px;
+}
+thead tr th:first-child {
+  border-radius: 32px 0 0 32px;
+}
+thead tr th:last-child {
+  border-radius: 0 32px 32px 0;
+}
+th {
+  text-align: center;
+  cursor: pointer;
+}
+tbody tr {
+  border-bottom: 2px solid #111;
+}
+th::after {
+  opacity: 0;
+  content: " ↓";
+}
+th.asc::after {
+  opacity: 1;
+  content: " ↑";
+}
+th.desc::after {
+  opacity: 1;
+  content: " ↓";
+}
+
+</style>
+
+<body>
+  <div id="grid"></div>
+  <div id="table"></div>
+  <div style="width:100%;max-width:800px;margin:0 auto;margin-top:32px;">
+    Donate to support development
+    <div style="user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
+  </div>
+</body>
+
+<script>
+
+const gifts_names = [
+  "Santa Hat",
+  "Signet Ring",
+  "Precious Peach",
+  "Plush Pepe",
+  "Spiced Wine",
+  "Jelly Bunny",
+  "Durov's Cap",
+  "Perfume Bottle",
+  "Eternal Rose",
+  "Berry Box",
+  "Vintage Cigar",
+  "Magic Potion",
+  "Kissed Frog",
+  "Hex Pot",
+  "Evil Eye",
+  "Sharp Tongue",
+  "Trapped Heart",
+  "Skull Flower",
+  "Scared Cat",
+  "Spy Agaric",
+  "Homemade Cake",
+  "Genie Lamp",
+  "Lunar Snake",
+  "Party Sparkler",
+  "Jester Hat",
+  "Witch Hat",
+  "Hanging Star",
+  "Love Candle",
+  "Cookie Heart",
+  "Desk Calendar",
+  "Jingle Bells",
+  "Snow Mittens",
+  "Voodoo Doll",
+  "Mad Pumpkin",
+  "Hypno Lollipop",
+  "B-Day Candle",
+  "Bunny Muffin",
+  "Astral Shard",
+  "Flying Broom",
+  "Crystal Ball",
+  "Eternal Candle",
+  "Swiss Watch",
+  "Ginger Cookie",
+  "Mini Oscar",
+  "Lol Pop",
+  "Ion Gem",
+  "Star Notepad",
+  "Loot Bag",
+  "Love Potion",
+  "Toy Bear",
+  "Diamond Ring",
+  "Sakura Flower",
+  "Sleigh Bell",
+  "Top Hat",
+  "Record Player",
+  "Winter Wreath",
+  "Snow Globe",
+  "Electric Skull",
+  "Tama Gadget",
+  "Candy Cane",
+  "Neko Helmet",
+  "Jack-in-the-Box",
+  "Easter Egg",
+  "Bonded Ring",
+  "Pet Snake",
+  "Snake Box",
+  "Xmas Stocking",
+  "Big Year",
+  "Holiday Drink",
+  "Gem Signet",
+  "Light Sword",
+  "Restless Jar",
+  "Nail Bracelet",
+  "Heroic Helmet",
+  "Bow Tie",
+  "Heart Locket",
+  "Lush Bouquet",
+  "Whip Cupcake",
+  "Joyful Bundle",
+  "Cupid Charm",
+  "Valentine Box",
+  "Snoop Dogg",
+  "Swag Bag",
+  "Snoop Cigar",
+  "Low Rider",
+  "Westside Sign"
+];
+
+const fix_name = n => n.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
+
+const load = async () => {
+  const r = await(await fetch("https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/prices.json")).json();
+  for (let i=0;i<6;i++) {
+    const img = document.createElement("img");
+    img.src = `https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/webp/${r.sort((a,b)=>Math.abs(b[4][0][0])-Math.abs(a[4][0][0]))[i][0]}.webp`;
+    grid.appendChild(img);
+  }
+  const round = (n,d=1)=>(n*d+0.5|0)/d;
+  const data = r.sort((a,b)=>a[0].localeCompare(b[0])).map((k,n) => {
+    const e = gifts_names.find(i=>fix_name(i)==k[0]);
+    const c = round(k[4][0][0]*100);
+    const c7 = round(k[4][1][0]*100);
+    return [
+      [e||"",n],
+      [round(k[1])+" TON",-k[1]],
+      ["$"+round(k[2]).toLocaleString("en-US"),-k[2]],
+      ["★ "+round(k[2]/0.015).toLocaleString("en-US"),-k[2]],
+      [`<span style="color:${c==0?"#888":(c>0?"#16C784":"#EA3943")}">${c}%</span>`,-c],
+      [`<span style="color:${c7==0?"#888":(c7>0?"#16C784":"#EA3943")}">${c7}%</span>`,-c7],
+      [`<img src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/svg/${k[0]}.svg" width="120">`,n]
+    ];
+  });
+  data.unshift([["Name",0],["Price TON",1],["Price USD",0],["Price Stars",0],["24h",2],["1w",2],["Chart 1w",0]]);
+  let cs = { index: 1, asc: true };
+  const render = (data,sortBy,asc) => {
+    const container = document.querySelector("#table");
+    container.innerHTML = "";
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    const headerRow = document.createElement("tr");
+    data[0].forEach((header,i) => {
+      const th = document.createElement("th");
+      th.textContent = header[0];
+      th.addEventListener("click",() => {
+        cs = { index: i, asc: cs.index === i ? !cs.asc : true };
+        render(data, cs.index, cs.asc);
+        });
+        if (i === sortBy) {
+          th.classList.add(asc?"asc":"desc");
+        }
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      const rows = data.slice(1).sort((a, b) => {
+        const valA = a[sortBy][1];
+        const valB = b[sortBy][1];
+        return asc ? valA - valB : valB - valA;
+      });
+      rows.forEach(rd => {
+        const tr = document.createElement("tr");
+        rd.forEach((cell, i) => {
+          const td = document.createElement("td");
+          const w = document.createElement("div");
+          w.innerHTML = cell[0];
+          const a = data[0][i][1];
+          w.style.display = "flex";
+          w.style.alignItems = "center";
+          if (a === 0) w.style.justifyContent = "flex-start";
+          else if (a === 1) w.style.justifyContent = "flex-end";
+          else w.style.justifyContent = "center";
+          td.appendChild(w);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.appendChild(table);
+    }
+    render(data,cs.index,true);
+}
+load();
+
+</script>
+
+</html>
