@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tonnel Gifts Charts</title>
 </head>
 
@@ -220,8 +220,8 @@ const load = async () => {
     const c7 = round(k[4][1][0]*100);
     return [
       [e||"",n],
-      [round(k[1])+" TON",-k[1]],
-      ["$"+round(k[2]).toLocaleString("en-US"),-k[2]],
+      [round(k[1],10)+" TON",-k[1]],
+      ["$"+round(k[2],10).toLocaleString("en-US"),-k[2]],
       //["★ "+round(k[2]/0.015).toLocaleString("en-US"),-k[2]],
       [`<span style="color:${c==0?"#888":(c>0?"#16C784":"#EA3943")}">${c}%</span>`,-c],
       [`<span style="color:${c7==0?"#888":(c7>0?"#16C784":"#EA3943")}">${c7}%</span>`,-c7],
