@@ -131,9 +131,9 @@ const load = async () => {
     return [
       [k.name||"",n],
       [round(k.price.ton,10)+" TON",-k.price.ton],
-      ["$"+round(k.price.usd,10).toLocaleString("en-US"),-k.price.usd],
+      ["$"+round(k.price.usd).toLocaleString("en-US"),-k.price.usd],
       ["$"+round(k.supply*k.price.usd).toLocaleString("en-US"),-k.supply*k.price.usd],
-      [k.supply,-k.supply],
+      [k.supply.toLocaleString("en-US"),-k.supply],
       //["★ "+round(k.price.usd/0.015).toLocaleString("en-US"),-k.price.usd],
       [`<span style="color:${c==0?"#888":(c>0?"#16C784":"#EA3943")}">${c}%</span>`,-c],
       [`<span style="color:${c7==0?"#888":(c7>0?"#16C784":"#EA3943")}">${c7}%</span>`,-c7],
