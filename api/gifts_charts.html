@@ -114,122 +114,34 @@ th.desc::after {
 
 <script>
 
-const gifts_names = [
-  "Santa Hat",
-  "Signet Ring",
-  "Precious Peach",
-  "Plush Pepe",
-  "Spiced Wine",
-  "Jelly Bunny",
-  "Durov's Cap",
-  "Perfume Bottle",
-  "Eternal Rose",
-  "Berry Box",
-  "Vintage Cigar",
-  "Magic Potion",
-  "Kissed Frog",
-  "Hex Pot",
-  "Evil Eye",
-  "Sharp Tongue",
-  "Trapped Heart",
-  "Skull Flower",
-  "Scared Cat",
-  "Spy Agaric",
-  "Homemade Cake",
-  "Genie Lamp",
-  "Lunar Snake",
-  "Party Sparkler",
-  "Jester Hat",
-  "Witch Hat",
-  "Hanging Star",
-  "Love Candle",
-  "Cookie Heart",
-  "Desk Calendar",
-  "Jingle Bells",
-  "Snow Mittens",
-  "Voodoo Doll",
-  "Mad Pumpkin",
-  "Hypno Lollipop",
-  "B-Day Candle",
-  "Bunny Muffin",
-  "Astral Shard",
-  "Flying Broom",
-  "Crystal Ball",
-  "Eternal Candle",
-  "Swiss Watch",
-  "Ginger Cookie",
-  "Mini Oscar",
-  "Lol Pop",
-  "Ion Gem",
-  "Star Notepad",
-  "Loot Bag",
-  "Love Potion",
-  "Toy Bear",
-  "Diamond Ring",
-  "Sakura Flower",
-  "Sleigh Bell",
-  "Top Hat",
-  "Record Player",
-  "Winter Wreath",
-  "Snow Globe",
-  "Electric Skull",
-  "Tama Gadget",
-  "Candy Cane",
-  "Neko Helmet",
-  "Jack-in-the-Box",
-  "Easter Egg",
-  "Bonded Ring",
-  "Pet Snake",
-  "Snake Box",
-  "Xmas Stocking",
-  "Big Year",
-  "Holiday Drink",
-  "Gem Signet",
-  "Light Sword",
-  "Restless Jar",
-  "Nail Bracelet",
-  "Heroic Helmet",
-  "Bow Tie",
-  "Heart Locket",
-  "Lush Bouquet",
-  "Whip Cupcake",
-  "Joyful Bundle",
-  "Cupid Charm",
-  "Valentine Box",
-  "Snoop Dogg",
-  "Swag Bag",
-  "Snoop Cigar",
-  "Low Rider",
-  "Westside Sign"
-];
-
 const fix_name = n => n.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
 
 const load = async () => {
-  const r = await(await fetch("https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/prices.json")).json();
+  const r = await(await fetch("https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/prices2.json")).json();
   for (let i=0;i<6;i++) {
     const img = document.createElement("img");
-    img.src = `https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/webp/${r.sort((a,b)=>Math.abs(b[4][0][0])-Math.abs(a[4][0][0]))[i][0]}.webp`;
+    img.src = `https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/webp/${fix_name(r.sort((a,b)=>Math.abs(b.change[0][0])-Math.abs(a.change[0][0]))[i].name)}.webp`;
     img.setAttribute("draggable","false");
     grid.appendChild(img);
   }
   const round = (n,d=1)=>(n*d+0.5|0)/d;
-  const data = r.sort((a,b)=>a[0].localeCompare(b[0])).map((k,n) => {
-    const e = gifts_names.find(i=>fix_name(i)==k[0]);
-    const c = round(k[4][0][0]*100);
-    const c7 = round(k[4][1][0]*100);
+  const data = r.sort((a,b)=>fix_name(a.name).localeCompare(fix_name(b.name))).map((k,n) => {
+    const c = round(k.change[0][0]*100);
+    const c7 = round(k.change[1][0]*100);
     return [
-      [e||"",n],
-      [round(k[1],10)+" TON",-k[1]],
-      ["$"+round(k[2],10).toLocaleString("en-US"),-k[2]],
-      //["★ "+round(k[2]/0.015).toLocaleString("en-US"),-k[2]],
+      [k.name||"",n],
+      [round(k.price.ton,10)+" TON",-k.price.ton],
+      ["$"+round(k.price.usd,10).toLocaleString("en-US"),-k.price.usd],
+      ["$"+round(k.supply*k.price.usd).toLocaleString("en-US"),-k.supply*k.price.usd],
+      [k.supply,-k.supply],
+      //["★ "+round(k.price.usd/0.015).toLocaleString("en-US"),-k.price.usd],
       [`<span style="color:${c==0?"#888":(c>0?"#16C784":"#EA3943")}">${c}%</span>`,-c],
       [`<span style="color:${c7==0?"#888":(c7>0?"#16C784":"#EA3943")}">${c7}%</span>`,-c7],
-      [`<img src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/svg/${k[0]}.svg" width="120" draggable="false">`,n]
+      [`<img src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/svg/${fix_name(k.name)}.svg" width="120" draggable="false">`,n]
     ];
   });
   //["Price Stars",0],
-  data.unshift([["Name",0],["Price TON",1],["Price USD",0],["24h",2],["1w",2],["Chart 1w",0]]);
+  data.unshift([["Name",0],["Price TON",1],["Price USD",0],["Market Cap",0],["Supply",0],["24h",2],["1w",2],["Chart 1w",0]]);
   let cs = { index: 3, asc: true };
   const render = (data,sortBy,asc) => {
     const container = document.querySelector("#table");
