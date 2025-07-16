@@ -37,6 +37,27 @@ body {
   padding: 32px;
 }
 
+#wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  margin: 16px 0;
+  border-radius: 16px;
+  outline: 1px solid #222;
+}
+
+#canvas {
+  font-size: 150%;
+}
+
+#canvas img {
+  width: 100%;
+}
+
 #grid {
   display: grid;
   width: 100%;
@@ -109,22 +130,44 @@ th.desc::after {
     <div style="word-wrap:break-word;user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
     <div id="donations" style="margin-top:8px;"></div>
   </div>
-  <div id="grid"></div>
+  <div id="wrapper">
+    <div id="canvas">
+      <img id="img" draggable="false" src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/prices.webp" onload="cl()" hidden>
+      <div id="info">Loading...</div>
+    </div>
+  </div>
+  <!--div id="grid"></div-->
   <div id="table"></div>
 </body>
 
+<script src="https://nxrix.github.io/assets/js/camera_2d.js"></script>
+<script>
+
+const cl = () => {
+  window.camera = new Camera2D(wrapper,{
+    z: 1,
+    minZ: 1,
+    maxZ: 4
+  },e=>{
+    canvas.style.transform = `scale(${e.z}) translateX(${e.x}px) translateY(${e.y}px)`;
+  });
+  img.removeAttribute("hidden");
+  info.innerHTML = ``;
+}
+
+</script>
 <script>
 
 const fix_name = n => n.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
 
 const load = async () => {
   const r = await(await fetch("https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/prices2.json")).json();
-  for (let i=0;i<6;i++) {
+  /*for (let i=0;i<6;i++) {
     const img = document.createElement("img");
     img.src = `https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/webp/${fix_name(r.sort((a,b)=>Math.abs(b.change[0][0])-Math.abs(a.change[0][0]))[i].name)}.webp`;
     img.setAttribute("draggable","false");
     grid.appendChild(img);
-  }
+  }*/
   const round = (n,d=1)=>(n*d+0.5|0)/d;
   const data = r.sort((a,b)=>fix_name(a.name).localeCompare(fix_name(b.name))).map((k,n) => {
     const c = round(k.change[0][0]*100);
