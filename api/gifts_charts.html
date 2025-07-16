@@ -37,7 +37,9 @@ html,body {
 }
 
 body {
-  margin: 0;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 32px;
 }
 
@@ -46,7 +48,6 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 800px;
   aspect-ratio: 4/3;
   overflow: hidden;
   margin: 16px 0;
@@ -65,12 +66,10 @@ body {
 #grid {
   display: grid;
   width: 100%;
-  max-width: 800px;
   font-size: 0;
   grid-template-columns: repeat(3,1fr);
   gap: 16px;
   padding: 16px;
-  margin: 0 auto;
 }
 
 #grid img {
@@ -129,7 +128,7 @@ th.desc::after {
 </style>
 
 <body>
-  <div style="width:100%;max-width:800px;margin:0 auto;">
+  <div>
     Donate to support development
     <div style="word-wrap:break-word;user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
     <div id="donations" style="margin-top:8px;"></div>
