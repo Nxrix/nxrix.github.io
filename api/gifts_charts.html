@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tonnel Gifts Charts</title>
+  <title>Tonnel Charts</title>
 </head>
 
 <style>
@@ -139,6 +139,15 @@ th.desc::after {
   <!--div id="grid"></div-->
   <div id="table"></div>
 </body>
+
+<script src="https://nxrix.github.io/assets/js/telegram-web-app.js"></script>
+<script>
+const tg = window.Telegram.WebApp;
+tg.disableVerticalSwipes();
+if (tg.viewport.requestFullscreen.isAvailable()) {
+  await tg.viewport.requestFullscreen();
+}
+</script>
 
 <script src="https://nxrix.github.io/assets/js/camera_2d.js"></script>
 <script>
