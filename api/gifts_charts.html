@@ -107,6 +107,7 @@ th.desc::after {
   <div style="width:100%;max-width:800px;margin:0 auto;">
     Donate to support development
     <div style="word-wrap:break-word;user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
+    <div id="donations"></div>
   </div>
   <div id="grid"></div>
   <div id="table"></div>
@@ -156,43 +157,44 @@ const load = async () => {
       th.addEventListener("click",() => {
         cs = { index: i, asc: cs.index === i ? !cs.asc : true };
         render(data, cs.index, cs.asc);
-        });
-        if (i === sortBy) {
-          th.classList.add(asc?"asc":"desc");
-        }
-        headerRow.appendChild(th);
       });
-      thead.appendChild(headerRow);
-      const rows = data.slice(1).sort((a, b) => {
-        const valA = a[sortBy][1];
-        const valB = b[sortBy][1];
-        return asc ? valA - valB : valB - valA;
+      if (i === sortBy) {
+        th.classList.add(asc?"asc":"desc");
+      }
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    const rows = data.slice(1).sort((a, b) => {
+      const valA = a[sortBy][1];
+      const valB = b[sortBy][1];
+      return asc?valA-valB:valB-valA;
+    });
+    rows.forEach(rd => {
+      const tr = document.createElement("tr");
+      rd.forEach((cell, i) => {
+        const td = document.createElement("td");
+        const w = document.createElement("div");
+        w.innerHTML = cell[0];
+        const a = data[0][i][1];
+        w.style.display = "flex";
+        w.style.alignItems = "center";
+        if (a === 0) w.style.justifyContent = "flex-start";
+        else if (a === 1) w.style.justifyContent = "flex-end";
+        else w.style.justifyContent = "center";
+        td.appendChild(w);
+        tr.appendChild(td);
       });
-      rows.forEach(rd => {
-        const tr = document.createElement("tr");
-        rd.forEach((cell, i) => {
-          const td = document.createElement("td");
-          const w = document.createElement("div");
-          w.innerHTML = cell[0];
-          const a = data[0][i][1];
-          w.style.display = "flex";
-          w.style.alignItems = "center";
-          if (a === 0) w.style.justifyContent = "flex-start";
-          else if (a === 1) w.style.justifyContent = "flex-end";
-          else w.style.justifyContent = "center";
-          td.appendChild(w);
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      container.appendChild(table);
-    }
-    render(data,cs.index,true);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+  }
+  render(data,cs.index,true);
+  const t = (await(await fetch("https://tonapi.io/v2/accounts/UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx")).json()).balance/1e9-61.9553;
+  donations.innerHTML = `${round(t).toLocaleString("en-US")}/15 TON monthly goal`
 }
 load();
-
 </script>
 
 </html>
