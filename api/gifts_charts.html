@@ -129,7 +129,7 @@ const load = async () => {
     const c = round(k.change[0][0]*100);
     const c7 = round(k.change[1][0]*100);
     return [
-      [`<img src="https://gifts.coffin.meme/${k.name.toLowerCase()}/${k.floor_model.split(" (")[0]}.png">`+(k.name||""),n],
+      [`<img style="width:32px;margin-right:16px;" src="https://gifts.coffin.meme/${k.name.toLowerCase()}/${k.floor_model.split(" (")[0]}.png">`+(k.name||""),n],
       [round(k.price.ton,10)+" TON",-k.price.ton],
       ["$"+round(k.price.usd).toLocaleString("en-US"),-k.price.usd],
       ["$"+round(k.supply*k.price.usd).toLocaleString("en-US"),-k.supply*k.price.usd],
