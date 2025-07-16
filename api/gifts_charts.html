@@ -239,7 +239,7 @@ const load = async () => {
     container.appendChild(table);
   }
   render(data,cs.index,true);
-  const t = (await(await fetch("https://tonapi.io/v2/accounts/UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx")).json()).balance/1e9-61.9553;
+  const t = (await(await fetch("https://tonapi.io/v2/accounts/UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx")).json()).balance/1e9-61.95;
   donations.innerHTML = `${(Math.floor(t*10)/10).toLocaleString("en-US")}/15 TON monthly goal`
 }
 load();
