@@ -186,8 +186,8 @@ const load = async () => {
   }*/
   const round = (n,d=1)=>(n*d+0.5|0)/d;
   const data = r.sort((a,b)=>fix_name(a.name).localeCompare(fix_name(b.name))).map((k,n) => {
-    const c = round(k.change[0][0]*100);
-    const c7 = round(k.change[1][0]*100);
+    const c = Math.round(k.change[0][0]*100);
+    const c7 = Math.round(k.change[1][0]*100);
     return [
       [`<img style="width:32px;margin-right:16px;" src="https://gifts.coffin.meme/${k.name.toLowerCase()}/${k.floor_model.split(" (")[0]}.png">`+(k.name||""),n],
       [round(k.price.ton,10)+" TON",-k.price.ton],
