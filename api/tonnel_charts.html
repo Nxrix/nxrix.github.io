@@ -1,259 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tonnel Charts</title>
+  <link rel="stylesheet" href="observablehq.css">
 </head>
 
-<style>
-
-::-moz-selection {
-  color: #211e28;
-  background-color:  #9a5dff;
-}
-::selection {
-  color: #211e28;
-  background-color:  #9a5dff;
-}
-
-a {
-  color: #9a5dff;
-}
-  
-@font-face {
-  font-family: "en";
-  src: url("https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/assets/fonts/SF-Pro/SF-Pro-Rounded-Medium.ttf");
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,body {
-  background: #000;
-  color: #fff;
-  font-family: "en";
-}
-
-body {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 32px;
-}
-
-#wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 16px auto;
-  aspect-ratio: 4096/2151;
-  overflow: hidden;
-  border-radius: 16px;
-  outline: 1px solid #222;
-}
-
-#canvas {
-  font-size: 150%;
-}
-
-#canvas img {
-  width: 100%;
-}
-
-#grid {
-  display: grid;
-  width: 100%;
-  font-size: 0;
-  grid-template-columns: repeat(3,1fr);
-  gap: 16px;
-  padding: 16px;
-}
-
-#grid img {
-  width: 100%;
-}
-
-#table {
-  width: fit-content;
-  max-width: 100%;
-  overflow-y: auto;
-  margin: 0 auto;
-}
-table {
-  width: max-content;
-  border-collapse: collapse;
-}
-th,td {
-  padding: 8px;
-}
-thead {
-  outline: 1px solid #222;
-  outline-offset: -1px;
-  border-radius: 32px;
-}
-thead tr th {
-  background: #111;
-  font-weight: 500;
-  padding: 16px;
-}
-thead tr th:first-child {
-  border-radius: 32px 0 0 32px;
-}
-thead tr th:last-child {
-  border-radius: 0 32px 32px 0;
-}
-th {
-  text-align: center;
-  cursor: pointer;
-}
-tbody tr {
-  border-bottom: 2px solid #111;
-}
-th::after {
-  opacity: 0;
-  content: " ↓";
-}
-th.asc::after {
-  opacity: 1;
-  content: " ↑";
-}
-th.desc::after {
-  opacity: 1;
-  content: " ↓";
-}
-
-</style>
-
 <body>
-  <div>
-    Donate to support development
-    <div style="word-wrap:break-word;user-select:all;">UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx</div>
-    <div id="donations" style="margin-top:8px;"></div>
-  </div>
-  <br>
-  <a href="https://t.me/addstickers/charts_by_Tonnel_Charts_bot">Stickers</a>
-  <a href="https://t.me/x6E78">Channel</a>
-  <!--div id="wrapper">
-    <div id="canvas">
-      <img id="img" draggable="false" src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/prices.png" onload="cl()" hidden>
-      <div id="info">Loading...</div>
-    </div>
-  </div-->
-  <!--div id="grid"></div-->
-  <br>
-  <div style="width:fit-content;max-width:600px;margin:0 auto;">
-    <img style="width:100%;" draggable="false" src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/heatmap.png">
-  </div>
-  <br>
-  <div id="table"></div>
+  <div id="notebook"></div>
+  <!--button onclick="document.documentElement.classList.toggle('dark');this.innerHTML=this.innerHTML=='Light'?'Dark':'Light'">Dark</button-->
 </body>
 
-<script src="https://nxrix.github.io/assets/js/telegram-web-app.js"></script>
-<script>
-const tg = window.Telegram.WebApp;
-</script>
+<script type="module">
 
-<script src="https://nxrix.github.io/assets/js/camera_2d.js"></script>
-<script>
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import notebook from "https://api.observablehq.com/@nxrix/tonnel-charts.js?v=4";
 
-const cl = () => {
-  window.camera = new Camera2D(wrapper,{
-    z: 1,
-    minZ: 0.75,
-    maxZ: 4
-  },e=>{
-    canvas.style.transform = `scale(${e.z}) translateX(${e.x}px) translateY(${e.y}px)`;
-  });
-  img.removeAttribute("hidden");
-  info.innerHTML = ``;
-}
+const runtime = new Runtime();
+
+const container = document.getElementById("notebook");
+
+const main = runtime.module(notebook, (name,i) => {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.id = `cell_${name||i}`;
+  container.appendChild(cell);
+  return new Inspector(cell);
+});
 
 </script>
-<script>
 
-const fix_name = n => n.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
-
-const load = async () => {
-  const r = await(await fetch("https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/prices3.json")).json();
-  /*for (let i=0;i<6;i++) {
-    const img = document.createElement("img");
-    img.src = `https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/webp/${fix_name(r.sort((a,b)=>Math.abs(b.change[0][0])-Math.abs(a.change[0][0]))[i].name)}.webp`;
-    img.setAttribute("draggable","false");
-    grid.appendChild(img);
-  }*/
-  const round = (n,d=1)=>(n*d+0.5|0)/d;
-  const data = r.sort((a,b)=>fix_name(a.name).localeCompare(fix_name(b.name))).map((k,n) => {
-    const c = Math.round(k.change[0][0]*100);
-    const c7 = Math.round(k.change[1][0]*100);
-    return [
-      [`<img style="width:32px;margin-right:16px;" src="https://gifts.coffin.meme/${k.name.toLowerCase()}/${k.floor_model.split(" (")[0]}.png">`+(k.name||""),n],
-      [round(k.price.ton,10)+" TON",-k.price.ton],
-      ["$"+round(k.price.usd).toLocaleString("en-US"),-k.price.usd],
-      ["$"+round(k.supply*k.price.usd).toLocaleString("en-US"),-k.supply*k.price.usd],
-      [k.supply.toLocaleString("en-US"),-k.supply],
-      //["★ "+round(k.price.usd/0.015).toLocaleString("en-US"),-k.price.usd],
-      [`<span style="color:${c==0?"#888":(c>0?"#16C784":"#EA3943")}">${c}%</span>`,-c],
-      [`<span style="color:${c7==0?"#888":(c7>0?"#16C784":"#EA3943")}">${c7}%</span>`,-c7],
-      [`<img src="https://raw.githubusercontent.com/Nxrix/workflows1/refs/heads/main/gifts/charts/svg/${fix_name(k.name)}.svg" width="120" draggable="false">`,n]
-    ];
-  });
-  //["Price Stars",0],
-  data.unshift([["Name",0],["Price TON",1],["Price USD",0],["Market Cap",0],["Supply",0],["24h",2],["1w",2],["Chart 1w",0]]);
-  let cs = { index: 5, asc: true };
-  const render = (data,sortBy,asc) => {
-    const container = document.querySelector("#table");
-    container.innerHTML = "";
-    const table = document.createElement("table");
-    const thead = document.createElement("thead");
-    const tbody = document.createElement("tbody");
-    const headerRow = document.createElement("tr");
-    data[0].forEach((header,i) => {
-      const th = document.createElement("th");
-      th.textContent = header[0];
-      th.addEventListener("click",() => {
-        cs = { index: i, asc: cs.index === i ? !cs.asc : true };
-        render(data, cs.index, cs.asc);
-      });
-      if (i === sortBy) {
-        th.classList.add(asc?"asc":"desc");
-      }
-      headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
-    const rows = data.slice(1).sort((a, b) => {
-      const valA = a[sortBy][1];
-      const valB = b[sortBy][1];
-      return asc?valA-valB:valB-valA;
-    });
-    rows.forEach(rd => {
-      const tr = document.createElement("tr");
-      rd.forEach((cell, i) => {
-        const td = document.createElement("td");
-        const w = document.createElement("div");
-        w.innerHTML = cell[0];
-        const a = data[0][i][1];
-        w.style.display = "flex";
-        w.style.alignItems = "center";
-        if (a === 0) w.style.justifyContent = "flex-start";
-        else if (a === 1) w.style.justifyContent = "flex-end";
-        else w.style.justifyContent = "center";
-        td.appendChild(w);
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
-    });
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    container.appendChild(table);
-  }
-  render(data,cs.index,true);
-  const t = (await(await fetch("https://tonapi.io/v2/accounts/UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx")).json()).balance/1e9-61.95;
-  donations.innerHTML = `${(Math.floor(t*10)/10).toLocaleString("en-US")}/15 TON monthly goal`
-}
-load();
-</script>
 
 </html>
