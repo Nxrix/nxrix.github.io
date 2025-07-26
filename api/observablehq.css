@@ -35,7 +35,7 @@
     arial, sans-serif;
 }
 
-:root.dark {
+:root[data-theme="dark"] {
   --bg: #000;
   --bg1: #0f0f0f;
   --fg: #e4e1dc;
@@ -53,7 +53,7 @@
 }
 
 html {
-  font: 16px/1.5 var(--serif);
+font: 16px/1.5 var(--serif);
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -216,6 +216,13 @@ textarea {
   outline-color: var(--ac);
   border-radius: 2px;
   accent-color: var(--ac);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--ac);
+  outline-offset: 1px;
 }
 
 table {
