@@ -212,6 +212,7 @@ button,
 input,
 textarea {
   background-color: var(--bg1);
+  color: var(--fg);
   border: 1px solid var(--br);
   outline-color: var(--ac);
   border-radius: 2px;
