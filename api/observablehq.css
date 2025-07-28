@@ -49,7 +49,7 @@
 }
 
 * {
-  scrollbar-color: var(--br) var(--bg);
+  scrollbar-color: var(--br) var(--bg1);
 }
 
 html {
