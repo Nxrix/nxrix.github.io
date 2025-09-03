@@ -76,8 +76,8 @@
   background-color: var(--md-sys-color-background);
   box-sizing: border-box;
   overflow: hidden;
-  width: 96%;
-  margin: 2%;
+  width: 98%;
+  margin: 1%;
   font-size: 0;
   text-decoration: none;
   border-radius: calc(var(--font)/100*1);
@@ -85,6 +85,8 @@
   aspect-ratio: 1;
 }
 #gifts_list .item.bundle {
+  width: 96%;
+  margin: 2%;
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
