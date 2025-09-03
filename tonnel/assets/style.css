@@ -250,7 +250,7 @@
   flex-direction: column;
   overflow: hidden;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   max-height: 350px;
   padding: 8px;
   border-radius: 12px;
@@ -308,7 +308,7 @@
 
 .filters1 {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   display: grid;
   grid-template-columns: repeat(2,1fr);
   justify-items: center;
@@ -325,7 +325,7 @@
 
 .filters3 {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   display: grid;
   grid-template-columns: repeat(2,1fr);
   justify-items: center;

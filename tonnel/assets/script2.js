@@ -264,7 +264,7 @@ const add_gift = (c,n,p,i,a,m,g) => {
   const gift = document.createElement("a");
   gift.classList.add("item");
   gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
-  gift.style.boxShadow = a?("0 0 0 1px var(--md-sys-color-background), "+(m?"0 0 0 2px #48f, 0 0 0 3px #fb0":"0 0 0 3px #fb0")):(m?"0 0 0 1px var(--md-sys-color-background), 0 0 0 3px #48f":"");
+  //gift.style.boxShadow = a?("0 0 0 1px var(--md-sys-color-background), "+(m?"0 0 0 2px #48f, 0 0 0 3px #fb0":"0 0 0 3px #fb0")):(m?"0 0 0 1px var(--md-sys-color-background), 0 0 0 3px #48f":"");
 
   const img = document.createElement("img");
   img.src = get_img(c,n);
@@ -321,7 +321,7 @@ const add_bundle = (b,p,i,a) => {
   const gift = document.createElement("a");
   gift.classList.add("item", "bundle");
   gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
-  gift.style.boxShadow = a?"0 0 0 1px var(--md-sys-color-background), 0 0 0 3px 0 0 0 3px #fb0":"";
+  //gift.style.boxShadow = a?"0 0 0 1px var(--md-sys-color-background), 0 0 0 3px 0 0 0 3px #fb0":"";
 
   const t = b.bundleData.length;
   const c = Math.ceil(Math.sqrt(t));
