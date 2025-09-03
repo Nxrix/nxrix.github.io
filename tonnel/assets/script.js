@@ -95,7 +95,8 @@ Evil Eye`;
 const fix_name = n => n.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
 
 const get_img = (a,b,c=1) => {
-  return `https://nft.fragment.com/gift/${a}-${b}${[".small",".medium",".large",""][c]}${c<3?".jpg":".webp"}`
+  //return `https://nft.fragment.com/gift/${a}-${b}${[".small",".medium",".large",""][c]}${c<3?".jpg":".webp"}`
+  return `https://cdn.swap.coffee/frg/${a}-${b}${[".small",".medium",".large",""][c]}${c<3?".jpg":".webp"}`
 }
 
 const parse_nums = (str) => {
