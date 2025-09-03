@@ -10,7 +10,7 @@ description: ""
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--link rel="icon" href="./img/" type="image/png"-->
   <link rel="stylesheet" href="https://nxrix.github.io/assets/css/style.css?{{site.time|date:'%s%N'}}">
-  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="stylesheet" href="./assets/style.css?{{site.time|date:'%s%N'}}">
   <!--link rel="stylesheet" href="./assets/theme.css"-->
   <!--script src="https://nxrix.github.io/assets/js/theme.js?{{site.time|date:'%s%N'}}"></script-->
   <script src="https://nxrix.github.io/assets/js/screen.js?{{site.time|date:'%s%N'}}"></script>
@@ -189,7 +189,7 @@ description: ""
     </div>
   </div>
 </body>
-<script src="./assets/script2.js"></script>
+<script src="./assets/script2.js?{{site.time|date:'%s%N'}}"></script>
 <script>
 const set_tab = (n) => {
   const tabs = document.querySelectorAll(".body .content.page");
