@@ -608,7 +608,7 @@ const load_gifts = async () => {
 
     if (data.length==0) gifts_list.innerHTML = `<div style="padding:16px;">No Gifts Found. Check the filters</div>`;
   } catch (e) {
-    gifts_list.innerHTML = `<div style="padding:16px;">Network Error Try Searching Again</div>`;
+    gifts_list.innerHTML = `<div style="width:100%;padding:16px;">Network Error Try Searching Again</div>`;
   }
   //apply_effect();
 }
