@@ -300,7 +300,9 @@
   padding: 4px 8px;
 }
 .filterd .filterl div.active {
-  background-color: var(--md-sys-color-on-secondary);
+  /*background-color: var(--md-sys-color-primary-container);
+  color: #fff;*/
+  border-left: 4px solid var(--md-sys-color-primary);
 }
 .filterd .filterl div.hidden {
   display: none;
