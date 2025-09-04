@@ -295,7 +295,7 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
           ...(tag=="premarket" && { premarket: true }),
           ...(tag=="mintable" && { export_at: { $lt: new Date().toISOString() } }),
           ...(tag=="bundle" && { gift_id: { $lt: 0 } }),
-          ...(tag=="auction" && { auction_id:{ $exists: true}, status: "active" })
+          ...(tag=="auction" && { auction_id:{ $exists: true}, status: "active" }),
           ...(() => {
             return parse_nums(numbers.value)?{ gift_num: parse_nums(numbers.value) }:{}
           })(),
