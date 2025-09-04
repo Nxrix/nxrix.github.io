@@ -998,8 +998,8 @@ window.onload = async () => {
     const div = gift_elements[gift];
     const span = div.querySelector("span");
     const name = span.textContent;
-    const extra = parseFloat(collections.find(i=>fix_name(i.name)==name).stats.floor)/1e9 || "";
-    span.textContent = `${name} - ${(Math.round(extra*10)/10).toLocaleString("en-US")} TON`;
+    const extra = parseFloat(collections.find(i=>fix_name(i.name)==fix_name(name))?.stats.floor)/1e9 || "";
+    span.textContent = extra?`${name} - ${(Math.round(extra*10)/10).toLocaleString("en-US")} TON`:name;
   });
 
   //const ton = (await(await fetch(proxy+"https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json())?.Price||0;
