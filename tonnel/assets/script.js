@@ -92,8 +92,61 @@ Jelly Bunny
 Magic Potion
 Evil Eye`;
 
+const backdrop_pattern = `<svg width="100%" height="100%" viewBox="0 0 416 416" class="absolute inset-0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <filter id="{{gift_n}}-f">
+      <feFlood flood-color="{{gift_pattern}}"></feFlood>
+      <feComposite in2="SourceGraphic" operator="in"></feComposite>
+    </filter>
+    <image id="{{gift_n}}-p" x="-50" y="-50" width="100" height="100" xlink:href="{{gift_symbol}}"></image>
+    <g id="{{gift_n}}-fp">
+      <g opacity="0.10" transform="translate(106.08,29.12) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.10" transform="translate(309.92,29.12) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.10" transform="translate(-2.08,166.4) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.10" transform="translate(418.08,166.4) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.10" transform="translate(208,395.2) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(208,37.44) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(38.688,97.76) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(377.728,97.76) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(26.208,270.4) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(389.376,270.4) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(53.248,358.592) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(144.768,358.592) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(271.232,358.592) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.15" transform="translate(361.92,358.592) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(141.44,81.12) scale(0.416)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(272.48,81.12) scale(0.416)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(92.352,133.12) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(323.648,133.12) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(68.64,201.76) scale(0.4576)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(346.528,201.76) scale(0.4576)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(99.84,301.6) scale(0.3744)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(314.08,301.6) scale(0.3744)"><use xlink:href="#{{gift_n}}-p"></use></g>
+      <g opacity="0.24" transform="translate(208,320.32) scale(0.3744)"><use xlink:href="#{{gift_n}}-p"></use></g>
+    </g>
+  </defs>
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><use xlink:href="#{{gift_n}}-fp" filter="url(#{{gift_n}}-f)"></use></g>
+</svg>`;
+
+const tag_svg = `<svg style="position:absolute;top:0;right:0;width:40%;height:40%;" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="bgblur_clip">
+      <path d="M21.4214 0C21.9518 0 22.4605 0.210714 22.8356 0.585786L51.4433 29.1935C51.8184 29.5686 52.0291 30.0773 52.0291 30.6077V49.0759C52.0291 50.8577 49.8748 51.75 48.6149 50.4901L1.53901 3.41422C0.279085 2.15429 1.17142 0 2.95323 0H21.4214Z"></path>
+    </clipPath>
+  </defs>
+  <path d="M21.4214 0C21.9518 0 22.4605 0.210714 22.8356 0.585786L51.4433 29.1935C51.8184 29.5686 52.0291 30.0773 52.0291 30.6077V49.0759C52.0291 50.8577 49.8748 51.75 48.6149 50.4901L1.53901 3.41422C0.279085 2.15429 1.17142 0 2.95323 0H21.4214Z" fill="{{tag_background}}"></path>
+  <text x="26" y="26" text-anchor="middle" dominant-baseline="middle" transform="rotate(45 34 26)" fill="{{tag_color}}" font-size="9" font-weight="700" font-family="Inter">#{{tag_number}}</text>
+</svg>`;
+
 const fix_name2 = (n) => n.replace(/[^a-zA-Z0-9]/g, "");
 const fix_name = (n) => fix_name2(n).toLowerCase();
+
+const gift_names0 = fix_name(gift_names);
+
+const gifts = gift_names.split("\n").sort();
+const gifts0 = gift_names0.split("\n").sort();
+
+const i2h = (n) => "#"+n.toString(16).padStart(6,"0");
 
 const get_img = (a,b,c=1) => {
   //return `https://nft.fragment.com/gift/${a}-${b}${[".small",".medium",".large",""][c]}${c<3?".jpg":".webp"}`
@@ -260,59 +313,6 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
   }
 }
 
-const gift_names0 = fix_name(gift_names);
-
-const gifts = gift_names.split("\n").sort();
-const gifts0 = gift_names0.split("\n").sort();
-
-const i2h = (n) => "#"+n.toString(16).padStart(6,"0");
-
-const backdrop_pattern = `<svg width="100%" height="100%" viewBox="0 0 416 416" class="absolute inset-0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs>
-    <filter id="{{gift_n}}-f">
-      <feFlood flood-color="{{gift_pattern}}"></feFlood>
-      <feComposite in2="SourceGraphic" operator="in"></feComposite>
-    </filter>
-    <image id="{{gift_n}}-p" x="-50" y="-50" width="100" height="100" xlink:href="{{gift_symbol}}"></image>
-    <g id="{{gift_n}}-fp">
-      <g opacity="0.10" transform="translate(106.08,29.12) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.10" transform="translate(309.92,29.12) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.10" transform="translate(-2.08,166.4) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.10" transform="translate(418.08,166.4) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.10" transform="translate(208,395.2) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(208,37.44) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(38.688,97.76) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(377.728,97.76) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(26.208,270.4) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(389.376,270.4) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(53.248,358.592) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(144.768,358.592) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(271.232,358.592) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.15" transform="translate(361.92,358.592) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(141.44,81.12) scale(0.416)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(272.48,81.12) scale(0.416)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(92.352,133.12) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(323.648,133.12) scale(0.3328)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(68.64,201.76) scale(0.4576)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(346.528,201.76) scale(0.4576)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(99.84,301.6) scale(0.3744)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(314.08,301.6) scale(0.3744)"><use xlink:href="#{{gift_n}}-p"></use></g>
-      <g opacity="0.24" transform="translate(208,320.32) scale(0.3744)"><use xlink:href="#{{gift_n}}-p"></use></g>
-    </g>
-  </defs>
-  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><use xlink:href="#{{gift_n}}-fp" filter="url(#{{gift_n}}-f)"></use></g>
-</svg>`;
-
-const tag_svg = `<svg style="position:absolute;top:0;right:0;width:40%;height:40%;" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <clipPath id="bgblur_clip">
-      <path d="M21.4214 0C21.9518 0 22.4605 0.210714 22.8356 0.585786L51.4433 29.1935C51.8184 29.5686 52.0291 30.0773 52.0291 30.6077V49.0759C52.0291 50.8577 49.8748 51.75 48.6149 50.4901L1.53901 3.41422C0.279085 2.15429 1.17142 0 2.95323 0H21.4214Z"></path>
-    </clipPath>
-  </defs>
-  <path d="M21.4214 0C21.9518 0 22.4605 0.210714 22.8356 0.585786L51.4433 29.1935C51.8184 29.5686 52.0291 30.0773 52.0291 30.6077V49.0759C52.0291 50.8577 49.8748 51.75 48.6149 50.4901L1.53901 3.41422C0.279085 2.15429 1.17142 0 2.95323 0H21.4214Z" fill="{{tag_background}}"></path>
-  <text x="26" y="26" text-anchor="middle" dominant-baseline="middle" transform="rotate(45 34 26)" fill="{{tag_color}}" font-size="9" font-weight="700" font-family="Inter">#{{tag_number}}</text>
-</svg>`;
-
 const i2b64 = async (url) => {
   try {
     const response = await fetch(url);
@@ -348,11 +348,10 @@ const add_gift = (c,n,p,i,m,g) => {
   const gift = document.createElement("a");
   gift.classList.add("item");
   if (g.market) {
-    gift.href = "https://t.me/nft/"+fix_name2(gifts.find(i=>fix_name(i)==c)||"")+"-"+n;
+    gift.href = "https://t.me/nft/"+fix_name2(g.name)+"-"+n;
   } else {
     gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
   }
-  //gift.style.boxShadow = a?("0 0 0 1px var(--md-sys-color-background), "+(m?"0 0 0 2px #48f, 0 0 0 3px #fb0":"0 0 0 3px #fb0")):(m?"0 0 0 1px var(--md-sys-color-background), 0 0 0 3px #48f":"");
 
   const img = document.createElement("img");
   img.src = get_img(c,n);
@@ -364,10 +363,6 @@ const add_gift = (c,n,p,i,m,g) => {
 
   const fix_gift = () => {
     img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4AWJiYGBgAAAAAP//XRcpzQAAAAZJREFUAwAADwADJDd96QAAAABJRU5ErkJggg==";
-    /*const q = document.createElement("div");
-    q.classList.add("q");
-    q.innerText = fix_name2(gifts.find(i=>fix_name(i)==c)||"")+"-"+n//"?";
-    gift.appendChild(q);*/
     img.style.background = `radial-gradient(circle,${i2h(b.centerColor)} 1%,${i2h(b.edgeColor)} 80%)`;
     const mi = document.createElement("img");
     mi.src = `https://gifts.coffin.meme/${g.name.toLowerCase()}/${g.model.split(" (")[0]}.png`
@@ -378,7 +373,7 @@ const add_gift = (c,n,p,i,m,g) => {
     mi.style.zIndex = "1";
     gift.insertBefore(mi, gift.firstChild);
     load_patterns(img, {
-      slug: fix_name2(gifts.find(i=>fix_name(i)==c)||"")+"-"+n,
+      slug: fix_name2(g.name)+"-"+n,
       symbol: g.symbol.split(" (")[0],
       patternColor: b.patternColor
     });
@@ -387,10 +382,6 @@ const add_gift = (c,n,p,i,m,g) => {
   if (g.premarket) fix_gift();
   img.onerror = fix_gift;
 
-  /*const id = document.createElement("div");
-  id.classList.add("id");
-  id.innerText = "#"+n;
-  gift.appendChild(id);*/
   gift.insertAdjacentHTML("beforeend", tag_svg
     .replaceAll("{{tag_number}}", n)
     .replaceAll("{{tag_background}}",i2h(b.edgeColor))
@@ -1013,37 +1004,18 @@ const load_floors = async () => {
   }
 }
 
-collectionst.onclick = () => {
-  collectionsd.style.display = collectionsd.style.display=="flex"?"none":"flex";
-  modelsd.style.display = "none";
-  backdropsd.style.display = "none";
-  symbolsd.style.display = "none";
-  //apply_effect();
-}
-
-modelst.onclick = () => {
-  modelsd.style.display = modelsd.style.display=="flex"?"none":"flex";
-  collectionsd.style.display = "none";
-  backdropsd.style.display = "none";
-  symbolsd.style.display = "none";
-  //apply_effect();
-}
-
-backdropst.onclick = () => {
-  backdropsd.style.display = backdropsd.style.display=="flex"?"none":"flex";
-  collectionsd.style.display = "none";
-  modelsd.style.display = "none";
-  symbolsd.style.display = "none";
-  //apply_effect();
-}
-
-symbolst.onclick = () => {
-  symbolsd.style.display = symbolsd.style.display=="flex"?"none":"flex";
-  collectionsd.style.display = "none";
-  modelsd.style.display = "none";
-  backdropsd.style.display = "none";
-  //apply_effect();
-}
+[
+  {btn: collectionst, panel: collectionsd},
+  {btn: modelst, panel: modelsd},
+  {btn: backdropst, panel: backdropsd},
+  {btn: symbolst, panel: symbolsd},
+].forEach(({btn, panel}) => {
+  btn.onclick = () => {
+    const open = panel.style.display === "flex";
+    [collectionsd, modelsd, backdropsd, symbolsd].forEach(p => p.style.display = "none");
+    panel.style.display = open ? "none" : "flex";
+  };
+});
 
 collectionss.oninput = () => {
   update_collections(collectionss.value);
