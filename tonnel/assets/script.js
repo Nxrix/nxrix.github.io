@@ -453,7 +453,7 @@ const add_gift = (c,n,p,i,m,g) => {
     gift.appendChild(market);
   }
 
-  if (g.auction.auctionEndTime) {
+  if (g.auction) {
     const market = document.createElement("div");
     market.classList.add("market");
     market.style.background = i2h(b.edgeColor);
@@ -522,7 +522,7 @@ const add_bundle = (b,p,i) => {
   icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/></svg>`);
   gift.appendChild(icons);
 
-  if (g.auction.auctionEndTime) {
+  if (g.auction) {
     icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M160-120v-80h480v80H160Zm226-194L160-540l84-86 228 226-86 86Zm254-254L414-796l86-84 226 226-86 86Zm184 408L302-682l56-56 522 522-56 56Z"/></svg>`);
     const market = document.createElement("div");
     market.classList.add("market");
