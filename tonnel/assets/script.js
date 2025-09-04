@@ -845,13 +845,13 @@ const update_collections = (filter = "") => {
       gift_elements[gift].style.display = "none";
     }
   });
-  select_all.style.display = filtered.length==gifts.length?"block":"none";
+  //select_all.style.display = filtered.length==gifts.length?"block":"none";
   no_results.style.display = filtered.length==0?"block":"none";
   update_select_all();
   update_url();
 }
 
-const update_models = (filter = "") => {
+/*const update_models = (filter = "") => {
   modelsl.innerHTML = "";
   if (collections.length == 0) {
     models.length = 0;
@@ -905,7 +905,88 @@ const update_models = (filter = "") => {
   select_all_models.style.display = filtered.length>0?"block":"none";
   update_select_all_models();
   update_url();
-}
+}*/
+
+const model_elements = {};
+
+const update_models = (filter = "") => {
+  modelsl.innerHTML = "";
+
+  if (collections.length == 0) {
+    models.length = 0;
+    const div = document.createElement("div");
+    div.innerText = "No Models Found";
+    modelsl.appendChild(div);
+    return;
+  }
+
+  let all = [];
+  collections.forEach(gift => {
+    const gm = gift_models.find(g => g._id == gift);
+    if (gm) {
+      const sorted = gm.models.slice(0, -1).sort((a, b) => {
+        const pa = parseFloat(a.match(/\(([\d.]+)%\)/)?.[1] || 0);
+        const pb = parseFloat(b.match(/\(([\d.]+)%\)/)?.[1] || 0);
+        return pa - pb;
+      });
+      all = all.concat(sorted.map(m => ({gift, model: m})));
+    }
+  });
+
+  const filtered = all.filter(({model}) => model.toLowerCase().includes(filter.toLowerCase()));
+
+  if (filtered.length == 0) {
+    const div = document.createElement("div");
+    div.innerText = "No Models Found";
+    modelsl.appendChild(div);
+    return;
+  }
+
+  filtered.sort((a, b) => {
+    const ain = models.includes(a.model)?-1:1;
+    const bin = models.includes(b.model)?-1:1;
+    if (ain != bin) return ain - bin;
+    if (a.gift < b.gift) return -1;
+    if (a.gift > b.gift) return 1;
+    if (a.model < b.model) return -1;
+    if (a.model > b.model) return 1;
+    return 0;
+  }).forEach(({gift, model}) => {
+    let div;
+
+    if (model_elements[model]) {
+      div = model_elements[model];
+      div.className = models.includes(model) ? "active" : "";
+    } else {
+      div = document.createElement("div");
+
+      const img = document.createElement("img");
+      img.src = `https://gifts.coffin.meme/${gift.toLowerCase()}/${model}.png`;
+      img.alt = model;
+      img.style.width = "32px";
+      img.style.height = "32px";
+      img.style.marginRight = "8px";
+
+      div.appendChild(img);
+      div.appendChild(document.createTextNode(`${model}`));
+      div.className = models.includes(model) ? "active" : "";
+
+      div.onclick = () => {
+        if (models.includes(model)) {
+          models = models.filter(m => m != model);
+        } else {
+          models.push(model);
+        }
+        update_models(filter);
+      };
+      model_elements[model] = div;
+    }
+    modelsl.appendChild(div);
+  });
+  select_all_models.style.display = filtered.length > 0 ? "block" : "none";
+  update_select_all_models();
+  update_url();
+};
 
 const update_backdrops = (filter = "") => {
   backdropsl.innerHTML = "";
