@@ -573,40 +573,43 @@ const load_gifts = async () => {
   }*/
 
   const pfix = prices[format.value][asset.value]*(asset.value=="TONNEL"?1.06:1.06);
+  try {
+    const data = await tonnel_search({
+      page: page+1,
+      limit,
+      sort: sort.value,
+      asset: asset.value,
 
-  const data = await tonnel_search({
-    page: page+1,
-    limit,
-    sort: sort.value,
-    asset: asset.value,
+      tag: tag.value,
+      pmin: parseFloat(min.value.trim())/pfix,
+      pmax: parseFloat(max.value.trim())/pfix,
 
-    tag: tag.value,
-    pmin: parseFloat(min.value.trim())/pfix,
-    pmax: parseFloat(max.value.trim())/pfix,
+      name: collections,
+      model: models,
+      backdrop: get_backdrops(backdrops),
+      symbol: get_symbols(symbols),
+    });
 
-    name: collections,
-    model: models,
-    backdrop: get_backdrops(backdrops),
-    symbol: get_symbols(symbols),
-  });
+    gifts_list.innerHTML = "";
 
-  gifts_list.innerHTML = "";
-
-  for (g of data) {
-    const f = prices[format.value];
-    //({"TONNEL":1.06,"MRKT":1.045,"PORTALS":1.05}[g.market])
-    const a = g.market?1:(g.asset=="TONNEL"?1.06:1.06);
-    const p = g.price?f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset):"";
-    if (g.gift_id>0) {
-      const m = (Date.now()-new Date(g.export_at).getTime())>0;
-      add_gift(fix_name(g.name),g.gift_num,p,g.gift_id,m,g);
-    } else {
-      const b = await(await fetch("https://gifts3.tonnel.network/api/giftData/"+g.gift_id)).json();
-      add_bundle(b,p,g.gift_id);
+    for (g of data) {
+      const f = prices[format.value];
+      //({"TONNEL":1.06,"MRKT":1.045,"PORTALS":1.05}[g.market])
+      const a = g.market?1:(g.asset=="TONNEL"?1.06:1.06);
+      const p = g.price?f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset):"";
+      if (g.gift_id>0) {
+        const m = (Date.now()-new Date(g.export_at).getTime())>0;
+        add_gift(fix_name(g.name),g.gift_num,p,g.gift_id,m,g);
+      } else {
+        const b = await(await fetch("https://gifts3.tonnel.network/api/giftData/"+g.gift_id)).json();
+        add_bundle(b,p,g.gift_id);
+      }
     }
-  }
 
-  if (data.length==0) gifts_list.innerHTML = `<div style="padding:16px;">No Gifts Found</div>`;
+    if (data.length==0) gifts_list.innerHTML = `<div style="padding:16px;">No Gifts Found. Check the filters</div>`;
+  } catch (e) {
+    gifts_list.innerHTML = `<div style="padding:16px;">Network Error</div>`;
+  }
   //apply_effect();
 }
 
