@@ -92,7 +92,8 @@ Jelly Bunny
 Magic Potion
 Evil Eye`;
 
-const fix_name = n => n.replaceAll(" ","").replaceAll("-","").replaceAll("'","").toLowerCase();
+const fix_name2 = (n) => n.replace(/[^a-zA-Z0-9]/g, "");
+const fix_name = (n) => fix_name2(n).toLowerCase();
 
 const get_img = (a,b,c=1) => {
   //return `https://nft.fragment.com/gift/${a}-${b}${[".small",".medium",".large",""][c]}${c<3?".jpg":".webp"}`
@@ -281,7 +282,7 @@ const add_gift = (c,n,p,i,a,m,g) => {
     img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4AWJiYGBgAAAAAP//XRcpzQAAAAZJREFUAwAADwADJDd96QAAAABJRU5ErkJggg==";
     /*const q = document.createElement("div");
     q.classList.add("q");
-    q.innerText = (gifts.find(i=>fix_name(i)==c)||"").replaceAll(" ","").replaceAll("-","?")+"-"+n//"?";
+    q.innerText = fix_name2(gifts.find(i=>fix_name(i)==c)||"")+"-"+n//"?";
     gift.appendChild(q);*/
     img.style.background = `radial-gradient(circle,${i2h(b.centerColor)} 1%,${i2h(b.edgeColor)} 80%)`;
     const mi = document.createElement("img");
@@ -293,7 +294,7 @@ const add_gift = (c,n,p,i,a,m,g) => {
     mi.style.zIndex = "1";
     gift.insertBefore(mi, gift.firstChild);
     load_patterns(img, {
-      slug: (gifts.find(i=>fix_name(i)==c)||"").replaceAll(" ","").replaceAll("-","?")+"-"+n,
+      slug: fix_name2(gifts.find(i=>fix_name(i)==c)||"")+"-"+n,
       symbol: g.symbol.split(" (")[0],
       patternColor: b.patternColor
     });
