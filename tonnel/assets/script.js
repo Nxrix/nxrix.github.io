@@ -450,12 +450,12 @@ const add_gift = (c,n,p,i,m,g) => {
     gift.appendChild(market);
   }
 
-  if (g.auctionEndTime) {
+  if (g.auction.auctionEndTime) {
     const market = document.createElement("div");
     market.classList.add("market");
     market.style.background = i2h(b.edgeColor);
     market.style.color = i2h(b.textColor);
-    start_counter(market,g.auctionEndTime);
+    start_counter(market,g.auction.auctionEndTime);
     gift.appendChild(market);
   }
 
