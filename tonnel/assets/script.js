@@ -198,7 +198,8 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
         backdrop: i.backdrop.name,
         symbol: i.symbol.name,
         market: i.marketplace,
-        asset: "TON"
+        asset: "TON",
+        gift_id: 1
       }
     });
   } else {
