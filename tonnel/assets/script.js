@@ -513,12 +513,12 @@ const add_bundle = (b,p,i) => {
     gift.appendChild(item);
   }
 
-  const b = gift_backdrops.find(i=>i.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b.bundleData[0].backdrop.split(" (")[0]).color;
+  const bd = gift_backdrops.find(i=>i.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b.bundleData[0].backdrop.split(" (")[0]).color;
 
   const icons = document.createElement("div");
   icons.classList.add("icons");
-  icons.style.background = i2h(b.edgeColor);
-  icons.style.color = i2h(b.textColor);
+  icons.style.background = i2h(bd.edgeColor);
+  icons.style.color = i2h(bd.textColor);
   icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/></svg>`);
   gift.appendChild(icons);
 
@@ -526,8 +526,8 @@ const add_bundle = (b,p,i) => {
     icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M160-120v-80h480v80H160Zm226-194L160-540l84-86 228 226-86 86Zm254-254L414-796l86-84 226 226-86 86Zm184 408L302-682l56-56 522 522-56 56Z"/></svg>`);
     const market = document.createElement("div");
     market.classList.add("market");
-    market.style.background = i2h(b.edgeColor);
-    market.style.color = i2h(b.textColor);
+    market.style.background = i2h(bd.edgeColor);
+    market.style.color = i2h(bd.textColor);
     start_counter(market,g.auction.auctionEndTime);
     gift.appendChild(market);
   }
@@ -535,8 +535,8 @@ const add_bundle = (b,p,i) => {
   if (p) {
     const price = document.createElement("div");
     price.classList.add("price");
-    price.style.background = i2h(b.edgeColor);
-    price.style.color = i2h(b.textColor);
+    price.style.background = i2h(bd.edgeColor);
+    price.style.color = i2h(bd.textColor);
     price.innerText = p;
     gift.appendChild(price);
   }
@@ -544,8 +544,8 @@ const add_bundle = (b,p,i) => {
   if (g.auction.bidHistory) {
     const price = document.createElement("div");
     price.classList.add("price");
-    price.style.background = i2h(b.edgeColor);
-    price.style.color = i2h(b.textColor);
+    price.style.background = i2h(bd.edgeColor);
+    price.style.color = i2h(bd.textColor);
     price.innerText = Math.round(((g.auction.bidHistory?.[g.auction?.bidHistory.length-1]?.amount)||g.auction.startingBid)*10)/10+" TON";
     gift.appendChild(price);
   }
