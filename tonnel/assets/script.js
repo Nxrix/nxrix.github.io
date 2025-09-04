@@ -424,7 +424,7 @@ const add_gift = (c,n,p,i,m,g) => {
   );
 
   const tg = (!g.premarket)&&(!g.export_at)&&(!g.market);
-  if (g.premarket||m||tg||g.auction.auctionEndTime) {
+  if (g.premarket||m||tg||g.auction) {
     const icons = document.createElement("div");
     icons.classList.add("icons");
     if (g.premarket) {
@@ -436,7 +436,7 @@ const add_gift = (c,n,p,i,m,g) => {
     if (tg) {
       icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 16 16" fill="currentColor"><path d="M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/></svg>`);
     }
-    if (g.auction.auctionEndTime) {
+    if (g.auction) {
       icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M160-120v-80h480v80H160Zm226-194L160-540l84-86 228 226-86 86Zm254-254L414-796l86-84 226 226-86 86Zm184 408L302-682l56-56 522 522-56 56Z"/></svg>`);
     }
     icons.style.background = i2h(b.edgeColor);
@@ -471,7 +471,7 @@ const add_gift = (c,n,p,i,m,g) => {
     gift.appendChild(price);
   }
 
-  if (g.auction.bidHistory) {
+  if (g.auction) {
     const price = document.createElement("div");
     price.classList.add("price");
     price.style.background = i2h(b.edgeColor);
