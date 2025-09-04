@@ -273,7 +273,7 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       s: { symbolRarity: 1 , gift_id: -1 }
     };
     const s1 = {
-      d: { auctionStartTime: -1, gift_id: -1 }
+      d: { auctionStartTime: -1, gift_id: -1 },
       o: { auctionEndTime: 1, gift_id: -1 },
       p0: { "bidHistory.amount":  1 , gift_id: -1 },
       p1: { "bidHistory.amount": -1 , gift_id: -1 },
