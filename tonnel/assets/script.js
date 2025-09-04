@@ -165,19 +165,19 @@ const thermos_search = async ({
 const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,backdrop,symbol,tag,pmin,pmax}) => {
   if (tag.split("-")[0]=="thermos") {
     const ordering = {
-      d: "",
-      p0: "PRICE_ASC" ,
+      d: "PRICE_ASC",
+      p0: "PRICE_ASC",
       p1: "PRICE_DESC",
       i: "NUMBER_ASC",
       j: "NUMBER_DESC",
-      r: "RARITY_SCORE_ASC",
-      r0: "RARITY_SCORE_DESC",
-      m: "MODEL_RARITY_ASC",
-      m0: "MODEL_RARITY_DESC",
-      b: "BACKDROP_RARITY_ASC",
-      b0: "BACKDROP_RARITY_DESC",
-      s: "SYMBOL_RARITY_ASC",
-      s0: "SYMBOL_RARITY_DESC"
+      r0: "RARITY_SCORE_ASC",
+      r: "RARITY_SCORE_DESC",
+      m0: "MODEL_RARITY_ASC",
+      m: "MODEL_RARITY_DESC",
+      b0: "BACKDROP_RARITY_ASC",
+      b: "BACKDROP_RARITY_DESC",
+      s0: "SYMBOL_RARITY_ASC",
+      s: "SYMBOL_RARITY_DESC"
     }[sort];
     return (await thermos_search({
       page,
