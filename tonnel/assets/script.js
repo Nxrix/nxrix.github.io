@@ -163,7 +163,7 @@ const thermos_search = async ({
 };
 
 const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,backdrop,symbol,tag,pmin,pmax}) => {
-  if (tag=="thermos") {
+  if (tag.split("-")[0]=="thermos") {
     const ordering = {
       d: "",
       p0: "PRICE_ASC" ,
@@ -189,7 +189,8 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       symbols: symbol.map(i=>i.split(" (")[0]),
       number: parseInt(numbers.value),
       min: parseFloat(pmin/1.06)||0,
-      max: parseFloat(pmax/1.06)||100000
+      max: parseFloat(pmax/1.06)||100000,
+      ...(tag.split("-")[1]&&{ markets: [tag.split("-")[1].toUpperCase()] })
     })).items.map(i=>{
       return {
         price: Math.round(parseFloat(i.price)/1e8)/10,
