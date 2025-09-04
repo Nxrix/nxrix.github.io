@@ -522,7 +522,8 @@ const load_gifts = async () => {
 
   for (g of data) {
     const f = prices[format.value];
-    const a = g.market?({"TONNEL":1.06,"MRKT":1.045,"PORTALS":1.05}[g.market]):(g.asset=="TONNEL"?1.06:1.06);
+    //({"TONNEL":1.06,"MRKT":1.045,"PORTALS":1.05}[g.market])
+    const a = g.market?1:(g.asset=="TONNEL"?1.06:1.06);
     const p = f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset);
     if (g.gift_id>0) {
       const m = (Date.now()-new Date(g.export_at).getTime())>0;
