@@ -636,477 +636,137 @@ const get_symbols = (list) => {
   }
 }
 
-const no_results = document.createElement("div");
-no_results.textContent = "No Collections Found";
-no_results.style.display = "none";
+const createDiv = (text = "", className = "", display = "none") => {
+  const div = document.createElement("div");
+  div.textContent = text;
+  if (className) div.classList.add(className);
+  div.style.display = display;
+  return div;
+};
+
+const no_results = createDiv("No Collections Found");
 collectionsl.appendChild(no_results);
 
-const select_all = document.createElement("div");
-select_all.style.display = "none";
-select_all.classList.add("filterlsa");
-collectionsl.parentNode.insertBefore(select_all,collectionsl);
+const select_all = createDiv("", "filterlsa");
+collectionsl.parentNode.insertBefore(select_all, collectionsl);
 
-const select_all_models = document.createElement("div");
-select_all_models.style.display = "none";
-select_all_models.classList.add("filterlsa");
-modelsl.parentNode.insertBefore(select_all_models,modelsl);
+const select_all_models = createDiv("", "filterlsa");
+modelsl.parentNode.insertBefore(select_all_models, modelsl);
 
-const select_all_backdrops = document.createElement("div");
-select_all_backdrops.style.display = "none";
-select_all_backdrops.classList.add("filterlsa");
-backdropsl.parentNode.insertBefore(select_all_backdrops,backdropsl);
+const select_all_backdrops = createDiv("", "filterlsa");
+backdropsl.parentNode.insertBefore(select_all_backdrops, backdropsl);
 
-const select_all_symbols = document.createElement("div");
-select_all_symbols.style.display = "none";
-select_all_symbols.classList.add("filterlsa");
-symbolsl.parentNode.insertBefore(select_all_symbols,symbolsl);
-
-const update_select_all = () => {
-  select_all.innerHTML = collections.length == gifts.length?"Deselect All":"Select All";
-};
-update_select_all();
-
-const update_select_all_models = () => {
-  let allModels = [];
-  collections.forEach(gift => {
-    const gm = gift_models.find(g => g._id == gift);
-    if (gm) allModels.push(...gm.models.slice(0, -1));
-  });
-  const allSelected = allModels.every(m => models.includes(m));
-  select_all_models.innerHTML = allSelected ? "Deselect All" : "Select All";
-}
-
-const update_select_all_backdrops = () => {
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all.push(...gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const allSelected = all.every(b => backdrops.includes(b));
-  select_all_backdrops.innerHTML = allSelected ? "Deselect All" : "Select All";
-}
-
-const update_select_all_symbols = () => {
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.symbols.slice(0,-1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all.push(...gm.symbols.slice(0,-1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const allSelected = all.every(s => symbols.includes(s));
-  select_all_symbols.innerHTML = allSelected ? "Deselect All" : "Select All";
-}
-
-select_all.onclick = () => {
-  const all = collections.length == gifts.length;
-  if (all) {
-    collections = [];
-    if (gift_models) {
-      gift_models.forEach(gm => {
-        gm.models.forEach(m => {
-          const i = models.indexOf(m);
-          if (i>-1) models.splice(i,1);
-        });
-      });
-    }
-  } else {
-    collections = [...gifts];
-  }
-  update_collections(collectionss.value);
-  update_models(modelss.value);
-  update_backdrops(backdropss.value);
-  update_symbols(symbols.value);
-};
-
-select_all_models.onclick = () => {
-  let allModels = [];
-  collections.forEach(gift => {
-    const gm = gift_models.find(g => g._id == gift);
-    if (gm) allModels.push(...gm.models.slice(0, -1));
-  });
-  const allSelected = allModels.every(m => models.includes(m));
-  if (allSelected) {
-    models = models.filter(m => !allModels.includes(m));
-  } else {
-    allModels.forEach(m => {
-      if (!models.includes(m)) models.push(m);
-    });
-  }
-  update_models(modelss.value);
-};
-
-select_all_backdrops.onclick = () => {
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all.push(...gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const allSelected = all.every(b => backdrops.includes(b));
-  if (allSelected) {
-    backdrops = backdrops.filter(b => !all.includes(b));
-  } else {
-    all.forEach(b => {
-      if (!backdrops.includes(b)) backdrops.push(b);
-    });
-  }
-  update_backdrops(backdropss.value);
-};
-
-select_all_symbols.onclick = () => {
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.symbols.slice(0, -1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all.push(...gm.symbols.slice(0, -1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const allSelected = all.every(s => symbols.includes(s));
-  if (allSelected) {
-    symbols = symbols.filter(s => !all.includes(s));
-  } else {
-    all.forEach(s => {
-      if (!symbols.includes(s)) symbols.push(s);
-    });
-  }
-  update_symbols(symbolss.value);
-};
+const select_all_symbols = createDiv("", "filterlsa");
+symbolsl.parentNode.insertBefore(select_all_symbols, symbolsl);
 
 const gift_elements = {};
 
+const getAllOf = (type) => {
+  let all = [];
+  if (!collections.length) {
+    const allData = gift_models.find(g => g._id == "All Names");
+    if (allData) all = allData[type].slice(0, -1).map(x => x.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+  } else {
+    collections.forEach(gift => {
+      const gm = gift_models.find(g => g._id == gift);
+      if (gm) all.push(...gm[type].slice(0, -1).map(x => x.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+    });
+  }
+  return [...new Set(all)];
+};
+
+const updateSelectAll = (btn, arr, allArr) => {
+  btn.innerHTML = allArr.every(a => arr.includes(a)) ? "Deselect All" : "Select All";
+};
+
+const toggleAll = (arr, allArr) => {
+  const allSelected = allArr.every(a => arr.includes(a));
+  if (allSelected) arr = arr.filter(a => !allArr.includes(a));
+  else allArr.forEach(a => { if (!arr.includes(a)) arr.push(a); });
+  return arr;
+};
+
 gifts.forEach(gift => {
   const div = document.createElement("div");
-  div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp"><span>${gift}</span>`;//<div style="padding:0;margin: -23px 0 0 0;text-align:right;">0 TON</div>
+  div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp"><span>${gift}</span>`;
   div.onclick = () => {
-    if (collections.includes(gift)) {
-      collections = collections.filter(g=>g!=gift);
-      remove_models_of_gift(gift);
-    } else {
-      collections.push(gift);
-    }
-    update_collections(collectionss.value);
-    update_models(modelss.value);
-    update_backdrops(backdropss.value);
-    update_symbols(symbols.value);
+    if (collections.includes(gift)) remove_models_of_gift(gift);
+    collections = collections.includes(gift) ? collections.filter(g => g != gift) : [...collections, gift];
+    ["collections", "models", "backdrops", "symbols"].forEach(fn => window["update_" + fn]());
   };
   gift_elements[gift] = div;
   collectionsl.appendChild(div);
 });
 
 const remove_models_of_gift = (gift) => {
-  if (!gift_models) return;
   const gm = gift_models.find(g => g._id == gift);
   if (!gm) return;
-  gm.models.forEach(m => {
-    const i = models.indexOf(m);
-    if (i > -1) models.splice(i,1);
-  });
-}
+  gm.models.forEach(m => { const i = models.indexOf(m); if (i > -1) models.splice(i,1); });
+};
 
-const update_collections = (filter = "") => {
-  const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
-  const active = [];
-  const inactive = [];
-  filtered.forEach(gift => {
-    const div = gift_elements[gift];
-    if (collections.includes(gift)) {
-      active.push(div);
-    } else {
-      inactive.push(div);
-    }
-    div.style.display = "flex";
-    div.className = collections.includes(gift)?"active" :"";
-  });
-  [...active,...inactive].forEach(div => {
-    collectionsl.appendChild(div);
-  });
-  gifts.forEach(gift => {
-    if (!filtered.includes(gift)) {
-      gift_elements[gift].style.display = "none";
-    }
-  });
-  select_all.style.display = filtered.length==gifts.length?"block":"none";
-  no_results.style.display = filtered.length==0?"block":"none";
-  update_select_all();
-  update_url();
-}
+const updateItems = (type, arr, listEl, selectBtn) => {
+  listEl.innerHTML = "";
+  const allArr = getAllOf(type);
+  const filtered = allArr.filter(x => x.toLowerCase().includes((window[type+"Filter"]||"").toLowerCase()));
+  if (!filtered.length) return listEl.appendChild(createDiv(`No ${type.charAt(0).toUpperCase() + type.slice(1)} Found`, "", "flex"));
 
-const update_models = (filter = "") => {
-  modelsl.innerHTML = "";
-  if (collections.length == 0) {
-    models.length = 0;
-    const div = document.createElement("div");
-    div.innerText = "No Models Found";
-    modelsl.appendChild(div);
-    return;
-  }
-  let all = [];
-  collections.forEach(gift => {
-    const gm = gift_models.find(g => g._id == gift);
-    if (gm) {
-    const sorted = gm.models.slice(0, -1).sort((a, b) => {
-      const pa = parseFloat(a.match(/\(([\d.]+)%\)/)?.[1] || 0);
-      const pb = parseFloat(b.match(/\(([\d.]+)%\)/)?.[1] || 0);
-      return pa - pb;
+  filtered.sort((a,b) => (arr.includes(a)?-1:1) - (arr.includes(b)?-1:1) || a.localeCompare(b))
+    .forEach(x => {
+      const div = document.createElement("div");
+      div.textContent = x;
+      div.className = arr.includes(x)?"active":"";
+      div.onclick = () => { arr = arr.includes(x) ? arr.filter(v=>v!=x) : [...arr,x]; updateItems(type, arr, listEl, selectBtn); };
+      listEl.appendChild(div);
     });
-    all = all.concat(sorted.map(m => ({gift,model:m})));
-  }
-  });
-  const filtered = all.filter(({model}) => model.toLowerCase().includes(filter.toLowerCase()));
-  if (filtered.length == 0) {
-    const div = document.createElement("div");
-    div.innerText = "No Models Found";
-    modelsl.appendChild(div);
-    return;
-  }
-  filtered.sort((a, b) => {
-    const ain = models.includes(a.model)?-1:1;
-    const bin = models.includes(b.model)?-1:1;
-    if (ain != bin) return ain-bin;
-    if ( a.gift<b.gift ) return -1;
-    if ( a.gift>b.gift ) return  1;
-    if (a.model<b.model) return -1;
-    if (a.model>b.model) return  1;
-    return 0;
-  }).forEach(({gift, model}) => {
-    const div = document.createElement("div");
-    div.innerText = gift + " - " + model;
-    div.className = models.includes(model)?"active":"";
-    div.onclick = () => {
-      if (models.includes(model)) {
-        models = models.filter(m=>m!=model);
-      } else {
-        models.push(model);
-      }
-      update_models(filter);
-    };
-    modelsl.appendChild(div);
-  });
-  select_all_models.style.display = filtered.length>0?"block":"none";
-  update_select_all_models();
+  selectBtn.style.display = filtered.length?"block":"none";
+  updateSelectAll(selectBtn, arr, allArr);
   update_url();
-}
+};
 
-const update_backdrops = (filter = "") => {
-  backdropsl.innerHTML = "";
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all = all.concat(gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const filtered = all.filter(b => b.toLowerCase().includes(filter.toLowerCase()));
-  if (filtered.length == 0) {
-    const div = document.createElement("div");
-    div.innerText = "No Backdrops Found";
-    backdropsl.appendChild(div);
-    return;
-  }
-  filtered.sort((a,b) => {
-    const ain = backdrops.includes(a)?-1:1;
-    const bin = backdrops.includes(b)?-1:1;
-    if (ain != bin) return ain - bin;
-    return a.localeCompare(b);
-  }).forEach(b => {
-    const div = document.createElement("div");
-    const color = gift_backdrops.find(x => x.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b)?.color;
-    const dot = document.createElement("div");
-    dot.style.background = `radial-gradient(circle,${i2h(color.centerColor)} 1%,${i2h(color.edgeColor)} 80%)`;
-    dot.classList.add("color");
-    div.appendChild(dot);
-    div.appendChild(document.createTextNode(b));
-    div.className = backdrops.includes(b)?"active":"";
-    div.onclick = () => {
-      if (backdrops.includes(b)) {
-        backdrops = backdrops.filter(x => x != b);
-      } else {
-        backdrops.push(b);
-      }
-      update_backdrops(filter);
-    };
-    backdropsl.appendChild(div);
-  });
-  select_all_backdrops.style.display = filtered.length>0?"block":"none";
-  update_select_all_backdrops();
-  update_url();
-}
+window.update_collections = () => updateItems("collections", collections, collectionsl, select_all);
+window.update_models = () => updateItems("models", models, modelsl, select_all_models);
+window.update_backdrops = () => updateItems("backgrounds", backdrops, backdropsl, select_all_backdrops);
+window.update_symbols = () => updateItems("symbols", symbols, symbolsl, select_all_symbols);
 
-const update_symbols = (filter = "") => {
-  symbolsl.innerHTML = "";
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.symbols.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all = all.concat(gm.symbols.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,"")));
-    });
-  }
-  all = [...new Set(all)];
-  const filtered = all.filter(s => s.toLowerCase().includes(filter.toLowerCase()));
-  if (filtered.length == 0) {
-    const div = document.createElement("div");
-    div.innerText = "No Symbols Found";
-    symbolsl.appendChild(div);
-    return;
-  }
-  filtered.sort((a,b) => {
-    const ain = symbols.includes(a)?-1:1;
-    const bin = symbols.includes(b)?-1:1;
-    if (ain != bin) return ain - bin;
-    return a.localeCompare(b);
-  }).forEach(s => {
-    const div = document.createElement("div");
-    div.innerText = s;
-    div.className = symbols.includes(s)?"active":"";
-    div.onclick = () => {
-      if (symbols.includes(s)) {
-        symbols = symbols.filter(x => x != s);
-      } else {
-        symbols.push(s);
-      }
-      update_symbols(filter);
-    };
-    symbolsl.appendChild(div);
-  });
-  select_all_symbols.style.display = filtered.length>0?"block":"none";
-  update_select_all_symbols();
-  update_url();
-}
+// Select all buttons
+select_all.onclick = () => { collections = toggleAll(collections, gifts); window.update_collections(); };
+select_all_models.onclick = () => { models = toggleAll(models, getAllOf("models")); window.update_models(); };
+select_all_backdrops.onclick = () => { backdrops = toggleAll(backdrops, getAllOf("backgrounds")); window.update_backdrops(); };
+select_all_symbols.onclick = () => { symbols = toggleAll(symbols, getAllOf("symbols")); window.update_symbols(); };
 
-const load_floors = async () => {
-  for (i in gifts) {
-    const d = await tonnel_search(page+1,1,"p0",asset.value,{ name: gifts[i] });
-    collectionsl.children[i].children[2].innerText = d[0].price+" "+d[0].asset;
-  }
-}
-
-[
-  {btn: collectionst, panel: collectionsd},
-  {btn: modelst, panel: modelsd},
-  {btn: backdropst, panel: backdropsd},
-  {btn: symbolst, panel: symbolsd},
-].forEach(({btn, panel}) => {
-  btn.onclick = () => {
-    const open = panel.style.display === "flex";
-    [collectionsd, modelsd, backdropsd, symbolsd].forEach(p => p.style.display = "none");
-    panel.style.display = open ? "none" : "flex";
+// Input filters
+[collectionss, modelss, backdropss, symbolss].forEach(input => {
+  input.oninput = () => {
+    window[input.id.replace("s","Filter")] = input.value;
+    ["collections","models","backdrops","symbols"].forEach(fn => window["update_"+fn]());
   };
+  document.getElementById(input.id+"d").onclick = () => { input.value=""; input.oninput(); };
 });
 
-collectionss.oninput = () => {
-  update_collections(collectionss.value);
-  update_models(modelss.value);
-  update_backdrops(backdropss.value);
-  update_symbols(symbolss.value);
-}
+// Panel toggle
+[{btn:collectionst, panel:collectionsd},{btn:modelst,panel:modelsd},{btn:backdropst,panel:backdropsd},{btn:symbolst,panel:symbolsd}]
+.forEach(({btn,panel}) => btn.onclick = () => {
+  const open = panel.style.display==="flex";
+  [collectionsd, modelsd, backdropsd, symbolsd].forEach(p=>p.style.display="none");
+  panel.style.display = open ? "none":"flex";
+});
 
-modelss.oninput = () => update_models(modelss.value);
-backdropss.oninput = () => update_backdrops(backdropss.value);
-symbolss.oninput = () => update_symbols(symbolss.value);
-
-collectionssd.onclick = () => { collectionss.value = ""; collectionss.oninput(); };
-modelssd.onclick = () => { modelss.value = ""; modelss.oninput(); };
-backdropssd.onclick = () => { backdropss.value = ""; backdropss.oninput(); };
-symbolssd.onclick = () => { symbolss.value = ""; symbolss.oninput(); };
-
-pagei.onkeydown = e => {
-  if (e.key=="Enter"){
-    let n = +pagei.value;
-    if(n>0&&Number.isInteger(n)) {
-      page = n-1;
-      load_gifts();
-    }
-  }
-}
-
-btn_q.onclick = () => {
-  page--;
-  load_gifts();
-}
-btn_p.onclick = () => {
-  page++;
-  load_gifts();
-}
-
-btn_s.onclick = () => {
-  page=0;
-  load_gifts();
-}
+// Paging
+[btn_q, btn_p, btn_s].forEach((btn,i) => btn.onclick = () => { page = i==0? page-1: i==1? page+1: 0; load_gifts(); });
+pagei.onkeydown = e => { if(e.key=="Enter"){ const n=+pagei.value; if(n>0 && Number.isInteger(n)){ page=n-1; load_gifts(); } } };
 
 window.onload = async () => {
-  
-  //window.gift_models = await(await fetch("./json/gift-models.json")).json();
-  //window.gift_backdrops = await(await fetch("./json/gift-backdrops.json")).json();
   window.gift_patterns = [];
-
-  const collections = await fetch("https://proxy.thermos.gifts/api/v1/collections").then(r=>r.json());
-  Object.keys(gift_elements).forEach(gift => {
-    const div = gift_elements[gift];
-    const span = div.querySelector("span");
-    const name = span.textContent;
-    const extra = parseFloat(collections.find(i=>fix_name(i.name)==fix_name(name))?.stats.floor)/1e9 || "";
-    span.textContent = extra?`${name} - ${(Math.round(extra*10)/10).toLocaleString("en-US")} TON`:name;
+  const collectionsData = await fetch("https://proxy.thermos.gifts/api/v1/collections").then(r=>r.json());
+  Object.keys(gift_elements).forEach(g => {
+    const span = gift_elements[g].querySelector("span");
+    const extra = parseFloat(collectionsData.find(i=>fix_name(i.name)==fix_name(span.textContent))?.stats.floor)/1e9 || "";
+    span.textContent = extra?`${span.textContent} - ${(Math.round(extra*10)/10).toLocaleString()} TON`:span.textContent;
   });
-
-  const tnl = await(await fetch("https://api.dyor.io/v1/jettons/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv/price")).json();
-  const tonnel = (parseFloat(tnl.usd.price.value)/10**tnl.usd.price.decimals)||0;
-  const ton = tonnel/(parseFloat(tnl.ton.price.value)/10**tnl.ton.price.decimals)||0;
-  
-  window.prices = {
-    def: {
-      n: "p asset",
-      d: 100,
-      TON: 1,
-      TONNEL: 1,
-      USDT: 1
-    },
-    usd: {
-      n: "$p",
-      d: 100,
-      TON: ton,
-      TONNEL: tonnel,
-      USDT: 1
-    },
-    stars: {
-      n: "p Stars",
-      d: 1,
-      TON: ton/0.015,
-      TONNEL: tonnel/0.015,
-      USDT: 1/0.015
-    }
-  }
-
-  update_collections();
-  update_models();
-  update_backdrops();
-  update_symbols();
-
+  const tnl = await (await fetch("https://api.dyor.io/v1/jettons/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv/price")).json();
+  const tonnel = parseFloat(tnl.usd.price.value)/10**tnl.usd.price.decimals;
+  const ton = tonnel/(parseFloat(tnl.ton.price.value)/10**tnl.ton.price.decimals);
+  window.prices = { def:{n:"p asset",d:100,TON:1,TONNEL:1,USDT:1}, usd:{n:"$p",d:100,TON:ton,TONNEL:tonnel,USDT:1}, stars:{n:"p Stars",d:1,TON:ton/0.015,TONNEL:tonnel/0.015,USDT:1/0.015} };
+  ["collections","models","backdrops","symbols"].forEach(fn => window["update_"+fn]());
   load_gifts();
-}
+};
