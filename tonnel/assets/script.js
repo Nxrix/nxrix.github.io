@@ -490,6 +490,14 @@ let backdrops = parse("backdrops");
 let symbols = parse("symbols");
 
 const update_url = () => {
+  const set_text = (e,l,a) => {
+    if (!e) return;
+    e.textContent = a.length?`${l} (${a.length})`:l;
+  };
+  set_text(collectionst, "Collections", collections);
+  set_text(modelst, "Models", models);
+  set_text(backdropst, "Backdrops", backdrops);
+  set_text(symbolst, "Symbols", symbols);
   const encode = (arr) => arr.map(encodeURIComponent).join(",");
   history.replaceState({},null,`${location.pathname}?p=${page}&s=${sort.value}&a=${asset.value}&f=${format.value}${tag.value!="all"?"&t="+tag.value:""}${parse_nums(numbers.value)?"&n="+numbers.value:""}${!isNaN(parseInt(min.value))?"&min="+parseInt(min.value):""}${!isNaN(parseInt(max.value))?"&max="+parseInt(max.value):""}` +
     (collections.length ? `&collections=${encode(collections)}`:"") +
