@@ -264,7 +264,7 @@ const load_patterns = async (img, { slug, symbol, patternColor }) => {
     "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
 };
 
-const add_gift = (c,n,p,i,a,m,g) => {
+const add_gift = (c,n,p,i,m,g) => {
   const gift = document.createElement("a");
   gift.classList.add("item");
   gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
@@ -313,6 +313,16 @@ const add_gift = (c,n,p,i,a,m,g) => {
     .replaceAll("{{tag_color}}",i2h(b.textColor))
   );
 
+  const icons = document.createElement("div");
+  icons.classList.add("icons");
+  if (g.premarket) {
+    icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M360-840v-80h240v80H360Zm80 440h80v-240h-80v240Zm40 320q-74 0-139.5-28.5T226-186q-49-49-77.5-114.5T120-440q0-74 28.5-139.5T226-694q49-49 114.5-77.5T480-800q62 0 119 20t107 58l56-56 56 56-56 56q38 50 58 107t20 119q0 74-28.5 139.5T734-186q-49 49-114.5 77.5T480-80Zm0-80q116 0 198-82t82-198q0-116-82-198t-198-82q-116 0-198 82t-82 198q0 116 82 198t198 82Zm0-280Z"/></svg>`);
+  }
+  if (g.m) {
+    icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-80 120-436l200-244h320l200 244L480-80ZM183-680l-85-85 57-56 85 85-57 56Zm257-80v-120h80v120h-80Zm335 80-57-57 85-85 57 57-85 85ZM480-192l210-208H270l210 208ZM358-600l-99 120h442l-99-120H358Z"/></svg>`);
+  }
+  gift.appendChild(icons);
+
   if (p) {
     const price = document.createElement("div");
     price.classList.add("price");
@@ -325,7 +335,7 @@ const add_gift = (c,n,p,i,a,m,g) => {
   gifts_list.appendChild(gift);
 }
 
-const add_bundle = (b,p,i,a) => {
+const add_bundle = (b,p,i) => {
   const gift = document.createElement("a");
   gift.classList.add("item", "bundle");
   gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
@@ -354,6 +364,11 @@ const add_bundle = (b,p,i,a) => {
 
     gift.appendChild(item);
   }
+
+  const icons = document.createElement("div");
+  icons.classList.add("icons");
+  icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/></svg>`);
+  gift.appendChild(icons);
 
   if (p) {
     const price = document.createElement("div");
@@ -409,11 +424,11 @@ const load_gifts = async () => {
     const a = g.asset=="TONNEL"?1.06:1.06;
     const p = f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("a",g.asset);
     if (g.gift_id>0) {
-      const m = (Date.now() - new Date(g.export_at).getTime())>0;
-      add_gift(fix_name(g.name),g.gift_num,p,g.gift_id,g.promoted,m,g);
+      const m = (Date.now()-new Date(g.export_at).getTime())>0;
+      add_gift(fix_name(g.name),g.gift_num,p,g.gift_id,m,g);
     } else {
       const b = await(await fetch("https://gifts3.tonnel.network/api/giftData/"+g.gift_id)).json();
-      add_bundle(b,p,g.gift_id,g.promoted);
+      add_bundle(b,p,g.gift_id);
     }
   }
 
