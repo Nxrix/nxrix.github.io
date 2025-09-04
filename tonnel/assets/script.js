@@ -184,6 +184,8 @@ const gift_names0 = fix_name(gift_names);
 const gifts = gift_names.split("\n");
 const gifts0 = gift_names0.split("\n");
 
+const i2h = (n) => "#"+n.toString(16).padStart(6,"0");
+
 const backdrop_pattern = `<svg width="100%" height="100%" viewBox="0 0 416 416" class="absolute inset-0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <filter id="{{gift_n}}-f">
@@ -311,6 +313,7 @@ const add_gift = (c,n,p,i,a,m,g) => {
     const price = document.createElement("div");
     price.classList.add("price");
     price.style.background = i2h(b.edgeColor);
+    price.style.color = i2h(b.textColor);
     price.innerText = p;
     gift.appendChild(price);
   }
@@ -781,8 +784,6 @@ const update_models = (filter = "") => {
   update_url();
 }
 
-const i2h = (n) => "#"+n.toString(16).padStart(6,"0");
-
 const update_backdrops = (filter = "") => {
   backdropsl.innerHTML = "";
   let all = [];
@@ -953,47 +954,6 @@ btn_p.onclick = () => {
 btn_s.onclick = () => {
   page=0;
   load_gifts();
-}
-
-const make_chart = (prices,color,w,h,s=8,p=0,o=0) => {
-  const viewBoxWidth = w;
-  const viewBoxHeight = h;
-  const padding = viewBoxHeight*p;
-  const effectiveHeight = viewBoxHeight-2*padding;
-  const colors = {
-    green: "#16C784",
-    red: "#EA3943"
-  };
-  const hex = colors[color.toLowerCase()]||color;
-  const minPrice = Math.min(...prices);
-  const maxPrice = Math.max(...prices);
-  const priceRange = maxPrice-minPrice;
-  let linePath = "";
-  let areaPath = `M 0 ${viewBoxHeight} `;
-  prices.forEach((price,index) => {
-    const x = (index/(prices.length-1))*viewBoxWidth;
-    const normalized = priceRange==0?0.5:(price-minPrice)/priceRange;
-    const y = padding+(1-normalized+o)*effectiveHeight;
-    if (index == 0) {
-      linePath += `M ${x.toFixed(6)} ${y.toFixed(6)}`;
-    } else {
-      linePath += ` L ${x.toFixed(6)} ${y.toFixed(6)}`;
-    }
-    areaPath += `L ${x.toFixed(6)} ${y.toFixed(6)} `;
-  });
-  areaPath += `L ${viewBoxWidth} ${viewBoxHeight} Z`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" style="width:100%;height:100%;">
-    <defs>
-      <linearGradient id="color${hex}" x1="0%" x2="0%" y1="0%" y2="100%">
-        <stop offset="0%" style="stop-color:${hex};stop-opacity:0.4;"></stop>
-        <stop offset="100%" style="stop-color:${hex};stop-opacity:0.0;"></stop>
-      </linearGradient>
-    </defs>
-    <g>
-      <path stroke="${hex}" stroke-width="${s}" stroke-linecap="round" stroke-linejoin="round" fill="none" d="${linePath}"></path>
-      <path stroke="none" fill-opacity="0.6" fill="url(#color${hex})" d="${areaPath}"></path>
-    </g>
-  </svg>`;
 }
 
 window.onload = async () => {
