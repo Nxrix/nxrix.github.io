@@ -311,6 +311,7 @@ const add_gift = (c,n,p,i,a,m,g) => {
     const price = document.createElement("div");
     price.classList.add("price");
     price.style.background = i2h(b.edgeColor);
+    price.style.color = i2h(b.textColor);
     price.innerText = p;
     gift.appendChild(price);
   }
