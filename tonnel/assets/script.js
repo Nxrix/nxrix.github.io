@@ -518,8 +518,6 @@ const add_bundle = (b,p,i) => {
   if (g.auction.auctionEndTime) {
     const market = document.createElement("div");
     market.classList.add("market");
-    market.style.background = i2h(b.edgeColor);
-    market.style.color = i2h(b.textColor);
     start_counter(market,g.auction.auctionEndTime);
     gift.appendChild(market);
   }
@@ -527,8 +525,6 @@ const add_bundle = (b,p,i) => {
   if (p) {
     const price = document.createElement("div");
     price.classList.add("price");
-    price.style.background = i2h(b.edgeColor);
-    price.style.color = i2h(b.textColor);
     price.innerText = p;
     gift.appendChild(price);
   }
@@ -536,8 +532,6 @@ const add_bundle = (b,p,i) => {
   if (g.auction.bidHistory) {
     const price = document.createElement("div");
     price.classList.add("price");
-    price.style.background = i2h(b.edgeColor);
-    price.style.color = i2h(b.textColor);
     price.innerText = Math.round(((g.auction.bidHistory?.[g.auction?.bidHistory.length-1]?.amount)||g.auction.startingBid)*10)/10+" TON";
     gift.appendChild(price);
   }
