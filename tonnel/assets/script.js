@@ -523,7 +523,7 @@ const load_gifts = async () => {
   for (g of data) {
     const f = prices[format.value];
     const a = g.market?({"TONNEL":1.06,"MRKT":1.045,"PORTALS":1.05}[g.market]):(g.asset=="TONNEL"?1.06:1.06);
-    const p = f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("a",g.asset);
+    const p = f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset);
     if (g.gift_id>0) {
       const m = (Date.now()-new Date(g.export_at).getTime())>0;
       add_gift(fix_name(g.name),g.gift_num,p,g.gift_id,m,g);
@@ -1125,7 +1125,7 @@ window.onload = async () => {
   
   window.prices = {
     def: {
-      n: "p a",
+      n: "p asset",
       d: 100,
       TON: 1,
       TONNEL: 1,
@@ -1138,6 +1138,13 @@ window.onload = async () => {
       TONNEL: tonnel,
       USDT: 1
     },
+    stars: {
+      n: "p Stars",
+      d: 1,
+      TON: 0.015/ton,
+      TONNEL: 0.015/tonnel,
+      USDT: 0.015/1
+    }
     /*irt: {
       n: "p IRT",
       d: 1,
