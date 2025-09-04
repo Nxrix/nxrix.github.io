@@ -473,7 +473,7 @@ const add_gift = (c,n,p,i,m,g) => {
     price.classList.add("price");
     price.style.background = i2h(b.edgeColor);
     price.style.color = i2h(b.textColor);
-    price.innerText = (g.auction.bidHistory?.[g.auction?.bidHistory.length-1].amount||g.startingBid)+" TON";
+    price.innerText = (g.auction.bidHistory?.[g.auction?.bidHistory.length-1]?.amount||g.startingBid)+" TON";
     gift.appendChild(price);
   }
 
