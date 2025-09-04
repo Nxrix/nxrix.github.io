@@ -396,7 +396,7 @@ const add_gift = (c,n,p,i,m,g) => {
     .replaceAll("{{tag_color}}",i2h(b.textColor))
   );
 
-  const tg = (!g.premarket)&&(!g.export_at);
+  const tg = (!g.premarket)&&(!g.export_at)&&(!g.market);
   if (g.premarket||m||tg) {
     const icons = document.createElement("div");
     icons.classList.add("icons");
