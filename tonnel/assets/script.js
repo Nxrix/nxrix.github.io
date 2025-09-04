@@ -648,6 +648,7 @@ const no_results = createDiv("No Collections Found");
 collectionsl.appendChild(no_results);
 
 const select_all = createDiv("", "filterlsa");
+select_all.style.display = "none";
 collectionsl.parentNode.insertBefore(select_all, collectionsl);
 
 const select_all_models = createDiv("", "filterlsa");
@@ -709,7 +710,6 @@ const updateItems = (type, arr, listEl, selectBtn) => {
   const allArr = getAllOf(type);
   const filtered = allArr.filter(x => x.toLowerCase().includes((window[type+"Filter"]||"").toLowerCase()));
   if (!filtered.length) return listEl.appendChild(createDiv(`No ${type.charAt(0).toUpperCase() + type.slice(1)} Found`, "", "flex"));
-
   filtered.sort((a,b) => (arr.includes(a)?-1:1) - (arr.includes(b)?-1:1) || a.localeCompare(b))
     .forEach(x => {
       const div = document.createElement("div");
