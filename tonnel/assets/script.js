@@ -1141,9 +1141,9 @@ window.onload = async () => {
     stars: {
       n: "p Stars",
       d: 1,
-      TON: 0.015/ton,
-      TONNEL: 0.015/tonnel,
-      USDT: 0.015/1
+      TON: ton/0.015,
+      TONNEL: tonnel/0.015,
+      USDT: 1/0.015
     }
     /*irt: {
       n: "p IRT",
