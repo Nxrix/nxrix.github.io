@@ -571,7 +571,7 @@ const load_gifts = async () => {
     const p = f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset);
     if (g.gift_id>0) {
       const m = (Date.now()-new Date(g.export_at).getTime())>0;
-      add_gift(fix_name(g.name),g.gift_num,p,g.gift_id,m,g);
+      add_gift(fix_name(g.name),g.gift_num,g.price?p:"",g.gift_id,m,g);
     } else {
       const b = await(await fetch("https://gifts3.tonnel.network/api/giftData/"+g.gift_id)).json();
       add_bundle(b,p,g.gift_id);
