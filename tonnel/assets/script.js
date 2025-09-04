@@ -648,7 +648,7 @@ collectionsl.appendChild(no_results);
 
 const select_all         = makeSelectAll(collectionsl, collectionsl);
 const select_all_models  = makeSelectAll(modelsl, modelsl);
-const select_all_back    = makeSelectAll(backdropsl, backdropsl);
+const select_all_backdrops    = makeSelectAll(backdropsl, backdropsl);
 const select_all_symbols = makeSelectAll(symbolsl, symbolsl);
 
 function updateSelect(el, allItems, selectedItems) {
@@ -712,7 +712,7 @@ select_all_models.onclick = () => {
   update_models(modelss.value);
 };
 
-select_all_back.onclick = () => {
+select_all_backdrops.onclick = () => {
   const all = getAll("backgrounds");
   const allSelected = all.every(b => backdrops.includes(b));
   backdrops = allSelected ? backdrops.filter(b => !all.includes(b)) : [...new Set([...backdrops, ...all])];
