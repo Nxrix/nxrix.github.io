@@ -184,9 +184,9 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       ordering,
       per_page: 20,
       collections: name,
-      models: model,
-      backdrops: backdrop,
-      symbols: symbol,
+      models: model.map(i=>i.split(" (")[0]),
+      backdrops: backdrop.map(i=>i.split(" (")[0]),
+      symbols: symbol.map(i=>i.split(" (")[0]),
       number: parseInt(numbers.value),
       min: parseFloat(pmin/1.06)||0,
       max: parseFloat(pmax/1.06)||100000
