@@ -728,13 +728,11 @@ window.update_models = () => updateItems("models", models, modelsl, select_all_m
 window.update_backdrops = () => updateItems("backgrounds", backdrops, backdropsl, select_all_backdrops);
 window.update_symbols = () => updateItems("symbols", symbols, symbolsl, select_all_symbols);
 
-// Select all buttons
 select_all.onclick = () => { collections = toggleAll(collections, gifts); window.update_collections(); };
 select_all_models.onclick = () => { models = toggleAll(models, getAllOf("models")); window.update_models(); };
 select_all_backdrops.onclick = () => { backdrops = toggleAll(backdrops, getAllOf("backgrounds")); window.update_backdrops(); };
 select_all_symbols.onclick = () => { symbols = toggleAll(symbols, getAllOf("symbols")); window.update_symbols(); };
 
-// Input filters
 [collectionss, modelss, backdropss, symbolss].forEach(input => {
   input.oninput = () => {
     window[input.id.replace("s","Filter")] = input.value;
@@ -743,7 +741,6 @@ select_all_symbols.onclick = () => { symbols = toggleAll(symbols, getAllOf("symb
   document.getElementById(input.id+"d").onclick = () => { input.value=""; input.oninput(); };
 });
 
-// Panel toggle
 [{btn:collectionst, panel:collectionsd},{btn:modelst,panel:modelsd},{btn:backdropst,panel:backdropsd},{btn:symbolst,panel:symbolsd}]
 .forEach(({btn,panel}) => btn.onclick = () => {
   const open = panel.style.display==="flex";
@@ -751,7 +748,6 @@ select_all_symbols.onclick = () => { symbols = toggleAll(symbols, getAllOf("symb
   panel.style.display = open ? "none":"flex";
 });
 
-// Paging
 [btn_q, btn_p, btn_s].forEach((btn,i) => btn.onclick = () => { page = i==0? page-1: i==1? page+1: 0; load_gifts(); });
 pagei.onkeydown = e => { if(e.key=="Enter"){ const n=+pagei.value; if(n>0 && Number.isInteger(n)){ page=n-1; load_gifts(); } } };
 
