@@ -515,10 +515,30 @@ const add_bundle = (b,p,i) => {
   icons.insertAdjacentHTML("beforeend",`<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/></svg>`);
   gift.appendChild(icons);
 
+  if (g.auction.auctionEndTime) {
+    const market = document.createElement("div");
+    market.classList.add("market");
+    market.style.background = i2h(b.edgeColor);
+    market.style.color = i2h(b.textColor);
+    start_counter(market,g.auction.auctionEndTime);
+    gift.appendChild(market);
+  }
+
   if (p) {
     const price = document.createElement("div");
     price.classList.add("price");
+    price.style.background = i2h(b.edgeColor);
+    price.style.color = i2h(b.textColor);
     price.innerText = p;
+    gift.appendChild(price);
+  }
+
+  if (g.auction.bidHistory) {
+    const price = document.createElement("div");
+    price.classList.add("price");
+    price.style.background = i2h(b.edgeColor);
+    price.style.color = i2h(b.textColor);
+    price.innerText = Math.round(((g.auction.bidHistory?.[g.auction?.bidHistory.length-1]?.amount)||g.auction.startingBid)*10)/10+" TON";
     gift.appendChild(price);
   }
 
@@ -568,10 +588,10 @@ const load_gifts = async () => {
     const f = prices[format.value];
     //({"TONNEL":1.06,"MRKT":1.045,"PORTALS":1.05}[g.market])
     const a = g.market?1:(g.asset=="TONNEL"?1.06:1.06);
-    const p = f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset);
+    const p = g.price?f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset):"";
     if (g.gift_id>0) {
       const m = (Date.now()-new Date(g.export_at).getTime())>0;
-      add_gift(fix_name(g.name),g.gift_num,g.price?p:"",g.gift_id,m,g);
+      add_gift(fix_name(g.name),g.gift_num,p,g.gift_id,m,g);
     } else {
       const b = await(await fetch("https://gifts3.tonnel.network/api/giftData/"+g.gift_id)).json();
       add_bundle(b,p,g.gift_id);
