@@ -961,7 +961,7 @@ const update_models = (filter = "") => {
       div = document.createElement("div");
 
       const img = document.createElement("img");
-      img.src = `https://gifts.coffin.meme/${gift.toLowerCase()}/${model}.png`;
+      img.src = `https://gifts.coffin.meme/${gift.toLowerCase()}/${model.split(" (")[0]}.png`;
       img.alt = model;
       img.style.width = "32px";
       img.style.height = "32px";
