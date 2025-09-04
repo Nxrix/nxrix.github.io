@@ -262,8 +262,8 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
 
 const gift_names0 = fix_name(gift_names);
 
-const gifts = gift_names.split("\n");
-const gifts0 = gift_names0.split("\n");
+const gifts = gift_names.split("\n").sort();
+const gifts0 = gift_names0.split("\n").sort();
 
 const i2h = (n) => "#"+n.toString(16).padStart(6,"0");
 
