@@ -141,6 +141,19 @@
   border-radius: calc(var(--font)/100*6);
   font-size: calc(var(--font)/100*6);
 }
+#gifts_list .market {
+  background-color: #0023;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 7%;
+  right: 7%;
+  padding: 2% 4%;
+  border-radius: calc(var(--font)/100*6);
+  font-size: calc(var(--font)/100*6);
+}
 #gifts_list .icons {
   background-color: #0023;
   color: #fff;

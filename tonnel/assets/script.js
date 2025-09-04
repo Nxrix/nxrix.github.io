@@ -124,60 +124,138 @@ const parse_nums = (str) => {
   return nums;
 }
 
-const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,backdrop,symbol,tag,pmin,pmax}) => {
-  const s = {
-    d: { message_post_time: -1 , gift_id: -1 },
-    p0: { price:  1 , gift_id: -1 },
-    p1: { price: -1 , gift_id: -1 },
-    i: { gift_num:  1 , gift_id: -1 },
-    j: { gift_num: -1 , gift_id: -1 },
-    r: { rarity: -1 , gift_id: -1 },
-    m: { modelRarity: 1 , gift_id: -1 },
-    b: { backdropRarity: 1 , gift_id: -1 },
-    s: { symbolRarity: 1 , gift_id: -1 }
-  };
-  return await(await fetch("https://gifts3.tonnel.network/api/pageGifts", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      page,
-      limit,
-      sort: JSON.stringify(s[sort]),
-      filter: JSON.stringify({
-        price: { $exists: true },
-        buyer: { $exists: false },
-        ...(tag=="nopremarket" && { export_at: { $exists: true } }),
-        ...(tag=="telegram" && { telegramMarketplace: true , export_at: { $exists: false } }),
-        ...(tag=="premarket" && { premarket: true }),
-        ...(tag=="mintable" && { export_at: { $lt: new Date().toISOString() } }),
-        ...(tag=="bundle" && { gift_id: { $lt: 0 } }),
-        ...(() => {
-          return parse_nums(numbers.value)?{ gift_num: parse_nums(numbers.value) }:{}
-        })(),
-        //export_at: { $exists: true },
-        //refunded: { $ne: true },
-        ...( name?.length>1 && { gift_name: name }),
-        ...( name?.length==1 && { gift_name: name[0] }),
-        ...( model?.length && { model: { $in: model } }),
-        ...( name?.length
-          ?{
-            ...(backdrop?.length && { backdrop: { $in: backdrop } }),
-            ...(symbol?.length && { symbol: { $in: symbol } })
-          }
-          :{
-            ...(backdrop?.length && { backdrop: { $regex: "^"+backdrop.join("|")+" \\(" } }),
-            ...(symbol?.length && { symbol: { $regex: "^"+symbol.join("|")+" \\(" } })
-          }
-        ),
-        asset
-      }),
-      ref: 0,
-      price_range: [pmin||0,pmax||1000000],
-      user_auth: ""
+const thermos_search = async ({
+  page = 1,
+  per_page = 8,
+  collections,
+  models,
+  backdrops,
+  symbols,
+  number,
+  min = 0,
+  max = 100000,
+  ordering = "PRICE_ASC",
+  markets = ["MRKT", "TONNEL", "PORTALS", "GETGEMS"]
+} = {}) => {
+  return await (
+    await fetch("https://proxy.thermos.gifts/api/v1/gifts", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        page,
+        per_page,
+        collections,
+        models,
+        backdrops,
+        symbols,
+        number,
+        ordering,
+        markets,
+        price_range: {
+          min: (min * 1e9).toString(),
+          max: (max * 1e9).toString()
+        }
+      })
     })
-  })).json();
+  ).json();
+};
+
+const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,backdrop,symbol,tag,pmin,pmax}) => {
+  if (tag=="thermos") {
+    const ordering = {
+      d: "",
+      p0: "PRICE_ASC" ,
+      p1: "PRICE_DESC",
+      i: "NUMBER_ASC",
+      j: "NUMBER_DESC",
+      r: "RARITY_SCORE_ASC",
+      r0: "RARITY_SCORE_DESC",
+      m: "MODEL_RARITY_ASC",
+      m0: "MODEL_RARITY_DESC",
+      b: "BACKDROP_RARITY_ASC",
+      b0: "BACKDROP_RARITY_DESC",
+      s: "SYMBOL_RARITY_ASC",
+      s0: "SYMBOL_RARITY_DESC"
+    }[sort];
+    return (await thermos_search({
+      page,
+      ordering,
+      per_page: 20,
+      collections: name,
+      models: model,
+      backdrops: backdrop,
+      symbols: symbol,
+      number: numbers.value,
+      min: pmin,
+      max: pmax
+    })).items.map(i=>{
+      return {
+        price: Math.round(parseFloat(i.price)/1e8)/10,
+        gift_num: i.number,
+        name: i.collection,
+        backdrop: i.backdrop.name,
+        symbol: i.symbol.name,
+        market: i.marketplace,
+        asset: "TON"
+      }
+    });
+  } else {
+    const s = {
+      d: { message_post_time: -1 , gift_id: -1 },
+      p0: { price:  1 , gift_id: -1 },
+      p1: { price: -1 , gift_id: -1 },
+      i: { gift_num:  1 , gift_id: -1 },
+      j: { gift_num: -1 , gift_id: -1 },
+      r: { rarity: -1 , gift_id: -1 },
+      m: { modelRarity: 1 , gift_id: -1 },
+      b: { backdropRarity: 1 , gift_id: -1 },
+      s: { symbolRarity: 1 , gift_id: -1 }
+    };
+    return await(await fetch("https://gifts3.tonnel.network/api/pageGifts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        page,
+        limit,
+        sort: JSON.stringify(s[sort]),
+        filter: JSON.stringify({
+          price: { $exists: true },
+          buyer: { $exists: false },
+          ...(tag=="nopremarket" && { export_at: { $exists: true } }),
+          ...(tag=="telegram" && { telegramMarketplace: true , export_at: { $exists: false } }),
+          ...(tag=="premarket" && { premarket: true }),
+          ...(tag=="mintable" && { export_at: { $lt: new Date().toISOString() } }),
+          ...(tag=="bundle" && { gift_id: { $lt: 0 } }),
+          ...(() => {
+            return parse_nums(numbers.value)?{ gift_num: parse_nums(numbers.value) }:{}
+          })(),
+          //export_at: { $exists: true },
+          //refunded: { $ne: true },
+          ...( name?.length>1 && { gift_name: name }),
+          ...( name?.length==1 && { gift_name: name[0] }),
+          ...( model?.length && { model: { $in: model } }),
+          ...( name?.length
+            ?{
+              ...(backdrop?.length && { backdrop: { $in: backdrop } }),
+              ...(symbol?.length && { symbol: { $in: symbol } })
+            }
+            :{
+              ...(backdrop?.length && { backdrop: { $regex: "^"+backdrop.join("|")+" \\(" } }),
+              ...(symbol?.length && { symbol: { $regex: "^"+symbol.join("|")+" \\(" } })
+            }
+          ),
+          asset
+        }),
+        ref: 0,
+        price_range: [pmin||0,pmax||1000000],
+        user_auth: ""
+      })
+    })).json();
+  }
 }
 
 const gift_names0 = fix_name(gift_names);
@@ -267,7 +345,11 @@ const load_patterns = async (img, { slug, symbol, patternColor }) => {
 const add_gift = (c,n,p,i,m,g) => {
   const gift = document.createElement("a");
   gift.classList.add("item");
-  gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
+  if (g.market) {
+    gift.href = "https://t.me/nft/"+fix_name2(gifts.find(i=>fix_name(i)==c)||"")+"-"+n;
+  } else {
+    gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
+  }
   //gift.style.boxShadow = a?("0 0 0 1px var(--md-sys-color-background), "+(m?"0 0 0 2px #48f, 0 0 0 3px #fb0":"0 0 0 3px #fb0")):(m?"0 0 0 1px var(--md-sys-color-background), 0 0 0 3px #48f":"");
 
   const img = document.createElement("img");
@@ -314,7 +396,7 @@ const add_gift = (c,n,p,i,m,g) => {
   );
 
   const tg = (!g.premarket)&&(!g.export_at);
-  if(g.premarket||m||tg) {
+  if (g.premarket||m||tg) {
     const icons = document.createElement("div");
     icons.classList.add("icons");
     if (g.premarket) {
@@ -329,6 +411,15 @@ const add_gift = (c,n,p,i,m,g) => {
     icons.style.background = i2h(b.edgeColor);
     icons.style.color = i2h(b.textColor);
     gift.appendChild(icons);
+  }
+
+  if (g.market) {
+    const market = document.createElement("div");
+    market.classList.add("market");
+    market.innerText = g.market.charAt(0)+g.market.slice(1).toLowerCase();
+    market.style.background = i2h(b.edgeColor);
+    market.style.color = i2h(b.textColor);
+    gift.appendChild(market);
   }
 
   if (p) {
