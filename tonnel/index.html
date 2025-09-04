@@ -12,13 +12,14 @@ description: ""
   <link rel="stylesheet" href="https://nxrix.github.io/assets/css/style.css?{{site.time|date:'%s%N'}}">
   <link rel="stylesheet" href="./assets/style.css?{{site.time|date:'%s%N'}}">
   <!--link rel="stylesheet" href="./assets/theme.css"-->
-  <!--script src="https://nxrix.github.io/assets/js/theme.js?{{site.time|date:'%s%N'}}"></script-->
+  <script src="https://nxrix.github.io/assets/js/theme.js?{{site.time|date:'%s%N'}}"></script>
   <script src="https://nxrix.github.io/assets/js/screen.js?{{site.time|date:'%s%N'}}"></script>
   <title>Tonnel</title>
 </head>
 <body>
   <div class="top_bar">
     <img src="./assets/tonnel.png" style="height: 60%;" class="pixelated">
+    <div id="theme_btn" onclick="change_theme()"></div>
   </div>
   <div class="body">
     <!--div class="content page">
@@ -206,4 +207,5 @@ const set_tab = (n) => {
 }
 set_tab(0);
 </script>
+
 </html>
