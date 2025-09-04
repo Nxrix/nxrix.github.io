@@ -468,12 +468,12 @@ const add_gift = (c,n,p,i,m,g) => {
     gift.appendChild(price);
   }
 
-  if (g.bidHistory) {
+  if (g.auction.bidHistory) {
     const price = document.createElement("div");
     price.classList.add("price");
     price.style.background = i2h(b.edgeColor);
     price.style.color = i2h(b.textColor);
-    price.innerText = g.bidHistory[g.bidHistory.length-1].amount;
+    price.innerText = (g.auction.bidHistory?.[g.bidHistory.length-1].amount||g.startingBid)+" TON";
     gift.appendChild(price);
   }
 
