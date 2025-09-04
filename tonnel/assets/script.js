@@ -633,69 +633,90 @@ const get_symbols = (list) => {
   }
 }
 
-function makeSelectAll(targetList, beforeEl) {
-  const el = document.createElement("div");
-  el.style.display = "none";
-  el.classList.add("filterlsa");
-  beforeEl.parentNode.insertBefore(el, beforeEl);
-  return el;
-}
-
 const no_results = document.createElement("div");
 no_results.textContent = "No Collections Found";
 no_results.style.display = "none";
 collectionsl.appendChild(no_results);
 
-const select_all         = makeSelectAll(collectionsl, collectionsl);
-const select_all_models  = makeSelectAll(modelsl, modelsl);
-const select_all_backdrops    = makeSelectAll(backdropsl, backdropsl);
-const select_all_symbols = makeSelectAll(symbolsl, symbolsl);
+const select_all = document.createElement("div");
+select_all.style.display = "none";
+select_all.classList.add("filterlsa");
+collectionsl.parentNode.insertBefore(select_all,collectionsl);
 
-function updateSelect(el, allItems, selectedItems) {
-  const allSelected = allItems.length > 0 && allItems.every(i => selectedItems.includes(i));
-  el.innerHTML = allSelected ? "Deselect All" : "Select All";
-  return allSelected;
+const select_all_models = document.createElement("div");
+select_all_models.style.display = "none";
+select_all_models.classList.add("filterlsa");
+modelsl.parentNode.insertBefore(select_all_models,modelsl);
+
+const select_all_backdrops = document.createElement("div");
+select_all_backdrops.style.display = "none";
+select_all_backdrops.classList.add("filterlsa");
+backdropsl.parentNode.insertBefore(select_all_backdrops,backdropsl);
+
+const select_all_symbols = document.createElement("div");
+select_all_symbols.style.display = "none";
+select_all_symbols.classList.add("filterlsa");
+symbolsl.parentNode.insertBefore(select_all_symbols,symbolsl);
+
+const update_select_all = () => {
+  select_all.innerHTML = collections.length == gifts.length?"Deselect All":"Select All";
+};
+update_select_all();
+
+const update_select_all_models = () => {
+  let allModels = [];
+  collections.forEach(gift => {
+    const gm = gift_models.find(g => g._id == gift);
+    if (gm) allModels.push(...gm.models.slice(0, -1));
+  });
+  const allSelected = allModels.every(m => models.includes(m));
+  select_all_models.innerHTML = allSelected ? "Deselect All" : "Select All";
 }
 
-function getAll(type) {
-  let items = [];
-  const isEmpty = collections.length === 0;
-  const source = isEmpty
-    ? gift_models.find(g => g._id === "All Names")
-    : null;
-
-  if (type === "models") {
-    (isEmpty ? [] : collections).forEach(g => {
-      const gm = gift_models.find(x => x._id === g);
-      if (gm) items.push(...gm.models.slice(0, -1));
+const update_select_all_backdrops = () => {
+  let all = [];
+  if (collections.length == 0) {
+    const allData = gift_models.find(g => g._id == "All Names");
+    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+  } else {
+    collections.forEach(gift => {
+      const gm = gift_models.find(g => g._id == gift);
+      if (gm) all.push(...gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
     });
   }
-  else if (type === "backgrounds") {
-    const arr = isEmpty ? source?.backgrounds : collections.map(g => gift_models.find(x => x._id === g)?.backgrounds).flat();
-    if (arr) items = arr.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  }
-  else if (type === "symbols") {
-    const arr = isEmpty ? source?.symbols : collections.map(g => gift_models.find(x => x._id === g)?.symbols).flat();
-    if (arr) items = arr.slice(0, -1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  }
-  return [...new Set(items.filter(Boolean))];
+  all = [...new Set(all)];
+  const allSelected = all.every(b => backdrops.includes(b));
+  select_all_backdrops.innerHTML = allSelected ? "Deselect All" : "Select All";
 }
 
-function update_select_all() {
-  select_all.innerHTML = collections.length === gifts.length ? "Deselect All" : "Select All";
+const update_select_all_symbols = () => {
+  let all = [];
+  if (collections.length == 0) {
+    const allData = gift_models.find(g => g._id == "All Names");
+    if (allData) all = allData.symbols.slice(0,-1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+  } else {
+    collections.forEach(gift => {
+      const gm = gift_models.find(g => g._id == gift);
+      if (gm) all.push(...gm.symbols.slice(0,-1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+    });
+  }
+  all = [...new Set(all)];
+  const allSelected = all.every(s => symbols.includes(s));
+  select_all_symbols.innerHTML = allSelected ? "Deselect All" : "Select All";
 }
-function update_select_all_models()   { updateSelect(select_all_models, getAll("models"), models); }
-function update_select_all_backdrops(){ updateSelect(select_all_back,   getAll("backgrounds"), backdrops); }
-function update_select_all_symbols()  { updateSelect(select_all_symbols,getAll("symbols"), symbols); }
 
 select_all.onclick = () => {
-  const all = collections.length === gifts.length;
+  const all = collections.length == gifts.length;
   if (all) {
     collections = [];
-    gift_models.forEach(gm => gm.models.forEach(m => {
-      const i = models.indexOf(m);
-      if (i > -1) models.splice(i, 1);
-    }));
+    if (gift_models) {
+      gift_models.forEach(gm => {
+        gm.models.forEach(m => {
+          const i = models.indexOf(m);
+          if (i>-1) models.splice(i,1);
+        });
+      });
+    }
   } else {
     collections = [...gifts];
   }
@@ -706,23 +727,65 @@ select_all.onclick = () => {
 };
 
 select_all_models.onclick = () => {
-  const allModels = getAll("models");
+  let allModels = [];
+  collections.forEach(gift => {
+    const gm = gift_models.find(g => g._id == gift);
+    if (gm) allModels.push(...gm.models.slice(0, -1));
+  });
   const allSelected = allModels.every(m => models.includes(m));
-  models = allSelected ? models.filter(m => !allModels.includes(m)) : [...new Set([...models, ...allModels])];
+  if (allSelected) {
+    models = models.filter(m => !allModels.includes(m));
+  } else {
+    allModels.forEach(m => {
+      if (!models.includes(m)) models.push(m);
+    });
+  }
   update_models(modelss.value);
 };
 
 select_all_backdrops.onclick = () => {
-  const all = getAll("backgrounds");
+  let all = [];
+  if (collections.length == 0) {
+    const allData = gift_models.find(g => g._id == "All Names");
+    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+  } else {
+    collections.forEach(gift => {
+      const gm = gift_models.find(g => g._id == gift);
+      if (gm) all.push(...gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+    });
+  }
+  all = [...new Set(all)];
   const allSelected = all.every(b => backdrops.includes(b));
-  backdrops = allSelected ? backdrops.filter(b => !all.includes(b)) : [...new Set([...backdrops, ...all])];
+  if (allSelected) {
+    backdrops = backdrops.filter(b => !all.includes(b));
+  } else {
+    all.forEach(b => {
+      if (!backdrops.includes(b)) backdrops.push(b);
+    });
+  }
   update_backdrops(backdropss.value);
 };
 
 select_all_symbols.onclick = () => {
-  const all = getAll("symbols");
+  let all = [];
+  if (collections.length == 0) {
+    const allData = gift_models.find(g => g._id == "All Names");
+    if (allData) all = allData.symbols.slice(0, -1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+  } else {
+    collections.forEach(gift => {
+      const gm = gift_models.find(g => g._id == gift);
+      if (gm) all.push(...gm.symbols.slice(0, -1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+    });
+  }
+  all = [...new Set(all)];
   const allSelected = all.every(s => symbols.includes(s));
-  symbols = allSelected ? symbols.filter(s => !all.includes(s)) : [...new Set([...symbols, ...all])];
+  if (allSelected) {
+    symbols = symbols.filter(s => !all.includes(s));
+  } else {
+    all.forEach(s => {
+      if (!symbols.includes(s)) symbols.push(s);
+    });
+  }
   update_symbols(symbolss.value);
 };
 
@@ -1082,11 +1145,6 @@ window.onload = async () => {
   update_models();
   update_backdrops();
   update_symbols();
-
-  update_select_all();
-  update_select_all_models();
-  update_select_all_backdrops();
-  update_select_all_symbols();
 
   load_gifts();
   //load_charts();
