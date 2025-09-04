@@ -154,8 +154,8 @@ const thermos_search = async ({
         ordering,
         markets,
         price_range: {
-          min: (min * 1e9).toString(),
-          max: (max * 1e9).toString()
+          min: Math.round(min * 1e9).toString(),
+          max: Math.round(max * 1e9).toString()
         }
       })
     })
@@ -188,8 +188,8 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       backdrops: backdrop,
       symbols: symbol,
       number: parseInt(numbers.value),
-      min: parseFloat(pmin)||0,
-      max: parseFloat(pmax)||0
+      min: parseFloat(pmin/1.06)||0,
+      max: parseFloat(pmax/1.06)||100000
     })).items.map(i=>{
       return {
         price: Math.round(parseFloat(i.price)/1e8)/10,
