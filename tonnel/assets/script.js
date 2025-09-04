@@ -965,7 +965,6 @@ const update_models = (filter = "") => {
       img.alt = model;
       img.style.width = "32px";
       img.style.height = "32px";
-      img.style.marginRight = "8px";
 
       div.appendChild(img);
       div.appendChild(document.createTextNode(`${model}`));
