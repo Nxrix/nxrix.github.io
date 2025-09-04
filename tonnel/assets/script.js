@@ -260,8 +260,9 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       }
     });
   } else {
-    const s = {
+    const s0 = {
       d: { message_post_time: -1 , gift_id: -1 },
+      o: { message_post_time: 1 , gift_id: -1 },
       p0: { price:  1 , gift_id: -1 },
       p1: { price: -1 , gift_id: -1 },
       i: { gift_num:  1 , gift_id: -1 },
@@ -271,6 +272,12 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       b: { backdropRarity: 1 , gift_id: -1 },
       s: { symbolRarity: 1 , gift_id: -1 }
     };
+    const s1 = {
+      d: { auctionStartTime: -1, gift_id: -1 }
+      o: { auctionEndTime: 1, gift_id: -1 },
+      p0: { "bidHistory.amount":  1 , gift_id: -1 },
+      p1: { "bidHistory.amount": -1 , gift_id: -1 },
+    }
     return await(await fetch("https://gifts3.tonnel.network/api/pageGifts", {
       method: "POST",
       headers: {
@@ -279,15 +286,16 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       body: JSON.stringify({
         page,
         limit,
-        sort: JSON.stringify(s[sort]),
+        sort: JSON.stringify((tag=="auction"?s1:s0)[sort]),
         filter: JSON.stringify({
-          price: { $exists: true },
-          buyer: { $exists: false },
+          ...(tag!="auction" && { price: { $exists: true }}),
+          ...(tag!="auction" && { buyer: { $exists: false }}),
           ...(tag=="nopremarket" && { export_at: { $exists: true } }),
           ...(tag=="telegram" && { telegramMarketplace: true , export_at: { $exists: false } }),
           ...(tag=="premarket" && { premarket: true }),
           ...(tag=="mintable" && { export_at: { $lt: new Date().toISOString() } }),
           ...(tag=="bundle" && { gift_id: { $lt: 0 } }),
+          ...(tag=="auction" && { auction_id:{ $exists: true}, status: "active" })
           ...(() => {
             return parse_nums(numbers.value)?{ gift_num: parse_nums(numbers.value) }:{}
           })(),
@@ -346,6 +354,30 @@ const load_patterns = async (img, { slug, symbol, patternColor }) => {
   img.src =
     "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
 };
+
+const start_counter = (e,t) => {
+  const endTime = new Date(t).getTime();
+  if (!e) return;
+  const interval = setInterval(() => {
+    if (!document.body.contains(element)) {
+      clearInterval(interval);
+      return;
+    }
+    const now = new Date().getTime();
+    const distance = endTime - now;
+    if (distance <= 0) {
+      element.textContent = "0 days : 00 : 00 : 00";
+      clearInterval(interval);
+      return;
+    }
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const formatNumber = (num) => num.toString().padStart(2,"0");
+    element.textContent = `${days} days : ${formatNumber(hours)} : ${formatNumber(minutes)} : ${formatNumber(seconds)}`;
+  },1000);
+}
 
 const add_gift = (c,n,p,i,m,g) => {
   const gift = document.createElement("a");
@@ -418,12 +450,30 @@ const add_gift = (c,n,p,i,m,g) => {
     gift.appendChild(market);
   }
 
+  if (g.auctionEndTime) {
+    const market = document.createElement("div");
+    market.classList.add("market");
+    market.style.background = i2h(b.edgeColor);
+    market.style.color = i2h(b.textColor);
+    start_counter(market,g.auctionEndTime);
+    gift.appendChild(market);
+  }
+
   if (p) {
     const price = document.createElement("div");
     price.classList.add("price");
     price.style.background = i2h(b.edgeColor);
     price.style.color = i2h(b.textColor);
     price.innerText = p;
+    gift.appendChild(price);
+  }
+
+  if (g.bidHistory) {
+    const price = document.createElement("div");
+    price.classList.add("price");
+    price.style.background = i2h(b.edgeColor);
+    price.style.color = i2h(b.textColor);
+    price.innerText = g.bidHistory[g.bidHistory.length-1].amount;
     gift.appendChild(price);
   }
 
