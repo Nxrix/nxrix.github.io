@@ -278,7 +278,7 @@ const add_gift = (c,n,p,i,a,m,g) => {
   
   const b = gift_backdrops.find(i=>i.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==g.backdrop.split(" (")[0]).color;
 
-  img.onerror = () => {
+  const fix_gift = () => {
     img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4AWJiYGBgAAAAAP//XRcpzQAAAAZJREFUAwAADwADJDd96QAAAABJRU5ErkJggg==";
     /*const q = document.createElement("div");
     q.classList.add("q");
@@ -299,6 +299,9 @@ const add_gift = (c,n,p,i,a,m,g) => {
       patternColor: b.patternColor
     });
   };
+
+  if (g.premarket) fix_gift();
+  img.onerror = fix_gift;
 
   /*const id = document.createElement("div");
   id.classList.add("id");
