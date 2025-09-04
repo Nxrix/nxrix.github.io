@@ -272,13 +272,13 @@
   padding: 8px;
 }
 .filterd .filterl {
-  border-radius: 12px;
+  border-radius: 8px;
   outline: 1px solid var(--md-sys-color-outline-variant);
   padding: 12px;
   overflow-y: auto;
 }
 .filterd .filterlsa {
-  border-radius: 12px;
+  border-radius: 8px;
   outline: 1px solid var(--md-sys-color-outline-variant);
   text-align: center;
   padding: 8px;
