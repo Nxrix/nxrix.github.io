@@ -286,16 +286,16 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       body: JSON.stringify({
         page,
         limit,
-        sort: JSON.stringify((tag=="auction"?s1:s0)[sort]),
+        sort: JSON.stringify((tag=="auctions"?s1:s0)[sort]),
         filter: JSON.stringify({
-          ...(tag!="auction" && { price: { $exists: true }}),
-          ...(tag!="auction" && { buyer: { $exists: false }}),
+          ...(tag!="auctions" && { price: { $exists: true }}),
+          ...(tag!="auctions" && { buyer: { $exists: false }}),
           ...(tag=="nopremarket" && { export_at: { $exists: true } }),
           ...(tag=="telegram" && { telegramMarketplace: true , export_at: { $exists: false } }),
           ...(tag=="premarket" && { premarket: true }),
           ...(tag=="mintable" && { export_at: { $lt: new Date().toISOString() } }),
           ...(tag=="bundle" && { gift_id: { $lt: 0 } }),
-          ...(tag=="auction" && { auction_id:{ $exists: true}, status: "active" }),
+          ...(tag=="auctions" && { auction_id:{ $exists: true}, status: "active" }),
           ...(() => {
             return parse_nums(numbers.value)?{ gift_num: parse_nums(numbers.value) }:{}
           })(),
