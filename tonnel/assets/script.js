@@ -187,9 +187,9 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       models: model,
       backdrops: backdrop,
       symbols: symbol,
-      number: numbers.value,
-      min: pmin,
-      max: pmax
+      number: parseInt(numbers.value),
+      min: parseFloat(pmin)||0,
+      max: parseFloat(pmax)||0
     })).items.map(i=>{
       return {
         price: Math.round(parseFloat(i.price)/1e8)/10,
