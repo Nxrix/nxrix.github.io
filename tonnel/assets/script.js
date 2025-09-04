@@ -359,7 +359,7 @@ const start_counter = (e,t) => {
   const endTime = new Date(t).getTime();
   if (!e) return;
   const interval = setInterval(() => {
-    if (!document.body.contains(element)) {
+    if (!document.body.contains(e)) {
       clearInterval(interval);
       return;
     }
@@ -375,7 +375,7 @@ const start_counter = (e,t) => {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
     const formatNumber = (num) => num.toString().padStart(2,"0");
-    element.textContent = `${days} days : ${formatNumber(hours)} : ${formatNumber(minutes)} : ${formatNumber(seconds)}`;
+    e.textContent = `${days} days : ${formatNumber(hours)} : ${formatNumber(minutes)} : ${formatNumber(seconds)}`;
   },1000);
 }
 
@@ -473,7 +473,7 @@ const add_gift = (c,n,p,i,m,g) => {
     price.classList.add("price");
     price.style.background = i2h(b.edgeColor);
     price.style.color = i2h(b.textColor);
-    price.innerText = (g.auction.bidHistory?.[g.auction?.bidHistory.length-1]?.amount||g.startingBid)+" TON";
+    price.innerText = ((g.auction.bidHistory?.[g.auction?.bidHistory.length-1]?.amount)||g.startingBid)+" TON";
     gift.appendChild(price);
   }
 
