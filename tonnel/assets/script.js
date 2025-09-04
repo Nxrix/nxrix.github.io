@@ -726,11 +726,6 @@ select_all_symbols.onclick = () => {
   update_symbols(symbolss.value);
 };
 
-update_select_all();
-update_select_all_models();
-update_select_all_backdrops();
-update_select_all_symbols();
-
 const gift_elements = {};
 
 gifts.forEach(gift => {
@@ -1087,6 +1082,11 @@ window.onload = async () => {
   update_models();
   update_backdrops();
   update_symbols();
+
+  update_select_all();
+  update_select_all_models();
+  update_select_all_backdrops();
+  update_select_all_symbols();
 
   load_gifts();
   //load_charts();
