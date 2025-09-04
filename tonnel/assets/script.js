@@ -633,184 +633,225 @@ const get_symbols = (list) => {
   }
 }
 
-const no_results = document.createElement("div");
-no_results.textContent = "No Collections Found";
-no_results.style.display = "none";
-collectionsl.appendChild(no_results);
+function createMultiSelect({
+  type,
+  container,
+  searchInput,
+  clearBtn,
+  toggleBtn,
+  panel,
+  sourceFn,
+  isSelected,
+  toggleItem,
+  renderItem,
+  updateGlobal,
+}) {
+  const selectAllDiv = document.createElement("div");
+  selectAllDiv.style.display = "none";
+  selectAllDiv.classList.add("filterlsa");
+  container.parentNode.insertBefore(selectAllDiv, container);
 
-const select_all = document.createElement("div");
-select_all.style.display = "none";
-select_all.classList.add("filterlsa");
-collectionsl.parentNode.insertBefore(select_all,collectionsl);
+  const noResults = document.createElement("div");
+  noResults.textContent = `No ${type[0].toUpperCase() + type.slice(1)} Found`;
+  noResults.style.display = "none";
+  container.appendChild(noResults);
 
-const select_all_models = document.createElement("div");
-select_all_models.style.display = "none";
-select_all_models.classList.add("filterlsa");
-modelsl.parentNode.insertBefore(select_all_models,modelsl);
+  const updateSelectAll = (filtered) => {
+    const all = filtered.length > 0 && filtered.every(isSelected);
+    selectAllDiv.innerHTML = all ? "Deselect All" : "Select All";
+    selectAllDiv.style.display = filtered.length > 0 ? "block" : "none";
+    return all;
+  };
 
-const select_all_backdrops = document.createElement("div");
-select_all_backdrops.style.display = "none";
-select_all_backdrops.classList.add("filterlsa");
-backdropsl.parentNode.insertBefore(select_all_backdrops,backdropsl);
+  const updateList = (filter = "") => {
+    container.innerHTML = "";
+    let items = sourceFn();
+    items = [...new Set(items)];
+    const filtered = items.filter(x => x.toLowerCase().includes(filter.toLowerCase()));
 
-const select_all_symbols = document.createElement("div");
-select_all_symbols.style.display = "none";
-select_all_symbols.classList.add("filterlsa");
-symbolsl.parentNode.insertBefore(select_all_symbols,symbolsl);
-
-const update_select_all = () => {
-  select_all.innerHTML = collections.length == gifts.length?"Deselect All":"Select All";
-};
-update_select_all();
-
-const update_select_all_models = () => {
-  let allModels = [];
-  collections.forEach(gift => {
-    const gm = gift_models.find(g => g._id == gift);
-    if (gm) allModels.push(...gm.models.slice(0, -1));
-  });
-  const allSelected = allModels.every(m => models.includes(m));
-  select_all_models.innerHTML = allSelected ? "Deselect All" : "Select All";
-}
-
-const update_select_all_backdrops = () => {
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all.push(...gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const allSelected = all.every(b => backdrops.includes(b));
-  select_all_backdrops.innerHTML = allSelected ? "Deselect All" : "Select All";
-}
-
-const update_select_all_symbols = () => {
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.symbols.slice(0,-1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all.push(...gm.symbols.slice(0,-1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const allSelected = all.every(s => symbols.includes(s));
-  select_all_symbols.innerHTML = allSelected ? "Deselect All" : "Select All";
-}
-
-select_all.onclick = () => {
-  const all = collections.length == gifts.length;
-  if (all) {
-    collections = [];
-    if (gift_models) {
-      gift_models.forEach(gm => {
-        gm.models.forEach(m => {
-          const i = models.indexOf(m);
-          if (i>-1) models.splice(i,1);
-        });
-      });
+    if (filtered.length === 0) {
+      noResults.style.display = "block";
+      container.appendChild(noResults);
+      selectAllDiv.style.display = "none";
+      return;
     }
-  } else {
-    collections = [...gifts];
-  }
-  update_collections(collectionss.value);
-  update_models(modelss.value);
-  update_backdrops(backdropss.value);
-  update_symbols(symbols.value);
-};
+    noResults.style.display = "none";
 
-select_all_models.onclick = () => {
-  let allModels = [];
-  collections.forEach(gift => {
-    const gm = gift_models.find(g => g._id == gift);
-    if (gm) allModels.push(...gm.models.slice(0, -1));
-  });
-  const allSelected = allModels.every(m => models.includes(m));
-  if (allSelected) {
-    models = models.filter(m => !allModels.includes(m));
-  } else {
-    allModels.forEach(m => {
-      if (!models.includes(m)) models.push(m);
+    filtered.sort((a, b) => {
+      const ain = isSelected(a) ? -1 : 1;
+      const bin = isSelected(b) ? -1 : 1;
+      if (ain !== bin) return ain - bin;
+      return a.localeCompare(b);
     });
-  }
-  update_models(modelss.value);
-};
 
-select_all_backdrops.onclick = () => {
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all.push(...gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+    filtered.forEach(item => {
+      const el = renderItem(item);
+      el.className = isSelected(item) ? "active" : "";
+      el.onclick = () => {
+        toggleItem(item);
+        updateList(filter);
+      };
+      container.appendChild(el);
     });
-  }
-  all = [...new Set(all)];
-  const allSelected = all.every(b => backdrops.includes(b));
-  if (allSelected) {
-    backdrops = backdrops.filter(b => !all.includes(b));
-  } else {
-    all.forEach(b => {
-      if (!backdrops.includes(b)) backdrops.push(b);
-    });
-  }
-  update_backdrops(backdropss.value);
-};
 
-select_all_symbols.onclick = () => {
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.symbols.slice(0, -1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all.push(...gm.symbols.slice(0, -1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const allSelected = all.every(s => symbols.includes(s));
-  if (allSelected) {
-    symbols = symbols.filter(s => !all.includes(s));
-  } else {
-    all.forEach(s => {
-      if (!symbols.includes(s)) symbols.push(s);
-    });
-  }
-  update_symbols(symbolss.value);
-};
+    updateSelectAll(filtered);
+    updateGlobal();
+  };
 
-const gift_elements = {};
+  selectAllDiv.onclick = () => {
+    const items = sourceFn();
+    const filtered = items.filter(x => x.toLowerCase().includes(searchInput.value.toLowerCase()));
+    const allSelected = filtered.length > 0 && filtered.every(isSelected);
+    if (allSelected) {
+      filtered.forEach(item => { if (isSelected(item)) toggleItem(item); });
+    } else {
+      filtered.forEach(item => { if (!isSelected(item)) toggleItem(item); });
+    }
+    updateList(searchInput.value);
+  };
 
-gifts.forEach(gift => {
-  const div = document.createElement("div");
-  div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp"><span>${gift}</span>`;//<div style="padding:0;margin: -23px 0 0 0;text-align:right;">0 TON</div>
-  div.onclick = () => {
+  searchInput.oninput = () => updateList(searchInput.value);
+  clearBtn.onclick = () => { searchInput.value = ""; updateList(""); };
+
+  toggleBtn.onclick = () => {
+    const open = panel.style.display === "flex";
+    [collectionsd, modelsd, backdropsd, symbolsd].forEach(p => p.style.display = "none");
+    panel.style.display = open ? "none" : "flex";
+  };
+
+  return { updateList };
+}
+
+const collectionsSelect = createMultiSelect({
+  type: "collections",
+  container: collectionsl,
+  searchInput: collectionss,
+  clearBtn: collectionssd,
+  toggleBtn: collectionst,
+  panel: collectionsd,
+  sourceFn: () => gifts,
+  isSelected: gift => collections.includes(gift),
+  toggleItem: gift => {
     if (collections.includes(gift)) {
-      collections = collections.filter(g=>g!=gift);
+      collections = collections.filter(g => g !== gift);
       remove_models_of_gift(gift);
     } else {
       collections.push(gift);
     }
-    update_collections(collectionss.value);
-    update_models(modelss.value);
-    update_backdrops(backdropss.value);
-    update_symbols(symbols.value);
-  };
-  gift_elements[gift] = div;
-  collectionsl.appendChild(div);
+  },
+  renderItem: gift => {
+    if (!gift_elements[gift]) {
+      const div = document.createElement("div");
+      div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp"><span>${gift}</span>`;
+      gift_elements[gift] = div;
+    }
+    return gift_elements[gift];
+  },
+  updateGlobal: update_url
 });
 
-const remove_models_of_gift = (gift) => {
+const modelsSelect = createMultiSelect({
+  type: "models",
+  container: modelsl,
+  searchInput: modelss,
+  clearBtn: modelssd,
+  toggleBtn: modelst,
+  panel: modelsd,
+  sourceFn: () => {
+    let all = [];
+    collections.forEach(gift => {
+      const gm = gift_models.find(g => g._id === gift);
+      if (gm) all.push(...gm.models.slice(0, -1));
+    });
+    return all;
+  },
+  isSelected: m => models.includes(m),
+  toggleItem: m => {
+    if (models.includes(m)) models = models.filter(x => x !== m);
+    else models.push(m);
+  },
+  renderItem: m => {
+    const div = document.createElement("div");
+    div.innerText = m;
+    return div;
+  },
+  updateGlobal: update_url
+});
+
+const backdropsSelect = createMultiSelect({
+  type: "backdrops",
+  container: backdropsl,
+  searchInput: backdropss,
+  clearBtn: backdropssd,
+  toggleBtn: backdropst,
+  panel: backdropsd,
+  sourceFn: () => {
+    let all = [];
+    if (collections.length === 0) {
+      const allData = gift_models.find(g => g._id === "All Names");
+      if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+    } else {
+      collections.forEach(gift => {
+        const gm = gift_models.find(g => g._id === gift);
+        if (gm) all.push(...gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+      });
+    }
+    return all;
+  },
+  isSelected: b => backdrops.includes(b),
+  toggleItem: b => {
+    if (backdrops.includes(b)) backdrops = backdrops.filter(x => x !== b);
+    else backdrops.push(b);
+  },
+  renderItem: b => {
+    const div = document.createElement("div");
+    const color = gift_backdrops.find(x => x.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b)?.color;
+    if (color) {
+      const dot = document.createElement("div");
+      dot.style.background = `radial-gradient(circle,${i2h(color.centerColor)} 1%,${i2h(color.edgeColor)} 80%)`;
+      dot.classList.add("color");
+      div.appendChild(dot);
+    }
+    div.appendChild(document.createTextNode(b));
+    return div;
+  },
+  updateGlobal: update_url
+});
+
+const symbolsSelect = createMultiSelect({
+  type: "symbols",
+  container: symbolsl,
+  searchInput: symbolss,
+  clearBtn: symbolssd,
+  toggleBtn: symbolst,
+  panel: symbolsd,
+  sourceFn: () => {
+    let all = [];
+    if (collections.length === 0) {
+      const allData = gift_models.find(g => g._id === "All Names");
+      if (allData) all = allData.symbols.slice(0,-1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
+    } else {
+      collections.forEach(gift => {
+        const gm = gift_models.find(g => g._id === gift);
+        if (gm) all.push(...gm.symbols.slice(0,-1).map(s => s.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
+      });
+    }
+    return all;
+  },
+  isSelected: s => symbols.includes(s),
+  toggleItem: s => {
+    if (symbols.includes(s)) symbols = symbols.filter(x => x !== s);
+    else symbols.push(s);
+  },
+  renderItem: s => {
+    const div = document.createElement("div");
+    div.innerText = s;
+    return div;
+  },
+  updateGlobal: update_url
+});
+
+function remove_models_of_gift(gift) {
   if (!gift_models) return;
   const gm = gift_models.find(g => g._id == gift);
   if (!gm) return;
@@ -818,183 +859,6 @@ const remove_models_of_gift = (gift) => {
     const i = models.indexOf(m);
     if (i > -1) models.splice(i,1);
   });
-}
-
-const update_collections = (filter = "") => {
-  const filtered = gifts.filter(g => g.toLowerCase().includes(filter.toLowerCase()));
-  const active = [];
-  const inactive = [];
-  filtered.forEach(gift => {
-    const div = gift_elements[gift];
-    if (collections.includes(gift)) {
-      active.push(div);
-    } else {
-      inactive.push(div);
-    }
-    div.style.display = "flex";
-    div.className = collections.includes(gift)?"active" :"";
-  });
-  [...active,...inactive].forEach(div => {
-    collectionsl.appendChild(div);
-  });
-  gifts.forEach(gift => {
-    if (!filtered.includes(gift)) {
-      gift_elements[gift].style.display = "none";
-    }
-  });
-  select_all.style.display = filtered.length==gifts.length?"block":"none";
-  no_results.style.display = filtered.length==0?"block":"none";
-  update_select_all();
-  update_url();
-}
-
-const update_models = (filter = "") => {
-  modelsl.innerHTML = "";
-  if (collections.length == 0) {
-    models.length = 0;
-    const div = document.createElement("div");
-    div.innerText = "No Models Found";
-    modelsl.appendChild(div);
-    return;
-  }
-  let all = [];
-  collections.forEach(gift => {
-    const gm = gift_models.find(g => g._id == gift);
-    if (gm) {
-    const sorted = gm.models.slice(0, -1).sort((a, b) => {
-      const pa = parseFloat(a.match(/\(([\d.]+)%\)/)?.[1] || 0);
-      const pb = parseFloat(b.match(/\(([\d.]+)%\)/)?.[1] || 0);
-      return pa - pb;
-    });
-    all = all.concat(sorted.map(m => ({gift,model:m})));
-  }
-  });
-  const filtered = all.filter(({model}) => model.toLowerCase().includes(filter.toLowerCase()));
-  if (filtered.length == 0) {
-    const div = document.createElement("div");
-    div.innerText = "No Models Found";
-    modelsl.appendChild(div);
-    return;
-  }
-  filtered.sort((a, b) => {
-    const ain = models.includes(a.model)?-1:1;
-    const bin = models.includes(b.model)?-1:1;
-    if (ain != bin) return ain-bin;
-    if ( a.gift<b.gift ) return -1;
-    if ( a.gift>b.gift ) return  1;
-    if (a.model<b.model) return -1;
-    if (a.model>b.model) return  1;
-    return 0;
-  }).forEach(({gift, model}) => {
-    const div = document.createElement("div");
-    div.innerText = gift + " - " + model;
-    div.className = models.includes(model)?"active":"";
-    div.onclick = () => {
-      if (models.includes(model)) {
-        models = models.filter(m=>m!=model);
-      } else {
-        models.push(model);
-      }
-      update_models(filter);
-    };
-    modelsl.appendChild(div);
-  });
-  select_all_models.style.display = filtered.length>0?"block":"none";
-  update_select_all_models();
-  update_url();
-}
-
-const update_backdrops = (filter = "") => {
-  backdropsl.innerHTML = "";
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, ""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all = all.concat(gm.backgrounds.slice(0, -1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/, "")));
-    });
-  }
-  all = [...new Set(all)];
-  const filtered = all.filter(b => b.toLowerCase().includes(filter.toLowerCase()));
-  if (filtered.length == 0) {
-    const div = document.createElement("div");
-    div.innerText = "No Backdrops Found";
-    backdropsl.appendChild(div);
-    return;
-  }
-  filtered.sort((a,b) => {
-    const ain = backdrops.includes(a)?-1:1;
-    const bin = backdrops.includes(b)?-1:1;
-    if (ain != bin) return ain - bin;
-    return a.localeCompare(b);
-  }).forEach(b => {
-    const div = document.createElement("div");
-    const color = gift_backdrops.find(x => x.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==b)?.color;
-    const dot = document.createElement("div");
-    dot.style.background = `radial-gradient(circle,${i2h(color.centerColor)} 1%,${i2h(color.edgeColor)} 80%)`;
-    dot.classList.add("color");
-    div.appendChild(dot);
-    div.appendChild(document.createTextNode(b));
-    div.className = backdrops.includes(b)?"active":"";
-    div.onclick = () => {
-      if (backdrops.includes(b)) {
-        backdrops = backdrops.filter(x => x != b);
-      } else {
-        backdrops.push(b);
-      }
-      update_backdrops(filter);
-    };
-    backdropsl.appendChild(div);
-  });
-  select_all_backdrops.style.display = filtered.length>0?"block":"none";
-  update_select_all_backdrops();
-  update_url();
-}
-
-const update_symbols = (filter = "") => {
-  symbolsl.innerHTML = "";
-  let all = [];
-  if (collections.length == 0) {
-    const allData = gift_models.find(g => g._id == "All Names");
-    if (allData) all = allData.symbols.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,""));
-  } else {
-    collections.forEach(gift => {
-      const gm = gift_models.find(g => g._id == gift);
-      if (gm) all = all.concat(gm.symbols.slice(0,-1).map(b => b.replace(/\s*\(\d+(\.\d+)?%\)/,"")));
-    });
-  }
-  all = [...new Set(all)];
-  const filtered = all.filter(s => s.toLowerCase().includes(filter.toLowerCase()));
-  if (filtered.length == 0) {
-    const div = document.createElement("div");
-    div.innerText = "No Symbols Found";
-    symbolsl.appendChild(div);
-    return;
-  }
-  filtered.sort((a,b) => {
-    const ain = symbols.includes(a)?-1:1;
-    const bin = symbols.includes(b)?-1:1;
-    if (ain != bin) return ain - bin;
-    return a.localeCompare(b);
-  }).forEach(s => {
-    const div = document.createElement("div");
-    div.innerText = s;
-    div.className = symbols.includes(s)?"active":"";
-    div.onclick = () => {
-      if (symbols.includes(s)) {
-        symbols = symbols.filter(x => x != s);
-      } else {
-        symbols.push(s);
-      }
-      update_symbols(filter);
-    };
-    symbolsl.appendChild(div);
-  });
-  select_all_symbols.style.display = filtered.length>0?"block":"none";
-  update_select_all_symbols();
-  update_url();
 }
 
 const load_floors = async () => {
@@ -1017,7 +881,7 @@ const load_floors = async () => {
   };
 });
 
-collectionss.oninput = () => {
+/*collectionss.oninput = () => {
   update_collections(collectionss.value);
   update_models(modelss.value);
   update_backdrops(backdropss.value);
@@ -1031,7 +895,7 @@ symbolss.oninput = () => update_symbols(symbolss.value);
 collectionssd.onclick = () => { collectionss.value = ""; collectionss.oninput(); };
 modelssd.onclick = () => { modelss.value = ""; modelss.oninput(); };
 backdropssd.onclick = () => { backdropss.value = ""; backdropss.oninput(); };
-symbolssd.onclick = () => { symbolss.value = ""; symbolss.oninput(); };
+symbolssd.onclick = () => { symbolss.value = ""; symbolss.oninput(); };*/
 
 pagei.onkeydown = e => {
   if (e.key=="Enter"){
@@ -1141,10 +1005,10 @@ window.onload = async () => {
     }*/
   }
 
-  update_collections();
-  update_models();
-  update_backdrops();
-  update_symbols();
+  collectionsSelect.updateList();
+  modelsSelect.updateList();
+  backdropsSelect.updateList();
+  symbolsSelect.updateList();
 
   load_gifts();
   //load_charts();
