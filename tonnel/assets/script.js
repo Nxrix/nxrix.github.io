@@ -229,14 +229,14 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       j: { num: 1 }
     }[sort];
     const tr = s => s.replace(/^(.*?)\s*\(([\d.]+)%\)$/,(_,n,p)=>`${n.trim()}_${Math.round(p*10)}`);
-    return (await fetch("https://nfttelegram.io/api/search",{
+    return (await(await fetch("https://nfttelegram.io/api/search",{
       method: "POST",
       headers: {
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        skip: page*24,
-        limit: 24,
+        skip: page*36,
+        limit: 36,
         sort: ordering,
         filter: {
           titles: name,
@@ -245,7 +245,7 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
           icons: symbol.map(i=>tr(i)),
         }
       })
-    })).gifts.map(i=>{
+    })).json()).gifts.map(i=>{
       return {
         price: i.price,
         gift_num: i.num,
