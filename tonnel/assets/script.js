@@ -230,6 +230,7 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
     }[sort];
     const tr = s => s.replace(/^(.*?)\s*\(([\d.]+)%\)$/,(_,n,p)=>`${n.trim()}_${Math.round(p*10)}`);
     return (await fetch("https://nfttelegram.io/api/search",{
+      method: "POST",
       headers: {
         "content-type": "application/json"
       },
