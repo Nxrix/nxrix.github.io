@@ -541,7 +541,7 @@ const add_bundle = (b,p,i) => {
     gift.appendChild(price);
   }
 
-  if (g.auction.bidHistory) {
+  if (g.auction) {
     const price = document.createElement("div");
     price.classList.add("price");
     price.style.background = i2h(bd.edgeColor);
