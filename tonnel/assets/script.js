@@ -232,7 +232,7 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
     return (await fetch("https://nfttelegram.io/api/search",{
       headers: {
         "content-type": "application/json"
-      }
+      },
       body: JSON.stringify({
         skip: page*24,
         limit: 24,
