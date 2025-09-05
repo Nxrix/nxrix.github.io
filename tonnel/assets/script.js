@@ -219,6 +219,42 @@ const thermos_search = async ({
 };
 
 const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,backdrop,symbol,tag,pmin,pmax}) => {
+  if (tag=="gifts") {
+    const ordering = {
+      d: { created_at: -1 },
+      o: { created_at: 1 },
+      p0: { price: -1 },
+      p1: { price: 1 },
+      i: { num: -1 },
+      j: { num: 1 }
+    }[sort];
+    return (await fetch("https://nfttelegram.io/api/search",{
+      headers: {
+        "content-type": "application/json"
+      }
+      body: JSON.stringify({
+        skip: page*24,
+        limit: 24,
+        sort: ordering,
+        filter: {
+          titles: name,
+          models: model.map(i=>i.split(" (")[0]),
+          colors: backdrop.map(i=>i.split(" (")[0]),
+          icons: symbol.map(i=>i.split(" (")[0]),
+        }
+      })
+    })).gifts.map(i=>{
+      return {
+        price: i.price,
+        gift_num: i.num,
+        name: i.title,
+        backdrop: i.backdrop.name.split("_")[0],
+        symbol: i.symbol.name.split("_")[0],
+        asset: "TON",
+        gift_id: 1
+      }
+    });
+  }
   if (tag.split("-")[0]=="thermos") {
     const ordering = {
       d: "PRICE_ASC",
