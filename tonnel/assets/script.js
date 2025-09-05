@@ -235,7 +235,7 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        skip: page*36,
+        skip: (page-1)*36,
         limit: 36,
         sort: ordering,
         filter: {
