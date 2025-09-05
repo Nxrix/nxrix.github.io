@@ -240,7 +240,7 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
         sort: ordering,
         filter: {
           titles: name,
-          models: model.map(i=>tr(i)),
+          models: model.map(i=>i.split(" (")[0]),
           colors: backdrop.map(i=>tr(i)),
           icons: symbol.map(i=>tr(i)),
         }
