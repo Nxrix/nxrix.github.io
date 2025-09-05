@@ -221,12 +221,12 @@ const thermos_search = async ({
 const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,backdrop,symbol,tag,pmin,pmax}) => {
   if (tag=="gifts") {
     const ordering = {
-      d: { created_at: -1 },
-      o: { created_at: 1 },
-      p0: { price: -1 },
-      p1: { price: 1 },
-      i: { num: -1 },
-      j: { num: 1 }
+      d: { created_at: 1 },
+      o: { created_at: -1 },
+      p0: { price: 1 },
+      p1: { price: -1 },
+      i: { num: 1 },
+      j: { num: -1 }
     }[sort];
     const tr = s => s.replace(/^(.*?)\s*\(([\d.]+)%\)$/,(_,n,p)=>`${n.trim()}_${Math.round(p*10)}`);
     return (await(await fetch("https://nfttelegram.io/api/search",{
