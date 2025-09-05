@@ -244,8 +244,8 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
       backdrops: backdrop.map(i=>i.split(" (")[0]),
       symbols: symbol.map(i=>i.split(" (")[0]),
       number: parseInt(numbers.value),
-      min: parseFloat(pmin/1.06)||0,
-      max: parseFloat(pmax/1.06)||100000,
+      min: pmin||0,
+      max: pmax||100000,
       ...(tag.split("-")[1]&&{ markets: [tag.split("-")[1].toUpperCase()] })
     })).items.map(i=>{
       return {
@@ -572,7 +572,7 @@ const load_gifts = async () => {
     gifts_list.appendChild(gift);
   }*/
 
-  const pfix = prices[format.value][asset.value]*(asset.value=="TONNEL"?1.06:1.06);
+  const pfix = prices[format.value][asset.value];//*(asset.value=="TONNEL"?1.06:1.06);
   try {
     const data = await tonnel_search({
       page: page+1,
