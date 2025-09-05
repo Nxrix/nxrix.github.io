@@ -254,7 +254,7 @@ const tonnel_search = async ({page=1,limit=8,sort="d",asset="TON",name,model,bac
         backdrop: i.backdrop.name.split("_")[0],
         symbol: i.symbol.name.split("_")[0],
         asset: "TON",
-        market: "",
+        market: " ",
         gift_id: 1
       }
     });
