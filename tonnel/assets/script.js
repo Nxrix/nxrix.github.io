@@ -383,7 +383,7 @@ const add_gift = (c,n,p,i,m,g) => {
     gift.appendChild(icons);
   }
 
-  if (g.market) {
+  if (g.market.trim()) {
     const market = document.createElement("div");
     market.classList.add("market");
     market.innerText = g.market.charAt(0)+g.market.slice(1).toLowerCase();
