@@ -81,6 +81,7 @@
   font-size: 0;
   text-decoration: none;
   border-radius: calc(var(--font)/100*1);
+  outline: none;
   /*outline: 1px solid var(--md-sys-color-outline-variant);*/
   aspect-ratio: 1;
 }
@@ -136,6 +137,14 @@
   padding: 2% 4%;
   border-radius: calc(var(--font)/100*6);
   font-size: calc(var(--font)/100*6);
+}
+#gifts_list .owner {
+  position: absolute;
+  top: 7%;
+  left: 7%;
+  width: 20%;
+  height: 20%;
+  border-radius: 10%;
 }
 #gifts_list .icons {
   background-color: #0023;

@@ -160,7 +160,8 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
         symbol: i.symbol.name.split("_")[0],
         asset: "TON",
         market: " ",
-        gift_id: 1
+        gift_id: 1,
+        owner_photo: i.ownerPhoto
       }
     });
   }
@@ -417,6 +418,18 @@ const add_gift = (c,n,p,i,m,g) => {
     price.style.color = i2h(b.textColor);
     price.innerText = Math.round(((g.auction.bidHistory?.[g.auction?.bidHistory.length-1]?.amount)||g.auction.startingBid)*10)/10+" TON";
     gift.appendChild(price);
+  }
+
+  if (g.owner_photo) {
+    if (g.owner_photo.split("https://nfttelegram.io/static/users/jpeg/")[1]!=".jpeg") {
+      const owner = document.createElement("img");
+      owner.classList.add("owner");
+      owner.style.background = i2h(b.edgeColor);
+      owner.style.color = i2h(b.textColor);
+      owner.src = g.owner_photo;
+      owner.onerror = () => owner.remove();
+      gift.appendChild(owner);
+    }
   }
 
   gifts_list.appendChild(gift);
