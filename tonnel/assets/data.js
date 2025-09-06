@@ -35070,7 +35070,7 @@ window.gift_models = [
     ]
   }
 ];
-window.backdrops = [
+window.gift_backdrops = [
   {
     "backdrop": "Ranger Green",
     "color": {
