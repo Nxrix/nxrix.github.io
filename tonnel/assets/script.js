@@ -155,7 +155,7 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
         price: i.price,
         gift_num: i.num,
         name: i.title,
-        model: i.model,
+        model: i.model.replaceAll("’","'"),
         backdrop: i.backdrop.name.split("_")[0],
         symbol: i.symbol.name.split("_")[0],
         asset: "TON",
