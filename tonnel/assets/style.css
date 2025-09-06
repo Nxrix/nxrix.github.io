@@ -101,6 +101,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(0.975);
+  border-radius: calc(var(--font)/100*10);
+}
+#gifts_list .model {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: scale(0.625);
+  z-index: 1;
 }
 #gifts_list .price {
   background-color: #0023;
