@@ -145,7 +145,7 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
         sort: ordering,
         filter: {
           titles: name,
-          models: model.map(i=>i.split(" (")[0]),
+          models: model.map(i=>i.split(" (")[0].replaceAll("'","’")),
           colors: backdrop.map(i=>tr(i)),
           icons: symbol.map(i=>tr(i)),
         }
