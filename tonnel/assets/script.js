@@ -301,7 +301,7 @@ const load_patterns = async (img, { slug, symbol, patternColor }) => {
     "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
 };
 
-const start_counter = (e,t) => {
+const start_counter = (i,e,t) => {
   const endTime = new Date(t).getTime();
   if (!e) return;
   const interval = setInterval(() => {
@@ -313,6 +313,7 @@ const start_counter = (e,t) => {
     const distance = endTime - now;
     if (distance <= 0) {
       e.textContent = "0 : 00 : 00 : 00";
+      i.remove();
       clearInterval(interval);
       return;
     }
@@ -398,7 +399,7 @@ const add_gift = (c,n,p,i,m,g) => {
     market.classList.add("market");
     market.style.background = i2h(b.edgeColor);
     market.style.color = i2h(b.textColor);
-    start_counter(market,g.auction.auctionEndTime);
+    start_counter(gift,market,g.auction.auctionEndTime);
     gift.appendChild(market);
   }
 
@@ -480,7 +481,7 @@ const add_bundle = (b,p,i) => {
     market.classList.add("market");
     market.style.background = i2h(bd.edgeColor);
     market.style.color = i2h(bd.textColor);
-    start_counter(market,g.auction.auctionEndTime);
+    start_counter(gift,market,g.auction.auctionEndTime);
     gift.appendChild(market);
   }
 

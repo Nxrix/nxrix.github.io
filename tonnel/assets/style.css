@@ -91,12 +91,14 @@
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
-  border-radius: calc(var(--font)/100*10);
 }
 #gifts_list .item.bundle .image {
   flex: 1 1 calc(100%/var(--cols));
   width: 100%;
   aspect-ratio: 2;
+}
+#gifts_list .item.bundle img {
+  border-radius: calc(var(--font)/100*5);
 }
 #gifts_list img {
   width: 100%;
