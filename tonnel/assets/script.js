@@ -525,7 +525,7 @@ const load_gifts = async () => {
     gifts_list.appendChild(gift);
   }*/
 
-  const pfix = window.prices?window.prices[format.value][asset.value]:1;//*(asset.value=="TONNEL"?1.06:1.06);
+  const pfix = (window?.prices?.[format.value]?.[asset.value])||1;//*(asset.value=="TONNEL"?1.06:1.06);
   try {
     const data = await tonnel_search({
       page: page+1,
@@ -546,7 +546,6 @@ const load_gifts = async () => {
 
     for (g of data) {
       const f = prices[format.value];
-      //({"TONNEL":1.06,"MRKT":1.045,"PORTALS":1.05}[g.market])
       const a = g.market?1:(g.asset=="TONNEL"?1.06:1.06);
       const p = g.price?f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset):"";
       if (g.gift_id>0) {
@@ -1024,22 +1023,23 @@ const update_models = (filter = "") => {
     if (a.model > b.model) return 1;
     return 0;
   }).forEach(({gift, model}) => {
+    const key = `${gift}_${model}`;
     let div;
 
-    if (model_elements[model]) {
-      div = model_elements[model];
+    if (model_elements[key]) {
+      div = model_elements[key];
       div.className = models.includes(model) ? "active" : "";
     } else {
       div = document.createElement("div");
 
       const img = document.createElement("img");
-      img.src = `https://gifts.coffin.meme/${gift.toLowerCase()}/${model.split(" (")[0].replaceAll("/","")}.png`;
+      img.src = `https://gifts.coffin.meme/${gift.toLowerCase()}/${encodeURIComponent(model.split(" (")[0].replaceAll("/",""))}.png`;
       img.alt = model;
       img.style.width = "32px";
       img.style.height = "32px";
 
       div.appendChild(img);
-      div.appendChild(document.createTextNode(`${model}`));
+      div.appendChild(document.createTextNode(model));
       div.className = models.includes(model) ? "active" : "";
 
       div.onclick = () => {
@@ -1050,10 +1050,11 @@ const update_models = (filter = "") => {
         }
         update_models(filter);
       };
-      model_elements[model] = div;
+      model_elements[key] = div;
     }
     modelsl.appendChild(div);
   });
+
   select_all_models.style.display = filtered.length > 0 ? "block" : "none";
   update_select_all_models();
   update_url();
