@@ -1153,13 +1153,6 @@ const update_symbols = (filter = "") => {
   update_url();
 }
 
-const load_floors = async () => {
-  for (i in gifts) {
-    const d = await tonnel_search(page+1,1,"p0",asset.value,{ name: gifts[i] });
-    collectionsl.children[i].children[2].innerText = d[0].price+" "+d[0].asset;
-  }
-}
-
 [
   {btn: collectionst, panel: collectionsd},
   {btn: modelst, panel: modelsd},
@@ -1224,8 +1217,9 @@ window.onload = async () => {
     const div = gift_elements[gift];
     const span = div.querySelector("span");
     const name = span.textContent;
-    const extra = parseFloat(collections.find(i=>fix_name(i.name)==fix_name(name))?.stats.floor)/1e9 || "";
-    span.textContent = extra?`${name} - ${(Math.round(extra*10)/10).toLocaleString("en-US")} TON`:name;
+    const g = collections.find(i=>fix_name(i.name)==fix_name(name));
+    const extra = parseFloat(g?.stats.floor)/1e9 || "";
+    span.textContent = extra?`${name} - ${(Math.round(extra*10)/10).toLocaleString("en-US")} TON - ${g?.stats.count.toLocaleString("en-US")}`:name;
   });
 
   const tnl = await(await fetch("https://api.dyor.io/v1/jettons/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv/price")).json();
