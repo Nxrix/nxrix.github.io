@@ -1202,9 +1202,13 @@ btn_p.onclick = () => {
   load_gifts();
 }
 
+btn_r.onclick = () => {
+  load_gifts();
+}
+
 btn_s.onclick = () => {
   page=0;
-  load_gifts();
+  btn_r.onclick();
 }
 
 window.onload = async () => {
