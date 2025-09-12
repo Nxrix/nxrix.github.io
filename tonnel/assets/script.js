@@ -333,7 +333,11 @@ const add_gift = (c,n,p,i,m,g) => {
   if (g.market) {
     gift.href = "https://t.me/nft/"+fix_name2(g.name)+"-"+n;
   } else {
-    gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
+    if (url_format=="miniapp") {
+      gift.href = "https://t.me//tonnel_network_bot/gift?startapp=ref_5829347783_"+i;
+    } else {
+      gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
+    }
   }
 
   const b = gift_backdrops.find(i=>i.backdrop?.replace(/\s*\(\d+(\.\d+)?%\)/,"")==g.backdrop.split(" (")[0]).color;
@@ -440,7 +444,11 @@ const add_gift = (c,n,p,i,m,g) => {
 const add_bundle = (b,p,i) => {
   const gift = document.createElement("a");
   gift.classList.add("item", "bundle");
-  gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
+  if (url_format=="miniapp") {
+    gift.href = "https://t.me//tonnel_network_bot/gift?startapp=ref_5829347783_"+i;
+  } else {
+    gift.href = "tg://resolve?domain=tonnel_network_bot&appname=gift&startapp=ref_5829347783_"+i;
+  }
   //gift.style.boxShadow = a?"0 0 0 1px var(--md-sys-color-background), 0 0 0 3px 0 0 0 3px #fb0":"";
 
   const t = b.bundleData.length;
@@ -610,6 +618,7 @@ const loadFloat = (key, fallback) => {
   return val !== null ? parseFloat(val) || fallback : fallback;
 };
 
+let url_format = url.searchParams.get("url_format")||"";
 let page = Math.max(loadInt("p", 0), 0);
 sort.value = loadParam("s", "d");
 asset.value = loadParam("a", "TON");
