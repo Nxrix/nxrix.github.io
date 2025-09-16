@@ -142,9 +142,9 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
         sortBy: order[0],
         sortOrder: order[1],
         collections: name.map(i=>fix_name2(i)).join(","),
-        models: model.join(","),
-        backdrops: backdrop.join(","),
-        patterns: symbol.join(","),
+        models: model.map(i=>i.split(" (")[0]).join(","),
+        backdrops: backdrop.map(i=>i.split(" (")[0]).join(","),
+        patterns: symbol.map(i=>i.split(" (")[0]).join(","),
         onSaleOnly: tag=="sale"?true:false
       })
     })).json()).gifts.map(i=>{
