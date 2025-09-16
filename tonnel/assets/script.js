@@ -124,7 +124,44 @@ const thermos_search = async ({
 };
 
 const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,symbol,tag,pmin,pmax}) => {
-  if (tag=="gifts") {
+  if (tag=="gifts"||tag=="sale") {
+    const order = {
+      d: ["latestOffer","ASC"],
+      o: ["latestOffer","DEC"],
+      p0: ["itemPrice","ASC"],
+      p1: ["itemPrice","DEC"]
+    }[sort];
+    return (await(await fetch("https://app-api.xgift.tg/gifts/all",{
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        page,
+        limit: 20,
+        sortBy: order[0],
+        sortOrder: order[1],
+        collections: name.join(","),
+        models: model.join(","),
+        backdrops: backdrop.join(","),
+        patterns: symbol.join(","),
+        onSaleOnly: tag=="sale"?true:false
+      })
+    })).json()).gifts.map(i=>{
+      return {
+        price: i.price,
+        gift_num: i.num,
+        name: i.title,
+        model: i.model.replaceAll("’","'"),
+        backdrop: i.backdrop.name.split("_")[0],
+        symbol: i.symbol.name.split("_")[0],
+        asset: "TON",
+        market: " ",
+        gift_id: 1,
+        owner_photo: i.ownerPhoto
+      }
+    });
+  } else if (tag=="gifts1") {
     const ordering = {
       d: { created_at: 1 },
       o: { created_at: -1 },
