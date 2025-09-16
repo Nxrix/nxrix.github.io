@@ -149,16 +149,15 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
       })
     })).json()).gifts.map(i=>{
       return {
-        price: i.price,
-        gift_num: i.num,
-        name: i.title,
-        model: i.model.replaceAll("’","'"),
-        backdrop: i.backdrop.name.split("_")[0],
-        symbol: i.symbol.name.split("_")[0],
+        price: i.salePrice,
+        gift_num: i.giftNum,
+        name: i.giftName,
+        model: i.model,
+        backdrop: i.backdrop,
+        symbol: i.pattern,
         asset: "TON",
-        market: " ",
-        gift_id: 1,
-        owner_photo: i.ownerPhoto
+        market: i.saleMarketplace||" ",
+        gift_id: 1
       }
     });
   } else if (tag=="gifts1") {
