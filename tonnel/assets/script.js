@@ -387,7 +387,7 @@ const add_gift = (c,n,p,i,m,g) => {
     img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4AWJiYGBgAAAAAP//XRcpzQAAAAZJREFUAwAADwADJDd96QAAAABJRU5ErkJggg==";
     const mi = document.createElement("img");
     mi.classList.add("model");
-    mi.src = `https://gifts.coffin.meme/${g.name.toLowerCase()}/${g.model.split(" (")[0]}.png`;
+    mi.src = `https://gifts.coffin.meme/${g.name.toLowerCase()}/${g.model.split(" (")[0].replaceAll("’","'")}.png`;
     gift.insertBefore(mi, gift.firstChild);
     load_patterns(img, {
       slug: fix_name2(g.name)+"-"+n,
