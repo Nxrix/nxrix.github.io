@@ -141,7 +141,7 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
         limit: 20,
         sortBy: order[0],
         sortOrder: order[1],
-        collections: name.join(","),
+        collections: name.map(i=>fix_name2(i)).join(","),
         models: model.join(","),
         backdrops: backdrop.join(","),
         patterns: symbol.join(","),
