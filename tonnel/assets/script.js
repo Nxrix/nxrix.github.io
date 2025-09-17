@@ -1272,9 +1272,13 @@ window.onload = async () => {
     span.textContent = extra?`${name} - ${(Math.round(extra*10)/10).toLocaleString("en-US")} TON - ${g?.stats.count.toLocaleString("en-US")}`:name;
   });
 
-  const tnl = await(await fetch("https://api.dyor.io/v1/jettons/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv/price")).json();
+  /*const tnl = await(await fetch("https://api.dyor.io/v1/jettons/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv/price")).json();
   const tonnel = (parseFloat(tnl.usd.price.value)/10**tnl.usd.price.decimals)||0;
-  const ton = tonnel/(parseFloat(tnl.ton.price.value)/10**tnl.ton.price.decimals)||0;
+  const ton = tonnel/(parseFloat(tnl.ton.price.value)/10**tnl.ton.price.decimals)||0;*/
+  const p = await(await fetch("https://api.javad-dev.ir/price/index.php")).json();
+  const tonnel = p["TONNEL"];
+  const ton = p["TON"];
+  const irt = p["USDT"]["tgju"];
   
   window.prices = {
     def: {
@@ -1297,6 +1301,13 @@ window.onload = async () => {
       TON: ton/0.015,
       TONNEL: tonnel/0.015,
       USDT: 1/0.015
+    },
+    irt: {
+      n: "p IRT",
+      d: 1,
+      TON: ton*irt,
+      TONNEL: tonnel*irt,
+      USDT: 1*irt
     }
   }
 
