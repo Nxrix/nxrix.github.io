@@ -592,7 +592,7 @@ const load_gifts = async () => {
     for (g of data) {
       const f = prices[format.value];
       const a = g.market?1:(g.asset=="TONNEL"?1.06:1.06);
-      const p = g.price?f.n.replace("p",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset):"";
+      const p = g.price?f.n.replace("price",(Math.ceil(g.price*a*f[g.asset]*f.d)/f.d).toLocaleString("en-US")).replace("asset",g.asset):"";
       if (g.gift_id>0) {
         const m = (Date.now()-new Date(g.export_at).getTime())>0;
         add_gift(fix_name(g.name),g.gift_num,p,g.gift_id,m,g);
@@ -1262,32 +1262,32 @@ window.onload = async () => {
   const p = await(await fetch("https://api.javad-dev.ir/price/index.php")).json();
   const tonnel = p["TONNEL"];
   const ton = p["TON"];
-  const irt = p["USDT"]["tgju"];
+  const irt = p["USDT"]["AVERAGE"];
   
   window.prices = {
     def: {
-      n: "p asset",
+      n: "price asset",
       d: 100,
       TON: 1,
       TONNEL: 1,
       USDT: 1
     },
     usd: {
-      n: "$p",
+      n: "$price",
       d: 100,
       TON: ton,
       TONNEL: tonnel,
       USDT: 1
     },
     stars: {
-      n: "p Stars",
+      n: "price Stars",
       d: 1,
       TON: ton/0.015,
       TONNEL: tonnel/0.015,
       USDT: 1/0.015
     },
     irt: {
-      n: "p IRT",
+      n: "price IRT",
       d: 1,
       TON: ton*irt,
       TONNEL: tonnel*irt,
