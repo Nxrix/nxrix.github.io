@@ -631,48 +631,32 @@ const load_gifts = async () => {
 //document.querySelector(".body .content.page").addEventListener("scroll",apply_effect);
 //window.addEventListener("resize",apply_effect);
 
-const url = new URL(window.location.href);
+const url = new URL(location.href);
+const hasParams = url.search.length > 1;
 
-const loadParam = (key, fallback) => {
-  let val = url.searchParams.get(key);
-  if (val !== null) return val;
-  val = localStorage.getItem(key);
-  return val !== null ? val : fallback;
-};
+const getVal = (key, def) =>
+  hasParams ? url.searchParams.get(key) || def : localStorage.getItem(key) || def;
 
-const loadInt = (key, fallback) => {
-  let val = url.searchParams.get(key);
-  if (val !== null) return parseInt(val) || fallback;
-  val = localStorage.getItem(key);
-  return val !== null ? parseInt(val) || fallback : fallback;
-};
+const getArr = (key) =>
+  (hasParams ? url.searchParams.get(key) : localStorage.getItem(key))
+    ?.split(",")
+    .filter(Boolean) || [];
 
-const loadFloat = (key, fallback) => {
-  let val = url.searchParams.get(key);
-  if (val !== null) return parseFloat(val) || fallback;
-  val = localStorage.getItem(key);
-  return val !== null ? parseFloat(val) || fallback : fallback;
-};
+let page = Math.max(parseInt(getVal("p", 0)) || 0, 0);
+sort.value   = getVal("s", "d");
+asset.value  = getVal("a", "TON");
+format.value = getVal("f", "def");
+tag.value    = getVal("t", "all");
+numbers.value= getVal("n", "");
+min.value    = parseFloat(getVal("min", "")) || "";
+max.value    = parseFloat(getVal("max", "")) || "";
+
+let collections = getArr("collections");
+let models      = getArr("models");
+let backdrops   = getArr("backdrops");
+let symbols     = getArr("symbols");
 
 let url_format = url.searchParams.get("url_format")||"";
-let page = Math.max(loadInt("p", 0), 0);
-sort.value = loadParam("s", "d");
-asset.value = loadParam("a", "TON");
-format.value = loadParam("f", "def");
-tag.value = loadParam("t", "all");
-numbers.value = loadParam("n", "");
-min.value = loadFloat("min", "") || "";
-max.value = loadFloat("max", "") || "";
-
-const parse = (key) => {
-  let val = url.searchParams.get(key) || localStorage.getItem(key);
-  return val ? val.split(",") : [];
-};
-
-let collections = parse("collections");
-let models = parse("models");
-let backdrops = parse("backdrops");
-let symbols = parse("symbols");
 
 const update_url = () => {
   const set_text = (e, l, a) => {
