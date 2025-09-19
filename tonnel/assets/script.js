@@ -160,7 +160,7 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
         gift_id: 1
       }
     });
-  } else if (tag=="gifts1") {
+  } else if (tag=="gifts2") {
     const ordering = {
       d: { created_at: 1 },
       o: { created_at: -1 },
