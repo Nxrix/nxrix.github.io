@@ -586,8 +586,9 @@ window.onload = async () => {
       data.currencies[i].change_percent = 0;
     }
   }
-  const ton_data = await(await fetch("https://corsproxy.io/?url=https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
-  const ton_chart = await(await fetch("https://corsproxy.io/?url=https://storage.dyor.io/jettons/10778/chart_dark_w1.svg")).text();
+  const proxy = "https://api.codetabs.com/v1/proxy/?quest=";
+  const ton_data = await(await fetch(proxy+"https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
+  const ton_chart = await(await fetch(proxy+"https://storage.dyor.io/jettons/10778/chart_dark_w1.svg")).text();
   data.currencies.push({
     code: "ton",
     en: "Toncoin",
@@ -597,8 +598,8 @@ window.onload = async () => {
     chart: make_chart(extract_chart(ton_chart,1),ton_data.Price>ton_data.PriceYesterday?"green":"red",400,400,4,0.2,0.25)
   });
 
-  const tonnel_data = await(await fetch("https://corsproxy.io/?url=https://dyor.io/api/v4/jettons/slug/tonnel/details")).json();
-  const tonnel_chart = await(await fetch("https://corsproxy.io/?url=https://storage.dyor.io/jettons/239/chart_dark_w1.svg")).text();
+  const tonnel_data = await(await fetch(proxy+"https://dyor.io/api/v4/jettons/slug/tonnel/details")).json();
+  const tonnel_chart = await(await fetch(proxy+"https://storage.dyor.io/jettons/239/chart_dark_w1.svg")).text();
   data.currencies.push({
     code: "tonnel",
     en: "Tonnel",
@@ -610,7 +611,7 @@ window.onload = async () => {
   });
 
   const btc_data = data.currencies.find(c=>c.code=="btc");
-  const btc_chart = await(await fetch("https://corsproxy.io/?url=https://www.coingecko.com/coins/1/sparkline.svg")).text();
+  const btc_chart = await(await fetch(proxy+"https://www.coingecko.com/coins/1/sparkline.svg")).text();
   btc_data.chart = make_chart(extract_chart3(btc_chart),btc_data.change_percent>0?"green":"red",400,400,4,0.2,0.25);
   
   load_items(data);
