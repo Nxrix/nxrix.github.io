@@ -586,7 +586,8 @@ window.onload = async () => {
       data.currencies[i].change_percent = 0;
     }
   }
-  const proxy = "https://api.codetabs.com/v1/proxy/?quest=";
+  const proxy = "https://corsproxy.io/?url=";//"https://api.codetabs.com/v1/proxy/?quest=";
+  //const p = await(await fetch("https://api.javad-dev.ir/price/index.php")).json();
   const ton_data = await(await fetch(proxy+"https://api.diadata.org/v1/assetQuotation/Ton/0x0000000000000000000000000000000000000000")).json();
   const ton_chart = await(await fetch(proxy+"https://storage.dyor.io/jettons/10778/chart_dark_w1.svg")).text();
   data.currencies.push({
