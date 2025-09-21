@@ -1259,10 +1259,12 @@ window.onload = async () => {
   /*const tnl = await(await fetch("https://api.dyor.io/v1/jettons/EQDNDv54v_TEU5t26rFykylsdPQsv5nsSZaH_v7JSJPtMitv/price")).json();
   const tonnel = (parseFloat(tnl.usd.price.value)/10**tnl.usd.price.decimals)||0;
   const ton = tonnel/(parseFloat(tnl.ton.price.value)/10**tnl.ton.price.decimals)||0;*/
-  const p = await(await fetch("https://api.javad-dev.ir/price/index.php")).json();
-  const tonnel = p["TONNEL"];
-  const ton = p["TON"];
-  const irt = p["USDT"]["AVERAGE"];
+  //const p = await(await fetch("https://api.javad-dev.ir/price/index.php")).json();
+  const p0 = await(await fetch("https://api.javad-dev.ir/price/currencies.json")).json();
+  const p1 = await(await fetch("https://api.javad-dev.ir/price/tether.json")).json();
+  const tonnel = p0["TONNEL"];
+  const ton = p0["TON"];
+  const irt = p1["AVERAGE"];
   
   window.prices = {
     def: {
