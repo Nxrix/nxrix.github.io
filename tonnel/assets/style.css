@@ -436,6 +436,16 @@ html, body {
 
 /* FIX */
 
+form input {
+  margin: 4px;
+}
+
+button,
+input,
+textarea {
+  font-size: 14px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
