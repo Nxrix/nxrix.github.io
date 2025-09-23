@@ -75,7 +75,7 @@ html, body {
   /*perspective: 1000px;
   transform-style: preserve-3d;*/
   overflow: hidden;
-  margin-bottom: 48px;
+  /*margin-bottom: 48px;*/
 }
 #gifts_list .item {
   position: relative;
