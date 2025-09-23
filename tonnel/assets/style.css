@@ -433,3 +433,56 @@ html, body {
   width: 100%;
   height: 100%;
 }
+
+/* FIX */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 12px/1.2 var(--sans-serif);
+}
+
+table pre,
+table code,
+table tt {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+th > pre:only-child,
+td > pre:only-child {
+  margin: 0;
+  padding: 0;
+}
+
+th {
+  color: var(--th);
+  text-align: left;
+  vertical-align: bottom;
+}
+
+td {
+  color: var(--td);
+  vertical-align: top;
+}
+
+th,
+td {
+  padding: 3px 6.5px 3px 0;
+}
+
+th:last-child, td:last-child {
+  padding-right: 0;
+}
+
+tr:not(:last-child) {
+  border-bottom: solid 1px var(--tr);
+}
+
+thead tr {
+  border-bottom: solid 1px var(--br);
+}
+
+.observablehq:has(.observablehq--running), .observablehq:has(.observablehq--inspect), .observablehq--running, .observablehq--inspect {
+  display: none;
+}
