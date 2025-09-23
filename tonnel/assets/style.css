@@ -436,13 +436,15 @@ html, body {
 
 /* FIX */
 
-form input {
+form input, form button {
   margin: 4px;
+  padding: 4px;
 }
 
 button,
 input,
 textarea {
+  font: 14px;
   font-size: 14px;
 }
 
