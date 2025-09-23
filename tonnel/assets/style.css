@@ -441,6 +441,10 @@ form input, form button {
   padding: 4px;
 }
 
+form div {
+  font: 14px;
+}
+
 button,
 input,
 textarea {
