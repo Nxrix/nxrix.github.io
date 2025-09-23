@@ -1262,8 +1262,8 @@ window.onload = async () => {
   const ton = tonnel/(parseFloat(tnl.ton.price.value)/10**tnl.ton.price.decimals)||0;*/
   //const p = await(await fetch("https://api.javad-dev.ir/price/index.php")).json();
   const proxy = "https://corsproxy.io/?url=";//"https://api.codetabs.com/v1/proxy/?quest=";
-  const p0 = await(await fetch(proxy+"https://api.javad-dev.ir/price/currencies.json")).json();
-  const p1 = await(await fetch(proxy+"https://api.javad-dev.ir/price/tether.json")).json();
+  const p0 = await(await fetch("https://api.javad-dev.ir/price/currencies.json")).json();
+  const p1 = await(await fetch("https://api.javad-dev.ir/price/tether.json")).json();
   const tonnel = p0["TONNEL"];
   const ton = p0["TON"];
   const irt = p1["AVERAGE"];
