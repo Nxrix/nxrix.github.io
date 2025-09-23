@@ -1,13 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Spline+Sans+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap");
-
+/*@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Spline+Sans+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap");*/
 @font-face {
   font-family: "sfr";
   src: url("https://nxrix.github.io/assets/fonts/sf-pro-rounded.woff2");
 }
 
-html, body {
+/*html, body {
   font-family: "Inter","fa";
-}
+}*/
 
 .body {
   height: calc(var(--vh) - 56px);/*136 64*/
@@ -551,4 +550,5 @@ table td.right {
 }
 table td.center {
   text-align: center;
+
 }
