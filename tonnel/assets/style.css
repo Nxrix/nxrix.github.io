@@ -439,7 +439,7 @@ html, body {
 table {
   width: 100%;
   border-collapse: collapse;
-  font: 12px/1.2 var(--sans-serif);
+  font-size: 12px;
 }
 
 table pre,
@@ -491,4 +491,48 @@ thead tr {
 
 .observablehq:has(.observablehq--running), .observablehq:has(.observablehq--inspect), .observablehq--running, .observablehq--inspect {
   display: none;
+}
+
+/* FIX2 */
+
+table {
+  margin: 0;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid var(--hr);
+}
+
+table caption {
+  padding: 8px;
+}
+
+table th {
+  padding: 6px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+}
+
+table td {
+  padding: 6px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+table tbody tr:nth-child(even) {
+  background: var(--bg);
+}
+
+table tbody tr:nth-child(odd) {
+  background: var(--bg1);
+}
+
+table td.left {
+  text-align: left;
+}
+table td.right {
+  text-align: right;
+}
+table td.center {
+  text-align: center;
 }
