@@ -160,10 +160,10 @@ description: ""
       </footer-->
 
     </div>
-    <div class="content page">
+    <div class="content page" id="table_page">
       
     </div>
-    <div class="content page">
+    <div class="content page" id="gifts_page">
 
     </div>
     <div class="content page" id="profile_page">
@@ -210,6 +210,41 @@ const set_tab = (n) => {
   }
 }
 set_tab(0);
+
+</script>
+<script type="module">
+
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+
+import table from "https://api.observablehq.com/d/f190ad3ab40118da.js?v=4";
+import gifts from "https://api.observablehq.com/d/c8849d5ba44a5cd0.js?v=4";
+import profile from "https://api.observablehq.com/d/8d3dcc27185fcf96.js?v=4";
+
+const runtime = new Runtime();
+
+runtime.module(table, (name,i) => {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.id = `cell_${name||i}`;
+  table_page.appendChild(cell);
+  return new Inspector(cell);
+});
+
+runtime.module(gifts, (name,i) => {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.id = `cell_${name||i}`;
+  gifts_page.appendChild(cell);
+  return new Inspector(cell);
+});
+
+runtime.module(profile, (name,i) => {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.id = `cell_${name||i}`;
+  profile_page.appendChild(cell);
+  return new Inspector(cell);
+});
 
 </script>
 
