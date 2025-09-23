@@ -1226,6 +1226,7 @@ btn_q.onclick = () => {
   page--;
   load_gifts();
 }
+
 btn_p.onclick = () => {
   page++;
   load_gifts();

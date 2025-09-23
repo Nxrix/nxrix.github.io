@@ -11,16 +11,16 @@ description: ""
   <!--link rel="icon" href="./img/" type="image/png"-->
   <link rel="stylesheet" href="../assets/css/style.css?{{site.time|date:'%s%N'}}">
   <link rel="stylesheet" href="./assets/style.css?{{site.time|date:'%s%N'}}">
-  <!--link rel="stylesheet" href="./assets/theme.css"-->
+  <link rel="stylesheet" href="./assets/theme.css">
   <script src="../assets/js/screen.js?{{site.time|date:'%s%N'}}"></script>
   <script src="../assets/js/theme.js?{{site.time|date:'%s%N'}}"></script>
   <title>Tonnel</title>
 </head>
 <body>
-  <div class="top_bar">
+  <!--div class="top_bar">
     <img src="./assets/tonnel.png" style="height: 60%;" class="pixelated">
     <div id="theme_btn" onclick="change_theme()" style="height: 100%;"></div>
-  </div>
+  </div-->
   <div class="body">
     <div class="content page">
 
@@ -108,11 +108,12 @@ description: ""
             <option value="mintable">Tonnel - Mintable</option>
             <option value="auctions">Tonnel - Auctions</option>
             <option value="thermos">Thermos - All</option>
-            <!--option value="thermos-tonnel">Thermos - Tonnel</option>
+            <option value="thermos-tonnel">Thermos - Tonnel</option>
             <option value="thermos-portals">Thermos - Portals</option>
-            <option value="thermos-mrkt">Thermos - Mrkt</option-->
-            <option value="gifts">Gifts - All - API 1</option>
-            <option value="gifts2">Gifts - All - API 2</option>
+            <option value="thermos-mrkt">Thermos - Mrkt</option>
+            <option value="thermos-getgems">Thermos - Getgems</option>
+            <!--option value="gifts">Gifts - All - API 1</option-->
+            <option value="gifts2">Gifts - All</option>
             <option value="sale">Gifts - For Sale</option>
           </select>
         </div>
@@ -145,7 +146,7 @@ description: ""
         </button>
       </div>
 
-      <footer class="footer">
+      <!--footer class="footer">
         <section class="about">
           <div class="text">
             <div class="icon">
@@ -156,18 +157,18 @@ description: ""
             </p>
           </div>
         </section>
-      </footer>
+      </footer-->
 
     </div>
   </div>
-  <div class="bar" style="display:none;">
+  <div class="bar">
     <div class="content">
-      <!--div onclick="set_tab(0)" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" draggable="false" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
-      </div-->
       <div onclick="set_tab(0)">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M160-720v-80h640v80H160Zm0 560v-240h-40v-80l40-200h640l40 200v80h-40v240h-80v-240H560v240H160Zm80-80h240v-160H240v160Zm-38-240h556-556Zm0 0h556l-24-120H226l-24 120Z"/></svg>
       </div>
+      <!--div onclick="set_tab(0)" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" draggable="false" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
+      </div-->
       <!--div onclick="set_tab(2)">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z"/></svg>
       </div-->

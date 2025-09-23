@@ -4,7 +4,7 @@
 }
 
 .body {
-  height: calc(var(--vh) - 64px);/*136*/
+  height: calc(var(--vh) - 32px);/*136 64*/
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -198,8 +198,8 @@
   flex-direction: column;
   overflow: hidden;
   width: 100%;
-  max-width: 450px;
-  max-height: 350px;
+  max-width: 500px;
+  max-height: 400px;
   padding: 8px;
   border-radius: 12px;
   outline: 1px solid var(--md-sys-color-outline-variant);
@@ -258,7 +258,7 @@
 
 .filters1 {
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   display: grid;
   grid-template-columns: repeat(2,1fr);
   justify-items: center;
@@ -275,7 +275,7 @@
 
 .filters3 {
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   display: grid;
   grid-template-columns: repeat(2,1fr);
   justify-items: center;
@@ -335,7 +335,7 @@
   max-width: 300px;
   height: 48px;
   padding: 4px;
-  bottom: 18px;/*90*/
+  bottom: 72px;/*90 18*/
   left: 50%;
   transform: translateX(-50%);
   border-radius: 24px;
