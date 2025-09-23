@@ -10,7 +10,7 @@ html, body {
 }
 
 .body {
-  height: calc(var(--vh) - 64px);/*136 64*/
+  height: calc(var(--vh) - 56px);/*136 64*/
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -29,7 +29,7 @@ html, body {
 .bar {
   background-color: var(--md-sys-color-background);
   width: 100%;
-  height: 64px;
+  height: 56px;
   outline: 1px solid var(--md-sys-color-outline-variant);
   position: fixed;
   bottom: 0;
@@ -38,7 +38,7 @@ html, body {
   display: flex;
   width: 100%;
   max-width: 350px;
-  height: 64px;
+  height: 56px;
   margin: 0 auto;
   gap: 4px;
   padding: 0 16px;
