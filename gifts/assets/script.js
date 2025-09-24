@@ -1239,6 +1239,34 @@ const set_tab = (n,l=false) => {
   }
 }
 
+const get_account = async (a,v,t) => {
+  return await(await fetch("https://dton.io/graphql", {
+    "headers": {
+      "accept": "application/json, multipart/mixed",
+      "content-type": "application/json",
+    },
+    "body": JSON.stringify({"query":`{
+      raw_transactions(
+        in_msg_src_addr_address_hex__friendly: "${a}"
+        address_friendly: "UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx"
+        in_msg_value_grams__gt: ${v}
+        gen_utime__gt: "${t}"
+        page: 0
+        page_size: 8
+        order_by: "gen_utime"
+        order_desc: true
+      ) {
+        gen_utime
+        in_msg_value_grams
+        in_msg_comment
+        in_msg_type
+        in_msg_src_addr_address_hex__friendly
+      }
+    }`}),
+    "method": "POST"
+  })).json();
+}
+
 const gift_elements = {};
 
 window.onload = async () => {
@@ -1322,8 +1350,45 @@ window.onload = async () => {
   update_models();
   update_backdrops();
   update_symbols();
-
   load_gifts();
-  data_loaded = true;
-  set_tab(0);
+  set_tab(0,1);
+}
+
+
+const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+  manifestUrl: 'https://nxrix.github.io/gifts/assets/tonconnect-manifest.json',
+  buttonRootId: 'ton-connect'
+});
+
+tonConnectUI.onStatusChange(
+  walletAndwalletInfo = async () => {
+    const r = await t(tonConnectUI.wallet.account.address,249000000,new Date(Date.now() - 30 * 24 * 60 * 60 * 1000 - 1 ).toISOString().split(".")[0]);
+    if (r.length>1) {
+      data_loaded = true;
+      set_tab(1);
+    }
+  }
+);
+
+buy.onclick = async () => {
+  if (!tonConnectUI.connected) {
+    alert("Connect wallet first!");
+  }
+  const transaction = {
+    validUntil: Math.floor(Date.now() / 1000) + 60,
+    messages: [{
+      address: "UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx",
+      amount: "250000000",
+    }]
+  }
+  try {
+    await tonConnectUI.sendTransaction(transaction);
+    //result.boc
+  } catch (e) {
+    if (e instanceof UserRejectedError) {
+      
+    } else {
+      alert("Unknown error",e);
+    }
+  }
 }
