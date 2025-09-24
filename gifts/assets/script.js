@@ -1221,16 +1221,20 @@ btn_s.onclick = () => {
   btn_r.onclick();
 }
 
-const set_tab = (n) => {
-  const tabs = document.querySelectorAll(".body .content.page");
-  const btns = document.querySelectorAll(".bar .content div");
-  for (let i=0;i<tabs.length;i++) {
-    if (i==n) {
-      tabs[i]?.classList.add("active");
-      btns[i]?.classList.add("active");
-    } else {
-      tabs[i]?.classList.remove("active");
-      btns[i]?.classList.remove("active");
+let data_loaded = false;
+
+const set_tab = (n,l=false) => {
+  if (l||data_loaded) {
+    const tabs = document.querySelectorAll(".body .content.page");
+    const btns = document.querySelectorAll(".bar .content div");
+    for (let i=0;i<tabs.length;i++) {
+      if (i==n) {
+        tabs[i]?.classList.add("active");
+        btns[i]?.classList.add("active");
+      } else {
+        tabs[i]?.classList.remove("active");
+        btns[i]?.classList.remove("active");
+      }
     }
   }
 }
@@ -1320,5 +1324,6 @@ window.onload = async () => {
   update_symbols();
 
   load_gifts();
+  data_loaded = true;
   set_tab(0);
 }

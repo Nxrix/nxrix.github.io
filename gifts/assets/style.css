@@ -285,7 +285,9 @@
   height: calc(var(--vh) - 56px);
   bottom: 56px;
   left: 0;
-  z-index: 1;
+  z-index: 2;
+  padding-bottom: 72px;
+  padding-top: 16px;
 }
 
 .filters3 {
@@ -450,15 +452,15 @@ form input, form button {
   padding: 4px;
 }
 
-form, form * {
+form, form *, form * * {
   font-size: 14px;
 }
 
-button,
+/*button,
 input,
 textarea {
   font-size: 14px;
-}
+}*/
 
 table {
   width: 100%;
