@@ -633,12 +633,13 @@ const load_gifts = async () => {
 
 const url = new URL(location.href);
 const hasParams = url.search.length > 1;
+let url_format = url.searchParams.get("url_format")||"";
 
 const getVal = (key, def) =>
-  hasParams ? url.searchParams.get(key) || def : localStorage.getItem(key) || def;
+  hasParams && url_format!="miniapp" ? url.searchParams.get(key) || def : localStorage.getItem(key) || def;
 
 const getArr = (key) =>
-  (hasParams ? url.searchParams.get(key) : localStorage.getItem(key))
+  (hasParams && url_format!="miniapp" ? url.searchParams.get(key) : localStorage.getItem(key))
     ?.split(",")
     .filter(Boolean) || [];
 
@@ -655,8 +656,6 @@ let collections = getArr("collections");
 let models      = getArr("models");
 let backdrops   = getArr("backdrops");
 let symbols     = getArr("symbols");
-
-let url_format = url.searchParams.get("url_format")||"";
 
 const update_url = () => {
   const set_text = (e, l, a) => {
