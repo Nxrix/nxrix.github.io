@@ -1356,8 +1356,8 @@ window.onload = async () => {
 
 
 const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-  manifestUrl: 'https://nxrix.github.io/gifts/assets/tonconnect-manifest.json',
-  buttonRootId: 'ton-connect'
+  manifestUrl: "https://nxrix.github.io/gifts/assets/tonconnect-manifest.json",
+  buttonRootId: "ton-connect"
 });
 
 tonConnectUI.onStatusChange(

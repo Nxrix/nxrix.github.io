@@ -8,6 +8,10 @@
   font-family: "Inter","fa";
 }*/
 
+button {
+  min-width: auto !important;
+}
+
 .body {
   height: calc(var(--vh) - 56px);/*136 64*/
   overflow-x: hidden;
