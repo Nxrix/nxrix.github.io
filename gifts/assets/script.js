@@ -1325,13 +1325,12 @@ window.onload = async () => {
   load_gifts();
   
   data_loaded = true;
-  set_tab(0);
+  set_tab(1);
   //set_tab(0,1);
 }
 
 const get_account = async (a,v,t) => {
-  const proxy = "https://corsproxy.io/?url=";//"https://api.codetabs.com/v1/proxy/?quest=";
-  return await(await fetch(proxy+"https://dton.io/graphql", {
+  return await(await fetch("https://dton.io/graphql", {
     "headers": {
       "accept": "application/json, multipart/mixed",
       "content-type": "application/json",
@@ -1359,7 +1358,7 @@ const get_account = async (a,v,t) => {
   })).json();
 }
 
-const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+/*const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
   manifestUrl: "https://nxrix.github.io/gifts/assets/tonconnect-manifest.json",
   buttonRootId: "ton-connect"
 });
@@ -1395,4 +1394,4 @@ buy.onclick = async () => {
       alert("Unknown error",e);
     }
   }
-}
+}*/
