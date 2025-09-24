@@ -454,7 +454,7 @@ button {
 
 form input, form button {
   margin: 4px;
-  padding: 4px;
+  padding: 6px 10px;
   font: 14px "en","fa" !important;
 }
 
@@ -570,4 +570,5 @@ table td.center {
   text-align: center;
 
 }
+
 
