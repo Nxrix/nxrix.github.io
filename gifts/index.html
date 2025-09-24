@@ -199,21 +199,6 @@ description: ""
 window.Telegram.WebApp.disableVerticalSwipes();
 //window.Telegram.WebApp.expand();
 
-const set_tab = (n) => {
-  const tabs = document.querySelectorAll(".body .content.page");
-  const btns = document.querySelectorAll(".bar .content div");
-  for (let i=0;i<tabs.length;i++) {
-    if (i==n) {
-      tabs[i]?.classList.add("active");
-      btns[i]?.classList.add("active");
-    } else {
-      tabs[i]?.classList.remove("active");
-      btns[i]?.classList.remove("active");
-    }
-  }
-}
-set_tab(0);
-
 </script>
 <script type="module">
 

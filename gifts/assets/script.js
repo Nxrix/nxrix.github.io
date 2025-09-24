@@ -643,13 +643,13 @@ const getArr = (key) =>
     .filter(Boolean) || [];
 
 let page = Math.max(parseInt(getVal("p", 0)) || 0, 0);
-sort.value   = getVal("s", "d");
-asset.value  = getVal("a", "TON");
-format.value = getVal("f", "def");
-tag.value    = getVal("t", "all");
-numbers.value= getVal("n", "");
-min.value    = parseFloat(getVal("min", "")) || "";
-max.value    = parseFloat(getVal("max", "")) || "";
+sort.value    = getVal("s", "d");
+asset.value   = getVal("a", "TON");
+format.value  = getVal("f", "def");
+tag.value     = getVal("t", "all");
+numbers.value = getVal("n", "");
+min.value     = parseFloat(getVal("min", "")) || "";
+max.value     = parseFloat(getVal("max", "")) || "";
 
 let collections = getArr("collections");
 let models      = getArr("models");
@@ -885,27 +885,6 @@ select_all_symbols.onclick = () => {
   }
   update_symbols(symbolss.value);
 };
-
-const gift_elements = {};
-
-gifts.forEach(gift => {
-  const div = document.createElement("div");
-  div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp"><span>${gift}</span>`;//<div style="padding:0;margin: -23px 0 0 0;text-align:right;">0 TON</div>
-  div.onclick = () => {
-    if (collections.includes(gift)) {
-      collections = collections.filter(g=>g!=gift);
-      remove_models_of_gift(gift);
-    } else {
-      collections.push(gift);
-    }
-    update_collections(collectionss.value);
-    update_models(modelss.value);
-    update_backdrops(backdropss.value);
-    update_symbols(symbols.value);
-  };
-  gift_elements[gift] = div;
-  collectionsl.appendChild(div);
-});
 
 const remove_models_of_gift = (gift) => {
   if (!gift_models) return;
@@ -1242,6 +1221,20 @@ btn_s.onclick = () => {
   btn_r.onclick();
 }
 
+const set_tab = (n) => {
+  const tabs = document.querySelectorAll(".body .content.page");
+  const btns = document.querySelectorAll(".bar .content div");
+  for (let i=0;i<tabs.length;i++) {
+    if (i==n) {
+      tabs[i]?.classList.add("active");
+      btns[i]?.classList.add("active");
+    } else {
+      tabs[i]?.classList.remove("active");
+      btns[i]?.classList.remove("active");
+    }
+  }
+}
+
 window.onload = async () => {
   
   //window.gift_models = await(await fetch("./json/gift-models.json")).json();
@@ -1300,10 +1293,31 @@ window.onload = async () => {
     }
   }
 
+  const gift_elements = {};
+  gifts.forEach(gift => {
+    const div = document.createElement("div");
+    div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp"><span>${gift}</span>`;
+    div.onclick = () => {
+      if (collections.includes(gift)) {
+        collections = collections.filter(g=>g!=gift);
+        remove_models_of_gift(gift);
+      } else {
+        collections.push(gift);
+      }
+      update_collections(collectionss.value);
+      update_models(modelss.value);
+      update_backdrops(backdropss.value);
+      update_symbols(symbols.value);
+    };
+    gift_elements[gift] = div;
+    collectionsl.appendChild(div);
+  });
+
   update_collections();
   update_models();
   update_backdrops();
   update_symbols();
 
   load_gifts();
+  set_tab(0);
 }
