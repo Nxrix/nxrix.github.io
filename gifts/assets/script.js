@@ -681,7 +681,7 @@ const update_url = () => {
     + (symbols.length ? `&symbols=${encode(symbols)}` : "")
     + location.hash;
 
-  history.replaceState({}, null, qs);
+  if (url_format!="miniapp") history.replaceState({}, null, qs);
 
   localStorage.setItem("p", page);
   localStorage.setItem("s", sort.value);
