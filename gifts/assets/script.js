@@ -1183,6 +1183,13 @@ const update_symbols = (filter = "") => {
   update_url();
 }
 
+const filters2p = document.querySelector(".filters2");
+
+filters2sd.onclick = () => {
+  filters2p.style.display = "none";
+  [collectionsd, modelsd, backdropsd, symbolsd].forEach(p => p.style.display = "none");
+}
+
 [
   {btn: collectionst, panel: collectionsd},
   {btn: modelst, panel: modelsd},
@@ -1190,6 +1197,7 @@ const update_symbols = (filter = "") => {
   {btn: symbolst, panel: symbolsd},
 ].forEach(({btn, panel}) => {
   btn.onclick = () => {
+    filters2p.style.display = "flex";
     const open = panel.style.display === "flex";
     [collectionsd, modelsd, backdropsd, symbolsd].forEach(p => p.style.display = "none");
     panel.style.display = open ? "none" : "flex";
