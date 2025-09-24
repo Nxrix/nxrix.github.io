@@ -278,7 +278,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #0008;
+  /*background-color: #0008;*/
+  backdrop-filter: blur(8px);
   position: absolute;
   width: calc(var(--vw));
   height: calc(var(--vh) - 56px);
