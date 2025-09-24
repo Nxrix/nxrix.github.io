@@ -1304,12 +1304,12 @@ window.onload = async () => {
     collectionsl.appendChild(div);
   });
 
-  const collections = await fetch("https://proxy.thermos.gifts/api/v1/collections").then(r=>r.json());
+  const collections_floor = await fetch("https://proxy.thermos.gifts/api/v1/collections").then(r=>r.json());
   Object.keys(gift_elements).forEach(gift => {
     const div = gift_elements[gift];
     const span = div.querySelector("span");
     const name = span.textContent;
-    const g = collections.find(i=>fix_name(i.name)==fix_name(name));
+    const g = collections_floor.find(i=>fix_name(i.name)==fix_name(name));
     const extra = parseFloat(g?.stats.floor)/1e9 || "";
     span.textContent = extra?`${name} - ${(Math.round(extra*10)/10).toLocaleString("en-US")} TON - ${g?.stats.count.toLocaleString("en-US")}`:name;
   });
