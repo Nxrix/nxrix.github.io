@@ -1362,7 +1362,7 @@ const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
 
 tonConnectUI.onStatusChange(
   walletAndwalletInfo = async () => {
-    const r = await t(tonConnectUI.wallet.account.address,249000000,new Date(Date.now() - 30 * 24 * 60 * 60 * 1000 - 1 ).toISOString().split(".")[0]);
+    const r = await get_account(tonConnectUI.wallet.account.address,249000000,new Date(Date.now() - 30 * 24 * 60 * 60 * 1000 - 1 ).toISOString().split(".")[0]);
     if (r.length>1) {
       data_loaded = true;
       set_tab(1);
