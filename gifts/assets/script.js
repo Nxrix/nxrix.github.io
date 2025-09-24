@@ -1323,7 +1323,10 @@ window.onload = async () => {
   update_backdrops();
   update_symbols();
   load_gifts();
-  set_tab(0,1);
+  
+  data_loaded = true;
+  set_tab(0);
+  //set_tab(0,1);
 }
 
 const get_account = async (a,v,t) => {
