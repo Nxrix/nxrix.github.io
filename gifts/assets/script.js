@@ -1235,6 +1235,8 @@ const set_tab = (n) => {
   }
 }
 
+const gift_elements = {};
+
 window.onload = async () => {
   
   //window.gift_models = await(await fetch("./json/gift-models.json")).json();
@@ -1283,7 +1285,6 @@ window.onload = async () => {
     }
   }
 
-  const gift_elements = {};
   gifts.forEach(gift => {
     const div = document.createElement("div");
     div.innerHTML = `<img src="https://fragment.com/file/gifts/${fix_name(gift)}/thumb.webp"><span>${gift}</span>`;
