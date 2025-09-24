@@ -1239,34 +1239,6 @@ const set_tab = (n,l=false) => {
   }
 }
 
-const get_account = async (a,v,t) => {
-  return await(await fetch("https://dton.io/graphql", {
-    "headers": {
-      "accept": "application/json, multipart/mixed",
-      "content-type": "application/json",
-    },
-    "body": JSON.stringify({"query":`{
-      raw_transactions(
-        in_msg_src_addr_address_hex__friendly: "${a}"
-        address_friendly: "UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx"
-        in_msg_value_grams__gt: ${v}
-        gen_utime__gt: "${t}"
-        page: 0
-        page_size: 8
-        order_by: "gen_utime"
-        order_desc: true
-      ) {
-        gen_utime
-        in_msg_value_grams
-        in_msg_comment
-        in_msg_type
-        in_msg_src_addr_address_hex__friendly
-      }
-    }`}),
-    "method": "POST"
-  })).json();
-}
-
 const gift_elements = {};
 
 window.onload = async () => {
@@ -1354,6 +1326,35 @@ window.onload = async () => {
   set_tab(0,1);
 }
 
+const get_account = async (a,v,t) => {
+  const proxy = "https://corsproxy.io/?url=";//"https://api.codetabs.com/v1/proxy/?quest=";
+  return await(await fetch(proxy+"https://dton.io/graphql", {
+    "headers": {
+      "accept": "application/json, multipart/mixed",
+      "content-type": "application/json",
+    },
+    "body": JSON.stringify({"query":`{
+      raw_transactions(
+        in_msg_src_addr_address_hex__friendly: "${a}"
+        address_friendly: "UQBEsTMky8JjYU2lF0uyWPrg_XtyPNUzix888KF424wHv-Nx"
+        in_msg_value_grams__gt: ${v}
+        gen_utime__gt: "${t}"
+        page: 0
+        page_size: 8
+        order_by: "gen_utime"
+        order_desc: true
+      ) {
+        gen_utime
+        in_msg_value_grams
+        in_msg_comment
+        in_msg_type
+        in_msg_src_addr_address_hex__friendly
+      }
+    }`}),
+    "referrer": "https://dton.io/graphql",
+    "method": "POST"
+  })).json();
+}
 
 const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
   manifestUrl: "https://nxrix.github.io/gifts/assets/tonconnect-manifest.json",
