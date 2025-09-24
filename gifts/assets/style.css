@@ -205,7 +205,7 @@
   overflow: hidden;
   width: 100%;
   max-width: 500px;
-  max-height: 400px;
+  max-height: 500px;
   padding: 8px;
   border-radius: 12px;
   outline: 1px solid var(--md-sys-color-outline-variant);
@@ -562,3 +562,4 @@ table td.center {
   text-align: center;
 
 }
+
