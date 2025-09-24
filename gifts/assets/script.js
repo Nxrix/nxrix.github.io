@@ -743,27 +743,27 @@ no_results.style.display = "none";
 collectionsl.appendChild(no_results);
 
 const select_all = document.createElement("div");
-select_all.style.display = "none";
+//select_all.style.display = "none";
 select_all.classList.add("filterlsa");
 collectionsl.parentNode.insertBefore(select_all,collectionsl);
 
 const select_all_models = document.createElement("div");
-select_all_models.style.display = "none";
+//select_all_models.style.display = "none";
 select_all_models.classList.add("filterlsa");
 modelsl.parentNode.insertBefore(select_all_models,modelsl);
 
 const select_all_backdrops = document.createElement("div");
-select_all_backdrops.style.display = "none";
+//select_all_backdrops.style.display = "none";
 select_all_backdrops.classList.add("filterlsa");
 backdropsl.parentNode.insertBefore(select_all_backdrops,backdropsl);
 
 const select_all_symbols = document.createElement("div");
-select_all_symbols.style.display = "none";
+//select_all_symbols.style.display = "none";
 select_all_symbols.classList.add("filterlsa");
 symbolsl.parentNode.insertBefore(select_all_symbols,symbolsl);
 
 const update_select_all = () => {
-  select_all.innerHTML = collections.length == gifts.length?"Deselect All":"Select All";
+  select_all.innerHTML = "Deselect All";//collections.length>0?"Deselect All":"Select All";
 };
 update_select_all();
 
@@ -773,8 +773,7 @@ const update_select_all_models = () => {
     const gm = gift_models.find(g => g._id == gift);
     if (gm) allModels.push(...gm.models.slice(0, -1));
   });
-  const allSelected = allModels.every(m => models.includes(m));
-  select_all_models.innerHTML = allSelected ? "Deselect All" : "Select All";
+  select_all_models.innerHTML = allModels.some(m => models.includes(m)) ? "Deselect All" : "Select All";
 }
 
 const update_select_all_backdrops = () => {
@@ -789,8 +788,7 @@ const update_select_all_backdrops = () => {
     });
   }
   all = [...new Set(all)];
-  const allSelected = all.every(b => backdrops.includes(b));
-  select_all_backdrops.innerHTML = allSelected ? "Deselect All" : "Select All";
+  select_all_backdrops.innerHTML = all.some(b => backdrops.includes(b)) ? "Deselect All" : "Select All";
 }
 
 const update_select_all_symbols = () => {
@@ -805,13 +803,11 @@ const update_select_all_symbols = () => {
     });
   }
   all = [...new Set(all)];
-  const allSelected = all.every(s => symbols.includes(s));
-  select_all_symbols.innerHTML = allSelected ? "Deselect All" : "Select All";
+  select_all_symbols.innerHTML = all.some(s => symbols.includes(s)) ? "Deselect All" : "Select All";
 }
 
 select_all.onclick = () => {
-  const all = collections.length == gifts.length;
-  if (all) {
+  //if (collections.length>0) {
     collections = [];
     if (gift_models) {
       gift_models.forEach(gm => {
@@ -821,9 +817,9 @@ select_all.onclick = () => {
         });
       });
     }
-  } else {
+  /*} else {
     collections = [...gifts];
-  }
+  }*/
   update_collections(collectionss.value);
   update_models(modelss.value);
   update_backdrops(backdropss.value);
@@ -836,8 +832,7 @@ select_all_models.onclick = () => {
     const gm = gift_models.find(g => g._id == gift);
     if (gm) allModels.push(...gm.models.slice(0, -1));
   });
-  const allSelected = allModels.every(m => models.includes(m));
-  if (allSelected) {
+  if (allModels.some(m => models.includes(m))) {
     models = models.filter(m => !allModels.includes(m));
   } else {
     allModels.forEach(m => {
@@ -859,8 +854,7 @@ select_all_backdrops.onclick = () => {
     });
   }
   all = [...new Set(all)];
-  const allSelected = all.every(b => backdrops.includes(b));
-  if (allSelected) {
+  if (all.some(b => backdrops.includes(b))) {
     backdrops = backdrops.filter(b => !all.includes(b));
   } else {
     all.forEach(b => {
@@ -882,8 +876,7 @@ select_all_symbols.onclick = () => {
     });
   }
   all = [...new Set(all)];
-  const allSelected = all.every(s => symbols.includes(s));
-  if (allSelected) {
+  if (all.some(s => symbols.includes(s))) {
     symbols = symbols.filter(s => !all.includes(s));
   } else {
     all.forEach(s => {
@@ -1085,7 +1078,7 @@ const update_models = (filter = "") => {
     modelsl.appendChild(div);
   });
 
-  select_all_models.style.display = filtered.length > 0 ? "block" : "none";
+  //select_all_models.style.display = filtered.length > 0 ? "block" : "none";
   update_select_all_models();
   update_url();
 };
@@ -1134,7 +1127,7 @@ const update_backdrops = (filter = "") => {
     };
     backdropsl.appendChild(div);
   });
-  select_all_backdrops.style.display = filtered.length>0?"block":"none";
+  //select_all_backdrops.style.display = filtered.length>0?"block":"none";
   update_select_all_backdrops();
   update_url();
 }
@@ -1178,7 +1171,7 @@ const update_symbols = (filter = "") => {
     };
     symbolsl.appendChild(div);
   });
-  select_all_symbols.style.display = filtered.length>0?"block":"none";
+  //select_all_symbols.style.display = filtered.length>0?"block":"none";
   update_select_all_symbols();
   update_url();
 }
