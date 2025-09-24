@@ -451,9 +451,10 @@
 form input, form button {
   margin: 4px;
   padding: 4px;
+  font: 14px "en","fa" !important;
 }
 
-form, form *, form * * {
+form, form * {
   font-size: 14px;
 }
 
