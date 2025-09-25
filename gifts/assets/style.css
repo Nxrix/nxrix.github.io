@@ -36,6 +36,7 @@ button {
   outline: 1px solid var(--md-sys-color-outline-variant);
   position: fixed;
   bottom: 0;
+  z-index: 5;
 }
 .bar .content {
   display: flex;
@@ -283,16 +284,15 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /*background-color: #0008;*/
-  backdrop-filter: blur(8px);
+  background-color: var(--md-sys-color-background);
+  /*backdrop-filter: blur(8px);*/
   position: absolute;
   width: calc(var(--vw));
   height: calc(var(--vh) - 56px);
   bottom: 56px;
   left: 0;
-  z-index: 2;
-  padding-bottom: 80px;
-  padding-top: 16px;
+  z-index: 4;
+  padding: 16px;
 }
 
 .filters3 {
@@ -570,5 +570,6 @@ table td.center {
   text-align: center;
 
 }
+
 
 
