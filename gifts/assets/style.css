@@ -236,8 +236,11 @@ button {
   padding: 12px;
   overflow-y: auto;
 }
-.filterd .filterl > div + div {
-  border-top: 1px solid var(--md-sys-color-outline-variant);
+.filterd .filterl div {
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+.filterd .filterl div:last-child {
+  border-bottom: none;
 }
 .filterd .filterlsa {
   border-radius: 8px;
@@ -573,6 +576,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
