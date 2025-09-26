@@ -209,7 +209,7 @@ button {
   flex-direction: column;
   overflow: hidden;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   /*max-height: 500px;*/
   padding: 8px;
   border-radius: 12px;
@@ -576,6 +576,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
