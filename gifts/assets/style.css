@@ -210,7 +210,7 @@ button {
   overflow: hidden;
   width: 100%;
   max-width: 500px;
-  max-height: 500px;
+  /*max-height: 500px;*/
   padding: 8px;
   border-radius: 12px;
   outline: 1px solid var(--md-sys-color-outline-variant);
@@ -235,6 +235,9 @@ button {
   outline: 1px solid var(--md-sys-color-outline-variant);
   padding: 12px;
   overflow-y: auto;
+}
+.filterd .filterl > div + div {
+  border-top: 1px solid var(--md-sys-color-outline-variant);
 }
 .filterd .filterlsa {
   border-radius: 8px;
@@ -570,6 +573,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
