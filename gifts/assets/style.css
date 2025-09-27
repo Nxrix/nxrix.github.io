@@ -209,6 +209,7 @@ button {
   flex-direction: column;
   overflow: hidden;
   width: 100%;
+  height: 100%;
   max-width: 600px;
   /*max-height: 500px;*/
   padding: 8px;
@@ -231,6 +232,7 @@ button {
   padding: 8px;
 }
 .filterd .filterl {
+  height: 100%;
   border-radius: 8px;
   outline: 1px solid var(--md-sys-color-outline-variant);
   padding: 12px;
@@ -239,8 +241,8 @@ button {
 .filterd .filterl div {
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
-.filterd .filterl div:last-child {
-  border-bottom: none;
+.filterd .filterl div:first-child {
+  border-top: 1px solid var(--md-sys-color-outline-variant);
 }
 .filterd .filterlsa {
   border-radius: 8px;
@@ -576,6 +578,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
