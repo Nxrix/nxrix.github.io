@@ -217,6 +217,9 @@ button {
   outline: 1px solid var(--md-sys-color-outline-variant);
   margin-bottom: 8px;
 }
+#filters2sd {
+  height: auto;
+}
 .filterd .filters {
   margin-bottom: 8px;
 }
@@ -578,6 +581,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
