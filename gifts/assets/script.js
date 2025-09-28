@@ -644,10 +644,10 @@ const getArr = (key) =>
     .filter(Boolean) || [];
 
 let page = Math.max(parseInt(getVal("p", 0)) || 0, 0);
-sort.value    = getVal("s", "d");
+sort.value    = getVal("s", "i");
 asset.value   = getVal("a", "TON");
 format.value  = getVal("f", "def");
-tag.value     = getVal("t", "all");
+tag.value     = getVal("t", "thermos");
 numbers.value = getVal("n", "");
 min.value     = parseFloat(getVal("min", "")) || "";
 max.value     = parseFloat(getVal("max", "")) || "";
