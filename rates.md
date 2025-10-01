@@ -369,10 +369,17 @@ const items = [
     unit: "usd"
   },{
     type: 0,
-    name: "طلا 18 عیار",
+    name: "گرم طلا 18 عیار",
     ename: "18 Karat Gold",
     slug: "18KGOLD",
     icon: "gold"
+  },{
+    type: 0,
+    name: "انس نقره",
+    ename: "Silver",
+    slug: "XAG",
+    icon: "gold",
+    unit: "usd"
   },{
     type: 0,
     name: "مثقال طلا",
