@@ -369,7 +369,7 @@ const items = [
     unit: "usd"
   },{
     type: 0,
-    name: "گرم طلا 18 عیار",
+    name: "گرم طلای 18 عیار",
     ename: "18 Karat Gold",
     slug: "18KGOLD",
     icon: "gold"
