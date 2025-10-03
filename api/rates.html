@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rates</title>
+</head>
+
+<style>
+
+@font-face {
+  font-family: "sfr";
+  src: url("./fonts/subset-SFRounded-Semibold.ttf");
+}
+
+:root {
+  --bg0: #000;
+  --fg0: #fff;
+
+  --bg1: #111;
+  --fg1: #eee;
+
+  --bg2: #222;
+  --fg2: #ddd;
+
+  --bg3: #333;
+  --fg3: #ccc;
+  
+  --bg4: #444;
+  --fg4: #bbb;
+  
+  --bg5: #555;
+  --fg5: #aaa;
+
+  --grey: #888888;
+  --green: #16c784;
+  --red: #ea3943;
+}
+
+html, body {
+  background-color: var(--bg0);
+  color: var(--fg0);
+  font-family: "sfr";
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+h1 {
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 0rem 0.5rem;
+}
+
+#list {
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+</style>
+
+<body>
+  <h1>H1</h1>
+  <div id="list"></div>
+</body>
+
+<script type="module">
+
+const format = (value,suffix) => {
+  return Math.round(value*100)/100+suffix;
+};
+
+const format_num = (n) => {
+  if (n>=1_000_000_000) {
+    return format(n/1_000_000_000,"T");
+  } else if (n>=1_000_000) {
+    return format(n/1_000_000,"M");
+  } else {
+    return n.toLocaleString("en-US");
+  }
+};
+
+const format_num1 = (n) => {
+  if (n>=1_000_000_000) {
+    return format(n/1_000_000_000,"T");
+  } else if (n>=1_000_000) {
+    return format(n/1_000_000,"M");
+  } else if (n>=1_000) {
+    return format(n/1_000,"K");
+  } else {
+    return n.toLocaleString("en-US");
+  }
+};
+
+const create_tile = (i) => {
+  const show_usd = 0;
+  i.change = Math.round(i.change*100)/100;
+  const usd = (i.code=="xau"||i.code=="xag")?window.usd:window.usdt;
+  if (!show_usd&&i.base=="usd") {
+    i.change = Math.round(i.change*usd);
+  }
+  return `
+  <div title="${i.name}" style="
+    display: inline-flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    font: 400 0.75rem sfr;
+  ">
+  
+    <div style="
+      background-color: var(--bg1);
+      outline: 0.1rem solid var(--bg2);
+      outline-offset: -0.1rem;
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      box-sizing: border-box;
+      padding-top: calc(100%/8*7);
+    ">
+
+      <div style="
+        background-color: var(--bg0);
+        position: absolute;
+        overflow: hidden;
+        top: 0.75rem;
+        left: 0.75rem;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      ">
+        ${i.icon}
+      </div>
+
+      <div style="
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        text-align: right;
+        max-width: 60%;
+      ">
+        <div style="
+          font-weight: 600;
+          font-size: 1rem;
+          line-height: 1em;
+          word-wrap: break-word;
+        ">
+          ${i.name}
+        </div>
+        <div style="
+          margin-top: 0.1rem;
+          font-size: 0.75rem;
+          color: var(--fg5);
+          line-height: 1em;
+        ">
+          ${i.slug.toUpperCase()}
+        </div>
+      </div>
+
+      <div style="
+        position: absolute;
+        bottom: 0.75rem;
+        left: 0.75rem;
+        font-weight: 700;
+        font-size: 1.5rem;
+      ">
+        ${show_usd?
+        `${i.base=="usd"?"$":""}${format_num(i.price)}`:
+        `${format_num(Math.round(i.price*(i.base=="usd"?usd:1)))}`
+        }
+      </div>
+      
+      ${
+      
+      !show_usd&&i.base=="usd"?`
+      <div style="
+        position: absolute;
+        bottom: 0.75rem;
+        right: 0.75rem;
+        color: var(--bg5);
+        font-weight: 700;
+        font-size: 0.8rem;
+      ">
+        ${i.base=="usd"?
+        `$${format_num1(i.price)}`:
+        `$${format_num1(i.price/usd)}`
+        }
+      </div>
+      `:""
+
+      }
+
+      <div style="
+        position: absolute;
+        bottom: 2.5rem;
+        left: 0.75rem;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: ${i.change==0?"var(--grey)":i.change>0?"var(--green)":"var(--red)"};
+      ">
+        ${i.change==0?"~":i.change>0?"↑":"↓"}${format_num1(Math.abs(i.change))}
+      </div>
+
+    </div>
+
+  </div>`;
+}
+
+window.onload = async () => {
+
+  const yesterday = await (async()=>{
+    try {
+      let lastCommit = localStorage.getItem("last_commit") || "";
+      let data1;
+      if (
+        lastCommit &&
+        new Date().getTime() -
+          24 * 60 * 60 * 1000 -
+          parseInt(lastCommit.split(",")[0], 10) <
+          60 * 11000
+      ) {
+        const commitSha = lastCommit.split(",")[1];
+        data1 = await (
+          await fetch(
+            `https://raw.githubusercontent.com/CertMusashi/Chand-api/${commitSha}/arz.json`
+          )
+        ).json();
+      } else {
+        const yesterday = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+        const until = new Date(
+          yesterday.getTime() + 10 * 60 * 1000
+        ).toISOString();
+        const commits = await (
+          await fetch(
+            `https://api.github.com/repositories/930913626/commits?path=arz.json&until=${until}&per_page=1`
+          )
+        ).json();
+        for (const commit of commits) {
+          localStorage.setItem(
+            "last_commit",
+            `${yesterday.getTime()},${commit.sha}`
+          );
+          data1 = await (
+            await fetch(
+              `https://raw.githubusercontent.com/CertMusashi/Chand-api/${commit.sha}/arz.json`
+            )
+          ).json();
+        }
+      }
+
+      return {
+        time: data1.date,
+        prices: data1.currencies.map(({ code, price }) => {
+          return { code, price };
+        })
+      };
+    } catch (err) {
+      return null;
+    }
+  })();
+  
+  const data = await (async()=>{
+    const data = await fetch(
+      "https://raw.githubusercontent.com/CertMusashi/Chande-api/refs/heads/main/arz.json"
+    ).then((r) => r.json());
+    const list = [
+      "usd",
+      "usdt",
+      "btc",
+      "eth",
+      "ton",
+      "xau",
+      "xag",
+      "18kgold",
+      "azadi",
+      "half",
+      "quarter",
+      "gram",
+      "mithqal",
+      "emami",
+      "eur",
+      "rub",
+      "cny",
+      "try"
+    ];
+    const f = [
+      "usd_xau",
+      "xag",
+      "btc",
+      "eth",
+      "ton",
+      "xrp",
+      "bnb",
+      "shib",
+      "ada",
+      "doge",
+      "not",
+      "sol",
+      "trx",
+      "cake",
+      "avax",
+      "dot",
+      "link",
+      "ltc",
+      "pepe",
+      "uni",
+      "xlm",
+      "fil",
+      "near",
+      "eos",
+      "aave",
+      "grt",
+      "xtz",
+      "flow",
+      "sand",
+      "mana",
+      "axs",
+      "chz",
+      "enj",
+      "zec",
+      "gala",
+      "lrc",
+      "bat",
+      "one",
+      "zen",
+      "cvc",
+      "storj"
+    ];
+    const slugs = {
+      "usd_xau": ["xau", "Gold"],
+      "xag": ["xag", "Silver"],
+      "18ayar": ["18kgold", "18 Karat Gold"],
+      "bahar": ["azadi", "Azadi"],
+      "nim": ["half", "Half"],
+      "rob": ["quarter", "Quarter"],
+      "gram": ["gram", "Gram"],
+      "abshodeh": ["mithqal", "Mithqal"],
+      "sekkeh": ["emami", "Emami"],
+      "eur": ["eur", "Euro"],
+      "bhd": ["bhd", "Bahraini Dinar"]
+    };
+    const g = `<div style="background:radial-gradient(circle at 60% 40%,#fc0,#954);width:100%;height:100%;"></div>`;
+    const s = "<div style=\"background:radial-gradient(circle at 60% 40%,#ddd,#667);width:100%;height:100%;\"></div>";
+    const icons = {
+      "usd_xau": g,
+      "18ayar": g,
+      "bahar": g,
+      "nim": g,
+      "rob": g,
+      "gram": g,
+      "abshodeh": g,
+      "sekkeh": g,
+      "xag": s
+    };
+    const prices = data.currencies
+      .map((i) => {
+        const r = slugs[i.code] || [];
+        const y = yesterday.prices.find((y) => y.code == i.code) || {};
+        return {
+          slug: r[0] || i.code,
+          name: (r[1] || i.en).replace(/\b\w/g, (c) => c.toUpperCase()),
+          price: i.price,
+          change: y.price ? i.price - y.price : null,
+          base: f.includes(i.code) ? "usd" : "irt",
+          icon:
+            icons[i.code] || `<img src="${i.icon}" style="width:100%;height:100%;">`,
+          b: list.includes(i.code),
+          g: icons?.[i.code] ? true : false
+        };
+      })
+      .filter((i) => i.price > 0)
+      //.filter((i) => list.includes(i.slug))
+      .sort(
+        (a, b) =>
+          (list.indexOf(a.slug) === -1 ? Infinity : list.indexOf(a.slug)) -
+          (list.indexOf(b.slug) === -1 ? Infinity : list.indexOf(b.slug))
+      );
+
+    return {
+      time: data.date,
+      prices
+    };
+  })();
+  
+  window.usd = data.prices.find(i=>i.slug=="usd").price;
+  window.usdt = data.prices.find(i=>i.slug=="usd").price;
+
+  list.innerHTML = `
+  <div style="
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+  ">
+    ${data.prices.map(create_tile).join("")}
+  </div>`;
+
+}
+
+</script>
+
+
+</html>
