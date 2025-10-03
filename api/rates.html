@@ -92,7 +92,7 @@ const format_num1 = (n) => {
 };
 
 const create_tile = (i) => {
-  const show_usd = 0;
+  const show_usd = 1;
   i.change = Math.round(i.change*100)/100;
   const usd = (i.code=="xau"||i.code=="xag")?window.usd:window.usdt;
   if (!show_usd&&i.base=="usd") {
@@ -400,3 +400,4 @@ window.onload = async () => {
 
 
 </html>
+
