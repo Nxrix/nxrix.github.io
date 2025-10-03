@@ -48,8 +48,20 @@ html, body {
 
 h1 {
   margin: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   box-sizing: border-box;
   padding: 0.5rem 0.5rem 0rem 0.5rem;
+}
+
+#date {
+  color: var(--bg5);
+  margin-left: auto;
+  margin-right: 0.75rem;
 }
 
 #list {
@@ -60,7 +72,10 @@ h1 {
 </style>
 
 <body>
-  <h1>H1</h1>
+  <div class="header">
+    <h1>H1</h1>
+    <span id="date"></span>
+  </div>
   <div id="list"></div>
 </body>
 
@@ -249,7 +264,7 @@ window.onload = async () => {
       }
 
       return {
-        time: data1.date,
+        date: data1.date,
         prices: data1.currencies.map(({ code, price }) => {
           return { code, price };
         })
@@ -377,10 +392,12 @@ window.onload = async () => {
       );
 
     return {
-      time: data.date,
+      date: data.date,
       prices
     };
   })();
+
+  date.innerText = data.date;
   
   window.usd = data.prices.find(i=>i.slug=="usd").price;
   window.usdt = data.prices.find(i=>i.slug=="usd").price;
@@ -401,5 +418,6 @@ window.onload = async () => {
 
 
 </html>
+
 
 
