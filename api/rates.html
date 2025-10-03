@@ -397,7 +397,7 @@ window.onload = async () => {
     };
   })();
 
-  date.innerText = data.date;
+  date.innerText = yesterday.date + " - " + data.date;
   
   window.usd = data.prices.find(i=>i.slug=="usd").price;
   window.usdt = data.prices.find(i=>i.slug=="usd").price;
@@ -418,6 +418,7 @@ window.onload = async () => {
 
 
 </html>
+
 
 
 
