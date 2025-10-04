@@ -107,6 +107,15 @@ const format_num1 = (n) => {
   }
 };
 
+const html2str = (str) => {
+  return String(str)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#39;");
+}
+
 const create_tile = (i) => {
   const show_usd = 1;
   i.change = Math.round(i.change*100)/100;
@@ -431,6 +440,7 @@ window.onload = async () => {
 
 
 </html>
+
 
 
 
