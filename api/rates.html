@@ -410,7 +410,7 @@ window.onload = async () => {
     };
   })();
 
-  date.innerText = yesterday.date + " - " + data.date;
+  date.innerText = `<span style="color:var(--bg3)">${yesterday.date}</span> - ${data.date}`;
   
   window.usd = data.prices.find(i=>i.slug=="usd").price;
   window.usdt = data.prices.find(i=>i.slug=="usd").price;
@@ -431,6 +431,7 @@ window.onload = async () => {
 
 
 </html>
+
 
 
 
