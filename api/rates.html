@@ -218,7 +218,7 @@ const create_tile = (i) => {
         `$${format_num1(i.price/usd)}`
         }
       </div>
-      `:(i.base=="usd"?`
+      `:(i.base=="usd"&&0?`
       <div style="
         position: absolute;
         bottom: 0.75rem;
@@ -466,6 +466,7 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
 
