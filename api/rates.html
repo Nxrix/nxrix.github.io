@@ -379,7 +379,8 @@ window.onload = async () => {
           g: icons?.[i.code] ? true : false
         };
       })
-      .filter((i) => i.price > 0)
+      .filter(i=>i.price > 0.001)
+      .filter(i=>i.slug.split("-").length<2)
       //.filter((i) => list.includes(i.slug))
       /*.sort(
         (a, b) =>
@@ -430,6 +431,7 @@ window.onload = async () => {
 
 
 </html>
+
 
 
 
