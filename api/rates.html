@@ -385,11 +385,27 @@ window.onload = async () => {
       })
       .filter((i) => i.price > 0)
       //.filter((i) => list.includes(i.slug))
-      .sort(
+      /*.sort(
         (a, b) =>
           (list.indexOf(a.slug) === -1 ? Infinity : list.indexOf(a.slug)) -
           (list.indexOf(b.slug) === -1 ? Infinity : list.indexOf(b.slug))
-      );
+      )*/
+      .sort((a, b) => {
+        const ai = list.indexOf(a.slug);
+        const bi = list.indexOf(b.slug);
+        const aInList = ai !== -1;
+        const bInList = bi !== -1;
+        if (aInList && bInList) {
+          return ai - bi;
+        }
+        if (aInList) return -1;
+        if (bInList) return 1;
+        const aIsUsd = a.base.toLowerCase() === "usd";
+        const bIsUsd = b.base.toLowerCase() === "usd";
+        if (!aIsUsd && bIsUsd) return -1;
+        if (aIsUsd && !bIsUsd) return 1;
+        return b.value - a.value;
+      });
 
     return {
       date: data.date,
@@ -418,6 +434,7 @@ window.onload = async () => {
 
 
 </html>
+
 
 
 
