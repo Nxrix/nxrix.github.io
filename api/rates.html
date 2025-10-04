@@ -273,9 +273,9 @@ window.onload = async () => {
       }
 
       return {
-        date: data1.date,
+        date: html2str(data1.date),
         prices: data1.currencies.map(({ code, price }) => {
-          return { code, price };
+          return { code: html2str(code), price: Number(price)||0 };
         })
       };
     } catch (err) {
@@ -373,7 +373,16 @@ window.onload = async () => {
       "xag": s
     };
     const prices = data.currencies
-      .map((i) => {
+      .map(i => {
+        return {
+          code: html2str(i.code),
+          name: html2str(i.name),
+          price: Number(i.price)||0,
+          icon: html2str(i.icon),
+          en: html2str(i.en)
+        };
+      })
+      .map(i => {
         const r = slugs[i.code] || [];
         const y = yesterday.prices.find((y) => y.code == i.code) || {};
         return {
@@ -414,12 +423,12 @@ window.onload = async () => {
       });
 
     return {
-      date: data.date,
+      date: html2str(data.date),
       prices
     };
   })();
 
-  date.innerText = `<span style="color:var(--bg3)">${yesterday.date}</span> - ${data.date}`;
+  date.innerHTML = `<span style="color:var(--bg3)">${yesterday.date}</span> - ${data.date}`;
   
   window.usd = data.prices.find(i=>i.slug=="usd").price;
   window.usdt = data.prices.find(i=>i.slug=="usd").price;
@@ -437,16 +446,4 @@ window.onload = async () => {
 
 </script>
 
-
-
 </html>
-
-
-
-
-
-
-
-
-
-
