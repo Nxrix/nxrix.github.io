@@ -372,7 +372,7 @@ button {
   left: 50%;
   transform: translateX(-50%);
   border-radius: 24px;
-  backdrop-filter: blur(4px);
+  /*backdrop-filter: blur(4px);*/
   z-index: 3;
 }
 
@@ -581,6 +581,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
