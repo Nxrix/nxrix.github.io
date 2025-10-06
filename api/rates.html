@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: "sfr";
-  src: url("../assets/fonts/SFRounded/subset-SFRounded-Semibold.ttf");
+  src: url("https://nxrix.github.io/assets/fonts/SFRounded/subset-SFRounded-Semibold.ttf");
 }
 
 :root {
@@ -31,10 +31,57 @@
   
   --bg5: #555;
   --fg5: #aaa;
+  
+  --bg6: #666;
+  --fg6: #999;
 
   --grey: #888888;
   --green: #16c784;
   --red: #ea3943;
+}
+
+/*:root {
+  --fg0: #000;
+  --bg0: #fff;
+
+  --fg1: #111;
+  --bg1: #eee;
+
+  --fg2: #222;
+  --bg2: #ddd;
+
+  --fg3: #333;
+  --bg3: #ccc;
+  
+  --fg4: #444;
+  --bg4: #bbb;
+  
+  --fg5: #555;
+  --bg5: #aaa;
+
+  --fg6: #666;
+  --bg6: #999;
+
+  --grey: #888888;
+  --green: #16c784;
+  --red: #ea3943;
+}*/
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-track {
+  background-color: #0000;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #0000;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #0000;
+}
+::-webkit-scrollbar-corner {
+  background-color: #0000;
 }
 
 html, body {
@@ -46,7 +93,7 @@ html, body {
   margin: 0;
 }
 
-h1 {
+h1, h2, h3 {
   margin: 0;
 }
 
@@ -55,31 +102,177 @@ h1 {
   flex-direction: row;
   align-items: center;
   box-sizing: border-box;
-  padding: 0.5rem 0.5rem 0rem 0.5rem;
+  padding: 1.5rem 0.5rem 0rem 0.5rem;
 }
 
-#date {
-  color: var(--bg5);
-  margin-left: auto;
-  margin-right: 0.75rem;
-}
-
-#list {
+#grid {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
   box-sizing: border-box;
   padding: 0.5rem;
+  padding-bottom: calc(0.5rem + 80px);
+}
+
+#grid > div {
+  position: relative;
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+#grid > div.new {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+#grid > div.old {
+  position: absolute !important;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+#list, #items {
+  background-color: var(--bg1);
+  /*backdrop-filter: url(#filter);*/
+  color: var(--fg2);
+  user-select: none;
+  outline: 0.1rem solid var(--bg2);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: calc(100% - 1rem);
+  max-width: 500px;
+  height: calc(100% - 48px - 1.5rem);
+  bottom: calc(48px + 0.5rem + 0.5rem);
+  margin: 0 0.5rem;
+  left: calc(50% - 0.5rem);
+  border-radius: 24px;
+  z-index: 3;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.8);
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+#list.active, #items.active {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+#list > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+#controls {
+  /*background-color: var(--bg1);*/
+  backdrop-filter: url(#filter);
+  outline: 0.1rem solid var(--bg2);
+  position: fixed;
+  width: calc(100% - 1rem);
+  max-width: 500px;
+  height: 48px;
+  padding: 4px 8px;
+  bottom: 0.5rem;
+  margin: 0 0.5rem;
+  left: calc(50% - 0.5rem);
+  transform: translateX(-50%) scale(0.8);
+  border-radius: 24px;
+  z-index: 3;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg6);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+#controls.active {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+#controls * {
+  user-select: none;
+}
+
+#add, #menu {
+  height: 100%;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+#add svg , #menu svg {
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+#date {
+  font-size: 0.8rem;
+  text-align: center;
+  flex: 1;
+}
+
+#items {
+  padding: 16px;
+}
+
+#items .group div > div {
+  padding: 4px 8px;
 }
 
 </style>
 
 <body>
+
   <div class="header">
-    <h1>H1</h1>
-    <span id="date"></span>
+    <h1>Absolute Cinema</h1>
+    <span id="date2" style="display:none;"></span>
   </div>
+
+  <div id="grid"></div>
+
+  <div id="controls">
+    <div id="add">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+    </div>
+    <div id="date"></div>
+    <div id="menu">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/></svg>
+    </div>
+  </div>
+
   <div id="list"></div>
+  <div id="items"></div>
+  
+  <svg style="display: none">
+    <filter id="filter" color-interpolation-filters="sRGB" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
+      <feComponentTransfer in="turbulence" result="map">
+        <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+      </feComponentTransfer>
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="128" xChannelSelector="R" yChannelSelector="G" x="0%" y="0%" width="100%" height="100%" result="displacementMap" />
+      <feGaussianBlur stdDeviation="8" x="0%" y="0%" width="100%" height="100%" in="displacementMap" edgeMode="none" result="blur" />
+    </filter>
+  </svg>
+
 </body>
 
-<script type="module">
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+<script>
 
 const format = (value,suffix,d=100) => {
   return (Math.round(value*d)/d).toLocaleString("en-US")+suffix;
@@ -169,7 +362,7 @@ const create_tile = (i) => {
         top: 0.75rem;
         right: 0.75rem;
         text-align: right;
-        max-width: 60%;
+        max-width: 65%;
       ">
         <div style="
           font-weight: 600;
@@ -249,6 +442,235 @@ const create_tile = (i) => {
   </div>`;
 }
 
+const create_tile_element = (i) => {
+  const temp = document.createElement("div");
+  temp.innerHTML = create_tile(i);
+  const e = temp.firstElementChild;
+  e.dataset.slug = i.slug;
+  return e;
+}
+
+const default_items = [
+  "usd",
+  /*"usdt",
+  "btc",
+  "eth",
+  "ton",
+  "xau",
+  "xag",
+  "18kgold",
+  "azadi",
+  "half",
+  "quarter",
+  "gram",
+  "mithqal",
+  "emami",*/
+];
+
+/*
+  unused
+  "sand",
+  "zen",
+  "axs",
+  "eos",
+  "flow",
+  "mana",
+  "storj",
+  "bat",
+  "lrc",
+  "cvc",
+  "enj",
+  "chz",
+  "gala",
+  "one",
+*/
+
+const item_groups = {
+  trending: [
+    "usd",
+    "usdt",
+    "18kgold",
+    "azadi",
+    "btc"
+  ],
+  fiat: [
+    "usd",
+    "kwd",
+    "bhd",
+    "omr",
+    "gbp",
+    "chf",
+    "eur",
+    "sgd",
+    "cad",
+    "jpy",
+    "aud",
+    "azn",
+    "nzd",
+    "gel",
+    "tmt",
+    "qar",
+    "aed",
+    "sar",
+    "amd",
+    "myr",
+    "brl",
+    "dkk",
+    "cny",
+    "hkd",
+    "tjs",
+    "sek",
+    "nok",
+    "krw",
+    "iqd",
+    "thb",
+    "try",
+    "afn",
+    "rub",
+    "kgs",
+    "inr",
+    "syp",
+    "pkr",
+    "ars"
+  ],
+  metal: [
+    "xau",
+    "xag",
+    "18kgold",
+    "azadi",
+    "half",
+    "quarter",
+    "gram",
+    "mithqal",
+    "emami",
+  ],
+  crypto: [
+    "btc",
+    "eth",
+    "xrp",
+    "usdt",
+    "bnb",
+    "sol",
+    "doge",
+    "trx",
+    "ada",
+    "link",
+    "xlm",
+    "avax",
+    "ltc",
+    "ton",
+    "not",
+    "dot",
+    "uni",
+    "aave",
+    "near",
+    "zec",
+    "fil",
+    "cake",
+    "grt",
+    "xtz"
+  ]
+}
+
+const list_items = JSON.parse(localStorage.getItem("list_items"))||default_items;
+
+const update_grid = (items) => {
+  const gridEl = grid;
+  const oldRects = new Map();
+  Array.from(gridEl.children).forEach(el => {
+    oldRects.set(el.dataset.slug, el.getBoundingClientRect());
+  });
+  const existing = new Map(
+    Array.from(gridEl.children).map(el => [el.dataset.slug, el])
+  );
+  const fragment = document.createDocumentFragment();
+  items.forEach(i => {
+    let el = existing.get(i.slug);
+    if (!el) {
+      el = create_tile_element(i);
+      el.classList.add("new");
+    }
+    fragment.appendChild(el);
+  });
+  gridEl.innerHTML = "";
+  gridEl.appendChild(fragment);
+  Array.from(gridEl.children).forEach(el => {
+    const old = oldRects.get(el.dataset.slug);
+    if (!old) return;
+    const newRect = el.getBoundingClientRect();
+    const dx = old.left - newRect.left;
+    const dy = old.top - newRect.top;
+    el.style.transform = `translate(${dx}px,${dy}px)`;
+    el.style.transition = "none";
+    requestAnimationFrame(() => {
+      el.style.transition = "all 0.25s ease";
+      el.style.transform = "translate(0,0)";
+    });
+  });
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      gridEl.querySelectorAll(".new").forEach(el => el.classList.remove("new"));
+    });
+  });
+}
+
+const render_list = () => {
+  list.innerHTML = "";
+  list_items.forEach((i,n) => {
+    const m = window.data.prices.find(e=>e.slug==i);
+    const e = document.createElement("div");
+    e.innerHTML = `
+      <div>${m.name}</div>
+      <div style="display:flex;">
+        <div onclick="list_items.splice(${n},1);render_list();">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+        </div>
+        <div class="drag-handle" style="cursor:grab;margin-left:10px;">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M160-360v-80h640v80H160Zm0-160v-80h640v80H160Z"/></svg>
+        </div>
+      </div>`;
+    list.appendChild(e);
+  });
+
+  items.innerHTML = Object.entries(item_groups).map(([group,slugs]) => {
+    const items = slugs
+      .filter(slug => !list_items.includes(slug))
+      .map(slug => {
+        const i = window.data.prices.find(p=>p.slug==slug);
+        if (!i) return "";
+        return `<div onclick="list_items.push('${i.slug}');render_list();items.classList.toggle('active')">${i.name}</div>`;
+      })
+      .join("");
+    if (!items) return "";
+    return `
+      <div class="group">
+        <h2>${group.substr(0,1).toUpperCase()+group.substr(1)}</h2>
+        <br>
+        <div>${items}</div>
+      </div>
+      <br>
+    `;
+  }).join("");
+    
+  const l = window.data.prices
+    .filter(i=>list_items.includes(i.slug))
+    .sort((a,b)=>list_items.indexOf(a.slug)-list_items.indexOf(b.slug));
+  update_grid(l);
+  localStorage.setItem("list_items",JSON.stringify(list_items));
+}
+
+add.onclick = () => {
+  if (list.classList.contains("active")) list.classList.remove("active");
+  items.classList.toggle("active");
+  //list_items.push(select.value);
+  //render_list();
+}
+
+menu.onclick = () => {
+  if (items.classList.contains("active")) items.classList.remove("active");
+  list.classList.toggle("active");
+}
+
 window.onload = async () => {
 
   const yesterday = await (async()=>{
@@ -306,22 +728,6 @@ window.onload = async () => {
     const data = await fetch(
       "https://raw.githubusercontent.com/CertMusashi/Chande-api/refs/heads/main/arz.json"
     ).then((r) => r.json());
-    const list = [
-      "usd",
-      "usdt",
-      "btc",
-      "eth",
-      "ton",
-      "xau",
-      "xag",
-      "18kgold",
-      "azadi",
-      "half",
-      "quarter",
-      "gram",
-      "mithqal",
-      "emami",
-    ];
     const f = [
       "usd_xau",
       "xag",
@@ -412,21 +818,14 @@ window.onload = async () => {
           base: f.includes(i.code) ? "usd" : "irt",
           icon:
             icons[i.code] || `<img src="${i.icon}" style="width:100%;height:100%;">`,
-          b: list.includes(i.code),
           g: icons?.[i.code] ? true : false
         };
       })
       .filter(i=>i.price > 0.001)
       .filter(i=>i.slug.split("-").length<2)
-      //.filter((i) => list.includes(i.slug))
-      /*.sort(
-        (a, b) =>
-          (list.indexOf(a.slug) === -1 ? Infinity : list.indexOf(a.slug)) -
-          (list.indexOf(b.slug) === -1 ? Infinity : list.indexOf(b.slug))
-      )*/
       .sort((a, b) => {
-        const ai = list.indexOf(a.slug);
-        const bi = list.indexOf(b.slug);
+        const ai = default_items.indexOf(a.slug);
+        const bi = default_items.indexOf(b.slug);
         const aInList = ai !== -1;
         const bInList = bi !== -1;
         if (aInList && bInList) {
@@ -447,26 +846,31 @@ window.onload = async () => {
     };
   })();
 
-  date.innerHTML = `<span style="color:var(--bg3)">${yesterday.date} - </span>${data.date}`;
+  date.innerHTML = data.date;//`<span style="color:var(--bg3)">${yesterday.date} - </span>${data.date}`;
   
   window.usd = data.prices.find(i=>i.slug=="usd").price;
   window.usdt = data.prices.find(i=>i.slug=="usd").price;
-
-  list.innerHTML = `
-  <div style="
-    display: grid;
-    grid-gap: 0.5rem;
-    grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
-  ">
-    ${data.prices.map(create_tile).join("")}
-  </div>`;
-
+  window.data = data;
+  render_list();
+  new Sortable(list, {
+    animation: 160,
+    touchStartThreshold: 0,
+    ghostClass: "sortable-ghost",
+	  chosenClass: "sortable-chosen",
+	  dragClass: "sortable-drag",
+    handle: ".drag-handle",
+    setData: function (dataTransfer,dragEl) {
+		  dataTransfer.setData('Text', dragEl.textContent);
+	  },
+    onEnd: function(e) {
+      const [moved] = list_items.splice(e.oldIndex, 1);
+      list_items.splice(e.newIndex,0,moved);
+      render_list();
+    }
+  });
+  controls.classList.toggle("active");
 }
 
 </script>
 
 </html>
-
-
-
-
