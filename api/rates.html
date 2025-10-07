@@ -133,8 +133,7 @@ h1, h2, h3 {
 }
 
 #list, #items {
-  background-color: var(--bg1);
-  /*backdrop-filter: url(#filter);*/
+  background: var(--bg1);
   color: var(--fg2);
   user-select: none;
   outline: 0.1rem solid var(--bg2);
@@ -143,7 +142,6 @@ h1, h2, h3 {
   position: fixed;
   width: calc(100% - 1rem);
   max-width: 500px;
-  height: calc(100% - 48px - 1.5rem);
   bottom: calc(48px + 0.5rem + 0.5rem);
   margin: 0 0.5rem;
   left: calc(50% - 0.5rem);
@@ -156,6 +154,8 @@ h1, h2, h3 {
   transform: translateX(-50%) scale(0.8);
   pointer-events: none;
   transition: transform 0.25s ease, opacity 0.25s ease;
+  max-height: calc(min(100%,400px) - 48px - 1.5rem);
+  height: fit-content;
 }
 
 #list.active, #items.active {
@@ -173,8 +173,7 @@ h1, h2, h3 {
 }
 
 #controls {
-  /*background-color: var(--bg1);*/
-  backdrop-filter: url(#filter);
+  background: var(--bg1);
   outline: 0.1rem solid var(--bg2);
   position: fixed;
   width: calc(100% - 1rem);
@@ -255,23 +254,186 @@ h1, h2, h3 {
 
   <div id="list"></div>
   <div id="items"></div>
-  
-  <svg style="display: none">
-    <filter id="filter" color-interpolation-filters="sRGB" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
-      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
-      <feComponentTransfer in="turbulence" result="map">
-        <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
-        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
-        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
-      </feComponentTransfer>
-      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="128" xChannelSelector="R" yChannelSelector="G" x="0%" y="0%" width="100%" height="100%" result="displacementMap" />
-      <feGaussianBlur stdDeviation="8" x="0%" y="0%" width="100%" height="100%" in="displacementMap" edgeMode="none" result="blur" />
-    </filter>
-  </svg>
+
+  <div id="filters"></div>
 
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+<script>
+
+//https://codesandbox.io/embed/g3mwqp?view=preview&hidenavigation=1
+
+const getSvgDisplacement = ({
+  width,
+  height,
+  radius,
+  depth,
+  strength = 100,
+  chromaticAberration = 0,
+  id,
+}) => {
+  const displacementMapSvg = 
+    `<svg height="${height}" width="${width}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+      <style>
+          .mix { mix-blend-mode: screen; }
+      </style>
+      <defs>
+          <linearGradient 
+            id="Y" 
+            x1="0" 
+            x2="0" 
+            y1="${Math.ceil((radius / height) * 15)}%" 
+            y2="${Math.floor(100 - (radius / height) * 15)}%">
+              <stop offset="0%" stop-color="#0F0" />
+              <stop offset="100%" stop-color="#000" />
+          </linearGradient>
+          <linearGradient 
+            id="X" 
+            x1="${Math.ceil((radius / width) * 15)}%" 
+            x2="${Math.floor(100 - (radius / width) * 15)}%"
+            y1="0" 
+            y2="0">
+              <stop offset="0%" stop-color="#F00" />
+              <stop offset="100%" stop-color="#000" />
+          </linearGradient>
+      </defs>
+  
+      <rect x="0" y="0" height="${height}" width="${width}" fill="#808080" />
+      <g filter="blur(2px)">
+        <rect x="0" y="0" height="${height}" width="${width}" fill="#000080" />
+        <rect
+            x="0"
+            y="0"
+            height="${height}"
+            width="${width}"
+            fill="url(#Y)"
+            class="mix"
+        />
+        <rect
+            x="0"
+            y="0"
+            height="${height}"
+            width="${width}"
+            fill="url(#X)"
+            class="mix"
+        />
+        <rect
+            x="${depth}"
+            y="${depth}"
+            height="${height - 2 * depth}"
+            width="${width - 2 * depth}"
+            fill="#808080"
+            rx="${radius}"
+            ry="${radius}"
+            filter="blur(${depth}px)"
+        />
+      </g>
+  </svg>`;
+
+  const displacementFilterSvg = `
+  <svg style="display:none;" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="${id}" color-interpolation-filters="sRGB" >
+        <feImage x="0" y="0" width="${width}" height="${height}" preserveAspectRatio="xMidYMid slice" href="data:image/svg+xml;utf8,${encodeURIComponent(displacementMapSvg)}" result="displacementMap" />
+        <feDisplacementMap
+          transform-origin="center"
+          in="SourceGraphic"
+          in2="displacementMap"
+          scale="${strength + chromaticAberration * 2}"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+        <feColorMatrix
+          type="matrix"
+          values="1 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 1 0"
+          result="displacedR"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="displacementMap"
+          scale="${strength + chromaticAberration}"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0
+                  0 1 0 0 0
+                  0 0 0 0 0
+                  0 0 0 1 0"
+          result="displacedG"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="displacementMap"
+          scale="${strength}"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 1 0 0
+                  0 0 0 1 0"
+          result="displacedB"
+        />
+        <feBlend in="displacedR" in2="displacedG" mode="screen"/>
+        <feBlend in2="displacedB" mode="screen"/>
+      </filter>
+    </defs>
+  </svg>`;
+
+  return displacementFilterSvg;
+};
+
+</script>
+<script>
+
+const lg = (e,t,depth,strength,chromaticAberration) => {
+  const id = "liquid-glass-"+Math.random().toString(36).substr(2,9);
+  const rect = e.getBoundingClientRect();
+  const width = e.offsetWidth;//rect.width;
+  const height = e.offsetHeight;//rect.height;
+  const radius = parseFloat(window.getComputedStyle(e).borderRadius);
+  e.style.backdropFilter = `url(#${id}) blur(2px) brightness(0.75) contrast(0.9)`;
+  e.style.background = "#0000";
+  if (t==1) {
+    filters.innerHTML += getSvgDisplacement({
+      id,
+      width,
+      height,
+      radius,
+      depth,
+      strength,
+      chromaticAberration
+    });
+  } else {
+    filters.innerHTML += `
+    <svg style="display:none;">
+      <filter id="${id}" color-interpolation-filters="sRGB" filterUnits="objectBoundingBox">   
+        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="1" stitchTiles="noStitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"/>
+        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="64" xChannelSelector="R" yChannelSelector="G" x="0%" y="0%" width="100%" height="100%" result="map"></feDisplacementMap>
+      </filter>
+    </svg>`;
+  }
+}
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    [a,b,c] = [5,20,2]
+    lg(controls,1,a,b,c);
+    //lg(list,0,a,b,c)
+    //lg(items,0,a,b,c)
+  },1);
+});
+
+</script>
+
 <script>
 
 const format = (value,suffix,d=100) => {
@@ -657,8 +819,6 @@ const render_list = () => {
 add.onclick = () => {
   if (list.classList.contains("active")) list.classList.remove("active");
   items.classList.toggle("active");
-  //list_items.push(select.value);
-  //render_list();
 }
 
 menu.onclick = () => {
@@ -868,5 +1028,105 @@ window.onload = async () => {
 
 </script>
 
-</html>
+<script>
 
+(function () {
+  const scrollableElements = new Map();
+  function lerp(start, end, amt) {
+    return (1 - amt) * start + amt * end;
+  }
+  function smoothScroll(element) {
+    if (!scrollableElements.has(element)) return;
+    const state = scrollableElements.get(element);
+    state.currentScroll = lerp(state.currentScroll, state.targetScroll, 0.1);
+    if (element === document.body || element === document.documentElement) {
+      window.scrollTo(0, state.currentScroll);
+    } else {
+      element.scrollTop = state.currentScroll;
+    }
+    if (Math.abs(state.currentScroll - state.targetScroll) < 0.1) {
+      state.currentScroll = state.targetScroll;
+      scrollableElements.set(element, state);
+      state.isScrolling = false;
+      return;
+    }
+    requestAnimationFrame(() => smoothScroll(element));
+  }
+  function startSmoothScrolling(element, delta) {
+    if (!scrollableElements.has(element)) {
+      scrollableElements.set(element, {
+        currentScroll: element.scrollTop || window.pageYOffset,
+        targetScroll: element.scrollTop || window.pageYOffset,
+        isScrolling: false,
+      });
+    }
+    const state = scrollableElements.get(element);
+    state.targetScroll += delta;
+    const maxScroll = element.scrollHeight - element.clientHeight;
+    state.targetScroll = Math.max(0, Math.min(state.targetScroll, maxScroll));
+    scrollableElements.set(element, state);
+    if (!state.isScrolling) {
+      state.isScrolling = true;
+      smoothScroll(element);
+    }
+  }
+  function getScrollableParent(element) {
+    while (element && element !== document.body) {
+      const overflowY = window.getComputedStyle(element).overflowY;
+      if (overflowY === "scroll" || overflowY === "auto") {
+        return element;
+      }
+      element = element.parentElement;
+    }
+    return document.body;
+  }
+  window.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const scrollableElement = getScrollableParent(e.target);
+    startSmoothScrolling(scrollableElement, e.deltaY);
+  }, { passive: false });
+  let isMiddleMouseScrolling = false;
+  let startY = 0;
+  window.addEventListener("mousedown", (e) => {
+    if (e.button === 1) {
+      isMiddleMouseScrolling = true;
+      startY = e.clientY;
+      e.preventDefault();
+    }
+  });
+  window.addEventListener("mousemove", (e) => {
+    if (isMiddleMouseScrolling) {
+      const deltaY = startY - e.clientY;
+      startY = e.clientY;
+      const scrollableElement = getScrollableParent(e.target);
+      startSmoothScrolling(scrollableElement, deltaY);
+    }
+  });
+  window.addEventListener("mouseup", (e) => {
+    if (e.button === 1) {
+      isMiddleMouseScrolling = false;
+    }
+  });
+  let touchStartY = 0;
+  let touchMoveY = 0;
+  window.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 1) {
+      touchStartY = e.touches[0].clientY;
+      touchMoveY = touchStartY;
+    }
+  }, { passive: true });
+  window.addEventListener("touchmove", (e) => {
+    if (e.touches.length === 1) {
+      const touchScrollableElement = getScrollableParent(e.target);
+      e.preventDefault();
+      touchMoveY = e.touches[0].clientY;
+      const delta = touchStartY - touchMoveY;
+      touchStartY = touchMoveY;
+      startSmoothScrolling(touchScrollableElement, delta);
+    }
+  }, { passive: false });
+})();
+
+</script>
+
+</html>
