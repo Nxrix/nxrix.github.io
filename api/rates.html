@@ -424,12 +424,23 @@ const lg = (e,t,depth,strength,chromaticAberration,brightness=0.5) => {
   }
 }
 
+const has_wgl2 = () => {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!window.WebGL2RenderingContext && !!canvas.getContext('webgl2');
+  } catch (e) {
+    return false;
+  }
+}
+	
 window.addEventListener("load", () => {
   setTimeout(() => {
-    [a,b,c] = [5,20,2]
-    lg(controls,1,a,b,c);
-    lg(list,0,a,b,c,0.25)
-    lg(items,0,a,b,c,0.25)
+	if (has_webgl2()) { 
+      let [a,b,c] = [5,20,2];
+      lg(controls,1,a,b,c);
+      lg(list,0,a,b,c,0.25);
+      lg(items,0,a,b,c,0.25);
+  	}
   },1);
 });
 
@@ -1131,6 +1142,7 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
 
