@@ -400,7 +400,7 @@ const lg = (e,t,depth,strength,chromaticAberration) => {
   const width = e.offsetWidth;//rect.width;
   const height = e.offsetHeight;//rect.height;
   const radius = parseFloat(window.getComputedStyle(e).borderRadius);
-  e.style.backdropFilter = `url(#${id}) blur(2px) brightness(0.75) contrast(0.9)`;
+  e.style.backdropFilter = `url(#${id}) blur(2px) brightness(0.75) contrast(0.75)`;
   e.style.background = "#0000";
   e.style.outline = "none";
   if (t==1) {
@@ -1131,5 +1131,6 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
