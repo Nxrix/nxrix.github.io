@@ -402,6 +402,7 @@ const lg = (e,t,depth,strength,chromaticAberration) => {
   const radius = parseFloat(window.getComputedStyle(e).borderRadius);
   e.style.backdropFilter = `url(#${id}) blur(2px) brightness(0.75) contrast(0.9)`;
   e.style.background = "#0000";
+  e.style.outline = "none";
   if (t==1) {
     filters.innerHTML += getSvgDisplacement({
       id,
@@ -1130,4 +1131,5 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
