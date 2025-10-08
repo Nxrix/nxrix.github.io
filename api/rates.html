@@ -427,7 +427,7 @@ const lg = (e,t,depth,strength,chromaticAberration,brightness=0.5) => {
 const has_wgl2 = () => {
   try {
     const canvas = document.createElement("canvas");
-    return !!window.WebGL2RenderingContext && !!canvas.getContext('webgl2');
+    return !canvas.getContext("webgl2");
   } catch (e) {
     return false;
   }
@@ -1142,6 +1142,7 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
 
