@@ -394,15 +394,15 @@ const getSvgDisplacement = ({
 </script>
 <script>
 
-const lg = (e,t,depth,strength,chromaticAberration) => {
+const lg = (e,t,depth,strength,chromaticAberration,brightness=0.5) => {
   const id = "liquid-glass-"+Math.random().toString(36).substr(2,9);
   const rect = e.getBoundingClientRect();
   const width = e.offsetWidth;//rect.width;
   const height = e.offsetHeight;//rect.height;
   const radius = parseFloat(window.getComputedStyle(e).borderRadius);
-  e.style.backdropFilter = `url(#${id}) blur(2px) brightness(0.75) contrast(0.75)`;
+  e.style.backdropFilter = `url(#${id}) blur(2px) brightness(${brightness}) contrast(0.9)`;
   e.style.background = "#0000";
-  e.style.outline = "none";
+  e.style.outline = "1px solid #fff2";
   if (t==1) {
     filters.innerHTML += getSvgDisplacement({
       id,
@@ -418,7 +418,7 @@ const lg = (e,t,depth,strength,chromaticAberration) => {
     <svg style="display:none;">
       <filter id="${id}" color-interpolation-filters="sRGB" filterUnits="objectBoundingBox">   
         <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="1" stitchTiles="noStitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"/>
-        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="64" xChannelSelector="R" yChannelSelector="G" x="0%" y="0%" width="100%" height="100%" result="map"></feDisplacementMap>
+        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="32" xChannelSelector="R" yChannelSelector="G" x="0%" y="0%" width="100%" height="100%" result="map"></feDisplacementMap>
       </filter>
     </svg>`;
   }
@@ -428,8 +428,8 @@ window.addEventListener("load", () => {
   setTimeout(() => {
     [a,b,c] = [5,20,2]
     lg(controls,1,a,b,c);
-    //lg(list,0,a,b,c)
-    //lg(items,0,a,b,c)
+    lg(list,0,a,b,c,0.25)
+    lg(items,0,a,b,c,0.25)
   },1);
 });
 
@@ -1131,6 +1131,7 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
 
