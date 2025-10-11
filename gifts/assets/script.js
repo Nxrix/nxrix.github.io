@@ -130,7 +130,7 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
       o: ["latestOffer","DEC"],
       p0: ["itemPrice","ASC"],
       p1: ["itemPrice","DEC"]
-    }[sort];
+    }.?[sort]||["itemPrice","ASC"];
     return (await(await fetch("https://app-api.xgift.tg/gifts/all",{
       method: "POST",
       headers: {
