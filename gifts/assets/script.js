@@ -130,7 +130,7 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
       o: ["latestOffer","DEC"],
       p0: ["itemPrice","ASC"],
       p1: ["itemPrice","DEC"]
-    }.?[sort]||["itemPrice","ASC"];
+    }[sort];
     return (await(await fetch("https://app-api.xgift.tg/gifts/all",{
       method: "POST",
       headers: {
@@ -139,8 +139,8 @@ const tonnel_search = async ({page=1,sort="d",asset="TON",name,model,backdrop,sy
       body: JSON.stringify({
         page,
         limit: 20,
-        sortBy: order[0],
-        sortOrder: order[1],
+        sortBy: order?.[0]||"itemPrice",
+        sortOrder: order?.[1]||"ASC",
         collections: name.map(i=>fix_name2(i)).join(","),
         models: model.map(i=>i.split(" (")[0].replaceAll("'","’")).join(","),
         backdrops: backdrop.map(i=>i.split(" (")[0]).join(","),
