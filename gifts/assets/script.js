@@ -670,7 +670,7 @@ const update_url = () => {
   const encode = (arr) => arr.map(encodeURIComponent).join(",");
 
   const qs = `${location.pathname}?p=${page}&s=${sort.value}&a=${asset.value}&f=${format.value}`
-    + (tag.value != "all" ? "&t=" + tag.value : "")
+    + ("&t=" + tag.value)
     + (numbers.value ? "&n=" + numbers.value : "")
     + (!isNaN(parseFloat(min.value)) ? "&min=" + parseFloat(min.value) : "")
     + (!isNaN(parseFloat(max.value)) ? "&max=" + parseFloat(max.value) : "")
