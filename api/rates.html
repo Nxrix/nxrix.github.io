@@ -778,7 +778,7 @@ const render_list = () => {
     const m = window.data.prices.find(e=>e.slug==i);
     const e = document.createElement("div");
     e.innerHTML = `
-      <div>${m.name}</div>
+      <div>${m.name||i}</div>
       <div style="display:flex;">
         <div onclick="list_items.splice(${n},1);render_list();">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
@@ -1149,6 +1149,7 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
 
