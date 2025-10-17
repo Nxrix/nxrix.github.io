@@ -1000,10 +1000,10 @@ window.onload = async () => {
 
     try {
     	const fix_name2 = (n) => n.replace(/[^a-zA-Z0-9]/g, "");
-    	const fix_name = (n) => fix_name2(n).toLowerCase();
-    	const gifts = await(await fetch("https://giftcharts-api.onrender.com/gifts")).json().map(i=>{
-    		return {
-    			slug: fix_name2(i.name),
+      const fix_name = (n) => fix_name2(n).toLowerCase();
+      const gifts = (await(await fetch("https://giftcharts-api.onrender.com/gifts")).json()).map(i=>{
+    	  return {
+    		  slug: fix_name2(i.name),
           name: i.name,
           price: i.priceUsd,
           change: i.usdPrice24hAgo ? i.priceUsd - i.usdPrice24hAgo : null,
@@ -1013,7 +1013,7 @@ window.onload = async () => {
     		}
     	});
       prices.push(...gifts);
-      item_groups.gifts = gifts;
+      item_groups.gifts = gifts.map(i=>i.slug);
     } catch (e) {}
 
     return {
@@ -1151,6 +1151,7 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
 
