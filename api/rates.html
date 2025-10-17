@@ -510,14 +510,12 @@ const create_tile = (i) => {
     ">
 
       <div style="
-        background-color: var(--bg0);
         position: absolute;
-        overflow: hidden;
         top: 0.75rem;
         left: 0.75rem;
         width: 32px;
         height: 32px;
-        border-radius: 50%;
+        ${i.g!=2?`overflow: hidden;border-radius: 50%;`:""}
       ">
         ${i.icon}
       </div>
@@ -976,7 +974,7 @@ window.onload = async () => {
           base: f.includes(i.code) ? "usd" : "irt",
           icon:
             icons[i.code] || `<img src="${i.icon}" style="width:100%;height:100%;">`,
-          g: icons?.[i.code] ? true : false
+          g: icons?.[i.code] ? 1 : 0
         };
       })
       .filter(i=>i.price > 0.001)
@@ -999,21 +997,21 @@ window.onload = async () => {
       });
 
     try {
-    	const fix_name2 = (n) => n.replace(/[^a-zA-Z0-9]/g, "");
+      const fix_name2 = (n) => n.replace(/[^a-zA-Z0-9]/g, "");
       const fix_name = (n) => fix_name2(n).toLowerCase();
       const gifts = (await(await fetch("https://giftcharts-api.onrender.com/gifts")).json()).map(i=>{
-    	  return {
-    		  slug: fix_name2(i.name),
+        return {
+          slug: fix_name2(i.name),
           name: i.name,
           price: i.priceUsd,
           change: i.usdPrice24hAgo ? i.priceUsd - i.usdPrice24hAgo : null,
           base: "usd",
           icon:`<img src="https://fragment.com/file/gifts/${fix_name2(i.name)}/thumb.webp" style="width:100%;height:100%;">`,
-          g: false
-    		}
-    	});
+          g: 2
+        }
+      });
       prices.push(...gifts);
-      item_groups.gifts = gifts.map(i=>i.slug);
+      item_groups.gifts = gifts.sort((a,b)=>b.price-a.price).map(i=>i.slug);
     } catch (e) {}
 
     return {
@@ -1151,6 +1149,7 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
 
