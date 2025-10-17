@@ -541,7 +541,7 @@ const create_tile = (i) => {
           color: var(--fg5);
           line-height: 1em;
         ">
-          ${i.slug.toUpperCase()}
+          ${i.g!=2?i.slug.toUpperCase():""}
         </div>
       </div>
 
@@ -1149,6 +1149,7 @@ window.onload = async () => {
 </script>
 
 </html>
+
 
 
 
