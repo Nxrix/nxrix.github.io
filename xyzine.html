@@ -492,7 +492,7 @@ const pending = new Map();
 let busy = false;
 
 const compute_layout = () => {
-  header_h = Math.ceil(header.getBoundingClientRect().height+12);
+  header_h = Math.ceil(header.getBoundingClientRect().height-12);
   const w = scroller.clientWidth - gap * 2;
   cols = Math.max(1, Math.floor(w / (min_cell + gap)));
   const cell = Math.max(min_cell, (scroller.clientWidth - gap * (cols + 1)) / cols);
