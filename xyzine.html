@@ -585,8 +585,10 @@ const load_next = async () => {
 };
 
 const scroll_to = (n) => {
-  const target = Math.min(Math.floor(n / cols) * row_h + header_h, spacer.clientHeight - scroller.clientHeight);
-  scroller.scrollTop = Math.max(0, target);
+  if (n!=0) {
+    const target = Math.min(Math.floor(n / cols) * row_h + header_h, spacer.clientHeight - scroller.clientHeight);
+    scroller.scrollTop = Math.max(0, target);
+  }
 };
 
 const on_scroll_or_resize = () => {
