@@ -62,12 +62,12 @@ html, body {
 <body>
 
   <div class="scroller" id="scroller">
-    <div style="display:flex;margin:12px 12px 0px 12px;justify-content:space-between;align-items:center;">
-      <span style="font-size:32px;font-weight:900;">XYZINE</span>
-      <span style="font-size:16px;font-weight:900;" id="time"></span>
-    </div>
-    <!--div style="display:block;font-size:12px;font-weight:900;margin:0px 12px 0px 12px;">nxrix</div-->
     <div class="spacer" id="spacer">
+      <div id="header" style="display:flex;margin:12px 12px 0px 12px;justify-content:space-between;align-items:center;">
+        <span style="font-size:32px;font-weight:900;">XYZINE</span>
+        <span style="font-size:16px;font-weight:900;" id="time"></span>
+      </div>
+      <!--div style="display:block;font-size:12px;font-weight:900;margin:0px 12px 0px 12px;">nxrix</div-->
       <div class="layer">
         <div class="grid" id="grid"></div>
       </div>
@@ -466,9 +466,12 @@ const min_cell = 144;
 const buffer_rows = 8;
 const max_index = Math.floor((Date.now()-k)/(1000*60*60*24))-1+8;//365 * 10000;
 
+
 const scroller = document.getElementById("scroller");
 const spacer = document.getElementById("spacer");
 const grid = document.getElementById("grid");
+
+let header_h = 0;
 
 const get_n_from_url = () => {
   try {
@@ -489,17 +492,19 @@ const pending = new Map();
 let busy = false;
 
 const compute_layout = () => {
+  header_h = Math.ceil(header.getBoundingClientRect().height);
   const w = scroller.clientWidth - gap * 2;
   cols = Math.max(1, Math.floor(w / (min_cell + gap)));
   const cell = Math.max(min_cell, (scroller.clientWidth - gap * (cols + 1)) / cols);
   row_h = cell + gap;
   vis_rows = Math.ceil(scroller.clientHeight / row_h);
   grid.style.gridTemplateColumns = `repeat(${cols},1fr)`;
-  spacer.style.height = `${Math.ceil(max_index / cols) * row_h}px`;
+  spacer.style.height = `${header_h + Math.ceil(max_index / cols) * row_h}px`;
 };
 
 const compute_range = () => {
-  const st = scroller.scrollTop;
+  let st = scroller.scrollTop - header_h;
+  if (st < 0) st = 0;
   const first = Math.ceil(st / row_h);
   const start_row = Math.max(0, first - buffer_rows);
   const end_row = first + vis_rows + buffer_rows;
@@ -520,7 +525,7 @@ const set_n_in_url = (n) => {
 };
 
 const render_range = ({ start_idx, end_idx, start_row }) => {
-  grid.parentElement.style.transform = `translateY(${start_row * row_h}px)`;
+  grid.parentElement.style.transform = `translateY(${header_h + start_row * row_h}px)`;
 
   for (const [i, el] of rendered) {
     if (i < start_idx || i > end_idx) {
@@ -553,7 +558,8 @@ const load_next = async () => {
     return;
   }
 
-  const vis_start = Math.floor(scroller.scrollTop / row_h) * cols;
+  let vis_start = Math.floor((scroller.scrollTop - header_h) / row_h) * cols;
+  if (vis_start < 0) vis_start = 0;
   const vis_end = vis_start + Math.ceil(scroller.clientHeight / row_h) * cols;
 
   let near = null, dist = Infinity;
@@ -579,7 +585,7 @@ const load_next = async () => {
 };
 
 const scroll_to = (n) => {
-  const target = Math.min(Math.floor(n / cols) * row_h, spacer.clientHeight - scroller.clientHeight);
+  const target = Math.min(Math.floor(n / cols) * row_h + header_h, spacer.clientHeight - scroller.clientHeight);
   scroller.scrollTop = Math.max(0, target);
 };
 
