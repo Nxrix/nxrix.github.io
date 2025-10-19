@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap" rel="stylesheet">
+</head>
+
+<style>
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: "Baloo 2";
+  font-weight: 500;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  box-sizing: border-box;
+  padding: 32px;
+  overflow: auto;
+}
+
+#script_image {
+  display: block;
+  background: #59f;
+  border-radius: 16px;
+  max-width: 500px;
+  aspect-ratio: 4/3;
+  width: 100%;
+  /*margin: 0 auto;*/
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+#script_data {
+  overflow: auto;
+}
+
+</style>
+
+<body>
+
+  <img id="script_image">
+  <h1 id="script_name"></h1>
+  <p id="script_text"></p>
+
+  <hr>
+
+  <p id="script_info"></p>
+  <pre id="script_data"></pre>
+
+</body>
+
+<script>
+
+const encode = (data) => {
+  const nameBytes = new TextEncoder().encode(data.name);
+  const whBits = ((data.width - 1) & 0b11) | (((data.height - 1) & 0b11) << 2);
+  const iconSize = (data.width * 8 - 1) * (data.height * 8 - 1);
+  const iconBytes = new Uint8Array(data.icon.split("").map(i=>parseInt(i,34)).slice(0, iconSize));
+  let wireParts = [];
+  for (const wire of data.wires) {
+    const wNameBytes = new TextEncoder().encode(wire.name);
+    wireParts.push(new Uint8Array([
+      wire.position & 0xFF,
+      wire.color & 0xFF,
+      wNameBytes.length & 0xFF,
+      ...wNameBytes
+    ]));
+  }
+  const textBytes = new TextEncoder().encode(data.text);
+  let totalSize = 1 + nameBytes.length + 1 + iconBytes.length + 1;
+  for (let w of wireParts) totalSize += w.length;
+  totalSize += textBytes.length;
+  const buffer = new Uint8Array(totalSize);
+  let offset = 0;
+  buffer[offset++] = nameBytes.length;
+  buffer.set(nameBytes, offset);
+  offset += nameBytes.length;
+  buffer[offset++] = whBits;
+  buffer.set(iconBytes, offset);
+  offset += iconBytes.length;
+  buffer[offset++] = data.wires.length & 0xFF;
+  for (let w of wireParts) {
+    buffer.set(w, offset);
+    offset += w.length;
+  }
+  buffer.set(textBytes, offset);
+  offset += textBytes.length;
+  return buffer;
+}
+
+const decode = (buffer) => {
+  const bytes = new Uint8Array(buffer);
+  let offset = 0;
+  const nameLen = bytes[offset++];
+  const name = new TextDecoder().decode(bytes.slice(offset, offset + nameLen));
+  offset += nameLen;
+  const whBits = bytes[offset++];
+  const width  = (whBits & 0b11) + 1;
+  const height = ((whBits >> 2) & 0b11) + 1;
+  const iconSize = (width * 8 - 1) * (height * 8 - 1);
+  const icon = Array.from(bytes.slice(offset, offset + iconSize)).map(i=>i.toString(34)).join("");
+  offset += iconSize;
+  const wireCount = bytes[offset++];
+  const wires = [];
+  for (let i = 0; i < wireCount; i++) {
+    const position = bytes[offset++];
+    const color = bytes[offset++];
+    const wNameLen = bytes[offset++];
+    const wName = new TextDecoder().decode(bytes.slice(offset, offset + wNameLen));
+    offset += wNameLen;
+    wires.push({ position, color, name: wName });
+  }
+  const text = new TextDecoder().decode(bytes.slice(offset));
+  return { name, width, height, icon, wires, text };
+}
+
+const palette = [
+  [ 26, 26, 37],[ 60, 60, 80],[ 91, 91,118],
+  [135,139,160],[221,224,240],[254,255,255],
+  [  0,106,212],[  0,140,255],[  0,194,255],
+  [  0,134, 74],[ 62,186, 73],[171,255,104],
+  [233,163,  0],[255,205,  0],[255,255,117],
+  [200, 77, 61],[255,108, 80],[255,163,125],
+  [187, 52, 77],[255, 72,101],[255,150,150],
+  [230,108,167],[255,144,202],[255,179,228],
+  [102, 81,158],[137,107,214],[171,134,255],
+  [245,171,160],[255,202,184],[255,227,227],
+  [144, 79, 90],[187,103,122],[219,145,145]
+];
+
+const get_wire = (w,h,n) => {
+  if (n<w) {
+    return [n,0,0,-1];
+  }
+  if (n<w+h) {
+    return [w-1,n-w,1,0];
+  }
+  if (n<w+h+w) {
+    return [w-1-(n-(w+h)),h-1,0,1];
+  }
+  return [0,h-1-(n-(w+h+w)),-1,0];
+}
+
+const draw_wire = (ctx,x0,y0,x1,y1) => {
+  if (x0 === x1) {
+    let s = Math.min(y0,y1),
+        e = Math.max(y0,y1);
+    ctx.fillRect(x0,s,1,e-s+1);
+  } else if (y0 === y1) {
+    let s = Math.min(x0,x1),
+        e = Math.max(x0,x1);
+    ctx.fillRect(s,y0,e-s+1,1);
+  }
+}
+
+const load_script = (script) => {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = script.width*8-1+14;
+  canvas.height = script.height*8-1+14;
+
+  const image = ctx.createImageData(canvas.width-14,canvas.height-14);
+  const data = image.data;
+
+  for (const wire of script.wires) {
+    let [x0,y0,x1,y1] = get_wire(script.width,script.height,wire.position);
+    x0 = x0*8+10;
+    y0 = y0*8+10;
+    ctx.fillStyle = "rgb("+palette[wire.color].join(",")+")";
+    draw_wire(ctx,x0+x1*5,y0+y1*5,x0+x1*7,y0+y1*7);
+    ctx.fillStyle = "#ccd";
+    const dx = 1-Math.abs(x1);
+    const dy = 1-Math.abs(y1);
+    draw_wire(ctx,x0+x1*4-dx,y0+y1*4,x0+x1*4,y0+y1*4+dy);
+    draw_wire(ctx,x0+x1*8-dx,y0+y1*8,x0+x1*8,y0+y1*8+dy);
+    ctx.fillStyle = "#eef";
+    if (dx) {
+      draw_wire(ctx,x0+x1*4+dx,y0+y1*4,x0+x1*4+dx,y0+y1*4);
+      draw_wire(ctx,x0+x1*8+dx,y0+y1*8,x0+x1*8+dx,y0+y1*8);
+    }
+    if (dy) {
+      draw_wire(ctx,x0+x1*4,y0+y1*4-dy,x0+x1*4,y0+y1*4-dy);
+      draw_wire(ctx,x0+x1*8,y0+y1*8-dy,x0+x1*8,y0+y1*8-dy);
+    }
+    draw_wire(ctx,x0+x1*9,y0+y1*9,x0+x1*9,y0+y1*9);
+  }
+
+  ctx.fillStyle = "#0002";
+  ctx.fillRect(6,script.height*8-1-15,script.width*8-1,script.height*8-1);
+  ctx.fillRect(5,script.height*8-1-14,script.width*8-1,script.height*8-1);
+
+  const icon = script.icon.split("").map(i=>parseInt(i,34));
+  for (let i=0;i<data.length;i+=4) {
+    const n = icon[i>>2];
+    if (n>0) {
+      const c = palette[n-1];
+      data[i  ] = c[0];
+      data[i+1] = c[1];
+      data[i+2] = c[2];
+      data[i+3] = 255;
+    }
+  }
+  ctx.putImageData(image,7,7);
+
+  const canvas2 = document.createElement("canvas");
+  const ctx2 = canvas2.getContext("2d");
+  const scale = 28;
+  const padding = 512;
+  const padding2 = padding/2;
+  canvas2.width = (script.width*8-1+14)*scale+padding;
+  canvas2.height = (script.height*8-1+14)*scale+padding;
+  ctx2.fillStyle = "#59f";
+  ctx2.fillRect(0,0,canvas2.width,canvas2.height);
+  ctx2.imageSmoothingEnabled = false;
+  ctx2.drawImage(canvas,padding2,padding2,canvas.width*scale,canvas.height*scale);
+
+  ctx2.fillStyle = "#fff";
+  ctx2.font = "800 48px 'Baloo 2'";
+  ctx2.textAlign = "center"
+  ctx2.textBaseline = "middle";
+  for (const wire of script.wires) {
+    let [x0,y0,x1,y1] = get_wire(script.width,script.height,wire.position);
+    x0 = x0*8*scale+padding2+(7.5+3)*scale+x1*13*scale;
+    y0 = y0*8*scale+padding2+(7.5+3)*scale+y1*13*scale;
+    ctx2.fillText(wire.name,x0,y0);
+  }
+
+  script_image.src = canvas2.toDataURL();
+  script_name.innerText = script.name;
+  script_text.innerText = script.text;
+
+  const encoded = encode(script);
+  const r = script.text.length;
+  script_info.innerText = `${encoded.length} Bytes`;
+  const hex = Array.from(encoded, b => b.toString(16).padStart(2,"0").toUpperCase())
+    .reduce((lines, hex, i) => {
+      const lineIndex = Math.floor(i / 16);
+      (lines[lineIndex] ||= []).push(hex);
+      return lines;
+    }, [])
+    .map(line => line.join(" "))
+    .join("\n")
+  script_data.innerText = JSON.stringify(script,null,2);//+"\n\n"+hex;
+}
+
+const raycast = `07 52 61 79 63 61 73 74 09 03 04 04 04 04 04 04
+04 04 04 04 04 04 04 04 02 03 03 03 03 03 03 03
+03 03 03 03 03 03 04 02 03 03 03 03 03 03 03 03
+03 03 03 03 03 04 02 03 03 03 03 03 03 03 03 03
+03 03 03 03 04 02 03 03 03 03 03 03 03 03 03 03
+03 03 03 04 02 03 03 03 03 03 03 03 03 03 03 03
+03 03 04 02 03 03 03 03 03 03 03 03 03 03 03 03
+03 04 02 03 03 03 03 03 03 03 03 03 03 03 03 03
+04 02 03 03 03 0C 03 03 03 03 03 03 03 03 03 04
+02 03 03 03 03 0C 03 03 03 03 03 03 03 03 04 02
+03 03 03 03 03 0C 03 03 03 03 03 03 03 04 02 03
+03 03 03 03 03 14 06 06 06 03 03 03 04 02 03 03
+03 03 03 03 04 05 05 06 03 03 03 04 02 03 03 03
+03 03 03 04 05 05 06 03 03 03 04 02 03 03 03 03
+03 03 04 04 04 05 03 03 03 04 02 03 03 03 03 03
+03 03 03 03 03 03 03 03 04 02 03 03 03 03 03 03
+03 03 03 03 03 03 03 04 02 03 03 03 03 03 03 03
+03 03 03 03 03 03 04 02 03 03 03 03 03 03 03 03
+03 03 03 03 03 04 02 03 03 03 03 03 03 03 03 03
+03 03 03 03 04 02 03 03 03 03 03 03 03 03 03 03
+03 03 03 04 02 03 03 03 03 03 03 03 03 03 03 03
+03 03 04 02 02 02 02 02 02 02 02 02 02 02 02 02
+02 03 05 02 13 03 48 69 74 03 0B 07 48 69 74 20
+50 6F 73 04 16 07 48 69 74 20 4F 62 6A 08 0B 02
+54 6F 09 0B 04 46 72 6F 6D 54 72 61 63 65 73 20
+61 20 6C 69 6E 65 20 62 65 74 77 65 65 6E 20 74
+77 6F 20 70 6F 69 6E 74 73 20 61 6E 64 20 6F 75
+74 70 75 74 73 20 74 68 65 20 66 6F 6C 6C 6F 77
+69 6E 67 20 63 6F 72 72 65 73 70 6F 6E 64 69 6E
+67 6C 79 3A 0A 0A 54 72 75 65 20 69 66 20 69 74
+20 68 69 74 73 20 61 6E 20 6F 62 6A 65 63 74 2E
+0A 54 68 65 20 70 6F 69 6E 74 20 77 68 65 72 65
+20 74 68 65 20 6F 62 6A 65 63 74 20 69 73 20 64
+65 74 65 63 74 65 64 2C 20 6F 72 20 30 2C 20 30
+2C 20 30 20 6F 74 68 65 72 77 69 73 65 2E 0A 54
+68 65 20 6F 62 6A 65 63 74 20 74 68 61 74 20 77
+61 73 20 68 69 74 2C 20 6F 72 20 4E 6F 6E 65 20
+69 66 20 6E 6F 6E 65 20 69 73 20 64 65 74 65 63
+74 65 64 20 6F 72 20 74 68 65 20 67 72 6F 75 6E
+64 20 69 73 20 68 69 74 2E`;
+
+const l = (s) => {
+  const c = s.replace(/\s+/g,"");
+  return Uint8Array.from(
+    {length:c.length/2},
+    (_,i) => parseInt(c.substr(i*2,2),16)
+  );
+}
+
+window.onload = async () => {
+  //const script = decode((await(await fetch("raycast.bin")).arrayBuffer()));
+  
+  const script = decode(l(raycast));
+  script.width = 2;
+  load_script(script);
+}
+
+</script>
+
+</html>
