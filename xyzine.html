@@ -420,7 +420,7 @@ let render = (i,n) => {
       }
     }
     for (let n=0;n<wxh;n++) {
-      const [r,g,b] = xyz_grad((vs[n]-min)/(max-min)||0,pal);
+      let [r,g,b] = xyz_grad((vs[n]-min)/(max-min)||0,pal);
       if (i<n) {
         r = g = b = 0.299 * r + 0.587 * g + 0.114 * b;
       }
@@ -744,3 +744,4 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
