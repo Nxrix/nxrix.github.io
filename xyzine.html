@@ -283,6 +283,10 @@ const palette = [
   (i) => "#" + palette[i].map((x) => x.toString(16).padStart(2, "0")).join("")
 );*/
 
+const palette2 = palette.map(
+  (i) => "#" + i.map((x) => x.toString(16).padStart(2, "0")).join("")
+);
+
 const palette_fa = [
   "#1d1826",
   "#2b2754",
@@ -382,10 +386,10 @@ const render = (i,n) => {
   if (i<n) {
     zn.srnd(i);
     const st =  zn.rnd(palette_fa.length  )|0;
-    const minp = 4;
+    /*const minp = 4;
     const maxp = 8;
-    const se = Math.floor(minp+(maxp-minp)*Math.sqrt(zn.rnd(1)));
-    const pal = palette_fa.slice(st).concat(palette_fa.slice(0,st)).slice(0,se);
+    const se = Math.floor(minp+(maxp-minp)*Math.sqrt(zn.rnd(1)));*/
+    const pal = palette_fa.slice(st).concat(palette_fa.slice(0,st));
     /*const pal = [];
     const copy = palette_fa.slice();
     for (let i=0;i<4&&copy.length>0;i++) {
@@ -737,6 +741,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
