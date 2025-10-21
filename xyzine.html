@@ -383,6 +383,9 @@ const render = (i,n) => {
     zn.srnd(i);
     const st =  zn.rnd(palette_fa.length  )|0;
     const se = (zn.rnd(palette_fa.length-1)|0)+2;
+    const minp = 3;
+    const maxp = palette_fa.length;
+    const se = Math.floor(minp+(maxp-minp)*Math.sqrt(zn.rnd(1)));
     const pal = palette_fa.slice(st).concat(palette_fa.slice(0,st)).slice(0,se);
     zn.srnd(i);
     const expr = zn.getx(0,1);
@@ -728,6 +731,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
