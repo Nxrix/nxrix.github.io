@@ -679,7 +679,7 @@ const load_next = async () => {
 };
 
 const scroll_to = (n) => {
-  const target = Math.min(Math.floor(n / cols) * row_h, spacer.clientHeight - scroller.clientHeight) + header.clientHeight;
+  const target = Math.floor(Math.min(Math.floor(n/cols)*row_h,spacer.clientHeight-scroller.clientHeight)) + header.clientHeight + 12;
   scroller.scrollTop = Math.max(0, target);
 };
 
@@ -727,4 +727,5 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
