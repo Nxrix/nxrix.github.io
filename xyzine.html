@@ -721,7 +721,7 @@ const init = () => {
   const init_n = get_n_from_url();
   //requestAnimationFrame(() => {
     compute_layout();
-    scroll_to(init_n);
+    if (init_n!==0) scroll_to(init_n);
     on_scroll_or_resize();
   //});
 };
@@ -749,6 +749,3 @@ window.addEventListener("load", init);
 </script>
 
 </html>
-
-
-
