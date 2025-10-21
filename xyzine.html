@@ -287,6 +287,10 @@ const palette2 = palette.map(
   (i) => "#" + i.map((x) => x.toString(16).padStart(2, "0")).join("")
 );
 
+const palette_bw = [0,20,1,2,3].map(
+  (i) => "#" + palette[i].map((x) => x.toString(16).padStart(2, "0")).join("")
+);
+
 const palette_fa = [
   "#1d1826",
   "#2b2754",
@@ -380,7 +384,7 @@ const vs = new Float32Array(wxh);
 
 let f;
 
-let render = (i,n) => {
+let render = (i,mn) => {
   ctx.clearRect(0,0,w,h);
   
   //if (i<n) {
@@ -420,9 +424,13 @@ let render = (i,n) => {
       }
     }
     for (let n=0;n<wxh;n++) {
-      let [r,g,b] = xyz_grad((vs[n]-min)/(max-min)||0,pal);
-      if (i<n) {
-        r = g = b = 0.299 * r + 0.587 * g + 0.114 * b;
+      const c = (vs[n]-min)/(max-min)||0;
+      let r,g,b;
+      if (i<mn) {
+        [r,g,b] = xyz_grad(c,pal);
+      } else {
+        //r = g = b = 0.299 * r + 0.587 * g + 0.114 * b;
+        [r,g,b] = xyz_grad(c,palette_bw);
       }
       const n4 = n<<2;
       img_data[n4  ] = r;
@@ -744,4 +752,5 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
