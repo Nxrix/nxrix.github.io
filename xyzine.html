@@ -383,7 +383,7 @@ let f;
 let render = (i,n) => {
   ctx.clearRect(0,0,w,h);
   
-  if (i<n) {
+  //if (i<n) {
     zn.srnd(i);
     const st =  zn.rnd(palette_fa.length  )|0;
     /*const minp = 4;
@@ -421,13 +421,16 @@ let render = (i,n) => {
     }
     for (let n=0;n<wxh;n++) {
       const [r,g,b] = xyz_grad((vs[n]-min)/(max-min)||0,pal);
+      if (i<n) {
+        r = g = b = 0.299 * r + 0.587 * g + 0.114 * b;
+      }
       const n4 = n<<2;
       img_data[n4  ] = r;
       img_data[n4+1] = g;
       img_data[n4+2] = b;
       //img_data[n4+3] = 255;
     }
-  } else {
+  /*} else {
     for (let n=0;n<wxh;n++) {
       const [r,g,b] = palette[0];
       const n4 = n<<2;
@@ -435,7 +438,7 @@ let render = (i,n) => {
       img_data[n4+1] = g;
       img_data[n4+2] = b;
     }
-  }
+  }*/
   const txt = i.toString();
   const txtl = txt.length;
   let sc = 5;
@@ -480,7 +483,7 @@ setInterval(t,1000);
 const gap = 8;
 const min_cell = 144;
 const buffer_rows = 8;
-const max_index = Math.floor((Date.now()-k)/(1000*60*60*24))-1+8;//365 * 10000;
+const max_index = Math.floor((Date.now()-k)/(1000*60*60*24))-1+365*32;//365 * 10000;
 
 const scroller = document.getElementById("scroller");
 const spacer = document.getElementById("spacer");
@@ -686,7 +689,7 @@ const load_next = async () => {
   }
   const el = pending.get(nextIndex);
   pending.delete(nextIndex);
-  el.src = render(nextIndex, max_index - 8 + 1);
+  el.src = render(nextIndex, max_index - 365*32 + 1);
   await new Promise(r => requestAnimationFrame(r));
   busy = false;
   load_next();
@@ -741,14 +744,3 @@ window.addEventListener("load", init);
 </script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
