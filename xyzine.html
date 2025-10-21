@@ -588,7 +588,7 @@ const load_next = async () => {
   }
   const vis_start = Math.floor(scroller.scrollTop / row_h) * cols;
   const vis_end = vis_start + Math.ceil(scroller.clientHeight / row_h) * cols;
-  const vis_center = Math.floor((vis_start + vis_end) / 2 - cols/2*(1-(cols%2)) );
+  const vis_center = Math.floor((vis_start + vis_end) / 2 - (1-(cols%2))*cols/2);
   const sorted = Array.from(pending.keys()).sort((a, b) => {
     const da = Math.abs(a - vis_center);
     const db = Math.abs(b - vis_center);
@@ -652,6 +652,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
