@@ -580,7 +580,7 @@ const render_range = ({ start_idx, end_idx, start_row }) => {
   load_next();
 };*/
 
-let lastLoaded = null;
+/*let lastLoaded = null;
 const load_next = async () => {
   if (busy) return;
   busy = true;
@@ -635,6 +635,26 @@ const load_next = async () => {
   await new Promise(r => requestAnimationFrame(r));
   busy = false;
   load_next();
+};*/
+
+const load_next = async () => {
+  busy = true;
+  if (pending.size === 0) {
+    busy = false;
+    return;
+  }
+  const sorted = Array.from(pending.keys()).sort((a, b) => a - b);
+  const nextIndex = sorted[0];
+  if (nextIndex === undefined) {
+    busy = false;
+    return;
+  }
+  const el = pending.get(nextIndex);
+  pending.delete(nextIndex);
+  el.src = render(nextIndex, max_index - 8 + 1);
+  await new Promise(r => requestAnimationFrame(r));
+  busy = false;
+  load_next();
 };
 
 const scroll_to = (n) => {
@@ -682,6 +702,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
