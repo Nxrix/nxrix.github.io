@@ -380,7 +380,7 @@ const vs = new Float32Array(wxh);
 
 let f;
 
-const render = (i,n) => {
+let render = (i,n) => {
   ctx.clearRect(0,0,w,h);
   
   if (i<n) {
@@ -741,6 +741,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
