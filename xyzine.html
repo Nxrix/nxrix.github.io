@@ -579,63 +579,71 @@ const render_range = ({ start_idx, end_idx, start_row }) => {
   await new Promise(r => requestAnimationFrame(r));
   load_next();
 };*/
-  
+
 let lastLoaded = null;
 const load_next = async () => {
+  if (busy) return;
   busy = true;
-  if (pending.size === 0) {
-    busy = false;
-    return;
-  }
+  try {
+    if (pending.size === 0) {
+      busy = false;
+      return;
+    }
+    const vis_start = Math.floor(scroller.scrollTop / row_h) * cols;
+    const vis_end = vis_start + Math.ceil(scroller.clientHeight / row_h) * cols;
+    const vis_center = Math.floor((vis_start + vis_end) / 2);
+    const start = Math.max(0, vis_start);
+    const end = Math.min(max_index + 1, vis_end);
+    if (start >= end) {
+      busy = false;
+      return;
+    }
+    const mid = Math.floor((start + end) / 2);
+    const countLoadedIn = (s, e) => {
+      let total = 0;
+      let pendingCnt = 0;
+      for (let i = s; i < e; i++) {
+        if (i < 0 || i > max_index) continue;
+        total++;
+        if (pending.has(i)) pendingCnt++;
+      }
+      return total - pendingCnt;
+    };
 
-  const vis_start = Math.floor(scroller.scrollTop / row_h) * cols;
-  const vis_end = vis_start + Math.ceil(scroller.clientHeight / row_h) * cols;
-  const vis_center = Math.floor((vis_start + vis_end) / 2);
-
-  const mid = Math.floor((vis_start + vis_end) / 2);
-  const groupA = Array.from(pending.keys()).filter(i => i >= vis_start && i < mid);
-  const groupB = Array.from(pending.keys()).filter(i => i >= mid && i <= vis_end);
-
-  let loadAscending = true;
-
-  if (groupA.length || groupB.length) {
-    const loadedA = (mid - vis_start) - groupA.length;
-    const loadedB = (vis_end - mid) - groupB.length;
-    if (loadedA > loadedB) {
-      loadAscending = true;
-    } else if (loadedB > loadedA) {
-      loadAscending = false;
+    const aLoaded = countLoadedIn(start, mid);
+    const bLoaded = countLoadedIn(mid, end);
+    let forward;
+    if (aLoaded > bLoaded) forward = true;
+    else if (bLoaded > aLoaded) forward = false;
+    else {
+      if (typeof lastLoaded === 'number') forward = lastLoaded < vis_center;
+      else forward = true;
+    }
+    if (forward) {
+      for (let i = start; i < end; i++) {
+        if (!pending.size) break;
+        if (!pending.has(i)) continue;
+        const el = pending.get(i);
+        pending.delete(i);
+        el.src = render(i, max_index - 8 + 1);
+        lastLoaded = i;
+        await new Promise(r => requestAnimationFrame(r));
+      }
     } else {
-      if (lastLoaded === null || lastLoaded < vis_center) {
-        loadAscending = true;
-      } else {
-        loadAscending = false;
+      for (let i = end - 1; i >= start; i--) {
+        if (!pending.size) break;
+        if (!pending.has(i)) continue;
+        const el = pending.get(i);
+        pending.delete(i);
+        el.src = render(i, max_index - 8 + 1);
+        lastLoaded = i;
+        await new Promise(r => requestAnimationFrame(r));
       }
     }
-  } else {
-    if (lastLoaded === null || lastLoaded < vis_center) {
-      loadAscending = true;
-    } else {
-      loadAscending = false;
-    }
-  }
-  let nextIndex;
-  if (loadAscending) {
-    nextIndex = Math.min(...Array.from(pending.keys()).filter(i => i >= vis_start && i <= vis_end));
-  } else {
-    nextIndex = Math.max(...Array.from(pending.keys()).filter(i => i >= vis_start && i <= vis_end));
-  }
-  if (nextIndex === undefined) {
+  } finally {
     busy = false;
-    return;
+    if (pending.size > 0) load_next();
   }
-  const el = pending.get(nextIndex);
-  pending.delete(nextIndex);
-  lastLoaded = nextIndex;
-  el.src = render(nextIndex, max_index - 8 + 1);
-  await new Promise(r => requestAnimationFrame(r));
-  busy = false;
-  load_next();
 };
 
 const scroll_to = (n) => {
@@ -683,5 +691,6 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
