@@ -707,7 +707,11 @@ const init = () => {
   //});
 };
 
-["scroll", "resize", "orientationchange"].forEach(ev => {
+window.addEventListener("scroll",() => {
+  on_scroll_or_resize();
+});
+
+["resize", "orientationchange"].forEach(ev => {
   /*window.addEventListener(ev, () => requestAnimationFrame(() => {
     compute_layout();
     scroll_to(get_n_from_url() || last_n || 0);
@@ -726,12 +730,3 @@ window.addEventListener("load", init);
 </script>
 
 </html>
-
-
-
-
-
-
-
-
-
