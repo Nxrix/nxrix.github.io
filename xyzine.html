@@ -287,9 +287,9 @@ const palette2 = palette.map(
   (i) => "#" + i.map((x) => x.toString(16).padStart(2, "0")).join("")
 );
 
-const palette_bw = [0,20,1,2,3].map(
+/*const palette_bw = [0,20,1,2,3].map(
   (i) => "#" + palette[i].map((x) => x.toString(16).padStart(2, "0")).join("")
-);
+);*/
 
 const palette_fa = [
   "#1d1826",
@@ -424,13 +424,10 @@ let render = (i,mn) => {
       }
     }
     for (let n=0;n<wxh;n++) {
-      const c = (vs[n]-min)/(max-min)||0;
-      let r,g,b;
-      if (i<mn) {
-        [r,g,b] = xyz_grad(c,pal);
-      } else {
-        //r = g = b = 0.299 * r + 0.587 * g + 0.114 * b;
-        [r,g,b] = xyz_grad(c,palette_bw);
+      let [r,g,b] = xyz_grad((vs[n]-min)/(max-min)||0,pal);
+      if (!(i<mn)) {
+        r = g = b = 0.299*r+0.587*g+0.114*b;
+        b = b+b*(255-b)/255/2;
       }
       const n4 = n<<2;
       img_data[n4  ] = r;
@@ -752,5 +749,6 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
