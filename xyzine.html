@@ -639,13 +639,37 @@ const load_next = async () => {
 
 const load_next = async () => {
   busy = true;
+
   if (pending.size === 0) {
     busy = false;
     return;
   }
-  const sorted = Array.from(pending.keys()).sort((a, b) => a - b);
-  const nextIndex = sorted[0];
-  if (nextIndex === undefined) {
+
+  // Visible range
+  const vis_start = Math.floor(scroller.scrollTop / row_h) * cols;
+  const vis_end = vis_start + Math.ceil(scroller.clientHeight / row_h) * cols;
+  const vis_center = Math.floor((vis_start + vis_end) / 2) - (1 - (cols % 2)) * cols / 2;
+  let nextIndex = null;
+  let minDist = Infinity;
+  for (const idx of pending.keys()) {
+    if (idx >= vis_start && idx <= vis_end) {
+      const dist = Math.abs(idx - vis_center);
+      if (dist < minDist) {
+        minDist = dist;
+        nextIndex = idx;
+      }
+    }
+  }
+  if (nextIndex === null) {
+    for (const idx of pending.keys()) {
+      const dist = idx < vis_start ? vis_start - idx : idx - vis_end;
+      if (dist < minDist) {
+        minDist = dist;
+        nextIndex = idx;
+      }
+    }
+  }
+  if (nextIndex === null) {
     busy = false;
     return;
   }
@@ -702,6 +726,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
