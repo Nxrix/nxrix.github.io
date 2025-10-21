@@ -579,7 +579,7 @@ const render_range = ({ start_idx, end_idx, start_row }) => {
   await new Promise(r => requestAnimationFrame(r));
   load_next();
 };*/
-const load_next_grouped = async () => {
+const load_next = async () => {
   busy = true;
   if (pending.size === 0) {
     busy = false;
@@ -667,3 +667,4 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
