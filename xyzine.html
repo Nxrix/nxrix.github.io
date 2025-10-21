@@ -548,7 +548,7 @@ const render_range = ({ start_idx, end_idx, start_row }) => {
   if (!busy) load_next();
 };
 
-const load_next = async () => {
+/*const load_next = async () => {
   busy = true;
   if (pending.size === 0) {
     busy = false;
@@ -578,6 +578,48 @@ const load_next = async () => {
 
   await new Promise(r => requestAnimationFrame(r));
   load_next();
+};*/
+const load_next_grouped = async () => {
+  busy = true;
+  if (pending.size === 0) {
+    busy = false;
+    return;
+  }
+  const vis_start = Math.floor(scroller.scrollTop / row_h) * cols;
+  const vis_end = vis_start + Math.ceil(scroller.clientHeight / row_h) * cols;
+  const mid = Math.floor((vis_start + vis_end) / 2);
+  const groupA = [];
+  const groupB = [];
+  for (const index of pending.keys()) {
+    if (index >= vis_start && index < mid) groupA.push(index);
+    else if (index >= mid && index <= vis_end) groupB.push(index);
+  }
+  const loadedA = (mid - vis_start) - groupA.length;
+  const loadedB = (vis_end - mid) - groupB.length;
+  let target;
+  if (loadedA > loadedB) {
+    if (groupB.length > 0) {
+      const centerB = Math.floor((mid + vis_end) / 2);
+      groupB.sort((a, b) => Math.abs(a - centerB) - Math.abs(b - centerB));
+      target = groupB[0];
+    }
+  } else {
+    if (groupA.length > 0) {
+      const centerA = Math.floor((vis_start + mid) / 2);
+      groupA.sort((a, b) => Math.abs(b - centerA) - Math.abs(a - centerA));
+      target = groupA[0];
+    }
+  }
+  if (target === undefined) {
+    busy = false;
+    return;
+  }
+  const el = pending.get(target);
+  pending.delete(target);
+  el.src = render(target, max_index - 8 + 1);
+  await new Promise(r => requestAnimationFrame(r));
+  busy = false;
+  load_next_grouped();
 };
 
 const scroll_to = (n) => {
