@@ -580,7 +580,9 @@ const render_range = ({ start_idx, end_idx, start_row }) => {
   load_next();
 };*/
 
+let lastLoaded = null;
 const load_next = async () => {
+  if (busy) return;
   busy = true;
   if (pending.size === 0) {
     busy = false;
@@ -588,20 +590,48 @@ const load_next = async () => {
   }
   const vis_start = Math.floor(scroller.scrollTop / row_h) * cols;
   const vis_end = vis_start + Math.ceil(scroller.clientHeight / row_h) * cols;
-  const vis_center = Math.floor((vis_start + vis_end) / 2 - (1-(cols%2))*cols/2);
-  const sorted = Array.from(pending.keys()).sort((a, b) => {
-    const da = Math.abs(a - vis_center);
-    const db = Math.abs(b - vis_center);
-    return da - db;
-  });
-  const near = sorted[0];
-  if (near === undefined) {
+  const vis_center = Math.floor((vis_start + vis_end) / 2);
+  const start = Math.max(0, vis_start);
+  const end = Math.min(max_index + 1, vis_end);
+  if (start >= end) {
     busy = false;
     return;
   }
-  const el = pending.get(near);
-  pending.delete(near);
-  el.src = render(near, max_index - 8 + 1);
+  const mid = Math.floor((start + end) / 2);
+  const countLoadedIn = (s, e) => {
+    let total = 0;
+    let pendingCnt = 0;
+    for (let i = s; i < e; i++) {
+      if (i < 0 || i > max_index) continue;
+      total++;
+      if (pending.has(i)) pendingCnt++;
+    }
+    return total - pendingCnt;
+  };
+  const aLoaded = countLoadedIn(start, mid);
+  const bLoaded = countLoadedIn(mid, end);
+  let forward;
+  if (aLoaded > bLoaded) forward = true;
+  else if (bLoaded > aLoaded) forward = false;
+  else {
+    if (typeof lastLoaded === 'number') forward = lastLoaded < vis_center;
+    else forward = true;
+  }
+  let next;
+  if (forward) {
+    next = Array.from(pending.keys()).find(i => i >= start && i < end);
+  } else {
+    const pendingIndices = Array.from(pending.keys()).filter(i => i >= start && i < end);
+    next = pendingIndices.length ? pendingIndices[pendingIndices.length - 1] : undefined;
+  }
+  if (next === undefined) {
+    busy = false;
+    return;
+  }
+  const el = pending.get(next);
+  pending.delete(next);
+  el.src = render(next, max_index - 8 + 1);
+  lastLoaded = next;
   await new Promise(r => requestAnimationFrame(r));
   busy = false;
   load_next();
@@ -652,6 +682,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
