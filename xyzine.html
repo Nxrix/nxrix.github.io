@@ -64,7 +64,7 @@ html, body {
 <body>
 
   <div class="scroller" id="scroller">
-    <div style="display:flex;margin:12px 12px 0px 12px;justify-content:space-between;align-items:center;">
+    <div id="header" style="display:flex;margin:12px 12px 0px 12px;justify-content:space-between;align-items:center;">
       <span style="font-size:32px;font-weight:900;">XYZINE</span>
       <span style="font-size:16px;font-weight:900;" id="time"></span>
     </div>
@@ -639,13 +639,10 @@ const load_next = async () => {
 
 const load_next = async () => {
   busy = true;
-
   if (pending.size === 0) {
     busy = false;
     return;
   }
-
-  // Visible range
   const vis_start = Math.floor(scroller.scrollTop / row_h) * cols;
   const vis_end = vis_start + Math.ceil(scroller.clientHeight / row_h) * cols;
   const vis_center = Math.floor((vis_start + vis_end) / 2) - (1 - (cols % 2)) * cols / 2;
@@ -682,7 +679,7 @@ const load_next = async () => {
 };
 
 const scroll_to = (n) => {
-  const target = Math.min(Math.floor(n / cols) * row_h, spacer.clientHeight - scroller.clientHeight);
+  const target = Math.min(Math.floor(n / cols) * row_h, spacer.clientHeight - scroller.clientHeight) + header.clientHeight;
   scroller.scrollTop = Math.max(0, target);
 };
 
@@ -730,3 +727,4 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
