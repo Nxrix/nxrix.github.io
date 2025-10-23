@@ -737,8 +737,9 @@ window.addEventListener("scroll",() => {
     on_scroll_or_resize();
   }));*/
   window.addEventListener(ev, () => {
+    const old_cols = cols;
     compute_layout();
-    scroll_to(get_n_from_url() || last_n || 0);
+    if (cols!==old_cols) scroll_to(get_n_from_url() || last_n || 0);
     on_scroll_or_resize();
   });
 });
@@ -749,3 +750,4 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
