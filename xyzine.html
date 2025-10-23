@@ -57,6 +57,18 @@ html, body {
   image-rendering: pixelated;
 }
 
+.header {
+  position: sticky;
+  top: 12px;
+  padding: 12px 24px;
+  border-radius: 64px;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 12px 0px 12px;
+}
+  
 </style>
 
 </head>
@@ -64,7 +76,7 @@ html, body {
 <body>
 
   <div class="scroller" id="scroller">
-    <div id="header" style="display:flex;margin:12px 12px 0px 12px;justify-content:space-between;align-items:center;">
+    <div class="header" id="header">
       <span style="font-size:32px;font-weight:900;">XYZINE</span>
       <span style="font-size:16px;font-weight:900;" id="time"></span>
     </div>
@@ -750,6 +762,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
