@@ -488,7 +488,7 @@ setInterval(t,1000);
 const gap = 8;
 const min_cell = 144;
 const buffer_rows = 8;
-const max_index = 0xffffffff;//Math.floor((Date.now()-k)/(1000*60*60*24))-1+365*32;//365 * 10000;
+const max_index = 0xffff;//Math.floor((Date.now()-k)/(1000*60*60*24))-1+365*32;//365 * 10000;
 
 const scroller = document.getElementById("scroller");
 const spacer = document.getElementById("spacer");
@@ -694,7 +694,7 @@ const load_next = async () => {
   }
   const el = pending.get(nextIndex);
   pending.delete(nextIndex);
-  el.src = render(nextIndex, max_index - 365*32 + 1);
+  el.src = render(nextIndex,Math.floor((Date.now()-k)/(1000*60*60*24)));// max_index - 365*32 + 1);
   await new Promise(r => requestAnimationFrame(r));
   busy = false;
   load_next();
@@ -750,5 +750,6 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
