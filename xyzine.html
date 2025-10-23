@@ -488,7 +488,7 @@ setInterval(t,1000);
 const gap = 8;
 const min_cell = 144;
 const buffer_rows = 8;
-const max_index = Math.floor((Date.now()-k)/(1000*60*60*24))-1+365*32;//365 * 10000;
+const max_index = 0xffffffff;//Math.floor((Date.now()-k)/(1000*60*60*24))-1+365*32;//365 * 10000;
 
 const scroller = document.getElementById("scroller");
 const spacer = document.getElementById("spacer");
@@ -750,4 +750,5 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
