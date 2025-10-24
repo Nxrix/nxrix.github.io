@@ -58,6 +58,8 @@ html, body {
 }
 
 .header {
+  -webkit-text-stroke: 2px #111;
+  paint-order: stroke fill;
   position: sticky;
   top: 12px;
   padding: 12px 24px;
@@ -67,7 +69,7 @@ html, body {
   justify-content: space-between;
   align-items: center;
   margin: 12px 12px 0px 12px;
-  backdrop-filter: url(#filter) brightness(0.8) blur(2px);
+  backdrop-filter: url(#filter) blur(2px);
 }
   
 </style>
@@ -774,6 +776,7 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
 
 
 
