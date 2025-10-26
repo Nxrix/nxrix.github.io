@@ -21,10 +21,10 @@ html, body {
   background: var(--bg0);
   color: var(--fg0);
   font-family: "Times New Roman", serif;
+  overflow: hidden;
 }
 .scroller {
-  height: calc(100% - 2px);
-  padding: 1px;
+  height: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
@@ -774,3 +774,4 @@ window.addEventListener("load", init);
 </script>
 
 </html>
+
