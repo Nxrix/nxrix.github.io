@@ -1134,7 +1134,7 @@ window.onload = async () => {
         return b.price - a.price;
       });
 
-    try {
+    /*try {
       const fix_name2 = (n) => n.replace(/[^a-zA-Z0-9]/g, "");
       const fix_name = (n) => fix_name2(n).toLowerCase();
       const gifts = (await(await fetch("https://giftcharts-api.onrender.com/gifts")).json()).map(i=>{
@@ -1150,7 +1150,7 @@ window.onload = async () => {
       });
       prices.push(...gifts);
       item_groups.gifts = gifts.sort((a,b)=>b.price-a.price).map(i=>i.slug);
-    } catch (e) {}
+    } catch (e) {}*/
 
     return {
       date: html2str(data.date),
