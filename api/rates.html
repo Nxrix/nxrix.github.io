@@ -85,7 +85,7 @@
 }
 
 html, body {
-  background-color: var(--bg0);
+  background: var(--bg0);
   color: var(--fg1);
   font-family: "sfr";
   width: 100%;
@@ -132,49 +132,10 @@ h1, h2, h3 {
   transform: scale(0.8);
 }
 
-#list, #items {
-  background: var(--bg1);
-  color: var(--fg2);
-  user-select: none;
-  outline: 0.1rem solid var(--bg2);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  width: calc(100% - 1rem);
-  max-width: 500px;
-  bottom: calc(48px + 0.5rem + 0.5rem);
-  margin: 0 0.5rem;
-  left: calc(50% - 0.5rem);
-  border-radius: 24px;
-  z-index: 3;
-  box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: auto;
-  opacity: 0;
-  transform: translateX(-50%) scale(0.8);
-  pointer-events: none;
-  transition: transform 0.25s ease, opacity 0.25s ease;
-  max-height: calc(min(100%,400px) - 48px - 1.5rem);
-  height: fit-content;
-}
-
-#list.active, #items.active {
-  opacity: 1;
-  transform: translateX(-50%) scale(1);
-  pointer-events: auto;
-}
-
-#list > div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-}
-
 #controls {
   background: var(--bg1);
-  outline: 0.1rem solid var(--bg2);
+  outline: 0.1rem solid #fff1;
+  /*outline: 0.1rem solid var(--bg2);*/
   position: fixed;
   width: calc(100% - 1rem);
   max-width: 500px;
@@ -223,12 +184,88 @@ h1, h2, h3 {
   flex: 1;
 }
 
-#items {
+#list, #items {
+  background: var(--bg1);
+  color: var(--fg2);
+  user-select: none;
+  outline: 0.1rem solid #fff1;
+  /*outline: 0.1rem solid var(--bg2);*/
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: calc(100% - 1rem);
+  max-width: 500px;
+  bottom: calc(48px + 0.5rem + 0.5rem);
+  margin: 0 0.5rem;
+  left: calc(50% - 0.5rem);
+  border-radius: 24px;
+  z-index: 3;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.8);
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  max-height: calc(min(100%,400px) - 48px - 1.5rem);
+  height: fit-content;
+}
+
+#list.active, #items.active {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+#list {
+  gap: 1px;
+  flex-direction: column;
+  padding: 16px 0;
+}
+
+#list > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid #fff1;
+}
+
+#list > div:first-child {
+  border-top: 1px solid #fff1;
+}
+
+/*#items {
   padding: 16px;
 }
 
 #items .group div > div {
   padding: 4px 8px;
+}*/
+
+#items {
+  gap: 8px;
+}
+
+#items .group {
+  flex-direction: column;
+  background: #fff1;
+}
+
+#items .group div {
+  display: flex;
+  gap: 1px;
+  flex-direction: column;
+}
+
+#items .group h2 {
+  margin-bottom: 1px;
+}
+
+#items .group div div, #items .group h2 {
+  background: #0005;
+  padding: 8px 16px;
 }
 
 </style>
@@ -418,20 +455,121 @@ const lg = (e,t,depth,strength,chromaticAberration,brightness=0.5) => {
     <svg style="display:none;">
       <filter id="${id}" color-interpolation-filters="sRGB" filterUnits="objectBoundingBox">   
         <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="1" stitchTiles="noStitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"/>
-        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="32" xChannelSelector="R" yChannelSelector="G" x="0%" y="0%" width="100%" height="100%" result="map"></feDisplacementMap>
+        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="64" xChannelSelector="R" yChannelSelector="G" x="0%" y="0%" width="100%" height="100%" result="map"></feDisplacementMap>
       </filter>
     </svg>`;
   }
 }
-	
+
+const lg2 = (e, blurStrength = 10, noiseFreq = 0.05, octaves = 3, displacementScale = 20, brightness = 0.5) => {
+  const id = "noisy-displace-" + Math.random().toString(36).substr(2, 9);
+  const width = e.offsetWidth;
+  const height = e.offsetHeight;
+
+  e.style.backdropFilter = `url(#${id}) brightness(${brightness}) contrast(0.9)`;
+  e.style.background = "#0000";
+
+  filters.innerHTML += `
+  <svg style="display:none;">
+    <filter id="${id}" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="${blurStrength}" result="blurred"/>
+      <feTurbulence type="fractalNoise" baseFrequency="${noiseFreq}" numOctaves="${octaves}" stitchTiles="stitch" result="noise"/>
+      <feDisplacementMap in="blurred" in2="noise" scale="${displacementScale}" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+      <feComposite in="displaced" in2="SourceGraphic" operator="over"/>
+    </filter>
+  </svg>`;
+};
+
+const lg3 = (e, blurStrength = 8, noiseFreq = 0.05, octaves = 3, displacementStrength = 20, chromaticAberration = 3, brightness = 0.5) => {
+  const id = "lg3-" + Math.random().toString(36).substr(2, 9);
+  const width = e.offsetWidth;
+  const height = e.offsetHeight;
+
+  e.style.backdropFilter = `url(#${id}) brightness(${brightness}) contrast(0.9)`;
+  e.style.background = "#0000";
+
+  filters.innerHTML += `
+  <svg style="display:none;">
+    <filter id="${id}" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="${blurStrength}" result="blurred"/>
+      <feTurbulence type="fractalNoise" baseFrequency="${noiseFreq}" numOctaves="${octaves}" stitchTiles="stitch" result="displacementMap"/>
+      <feDisplacementMap in="blurred" in2="displacementMap" scale="${displacementStrength + chromaticAberration * 2}" xChannelSelector="R" yChannelSelector="G" result="displacedR"/>
+      <feColorMatrix in="displacedR" type="matrix" values="
+        1 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 1 0" result="red"/>
+      <feDisplacementMap in="blurred" in2="displacementMap" scale="${displacementStrength + chromaticAberration}" xChannelSelector="R" yChannelSelector="G" result="displacedG"/>
+      <feColorMatrix in="displacedG" type="matrix" values="
+        0 0 0 0 0
+        0 1 0 0 0
+        0 0 0 0 0
+        0 0 0 1 0" result="green"/>
+      <feDisplacementMap in="blurred" in2="displacementMap" scale="${displacementStrength}" xChannelSelector="R" yChannelSelector="G" result="displacedB"/>
+      <feColorMatrix in="displacedB" type="matrix" values="
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 1 0 0
+        0 0 0 1 0" result="blue"/>
+      <feBlend in="red" in2="green" mode="screen" result="rg"/>
+      <feBlend in="rg" in2="blue" mode="screen"/>
+    </filter>
+  </svg>`;
+};
+
+const lg4 = (e, displacementScale = 64, chromaticAberration = 3, brightness = 0.5) => {
+  const id = "lg4-" + Math.random().toString(36).substr(2, 9);
+
+  e.style.backdropFilter = `url(#${id}) blur(2px) brightness(${brightness}) contrast(0.9)`;
+  e.style.background = "#0000";
+  e.style.outline = "1px solid #fff2";
+
+  filters.innerHTML += `
+  <svg style="display:none;">
+    <filter id="${id}" color-interpolation-filters="sRGB" filterUnits="objectBoundingBox">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="1" stitchTiles="noStitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"/>
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="${displacementScale + chromaticAberration * 2}" xChannelSelector="R" yChannelSelector="G" result="displacedR"/>
+      <feColorMatrix in="displacedR" type="matrix" values="
+        1 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 1 0" result="red"/>
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="${displacementScale + chromaticAberration}" xChannelSelector="R" yChannelSelector="G" result="displacedG"/>
+      <feColorMatrix in="displacedG" type="matrix" values="
+        0 0 0 0 0
+        0 1 0 0 0
+        0 0 0 0 0
+        0 0 0 1 0" result="green"/>
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="${displacementScale}" xChannelSelector="R" yChannelSelector="G" result="displacedB"/>
+      <feColorMatrix in="displacedB" type="matrix" values="
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 1 0 0
+        0 0 0 1 0" result="blue"/>
+      <feBlend in="red" in2="green" mode="screen" result="rg"/>
+      <feBlend in="rg" in2="blue" mode="screen"/>
+    </filter>
+  </svg>`;
+};
+
 window.addEventListener("load", () => {
   setTimeout(() => {
-	if (!!document.createElement("canvas").getContext("webgl2")) { 
-      let [a,b,c] = [5,20,2];
-      lg(controls,1,a,b,c,0.8);
-      lg(list,0,a,b,c,0.25);
-      lg(items,0,a,b,c,0.25);
+	  if (!!!document.createElement("canvas").getContext("webgl2")) {
+      lg(controls,1,5,20,2,0.8);
+      //lg(list,0,5,20,2,0.25);
+      //lg(items,0,a,b,c,0.25);
+      lg4(list    ,64,32,0.5);
+      lg4(items   ,64,32,0.5);
   	}
+    //lg2(controls, 2,0.9,1,16,0.6);
+    //lg2(list    , 2,0.9,1,16,0.6);
+    //lg2(items   , 2,0.9,1,16,0.6);
+    //lg3(controls,2,0.999,1,4,8,0.6);
+    //lg3(list    ,2,0.999,1,4,8,0.6);
+    //lg3(items   ,2,0.999,1,4,8,0.6);
+    //lg4(controls,64,8,0.75);
+    //lg4(list    ,64,8,0.25);
+    //lg4(items   ,64,8,0.25);
   },1);
 });
 
@@ -500,7 +638,6 @@ const create_tile = (i) => {
   
     <div style="
       background-color: var(--bg1);
-      outline: 0.1rem solid var(--bg2);
       outline-offset: -0.1rem;
       position: relative;
       width: 100%;
@@ -783,7 +920,10 @@ const render_list = () => {
         <div onclick="list_items.splice(${n},1);render_list();">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
         </div>
-        <div class="drag-handle" style="cursor:grab;margin-left:10px;">
+        <div class="drag-handle" style="
+          cursor: grab;
+          margin-left: 10px;
+        ">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M160-360v-80h640v80H160Zm0-160v-80h640v80H160Z"/></svg>
         </div>
       </div>`;
@@ -803,10 +943,8 @@ const render_list = () => {
     return `
       <div class="group">
         <h2>${group.substr(0,1).toUpperCase()+group.substr(1)}</h2>
-        <br>
         <div>${items}</div>
       </div>
-      <br>
     `;
   }).join("");
     
@@ -1047,120 +1185,4 @@ window.onload = async () => {
 
 </script>
 
-<script>
-
-/*(function () {
-  const scrollableElements = new Map();
-  function lerp(start, end, amt) {
-    return (1 - amt) * start + amt * end;
-  }
-  function smoothScroll(element) {
-    if (!scrollableElements.has(element)) return;
-    const state = scrollableElements.get(element);
-    state.currentScroll = lerp(state.currentScroll, state.targetScroll, 0.1);
-    if (element === document.body || element === document.documentElement) {
-      window.scrollTo(0, state.currentScroll);
-    } else {
-      element.scrollTop = state.currentScroll;
-    }
-    if (Math.abs(state.currentScroll - state.targetScroll) < 0.1) {
-      state.currentScroll = state.targetScroll;
-      scrollableElements.set(element, state);
-      state.isScrolling = false;
-      return;
-    }
-    requestAnimationFrame(() => smoothScroll(element));
-  }
-  function startSmoothScrolling(element, delta) {
-    if (!scrollableElements.has(element)) {
-      scrollableElements.set(element, {
-        currentScroll: element.scrollTop || window.pageYOffset,
-        targetScroll: element.scrollTop || window.pageYOffset,
-        isScrolling: false,
-      });
-    }
-    const state = scrollableElements.get(element);
-    state.targetScroll += delta;
-    const maxScroll = element.scrollHeight - element.clientHeight;
-    state.targetScroll = Math.max(0, Math.min(state.targetScroll, maxScroll));
-    scrollableElements.set(element, state);
-    if (!state.isScrolling) {
-      state.isScrolling = true;
-      smoothScroll(element);
-    }
-  }
-  function getScrollableParent(element) {
-    while (element && element !== document.body) {
-      const overflowY = window.getComputedStyle(element).overflowY;
-      if (overflowY === "scroll" || overflowY === "auto") {
-        return element;
-      }
-      element = element.parentElement;
-    }
-    return document.body;
-  }
-  window.addEventListener("wheel", (e) => {
-    e.preventDefault();
-    const scrollableElement = getScrollableParent(e.target);
-    startSmoothScrolling(scrollableElement, e.deltaY);
-  }, { passive: false });
-  let isMiddleMouseScrolling = false;
-  let startY = 0;
-  window.addEventListener("mousedown", (e) => {
-    if (e.button === 1) {
-      isMiddleMouseScrolling = true;
-      startY = e.clientY;
-      e.preventDefault();
-    }
-  });
-  window.addEventListener("mousemove", (e) => {
-    if (isMiddleMouseScrolling) {
-      const deltaY = startY - e.clientY;
-      startY = e.clientY;
-      const scrollableElement = getScrollableParent(e.target);
-      startSmoothScrolling(scrollableElement, deltaY);
-    }
-  });
-  window.addEventListener("mouseup", (e) => {
-    if (e.button === 1) {
-      isMiddleMouseScrolling = false;
-    }
-  });
-  let touchStartY = 0;
-  let touchMoveY = 0;
-  window.addEventListener("touchstart", (e) => {
-    if (e.touches.length === 1) {
-      touchStartY = e.touches[0].clientY;
-      touchMoveY = touchStartY;
-    }
-  }, { passive: true });
-  window.addEventListener("touchmove", (e) => {
-    if (e.touches.length === 1) {
-      const touchScrollableElement = getScrollableParent(e.target);
-      e.preventDefault();
-      touchMoveY = e.touches[0].clientY;
-      const delta = touchStartY - touchMoveY;
-      touchStartY = touchMoveY;
-      startSmoothScrolling(touchScrollableElement, delta);
-    }
-  }, { passive: false });
-})();*/
-
-</script>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
