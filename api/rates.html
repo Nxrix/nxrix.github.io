@@ -554,7 +554,7 @@ const lg4 = (e, displacementScale = 64, chromaticAberration = 3, brightness = 0.
 
 window.addEventListener("load", () => {
   setTimeout(() => {
-	  if (!!!document.createElement("canvas").getContext("webgl2")) {
+    if (!!document.createElement("canvas").getContext("webgl2")) {
       lg(controls,1,5,20,2,0.8);
       //lg(list,0,5,20,2,0.25);
       //lg(items,0,a,b,c,0.25);
