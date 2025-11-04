@@ -335,7 +335,7 @@ mat3 yawPitchDeg(float yawDeg, float pitchDeg) {
       return;
     }
     float shadow = shadowAt(p_plane+l*(tmin_l+EPS),n_plane,l);
-    fragColor = vec2(shadow*0.5+0.5,shadow).xxxy;
+    fragColor = vec2(0,round(shadow)).xxxy;
     return;
   }
   
