@@ -170,6 +170,18 @@ button {
   border-radius: calc(var(--font)/100*6);
   font-size: calc(var(--font)/100*6);
 }
+#gifts_list .info {
+  background-color: #0023;
+  color: #fff;
+  display: flex;
+  position: absolute;
+  bottom: 7%;
+  right: 7%;
+  gap: 1%;
+  padding: 2% 2%;
+  border-radius: calc(var(--font)/100*6);
+  font-size: calc(var(--font)/100*6);
+}
 
 @media screen and (width > 100px) {
   #gifts_list {
@@ -581,6 +593,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
