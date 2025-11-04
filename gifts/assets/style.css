@@ -175,8 +175,8 @@ button {
   color: #fff;
   display: flex;
   position: absolute;
-  bottom: 20%;
-  left: 7%;
+  bottom: 7%;
+  right: 7%;
   padding: 1% 1%;
   border-radius: calc(var(--font)/100*6);
   font-size: calc(var(--font)/100*6);
@@ -595,6 +595,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
