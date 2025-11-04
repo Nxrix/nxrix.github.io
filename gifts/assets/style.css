@@ -175,12 +175,14 @@ button {
   color: #fff;
   display: flex;
   position: absolute;
-  bottom: 7%;
-  right: 7%;
-  gap: 1%;
-  padding: 2% 2%;
+  bottom: 20%;
+  left: 7%;
+  padding: 1% 1%;
   border-radius: calc(var(--font)/100*6);
   font-size: calc(var(--font)/100*6);
+}
+#gifts_list .info svg {
+  transform: scale(0.75);
 }
 
 @media screen and (width > 100px) {
@@ -593,6 +595,7 @@ table td.center {
   text-align: center;
 
 }
+
 
 
 
