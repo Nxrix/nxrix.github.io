@@ -499,7 +499,7 @@ const add_gift = (c,n,p,i,m,g) => {
     load_gift_info("https://t.me/nft/" + fix_name2(g.name) + "-" + n);
   });
   gift.appendChild(info_icon);
-  if (p) info_icon.style.marginBottom = "7%";
+  if (g?.market?.trim()) info_icon.style.marginBottom = "20%";
 
   gifts_list.appendChild(gift);
 }
