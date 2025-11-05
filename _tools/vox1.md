@@ -159,7 +159,7 @@ uniform float CAM_PITCH;
 #define MAX_STEPS 8192
 
 #define SIZE vec3(sz)
-#define SIZE2 SIZE/2.0-0.5
+#define SIZE2 (SIZE/2.0-0.5)
 //#define color_scale 1
 #define color_scale (sz/32.0)
 
@@ -196,10 +196,9 @@ float map(vec3 v){
   //if (any(equal(v,vec3(-1)))||any(equal(v,SIZE))) return 4.0;
 
   ivec3 p = ivec3(v);
-  vec3 dv = v-SIZE2;
-  vec3 dva = abs(dv);
+  vec3 dva = abs(v-SIZE2);
   int dx = int(max3v(dva));
-  int dn = int(min3v(abs(v-SIZE2)));
+  int dn = int(min3v(dva));
   int dt = int(dva.x+dva.y+dva.z);
   int x = p.x, y = p.z, z = p.y;
 
