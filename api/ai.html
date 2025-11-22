@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
+  <title>AI</title>
+</head>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Spline+Sans+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  text-align: auto !important;
+  unicode-bidi: plaintext !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background-color: #0000;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #111;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #222;
+}
+::-webkit-scrollbar-corner {
+  background-color: #0000;
+}
+
+::selection, ::-moz-selection {
+  color: #000;
+  background-color: #fff;
+}
+
+html, body {
+  background-color: #000;
+  font-family: "Inter";
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+input, textarea, select, button {
+  font-family: inherit;
+}
+
+#messages {
+  width: 100%;
+  height: 100%;
+  max-width: 650px;
+  padding: 20px;
+  margin: 0 auto;
+  /*padding-top: 84px;*/
+  overflow-y: auto;
+}
+
+#messages div {
+  width: fit-content;
+  margin: 16px;
+  word-break: break-all;
+  white-space: pre-wrap;
+  font-size: 14px;
+}
+
+#messages .right {
+  background-color: #222;
+  margin-left: auto;
+  padding: 12px;
+  border-radius: 12px 12px 0 12px;
+}
+
+#messages .left {
+  position: relative;
+  padding-left: 48px;
+  min-height: 32px;
+}
+
+#messages .left:before {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 0;
+  content: "";
+  background-color: #222;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNNDgwLTI4IDM0Ni0xNjBIMTYwdi0xODZMMjgtNDgwbDEzMi0xMzR2LTE4NmgxODZsMTM0LTEzMiAxMzQgMTMyaDE4NnYxODZsMTMyIDEzNC0xMzIgMTM0djE4Nkg2MTRMNDgwLTI4Wm0wLTExMiAxMDAtMTAwaDE0MHYtMTQwbDEwMC0xMDAtMTAwLTEwMHYtMTQwSDU4MEw0ODAtODIwIDM4MC03MjBIMjQwdjE0MEwxNDAtNDgwbDEwMCAxMDB2MTQwaDE0MGwxMDAgMTAwWm0wLTM0MFoiLz48L3N2Zz4=");
+  outline: 2px solid #444;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.input {
+  position: fixed;
+  bottom: 16px;
+  transform: translateX(-50%);
+  margin-left: 50%;
+  display: flex;
+  flex-direction: column;
+  background-color: #222;
+  width: calc(100% - 32px);
+  max-width: 650px;
+  height: fit-content;
+  outline: 2px solid #444;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.input .top {
+  width: 100%;
+  height: fit-content;
+}
+
+.input .top textarea {
+  background-color: #0000;
+  color: #fff;
+  width: 100%;
+  height: fit-content;
+  max-height: 256px;
+  resize: none;
+  padding: 16px 16px 8px 16px;
+}
+
+.input .top textarea:focus {
+  outline: none;
+}
+
+.input .bottom {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  padding: 0 8px 8px 8px;
+}
+
+.input .bottom select {
+  background-color: #0000;
+  color: #888;
+  outline: none;
+  margin-left: 8px;
+}
+
+.input .bottom button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.input .bottom button:disabled {
+  color: #888;
+}
+
+.input .bottom button:first-of-type {
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.input .bottom button svg {
+  width: 100%;
+  height: 100%;
+}
+
+</style>
+
+<body>
+
+  <div id="messages">
+    <h1 style="text-align: center;padding: 30px;">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNNDgwLTI4IDM0Ni0xNjBIMTYwdi0xODZMMjgtNDgwbDEzMi0xMzR2LTE4NmgxODZsMTM0LTEzMiAxMzQgMTMyaDE4NnYxODZsMTMyIDEzNC0xMzIgMTM0djE4Nkg2MTRMNDgwLTI4Wm0wLTExMiAxMDAtMTAwaDE0MHYtMTQwbDEwMC0xMDAtMTAwLTEwMHYtMTQwSDU4MEw0ODAtODIwIDM4MC03MjBIMjQwdjE0MEwxNDAtNDgwbDEwMCAxMDB2MTQwaDE0MGwxMDAgMTAwWm0wLTM0MFoiLz48L3N2Zz4=">
+    </h1>
+  </div>
+  <div class="input">
+    <div class="top">
+      <textarea id="input" placeholder="Ask anything"></textarea>
+    </div>
+    <div class="bottom">
+      <select id="model">
+        <option value="deepseek">deepseek</option>
+        <option value="o4-mini">o4-mini</option>
+        <option value="gpt-5-nano" selected>gpt-5-nano</option>
+        <option value="gpt-5-mini">gpt-5-mini</option>
+      </select>
+      <button id="reset">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m576-80-56-56 104-104-104-104 56-56 104 104 104-104 56 56-104 104 104 104-56 56-104-104L576-80ZM120-320v-80h280v80H120Zm0-160v-80h440v80H120Zm0-160v-80h440v80H120Z"/></svg>
+      </button>
+      <button id="send">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z"/></svg>
+      </button>
+    </div>
+  </div>
+
+</body>
+
+<script type="module">
+
+import { Client, PollinationsAI, DeepInfra, Together, Puter, HuggingFace } from "https://g4f.dev/dist/js/client.js";
+
+const client = new PollinationsAI();
+//console.log((await client.models.list()).filter(i=>i.tier="seed"));
+
+const parse_markdown = (md) => { 
+  const map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+  };
+  md = md.replace(/[&<>"']/g,m=>map[m]).replace(/\r\n?/g,"<br>\n");
+  return md;
+};
+
+(()=>{
+
+const fix_input = () => {
+  input.style.height = "0px";
+  input.style.height = input.scrollHeight+"px";
+  messages.style.paddingBottom = (document.querySelector(".input").clientHeight+16+16+64)+"px";
+  if (input.value.trim().length>0) {
+    send.removeAttribute("disabled");
+  } else {
+    send.setAttribute("disabled","");
+  }
+}
+input.addEventListener("input",fix_input);
+fix_input(input);
+
+if (localStorage.getItem("ai_model")) {
+  model.value = localStorage.getItem("ai_model");
+}
+model.addEventListener("change",() => {
+  localStorage.setItem("ai_model",model.value);
+});
+
+const def = messages.innerHTML;
+let msgs = [];
+let gen = false;
+
+reset.onclick = () => {
+  messages.innerHTML = def;
+  msgs = [];
+}
+
+send.onclick = async () => {
+  if (input.value.trim().length > 0 && !gen) {
+    msgs.push({ role: "user", content: input.value.trim() });
+
+    const er = document.createElement("div");
+    er.innerHTML = parse_markdown(input.value.trim());
+    er.classList.add("right");
+
+    const el = document.createElement("div");
+    el.innerHTML = "...";
+    el.classList.add("left");
+
+    messages.appendChild(er);
+    messages.appendChild(el);
+
+    input.value = "";
+    fix_input();
+    reset.setAttribute("disabled", "");
+    gen = true;
+
+    let fullText = "";
+
+    try {
+      const m = [{role:"system",content:`You are ${model.value}, a large language model.`},...msgs.slice(-16)];
+      const stream = await client.chat.completions.create({
+        messages: m,//msgs.slice(-16),
+        model: model.value,
+        stream: true
+      });
+      for await (const chunk of stream) {
+        const part = chunk?.choices?.[0]?.delta?.content;
+        if (part) {
+          fullText += part;
+          el.innerHTML = parse_markdown(fullText);
+        }
+      }
+    } catch (e) {
+      fullText = e.message;
+      el.innerHTML = parse_markdown(fullText);
+    }
+
+    fullText = fullText.trim() || "Error";
+    console.log(fullText);
+    msgs.push({ role: "assistant", content: fullText });
+
+    reset.removeAttribute("disabled");
+    gen = false;
+  }
+};
+
+input.addEventListener("keydown",(e) => {
+  if (e.key === "Enter" && e.shiftKey) {
+    e.preventDefault();
+    send.click();
+  }
+});
+
+})();
+
+</script>
+
+</html>
